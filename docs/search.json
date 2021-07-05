@@ -6,7 +6,7 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\nhttps://github.com/choileena\nhttps://github.com/choileena/EHR\nhttps://github.com/choileena/pkdata\nhttps://github.com/choileena/medExtractR\n\n\n\n",
-      "last_modified": "2021-07-05T17:02:08-05:00"
+      "last_modified": "2021-07-05T17:18:27-05:00"
     },
     {
       "path": "index.html",
@@ -14,7 +14,7 @@
       "description": "Welcome to the website. I hope you enjoy it!\n",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2021-07-05T17:02:08-05:00"
+      "last_modified": "2021-07-05T17:18:27-05:00"
     },
     {
       "path": "workshops.html",
@@ -22,7 +22,7 @@
       "description": "Usage examples for EHR package",
       "author": [],
       "contents": "\nadd links to vignettes\n\n\n\n",
-      "last_modified": "2021-07-05T17:02:09-05:00"
+      "last_modified": "2021-07-05T17:18:27-05:00"
     }
   ],
   "collections": []
