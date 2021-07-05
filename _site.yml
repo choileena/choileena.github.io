@@ -1,0 +1,17 @@
+name: "choi_pages"
+title: "Choi Lab"
+description: |
+  Choi Lab
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Workshops"
+      href: workshops.html
+    - text: "About"
+      href: about.html
+  search: true
+  source_url: true
+output: distill::distill_article
+repository_url: https://github.com//choileena/choileena.github.io

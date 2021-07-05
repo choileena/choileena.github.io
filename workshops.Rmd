@@ -1,0 +1,11 @@
+---
+title: "EHR package workshops"
+description: |
+  Usage examples for EHR package
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+add links to vignettes

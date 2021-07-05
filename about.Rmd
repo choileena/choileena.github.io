@@ -1,0 +1,17 @@
+---
+title: "About this site"
+description: |
+  Some additional details about the website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+https://github.com/choileena
+
+https://github.com/choileena/EHR
+
+https://github.com/choileena/pkdata
+
+https://github.com/choileena/medExtractR
