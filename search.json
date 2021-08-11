@@ -6,15 +6,15 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\nhttps://github.com/choileena\nhttps://github.com/choileena/EHR\nhttps://github.com/choileena/pkdata\nhttps://github.com/choileena/medExtractR\n\n\n\n",
-      "last_modified": "2021-07-05T17:32:05-05:00"
+      "last_modified": "2021-08-11T15:02:03-05:00"
     },
     {
       "path": "index.html",
       "title": "Choi Lab",
       "description": "Welcome to the website. I hope you enjoy it!\n",
       "author": [],
-      "contents": "\n\n\n\n",
-      "last_modified": "2021-07-05T17:32:05-05:00"
+      "contents": "\n\nSystem pipeline\n\n\n\n\n",
+      "last_modified": "2021-08-11T15:02:03-05:00"
     },
     {
       "path": "workshops.html",
@@ -22,7 +22,7 @@
       "description": "Usage examples for EHR package",
       "author": [],
       "contents": "\nadd links to vignettes\n\n\n\n",
-      "last_modified": "2021-07-05T17:32:06-05:00"
+      "last_modified": "2021-08-11T15:02:04-05:00"
     }
   ],
   "collections": []
