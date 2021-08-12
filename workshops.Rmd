@@ -9,3 +9,11 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 add links to vignettes
+
+# workshop 1
+
+# workshop 2
+
+# workshop 3
+
+# workshop 4

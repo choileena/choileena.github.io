@@ -13,5 +13,7 @@ navbar:
       href: about.html
   search: true
   source_url: true
-output: distill::distill_article
+output:
+  distill::distill_article:
+    css: styles.css
 repository_url: https://github.com/choileena/choileena.github.io

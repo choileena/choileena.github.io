@@ -87,27 +87,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Choi Lab</title>
 
-  <meta property="description" itemprop="description" content="Welcome to the website. I hope you enjoy it!"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Choi Lab"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Welcome to the website. I hope you enjoy it!"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Choi Lab"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Choi Lab"/>
-  <meta property="twitter:description" content="Welcome to the website. I hope you enjoy it!"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["Choi Lab"]},{"type":"character","attributes":{},"value":["Welcome to the website. I hope you enjoy it!\n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site"]}},"value":[{"type":"character","attributes":{},"value":["Choi Lab"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2042,8 +2039,32 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+  <style type="text/css">
+  img.rhs100 {
+    float: right;
+    width: 100px;
+    padding-left: 1em;
+  }
+
+  figure.rhs {
+    float: right;
+    width: 400px;
+    padding-left: 1em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article {
+    font-size: 0.9rem;
+    line-height: 1.4em;
+    grid-template-columns: [screen-start] 2fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+  }
+  }
+
+  </style>
   <!--/radix_placeholder_site_in_header-->
 
+  <link rel="stylesheet" href="styles.css" type="text/css"/>
 
 </head>
 
@@ -2052,7 +2073,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Choi Lab","description":"Welcome to the website. I hope you enjoy it!","authors":[]}
+{"title":"Choi Lab","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2082,14 +2103,42 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h1>Choi Lab</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Welcome to the website. I hope you enjoy it!</p></p>
+
 </div>
 
 
 <div class="d-article">
-<p><img src="img/Choi_Leena.jpg" style="width:20.0%" /></p>
-<h2 id="system-pipeline">System pipeline</h2>
-<p><img src="img/systemAll.png" /></p>
+<div>
+<p><img src="img/Choi_Leena.jpg" class="rhs100" /></p>
+<p align="right">
+Leena Choi, PhD<br />
+Vice Chair of Diversity and Inclusion, Department of Biostatistics<br />
+Professor of Biostatistics
+</p>
+</div>
+<p align="center">
+<a href="https://www.vumc.org/biostatistics/person/leena-choi-phd">https://www.vumc.org/biostatistics/person/leena-choi-phd</a>
+</p>
+<p>The major research focus of our lab is to construct a system for drug-related studies such as pharmacokinetics (PK), pharmacodynamics (PD), and pharmacogenomics (PGx) studies using electronic health records (EHRs), which is called “<em>EHRtoPKPD</em>”. This system would allow to perform the studies more efficiently by standardizing data extraction, data processing, and data building procedures. This system would provide the foundation for PK/PD-model guided clinical decision support systems embedded in EHRs to provide an optimal pharmacotherapy, the overarching goal of precision medicine.</p>
+<div>
+<figure class="rhs">
+<img src="img/systemAll.png" />
+<figcaption>
+<strong>The <em>EHRtoPKPD</em>, a System for PK/PD Studies using EHRs.</strong><br />
+Modified from <em>Clin Pharm Ther 2020</em>.
+</figcaption>
+</figure>
+<p><em>EHRtoPKPD</em> is a modular system, divided into the three major procedures: data extraction (“<em>Extract-</em>”), data processing (“<em>Pro-</em>”), and data building (“<em>Build-</em>”). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using <em>Pro-Med-Str</em> module. However, we found that dosing data obtained from e-prescription databases often are not accurate enough for PK/PD studies. Thus, we developed more flexible and targeted NLP system that performed better than existing state-of-art NLP systems for drug dose extraction. Our NLP system was incorporated into our system (<em>Extract-Med</em> module), which can directly extract drug dose information from clinical notes, which is also available as an R package, <em>medExtractR</em>. As building drug dose data from extracted dose information can be very challenging, we developed a dose data building algorithm which was also implemented in our system (<em>Pro-Med-NLP</em>). Other data elements such as drug levels (<em>Pro-Drug Level</em>), demographics (<em>Pro-Demographic</em>), and laboratory data (<em>Pro-Laboratory</em>) can be processed using our system, and then combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., <em>Build-PK-IV</em>, <em>Build-PK-Oral</em>). The functions to run each module is implemented as R packages, <em>medExtractR</em> and <em>EHR</em>. The <em>EHRtoPKPD</em> will evolve as more modules are added.</p>
+</div>
+<h3 id="lab-team">Lab Team</h3>
+<ul>
+<li>Cole Beck</li>
+<li>Elizabeth McNeer</li>
+<li>Michael Williams</li>
+<li>Nathan James</li>
+</ul>
+<h3 id="alumni">Alumni</h3>
+<p>Hannah Weeks</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
