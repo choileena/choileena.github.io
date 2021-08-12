@@ -8,7 +8,11 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "Workshops"
-      href: workshops.html
+      menu:
+        - text: "All Workshops"
+          href: workshops.html
+        - text: "about"
+          href: about.html
     - text: "About"
       href: about.html
   search: true

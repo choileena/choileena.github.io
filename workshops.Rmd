@@ -2,6 +2,10 @@
 title: "EHR package workshops"
 description: |
   Usage examples for EHR package
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 1
 ---
 
 ```{r setup, include=FALSE}

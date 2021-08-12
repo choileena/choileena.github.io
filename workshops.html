@@ -107,7 +107,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description"]}},"value":[{"type":"character","attributes":{},"value":["EHR package workshops"]},{"type":"character","attributes":{},"value":["Usage examples for EHR package"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["EHR package workshops"]},{"type":"character","attributes":{},"value":["Usage examples for EHR package\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[1]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2051,7 +2051,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   figure.rhs {
     float: right;
-    width: 400px;
+    width: 475px;
     padding-left: 1em;
   }
 
@@ -2089,7 +2089,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <div class="nav-right">
 <a href="index.html">Home</a>
-<a href="workshops.html">Workshops</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Workshops
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="workshops.html">All Workshops</a>
+<a href="about.html">about</a>
+</div>
+</div>
 <a href="about.html">About</a>
 <a href="https://github.com/choileena/choileena.github.io" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
@@ -2111,6 +2121,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#workshop-1">workshop 1</a></li>
+<li><a href="#workshop-2">workshop 2</a></li>
+<li><a href="#workshop-3">workshop 3</a></li>
+<li><a href="#workshop-4">workshop 4</a></li>
+</ul>
+</nav>
+</div>
 <p>add links to vignettes</p>
 <h1 id="workshop-1">workshop 1</h1>
 <h1 id="workshop-2">workshop 2</h1>
