@@ -1,7 +1,7 @@
 ---
-title: "EHR package workshops"
+title: "*EHRtoPKPD* Workshops"
 description: |
-  Usage examples for EHR package
+  Lecture series demonstrating using *EHRtoPKPD* and examples for EHR package
 output:
   distill::distill_article:
     toc: true
@@ -12,12 +12,16 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-add links to vignettes
+Here add links to vignettes
 
-# workshop 1
+# *Build-PK-Oral*
 
-# workshop 2
+# *Build-PK-IV* - Part I (use your own data)
 
-# workshop 3
+# *Extract-Med*
 
-# workshop 4
+# *Pro-Med-NLP*
+
+# *Pro-Med-Str*
+
+
