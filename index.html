@@ -2138,17 +2138,24 @@ Professor of Biostatistics
 Modified from <em>Clin Pharm Ther 2020</em>.
 </figcaption>
 </figure>
-<p><em>EHRtoPKPD</em> is a modular system, divided into the three major procedures: data extraction (“<em>Extract-</em>”), data processing (“<em>Pro-</em>”), and data building (“<em>Build-</em>”). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using <em>Pro-Med-Str</em> module. However, we found that dosing data obtained from e-prescription databases often are not accurate enough for PK/PD studies. Thus, we developed more flexible and targeted NLP system that performed better than existing state-of-art NLP systems for drug dose extraction. Our NLP system was incorporated into our system (<em>Extract-Med</em> module), which can directly extract drug dose information from clinical notes, which is also available as an R package, <em>medExtractR</em>. As building drug dose data from extracted dose information can be very challenging, we developed a dose data building algorithm which was also implemented in our system (<em>Pro-Med-NLP</em>). Other data elements such as drug levels (<em>Pro-Drug Level</em>), demographics (<em>Pro-Demographic</em>), and laboratory data (<em>Pro-Laboratory</em>) can be processed using our system, and then combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., <em>Build-PK-IV</em>, <em>Build-PK-Oral</em>). The functions to run each module is implemented as R packages, <em>medExtractR</em> and <em>EHR</em>. The <em>EHRtoPKPD</em> will evolve as more modules are added.</p>
+<p><em>EHRtoPKPD</em> is a modular system, divided into the three major procedures: data extraction (“<em>Extract-</em>”), data processing (“<em>Pro-</em>”), and data building (“<em>Build-</em>”). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using <em>Pro-Med-Str</em> module. However, we found that dosing data obtained from e-prescription databases often are not accurate enough for PK/PD studies. Thus, we developed more flexible and targeted NLP system that performed better than existing state-of-art NLP systems for drug dose extraction. Our NLP system was incorporated into our system (<em>Extract-Med</em> module), which can directly extract drug dose information from clinical notes, which is also available as an R package, <em>medExtractR</em>. As building drug dose data from extracted dose information can be very challenging, we developed a dose data building algorithm which was also implemented in our system (<em>Pro-Med-NLP</em>). Other data elements such as drug levels (<em>Pro-Drug Level</em>), demographics (<em>Pro-Demographic</em>), and laboratory data (<em>Pro-Laboratory</em>) can be processed using our system, and then combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., <em>Build-PK-IV</em>, <em>Build-PK-Oral</em>). The functions to run each module is implemented as R packages, <em>medExtractR</em> and <em>EHR</em>. More details can be found in Choi <em>et al.</em><span class="math inline">\(^{1}\)</span>, and additional modules will be added in the future as it evolves.</p>
 </div>
 <h3 id="lab-team">Lab Team</h3>
 <ul>
 <li>Cole Beck</li>
 <li>Elizabeth McNeer</li>
-<li>Michael Williams</li>
-<li>Nathan James</li>
+<li>Michael L. Williams</li>
+<li>Nathan T. James</li>
 </ul>
-<h3 id="alumni">Alumni</h3>
-<p>Hannah Weeks</p>
+<h3 id="lab-alumni">Lab Alumni</h3>
+<ul>
+<li>Hannah L. Weeks</li>
+</ul>
+<h3 id="references">References</h3>
+<ol type="1">
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr; 107(4): 934-943.<br />
+</li>
+</ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
@@ -2157,6 +2164,15 @@ Modified from <em>Clin Pharm Ther 2020</em>.
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

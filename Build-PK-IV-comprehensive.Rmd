@@ -1,0 +1,18 @@
+---
+title: "Build-PK-IV - Comprehensive"
+description: |
+  This lecture describes a comprehensive PK data building procedure for medications that are typically intravenously administrated, which requires several data processing modules (e.g., *Pro-Demographic*, *Pro-Med-Str*, *Pro-Drug Level*, *Pro-Laboratory*).
+author: Nathan T. James
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 1
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Here add links to vignettes
+
+# Introduction
