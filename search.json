@@ -6,22 +6,22 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\nhttps://github.com/choileena\nhttps://github.com/choileena/EHR\nhttps://github.com/choileena/pkdata\nhttps://github.com/choileena/medExtractR\n\n\n\n",
-      "last_modified": "2021-08-12T16:22:45-05:00"
+      "last_modified": "2021-08-17T14:50:51-05:00"
     },
     {
       "path": "index.html",
       "title": "Choi Lab",
       "author": [],
       "contents": "\n\n\n\nLeena Choi, PhD\nVice Chair of Diversity and Inclusion, Department of Biostatistics\nProfessor of Biostatistics\n\n\n\nhttps://www.vumc.org/biostatistics/person/leena-choi-phd\n\nThe major research focus of our lab is to construct a system for drug-related studies such as pharmacokinetics (PK), pharmacodynamics (PD), and pharmacogenomics (PGx) studies using electronic health records (EHRs), which is called “EHRtoPKPD”. This system would allow to perform the studies more efficiently by standardizing data extraction, data processing, and data building procedures. This system would provide the foundation for PK/PD-model guided clinical decision support systems embedded in EHRs to provide an optimal pharmacotherapy, the overarching goal of precision medicine.\n\nThe EHRtoPKPD, a System for PK/PD Studies using EHRs.\nModified from Clin Pharm Ther 2020.\nEHRtoPKPD is a modular system, divided into the three major procedures: data extraction (“Extract-”), data processing (“Pro-”), and data building (“Build-”). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using Pro-Med-Str module. However, we found that dosing data obtained from e-prescription databases often are not accurate enough for PK/PD studies. Thus, we developed more flexible and targeted NLP system that performed better than existing state-of-art NLP systems for drug dose extraction. Our NLP system was incorporated into our system (Extract-Med module), which can directly extract drug dose information from clinical notes, which is also available as an R package, medExtractR. As building drug dose data from extracted dose information can be very challenging, we developed a dose data building algorithm which was also implemented in our system (Pro-Med-NLP). Other data elements such as drug levels (Pro-Drug Level), demographics (Pro-Demographic), and laboratory data (Pro-Laboratory) can be processed using our system, and then combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., Build-PK-IV, Build-PK-Oral). The functions to run each module is implemented as R packages, medExtractR and EHR. The EHRtoPKPD will evolve as more modules are added.\n\nLab Team\nCole Beck\nElizabeth McNeer\nMichael Williams\nNathan James\nAlumni\nHannah Weeks\n\n\n\n",
-      "last_modified": "2021-08-12T16:22:45-05:00"
+      "last_modified": "2021-08-17T14:50:51-05:00"
     },
     {
       "path": "workshops.html",
-      "title": "EHR package workshops",
-      "description": "Usage examples for EHR package\n",
+      "title": "*EHRtoPKPD* Workshops",
+      "description": "Lecture series demonstrating using *EHRtoPKPD* and examples for EHR package\n",
       "author": [],
-      "contents": "\n\nContents\nworkshop 1\nworkshop 2\nworkshop 3\nworkshop 4\n\nadd links to vignettes\nworkshop 1\nworkshop 2\nworkshop 3\nworkshop 4\n\n\n\n",
-      "last_modified": "2021-08-12T16:22:45-05:00"
+      "contents": "\n\nContents\nBuild-PK-Oral\nBuild-PK-IV - Part I (use your own data)\nExtract-Med\nPro-Med-NLP\nPro-Med-Str\n\nHere add links to vignettes\nBuild-PK-Oral\nBuild-PK-IV - Part I (use your own data)\nExtract-Med\nPro-Med-NLP\nPro-Med-Str\n\n\n\n",
+      "last_modified": "2021-08-17T14:50:52-05:00"
     }
   ],
   "collections": []
