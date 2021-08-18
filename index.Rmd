@@ -37,7 +37,8 @@ The major research focus of our lab is to construct a system for drug-related st
 Modified from *Clin Pharm Ther 2020*.</figcaption>
 </figure>
 
-*EHRtoPKPD* is a modular system, divided into the three major procedures: data extraction ("*Extract-*"), data processing ("*Pro-*"),  and data building ("*Build-*"). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using *Pro-Med-Str* module. However, we found that dosing data obtained from e-prescription databases often are not accurate enough for PK/PD studies. Thus, we developed more flexible and targeted NLP system that performed better than existing state-of-art NLP systems for drug dose extraction. Our NLP system was incorporated into our system (*Extract-Med* module), which can directly extract drug dose information from clinical notes, which is also available as an R package, *medExtractR*. As building drug dose data from extracted dose information can be very challenging, we developed a dose data building algorithm which was also implemented in our system (*Pro-Med-NLP*). Other data elements such as drug levels (*Pro-Drug Level*), demographics (*Pro-Demographic*), and laboratory data (*Pro-Laboratory*) can be processed using our system, and then combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., *Build-PK-IV*, *Build-PK-Oral*). The functions to run each module is implemented as R packages, *medExtractR* and *EHR*. The *EHRtoPKPD* will evolve as more modules are added.
+*EHRtoPKPD* is a modular system, divided into the three major procedures: data extraction ("*Extract-*"), data processing ("*Pro-*"),  and data building ("*Build-*"). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using *Pro-Med-Str* module. However, we found that dosing data obtained from e-prescription databases often are not accurate enough for PK/PD studies. Thus, we developed more flexible and targeted NLP system that performed better than existing state-of-art NLP systems for drug dose extraction. Our NLP system was incorporated into our system (*Extract-Med* module), which can directly extract drug dose information from clinical notes, which is also available as an R package, *medExtractR*. As building drug dose data from extracted dose information can be very challenging, we developed a dose data building algorithm which was also implemented in our system (*Pro-Med-NLP*). Other data elements such as drug levels (*Pro-Drug Level*), demographics (*Pro-Demographic*), and laboratory data (*Pro-Laboratory*) can be processed using our system, and then combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., *Build-PK-IV*, *Build-PK-Oral*). The functions to run each module is implemented as R packages, *medExtractR* and *EHR*. More details can be found in Choi *et al.*$^{1}$, and additional modules will be added in the future as it evolves.
+ 
 </div>
 
 ### Lab Team
@@ -47,9 +48,11 @@ Modified from *Clin Pharm Ther 2020*.</figcaption>
 * Michael Williams
 * <a href="https://www.ntjames.com/">Nathan T. James, ScM</a>
 
+### Lab Alumni
 <img src="img/Nathan_James.jpg" class="lhs100" />
 
+* Hannah L. Weeks
 
-### Alumni
+### References  
 
-Hannah Weeks
+1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr; 107(4): 934-943.  

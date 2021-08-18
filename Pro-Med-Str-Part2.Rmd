@@ -1,0 +1,19 @@
+---
+title: "Pro-Med-Str - Part II"
+description: |
+  This lecture describes how to processes structured medication data, especially focusing on e-prescription data.
+author: Elizabeth McNeer
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 1
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Here add links to vignettes
+
+# Introduction
+
