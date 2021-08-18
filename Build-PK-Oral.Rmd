@@ -2,7 +2,8 @@
 title: "Build-PK-Oral"
 description: |
   This lecture describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.
-author: Michael L. Williams
+author:
+  - name: Michael L. Williams
 output:
   distill::distill_article:
     toc: true

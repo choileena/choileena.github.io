@@ -2,7 +2,8 @@
 title: "Build-PK-IV - Comprehensive"
 description: |
   This tutorial describes a comprehensive PK data building procedure for medications that are intravenously administered. There are two phases: data processing which standardizes and combines the input data (*Pro-Demographic*, *Pro-Med-Str*, *Pro-Drug Level*, *Pro-Laboratory*) and data building which creates the final PK data (*Build-PK-IV*).
-author: Nathan T. James
+author:
+  - name: Nathan T. James
 output:
   distill::distill_article:
     toc: true
@@ -266,7 +267,7 @@ ivdose.out <- run_MedStrI(flow.path=file.path(dataDir,"flow_mod_id.rds"),
       rate = expression(as.numeric(sub('([0-9.]+).*', '\\1', rate)))),
     medchk.path=file.path(rawDataDir, sprintf('medChecked-%s.csv', drugname)), 
     mar.path=file.path(dataDir,"mar_mod_id.rds"),
-    demo.list=demo.out,
+    demo.list=NULL,
     check.path=checkDir, 
     failflow_fn = 'FailFlow',
     failunit_fn = 'Unit',

@@ -2,7 +2,8 @@
 title: "Pro-Med-NLP"
 description: |
   This lecture describes how to build longitudinal medication dose data from the raw output of an NLP system using the *Pro-Med-NLP* module.
-author: Hannah L. Weeks, Elizabeth McNeer
+author:
+  - name: Hannah L. Weeks, Elizabeth McNeer
 output:
   distill::distill_article:
     toc: true

@@ -2034,7 +2034,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2128,8 +2128,7 @@ Workshops
 </div>
 
 <div class="d-byline">
-  
-  Nathan T. James
+  Nathan T. James  
   
 
 </div>
@@ -2157,7 +2156,7 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package and dependencies</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>pkdata</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2634,7 +2633,7 @@ Workshops
       rate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'([0-9.]+).*'</span>, <span class='st'>'\\1'</span>, <span class='va'>rate</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
     medchk.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span><span class='st'>'medChecked-%s.csv'</span>, <span class='va'>drugname</span><span class='op'>)</span><span class='op'>)</span>, 
     mar.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"mar_mod_id.rds"</span><span class='op'>)</span>,
-    demo.list<span class='op'>=</span><span class='va'>demo.out</span>,
+    demo.list<span class='op'>=</span><span class='cn'>NULL</span>,
     check.path<span class='op'>=</span><span class='va'>checkDir</span>, 
     failflow_fn <span class='op'>=</span> <span class='st'>'FailFlow'</span>,
     failunit_fn <span class='op'>=</span> <span class='st'>'Unit'</span>,
@@ -2647,9 +2646,9 @@ Workshops
 </div>
 <pre><code>The number of rows in the original data                124
 The number of rows after removing the duplicates       124
-no units other than mcg/kg/hr or mcg, file /tmp/Rtmpsl1cY9/checks/failUnit-fent.csv not created
+no units other than mcg/kg/hr or mcg, file /tmp/Rtmpabzp3x/checks/failUnit-fent.csv not created
 #########################
-33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /tmp/Rtmpsl1cY9/checks/failNoWgt-fent.csv AND create /tmp/Rtmpsl1cY9/checks/fixNoWgt-fent.csv
+33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /tmp/Rtmpabzp3x/checks/failNoWgt-fent.csv AND create /tmp/Rtmpabzp3x/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ivdose.out</span><span class='op'>)</span>
@@ -2690,7 +2689,7 @@ no units other than mcg/kg/hr or mcg, file /tmp/Rtmpsl1cY9/checks/failUnit-fent.
 </code></pre>
 </div>
 <pre><code>#########################
-3 rows need review, see file /tmp/Rtmpsl1cY9/checks/failMissingConcDate-fent.csv AND create /tmp/Rtmpsl1cY9/checks/fixMissingConcDate-fent.csv
+3 rows need review, see file /tmp/Rtmpabzp3x/checks/failMissingConcDate-fent.csv AND create /tmp/Rtmpabzp3x/checks/fixMissingConcDate-fent.csv
 #########################
 subjects with concentration missing from sample file
  mod_id mod_id_event
@@ -2701,7 +2700,7 @@ subjects with concentration missing from sample file
 16 total unique subjects ids (including multiple visits) currently in the concentration data
 15 total unique subjects in the concentration data
 #########################
-15 rows need review, see file /tmp/Rtmpsl1cY9/checks/multipleSetsConc-fent2021-08-18.csv
+15 rows need review, see file /tmp/Rtmpabzp3x/checks/multipleSetsConc-fent2021-08-18.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
 15 total unique subjects in the concentration data</code></pre>
@@ -2770,9 +2769,9 @@ subjects with concentration missing from sample file
 </code></pre>
 </div>
 <pre><code>#########################
-3 rows need review, see file /tmp/Rtmpsl1cY9/checks/failMissingConcDate-fent.csv AND create /tmp/Rtmpsl1cY9/checks/fixMissingConcDate-fent.csv
+3 rows need review, see file /tmp/Rtmpabzp3x/checks/failMissingConcDate-fent.csv AND create /tmp/Rtmpabzp3x/checks/fixMissingConcDate-fent.csv
 #########################
-file /tmp/Rtmpsl1cY9/checks/fixMissingConcDate-fent.csv read with failures replaced
+file /tmp/Rtmpabzp3x/checks/fixMissingConcDate-fent.csv read with failures replaced
 subjects with concentration missing from sample file
 [1] mod_id       mod_id_event
 &lt;0 rows&gt; (or 0-length row.names)
@@ -2780,7 +2779,7 @@ subjects with concentration missing from sample file
 16 total unique subjects ids (including multiple visits) currently in the concentration data
 15 total unique subjects in the concentration data
 #########################
-15 rows need review, see file /tmp/Rtmpsl1cY9/checks/multipleSetsConc-fent2021-08-18.csv
+15 rows need review, see file /tmp/Rtmpabzp3x/checks/multipleSetsConc-fent2021-08-18.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
 15 total unique subjects in the concentration data</code></pre>
@@ -2840,7 +2839,7 @@ subjects with concentration missing from sample file
 The dimension of the PK data before merging with demographics: 234 x 9
 The number of subjects in the PK data before merging with demographics: 15
 The number of subjects in the demographic file, who meet the exclusion criteria: 2
-check NA frequency in demographics, see file /tmp/Rtmpsl1cY9/checks/fent-missing-demo.csv
+check NA frequency in demographics, see file /tmp/Rtmpabzp3x/checks/fent-missing-demo.csv
 List of IDs missing at least 1 cpb_sts: 12.1
 The list of final demographic variables: weight
 weight_demo

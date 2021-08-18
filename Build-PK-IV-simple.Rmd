@@ -2,7 +2,8 @@
 title: "Build-PK-IV - Simple"
 description: |
   This lecture describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.
-author: Nathan T. James, Leena Choi
+author:
+  - name: Nathan T. James, Leena Choi
 output:
   distill::distill_article:
     toc: true
