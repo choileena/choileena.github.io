@@ -4,6 +4,12 @@ img.rhs100 {
   padding-left: 1em;
 }
 
+img.lhs100 {
+  float: left;
+  width: 100px;
+  padding-left: 2em;
+}
+
 figure.rhs {
   float: right;
   width: 475px;
