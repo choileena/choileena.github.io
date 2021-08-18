@@ -48,8 +48,9 @@ Modified from *Clin Pharm Ther 2020*.</figcaption>
 * Michael Williams
 * <a href="https://www.ntjames.com/">Nathan T. James, ScM</a>
 
-### Lab Alumni
 <img src="img/Nathan_James.jpg" class="lhs100" />
+
+### Lab Alumni
 
 * Hannah L. Weeks
 
