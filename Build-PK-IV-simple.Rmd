@@ -1,7 +1,7 @@
 ---
 title: "Build-PK-IV - Simple"
 description: |
-  This lecture describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are typically intravenously administrated.
+  This lecture describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.
 author: Nathan T. James, Leena Choi
 output:
   distill::distill_article:
@@ -11,10 +11,13 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(EHR)
+library(pkdata)
+library(lubridate)
 ```
 
 # Introduction
-This lecture describes a simple pharmacokinetic (PK) data building procedure in the *EHRtoPKPD* for medications that are typically intravenously (IV) administrated. It demonstrates how to quickly build PK data using *Build-PK-IV* without using the data processing modules when cleaned data for concentration, drug dose, demographic and laboratory datasets are already available in an appropriate data form. A comprehensive PK data building procedure with *Build-PK-IV* for IV medications that requires several data processing modules is described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html) (see Choi *et al.*$^{1}$ for details).
+This lecture describes a simple pharmacokinetic (PK) data building procedure in *EHRtoPKPD* for medications that are intravenously (IV) administered. It demonstrates how to quickly build PK data using *Build-PK-IV* when cleaned data for concentration, drug dose, demographic and laboratory datasets are available in the appropriate data format. A comprehensive PK data building procedure with *Build-PK-IV* for IV medications that requires several data processing modules is described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html) (see Choi *et al.*$^{1}$ for details).
 
 To begin we load the `EHR` package, the `pkdata` package, and the `lubridate` package. 
 
@@ -27,21 +30,24 @@ library(lubridate)
 
 # Quick Data Building with Processed Datasets
 
-The data for example 1 includes a demographic file, a concentration file, an intravenous (IV) dosing file, and a laboratory file, which are all cleaned and formatted appropriately. We also define a directory for the raw data and a directory for interactive checking output files.
+We first define a directory for the raw data and a directory for interactive checking output files.
+The data includes a demographic file, a drug concentration file, an IV dosing file, and a laboratory file, which are all cleaned and formatted appropriately. 
 
 ```{r simp-in}
 # define directories
+rawDataDir <- system.file("examples", "str_ex1", package="EHR")
 td <- tempdir()
 dir.create(file.path(td, 'check1'))
-rawDataDir <- system.file("examples", "str_ex1", package="EHR")
 checkDir <- file.path(td, 'check1')
-demo <- read.csv(file.path(rawDataDir,"Demographics_DATA_simple.csv"))
+
+# read in data
+demo <- read.csv(file.path(rawDataDir,"Demographics_DATA_simple.csv"),stringsAsFactors = FALSE)
 head(demo)
-conc.data <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"))
+conc.data <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"),stringsAsFactors = FALSE)
 head(conc.data)
-ivdose.data <- read.csv(file.path(rawDataDir,"IVDose_DATA_simple.csv"))
+ivdose.data <- read.csv(file.path(rawDataDir,"IVDose_DATA_simple.csv"),stringsAsFactors = FALSE)
 head(ivdose.data)
-creat.data <- read.csv(file.path(rawDataDir,"Creatinine_DATA_simple.csv"))
+creat.data <- read.csv(file.path(rawDataDir,"Creatinine_DATA_simple.csv"),stringsAsFactors = FALSE)
 head(creat.data)
 ```
 
@@ -52,9 +58,24 @@ names(conc.data)[1:2] <- names(demo)[1:2] <- c("mod_id", "mod_id_visit")
 names(creat.data)[1] <- names(ivdose.data)[1] <- "mod_id"
 ```
 
-Using the four datasets, we can build a final PK dataset with the function `run_Build_PK_IV()`. Additional details for this function are provided below in the *Build-PK-IV* subsection of Example 2: Complete Data Processing and Building from Raw Extracted Data to PK Data.
+<!--
+```{r simp-mods}
+demo.data <- list(demo=demo, exclude=NULL)
+creat.data$date.time <- lubridate::ymd_hms(creat.data$date.time)
+```
 
-```{r sim-build-pk-iv, eval = FALSE}
+```{r simp-xwalk}
+mod_id <- demo[,c("mod_id", "mod_id_visit")]
+pat_id <- mod_id
+names(pat_id) <- c("patient_id","patient_visit_id")
+xwalk1 <- cbind(mod_id, pat_id)
+options(pkxwalk = 'xwalk1')
+```
+-->
+
+Using the four datasets, we can build a final PK dataset with the function `run_Build_PK_IV()`.
+
+```{r sim-build-pk-iv}
 simple_pk_dat <- run_Build_PK_IV(
     conc=conc.data,
     dose=ivdose.data,
@@ -71,9 +92,8 @@ simple_pk_dat <- run_Build_PK_IV(
     check.path=checkDir)
 ```
 
-
 ```{r sim-build-pk-iv-out}
-# head(simple_pk_dat,15)
+head(simple_pk_dat,15)
 ```
 
 
