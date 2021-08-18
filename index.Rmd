@@ -45,8 +45,10 @@ Modified from *Clin Pharm Ther 2020*.</figcaption>
 
 * Cole Beck
 * Elizabeth McNeer
-* Michael L. Williams
-* Nathan T. James
+* Michael Williams
+* <a href="https://www.ntjames.com/">Nathan T. James, ScM</a>
+
+<img src="img/Nathan_James.jpg" class="lhs100" />
 
 ### Lab Alumni
 
