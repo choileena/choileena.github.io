@@ -2,8 +2,7 @@
 title: "Pro-Med-NLP"
 description: |
   This lecture describes how to build longitudinal medication dose data from the raw output of an NLP system using the *Pro-Med-NLP* module.
-author:
-  - name: Hannah L. Weeks, Elizabeth McNeer
+author: Hannah L. Weeks, Elizabeth McNeer
 output:
   distill::distill_article:
     toc: true
@@ -12,9 +11,301 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(EHR)
+```
+
+```{r niceroutput, echo = FALSE}
+findbreaks <- function(x, char = '\\|', charlen = 75) {
+  if(length(x) > 1) {
+    out <- vapply(x, findbreaks, character(1), char, charlen, USE.NAMES = FALSE)
+    return(paste(out, collapse = '\n'))
+  }
+  cur <- x
+  nbuf <- ceiling(nchar(x) / charlen)
+  strings <- character(nbuf)
+  i <- 1
+  while(nchar(cur) > charlen) {
+    loc <- c(gregexpr(char, cur)[[1]])
+    b <- loc[max(which(loc < charlen))]
+    strings[i] <- substr(cur, 1, b)
+    cur <- substring(cur, b + 1)
+    i <- i + 1
+  }
+  strings[i] <- cur
+  paste(c(strings[1], paste0('     ', strings[-1])), collapse = '\n')
+}
 ```
 
 Here add links to vignettes
 
 # Introduction
 
+This lecture describes how to use the *Pro-Med-NLP* module to generate longitudinal medication dose data from the raw output of an NLP system. The module is divided into two parts. Part I parses the raw output and pairs entities together, and Part II calculates dose intake and daily dose and removes redundant information.
+
+# Part I
+
+Two main functions are used in this part of the module, a parse function (`parseMedExtractR`, `parseMedXN`, `parseCLAMP`, or `parseMedEx`) and `buildDose`.
+
+## Parse functions
+Parse functions are available for the medExtractR, MedXN, CLAMP, and MedEx systems (`parseMedExtractR`, `parseMedXN`, `parseCLAMP`, `parseMedEx`). If the user has output from another NLP system, the user can write code to standardize the output before calling the `buildDose` function.
+
+The parse functions require the following argument:
+
+- `filename`: file name for a file containing the raw output from the NLP system
+
+The following are the function calls for the parse functions.
+
+```{r, eval = FALSE}
+parseMedExtractR(filename)
+parseMedXN(filename, begText = "^[ID0-9]+_[0-9-]+_[Note0-9]")
+parseCLAMP(filename)
+parseMedEx(filename)
+```
+
+The `parseMedXN` function also has an argument specifying a regular expression pattern which indicates the start of each row (i.e., drug mention) in the raw MedXN output. In the example above, the `begText` argument identifies how the file names are structured for a set of clinical notes in a Vanderbilt University dataset (e.g., "ID111_2000-01-01_Note001" where ID111 is the patient ID, 2000-01-01 is the date of the note, and Note001 is the note ID). Thus, each row beginning with a file name in this format indicates a new drug mention.
+
+The parse functions output a standardized form of the data that includes a row for each drug mention and columns for all entities anchored to that drug mention.
+
+### Running `parseMedExtractR`
+
+First, we create variables for the filenames of our raw NLP system data. In the `EHR` package, we have example medExtractR data for tacrolimus and lamotrigine.
+
+```{r}
+tac_mxr_fn <- system.file("examples", "tac_mxr.csv", package = "EHR")
+lam_mxr_fn <- system.file("examples", "lam_mxr.csv", package = "EHR")
+```
+
+Below is the example medExtractR output for tacrolimus:
+
+```{r}
+(tac_mxr <- read.csv(file.path(tac_mxr_fn),stringsAsFactors = FALSE))
+```
+
+Here we demonstrate how to run `parseMedExtractR` using the raw medExtractR output from above.
+
+```{r}
+tac_mxr_parsed <- parseMedExtractR(tac_mxr_fn)
+lam_mxr_parsed <- parseMedExtractR(lam_mxr_fn)
+```
+
+### Running `parseMedXN`
+
+Similar to above, we first create a variable for the filename of our raw MedXN data for lamotrigine.
+
+```{r}
+lam_mxn_fn <- system.file("examples", "lam_medxn.csv", package = "EHR")
+```
+
+Here is the example MedXN output for lamotrigine:
+
+```{r, echo = FALSE, warning = FALSE}
+lam_mxn <- scan(lam_mxn_fn, '', sep = '\n', quiet = TRUE)
+# Print output
+message("MedXN output:\n")
+# lam_mxn
+cat(findbreaks(lam_mxn, charlen = 90))
+```
+
+We demonstrate how to run the `parseMedXN` function using our example MedXN output below.
+
+```{r, warning = FALSE}
+lam_mxn_parsed <- parseMedXN(lam_mxn_fn, begText = "^[ID0-9]+_[0-9-]+_[Note0-9]")
+```
+
+The output from all systems, once parsed, has the same structure as the example parsed MedXN output below.
+
+```{r, echo = FALSE}
+# cat(breaktable(lam_mxn_parsed, c(3,5)))
+lam_mxn_parsed
+```
+
+## `buildDose`
+
+After the NLP output is parsed, the `buildDose` function is run to pair the parsed entities. The main `buildDose` function arguments are as follows:
+
+- `dat`: standardized form of the data (i.e., output from one of the parse functions)
+- `dn`: argument to specify drug names of interest (generally not used with medExtractR since medExtractR is a targeted system and only includes the drug of interest in the raw output)
+
+The general function call is:
+
+```{r, eval = FALSE}
+buildDose(dat, dn = NULL)
+```
+
+Other notable arguments that can be specified by `buildDose` include:
+
+- `preserve`: columns which should be preserved in the final output, but not considered for pairing with other entities. The default is `NULL`, though for medExtractR the dose change entity is always preserved.
+- `dist_method`: which distance method calculation to use in cost calculation for pairing entities. For more details see the supplementary material in McNeer, et al. (2020). The default from `getOption('ehr.dist_method')` is *minEntEnd*, or using the minimum distance between the end of one entity and beginning of the next).
+- `checkForRare`: a logical argument, indicates whether or not the output should return rare occurrences of entities (default is `FALSE`)
+
+The output of the `buildDose` function is a dataset with a column for each entity and a row for each pairing.
+
+### Running `buildDose`
+
+In our medExtractR example from above, the output of the `buildDose` function is the following:
+
+```{r, warning = FALSE}
+(tac_part_i_out <- buildDose(tac_mxr_parsed))
+(lam_part_i_out <- buildDose(lam_mxr_parsed))
+```
+
+
+If the `checkForRare` argument is set to `TRUE`, any extracted expressions with a proportion of occurrence less than 0.2 are returned as rare values. When rare values are identified, a warning is printed to notify the user. The `var` column indicates the entity (note that `dose` in this output refers to dose amount, while `dosestr` would indicate dose given intake). This can be used as a quick check for potentially inaccurate information and allow the user to remove incorrect extractions before applying the Pro-Med-NLP module as incorrect extractions would reduce accuracy of the dose building data. Note that these values may still be correct extractions even though they are rare, as is the case for our output below.
+
+```{r}
+lam_checkForRare <- buildDose(lam_mxr_parsed, checkForRare=TRUE)
+```
+
+
+
+# Part II
+
+In Part II of the module, we form the final analysis datasets containing computed dosing information at the note and date level for each patient. This process requires more detailed meta data associated with each clinical note file, the format of which is described below. In this part, we also discuss how time of last dose should be incorporated when present before producing the final output dataset.
+
+## `noteMetaData`
+
+The meta data argument is required by the functions `collapseDose` and `processLastDose`, and requires four columns: `filename`, `pid`, `date`, `note`. In our example data, pid (patient ID), date, and note can all be extracted from the filename. Take the filename "tacpid1_2008-06-26_note1_1.txt" for example. It contains information in the form "[PID]\_[date]\_[note]", where PID = "tacpid1", date = "2008-06-26" and note = "note1". The function below can build our meta data from each of the filenames.
+
+```{r}
+bmd <- function(x) {
+  fns <- strsplit(x, '_')
+  pid <- sapply(fns, `[`, 1)
+  date <- as.Date(sapply(fns, `[`, 2), format = '%Y-%m-%d')
+  note <- sapply(fns, `[`, 3)
+  data.frame(filename = x, pid, date, note, stringsAsFactors = FALSE)
+}
+bmd("tacpid1_2008-06-26_note1_1.txt")
+(tac_metadata <- bmd(tac_part_i_out[['filename']]))
+```
+
+## `collapseDose`
+
+The main function used in Part II of the module is the `collapseDose` function, which relies on the underlying `makeDose` function. `collapseDose` allows the user to split the data using drug names given by regular expressions (`...`) and run `makeDose` separately on each subset of the data. For example, if the data includes multiple drugs, regular expressions can be specified for each drug. Another use of this function is to split the data by different formulations of the drug, such as separating immediate release formulations from extended release formulations, which are often written using "XR" or "ER" in the drug name.
+
+The `collapseDose` function requires the following arguments:
+
+- `x`: output from the `buildDose` function, or from `addLastDose` if last dose information is incorporated (see [Handling `lastDose`] section below)
+- `noteMetaData`: a `data.frame` with columns for filename, pid (patient id), date, and note
+- `naFreq`: method to use when assigning missing frequencies; the default is to assign the most common frequency
+
+The general function call is:
+
+```{r, eval = FALSE, warning = FALSE}
+collapseDose(x, noteMetaData, naFreq = 'most', ...)
+```
+
+The main function underlying `collapseDose` is `makeDose`, which standardizes entities, imputes missing values, calculates dose intake and daily dose, removes redundancies, and generates the final dose data. Two `data.frames` are generated from the `makeDose` function, one with redundancies removed at the note level and one at the date level (see McNeer et al. (2020) for details). The `collapseDose` function serves as a wrapper to `makeDose` to ensure results are collated and formatted properly for analysis.
+
+### Running `collapseDose`
+Below, we demonstrate `collapseDose` using our lamotrigine example. In the function call, we supply an additional argument `'xr|er'` to indicate that we want to separately consider extended release formulations of lamotrigine, (usually denoted by "XR" or "ER"). This prevents regular lamotrigine mentions from being collapsed with lamotrigine XR mentions, even if the dosage is identical.
+
+```{r, eval = FALSE}
+data(lam_metadata, package = 'EHR')
+lam_part_ii <- collapseDose(lam_part_i_out, lam_metadata, naFreq = 'most', 'xr|er')
+```
+
+```{r, echo = FALSE, warning = FALSE}
+data(lam_metadata, package = 'EHR')
+suppressWarnings(lam_part_ii <- collapseDose(lam_part_i_out, lam_metadata, naFreq = 'most', 'xr|er'))
+```
+
+Note level collapsing:
+
+```{r}
+lam_part_ii$note
+```
+
+Date level collapsing:
+
+```{r}
+lam_part_ii$date
+```
+
+## Handling `lastdose`
+
+In this section, we cover how incorporation of the last dose entity should be handled if it was extracted using medExtractR. In the [Running `buildDose`] section above, we see the raw last dose time extractions for the tacrolimus dataset. Using the functions `processLastDose` and `addLastDose`, we convert the extracted times into a processed and standardized datetime variable, and add the processed times to the `buildDose` output.
+
+The `processLastDose` function requires the following arguments:
+
+- `mxrData`: raw output from the `extractMed` function
+- `noteMetaData`: note meta data for each file name in `mxrData`
+- `labData`: a data frame containing lab dates and times associated with the file names within `mxrData`. This must contain at a minimum the columns `pid` and `date` (in the same format as `noteMetaData`), as well as `labtime`, a POSIXct variable indicating the date and time of a laboratory drug measurement
+
+Extracted last dose times can fall into two categories: a time expression (e.g., "10am", "22:00", "7 last night") or a duration expression (e.g. "14 hour" level), where the "time" of last dose indicates the number of hours since the last dose was taken relative to the time of the clinical visit. In the latter case, the lab time (from the `labData` argument) is needed in order to convert the extracted duration expression into a datetime variable. Below is an example lab dataset for our sample tacrolimus data.
+
+```{r}
+data(tac_lab, package = 'EHR')
+tac_lab
+```
+
+Within `processLastDose`, extracted times are converted to time expressions of the format "HH:MM:SS" and assigned a date based on the date of the corresponding note. When the last dose time is after 12pm, it is assumed to have been taken on the previous date.
+
+```{r}
+(tac_ld <- processLastDose(mxrData = tac_mxr, noteMetaData = tac_metadata, labData = tac_lab))
+```
+
+The function output contains the processed and standardized last dose time (`lastdose`), the original extracted expression (`raw_time`), whether the raw expression was a time or duration (`time_type`), as well as position information for the last dose time (`ld_start`) for appropriate pairing with dosing information in `addLastDose`. The `labtime` column in the output above corresponds to the information provided in the `labData` argument.
+
+The `addLastDose` function requires the following arguments:
+
+- `buildData`: output from `buildDose`
+- `lastdoseData`: dataset containing last dose time information for the file names in `buildData`. This should include columns for `filename` and `lastdose`, with `lastdose` being a processed POSIXct datetime variable.
+
+In the case where last dose information was extracted from clinical notes using medExtractR, the `lastdoseData` input should be output from the `processLastDose` function containing the last dose start positions, as demonstrated below. It is possible for multiple times to be extracted from a clinical note. For extracted times within a 2 hour window of one another, `addLastDose` treats these as equivalent and extracts the last dose time. Note that this may be context-dependent, and this rule was determined based on drugs administered every 12 hours and assuming a trough drug level. For time differences of more than two hours, the last dose start position is used to pair the extracted time with the closest drug mention. Alternatively, if the user has a separate dataset with validated last dose times, they can provide their own dataset. When providing a validated dataset, there should be only one last dose time per patient ID and date.
+
+```{r}
+(tac_part_i_out_lastdose <- addLastDose(buildData = tac_part_i_out, lastdoseData = tac_ld))
+```
+Note that in the `lastdose` columns, we now have standardized datetime objects instead of the raw extracted expressions.
+
+### Running `collapseDose` with last dose present
+
+For our tacrolimus example above, the output of this function is below. Note that we use the output from `addLastDose` rather than directly from `buildDose`.
+
+```{r, eval = FALSE}
+tac_part_ii <- collapseDose(tac_part_i_out_lastdose, tac_metadata, naFreq = 'most')
+```
+
+```{r, echo = FALSE, warning = FALSE}
+suppressWarnings(tac_part_ii <- collapseDose(tac_part_i_out_lastdose, tac_metadata, naFreq = 'most'))
+```
+
+Note level collapsing:
+
+```{r}
+tac_part_ii$note
+```
+
+Date level collapsing:
+
+```{r}
+tac_part_ii$date
+```
+
+## Additional collapsing
+
+Collapsing by date or note produces observations at the daily intake level. It is possible to further collapse data to the daily level, though you
+may want to drop the *dose.intake* variable as it would potentially lose meaning.
+
+```{r}
+x <- lam_part_ii[['note']]
+# retrieve metadata for each filename
+k1 <- lam_metadata[match(x[,'filename'], lam_metadata[,'filename']), c('pid','date','note')]
+# select additional key data
+k2 <- cbind(k1, x[,c('dose.daily','drugname_start')])
+# turn keys into character string
+chk <- do.call(paste, c(k2, sep = '|'))
+# keep first instance of each chk key
+lam_part_iii_note <- x[!duplicated(chk),]
+lam_part_iii_note[,c('filename','drugname','drugname_start','dose.daily')]
+```
+
+```{r}
+x <- lam_part_ii[['date']]
+# ignore note for date level collapsing
+k1 <- lam_metadata[match(x[,'filename'], lam_metadata[,'filename']), c('pid','date')]
+k2 <- cbind(k1, x[,c('dose.daily','drugname_start')])
+chk <- do.call(paste, c(k2, sep = '|'))
+lam_part_iii_date <- x[!duplicated(chk),]
+lam_part_iii_date[,c('filename','drugname','drugname_start','dose.daily')]
+```
