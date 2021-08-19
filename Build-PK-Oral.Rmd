@@ -12,14 +12,13 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(R.options = list(width = 120))
 library(EHR)
 library(pkdata)
 library(lubridate)
 ```
 
-Here add links to vignettes
-
-* See also "4. EHR Vignette for Build-PK-Oral" in `EHR` package
+* See also "[4. EHR Vignette for Build-PK-Oral](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.html)" in `EHR` package
 
 # Introduction
 We briefly describe a data format typically used in pharmacokinetics (PK), pharmacodynamics (PD) modeling. Then, we describe oral dosing data commonly obtained from electronic health records (EHRs) in the presence of last dose time and absense of last dose time information. Finally, we explain how to run *Build-PK-Oral* module. 
