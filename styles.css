@@ -28,3 +28,7 @@ d-article {
 pre.sourceCode {
   background-color: #D4E6FC;
 }
+
+d-article h1 {
+  font-size: 50px;
+}
