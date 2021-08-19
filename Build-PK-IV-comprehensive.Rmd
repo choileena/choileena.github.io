@@ -7,11 +7,12 @@ author:
 output:
   distill::distill_article:
     toc: true
-    toc_depth: 1
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(R.options = list(width = 120))
 library(EHR)
 library(pkdata)
 library(lubridate)
@@ -72,7 +73,7 @@ The raw datasets must go through a pre-processing stage which creates new ID var
 
 Each raw dataset should contain a subject unique ID, a subject visit ID, or both ids. In this example the subject unique ID is called `subject_uid` and the subject visit ID is called `subject_id`. The subject visit ID is a combination of subject and visit/course -- e.g., `subject_id` 14.0 is the first course for subject 14, `subject_id` 14.1 is the second course for subject 14, and so on. `subject_uid` is a unique ID that is the same for all subject records. The integer part of `subject_id` has a 1-to-1 correspondence with `subject_uid` -- for this example, `subject_uid` 62734832 is associated with both `subject_id` 14.0 and `subject_id` 14.1. If there is only a single visit/course per subject only the subject unique ID is needed.
 
-### (1) Read and clean raw data
+## (1) Read and clean raw data
 
 * **`readTransform()`**:  This function reads in a CSV file and makes optional modifications to the resulting dataframe.
 
@@ -163,7 +164,7 @@ alb.in <- readTransform(file.path(rawDataDir, "Albumin_DATA.csv"),
 head(creat.in)
 ```
 
-### (2) Merge data to create new ID variables
+## (2) Merge data to create new ID variables
 
 * **`idCrosswalk()`**: This function merges all of the cleaned input datasets and creates new IDs.
     + Input:
@@ -198,7 +199,7 @@ saveRDS(id.xwalk, file=file.path(dataDir,"module_id_xwalk.rds"))
 head(id.xwalk)
 ```
 
-### (3) Make new data for use with modules
+## (3) Make new data for use with modules
 
 ```{r, eval = FALSE}
 pullFakeId(dat, xwalk, firstCols = NULL, orderBy = NULL)
@@ -456,5 +457,5 @@ pk_dat <- pullRealId(pk_dat, remove.mod.id=TRUE)
 head(pk_dat)
 ```
 
-## References  
+### References  
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
