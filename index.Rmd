@@ -40,13 +40,13 @@ Modified from *Clin Pharm Ther 2020*.</figcaption>
 
 *EHRtoPKPD* is a modular system, divided into the three major procedures: data extraction ("*Extract-*"), data processing ("*Pro-*"),  and data building ("*Build-*"). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. 
 
-For drugs with complex prescription pattern, dose data obtained from e-prescription databases may not be accurate enough to perform PK/PD studies. For these drugs, we may need to extract drug dose information from clinical notes using a natural language processing (NLP) system. We developed a flexible and targeted NLP system that can directly extract drug dose information from clinical notes, which was incorporated into our system (*Extract-Med*). 
+For drugs with complex prescription pattern, dose data obtained from e-prescription databases may not be accurate enough to perform PK/PD studies. For these drugs, we may need to extract drug dose information from clinical notes using a natural language processing (NLP) system. We developed a flexible and targeted NLP system that can directly extract drug dose information from clinical notes, which was incorporated into our system ([*Extract-Med*](Extract-Med.html)). 
 
-Building drug dose data from extracted dose information can be challenging. To address these challenges, we developed a dose data building algorithm that was implemented in our system (*Pro-Med-NLP*). 
+Building drug dose data from extracted dose information can be challenging. To address these challenges, we developed a dose data building algorithm that was implemented in our system ([*Pro-Med-NLP*](Pro-Med-NLP.html)). 
 
-For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using *Pro-Med-Str* module. 
+For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using [*Pro-Med-Str*](Pro-Med-Str-Part2.html) module. 
 
-Other data elements such as drug levels (*Pro-Drug Level*), demographics (*Pro-Demographic*), and laboratory data (*Pro-Laboratory*) can be processed using our system. These data can be combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., *Build-PK-IV*, *Build-PK-Oral*). 
+Other data elements such as drug levels (*[Pro-Drug Level*](Build-PK-IV-comprehensive.html)), demographics ([*Pro-Demographic*](Build-PK-IV-comprehensive.html)), and laboratory data ([*Pro-Laboratory*](Build-PK-IV-comprehensive.html)) can be processed using our system. These data can be combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., [*Build-PK-IV*](Build-PK-IV-simple.html), [*Build-PK-Oral*](Build-PK-Oral.html)). 
 
 The NLP system is available as an R package, *medExtractR*, and the functions to run each module are implemented as an R package, *EHR*. More details can be found in Choi *et al.*$^{1}$, and additional modules will be added in the future as it evolves.
 </div>
