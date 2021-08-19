@@ -64,7 +64,7 @@ dir(rawDataDir)
 
 # Pre-Processing for Raw Extracted Data
 
-The 4 types of raw datasets must go through a pre-processing stage which creates new ID variables and datasets that can be used by the data processing modules. There are three main pre-processing steps:
+The raw datasets must go through a pre-processing stage which creates new ID variables and datasets that can be used by the data processing modules. There are three pre-processing steps:
 
 (1)  read and clean raw data
 (2)  merge raw data to create new ID variables
@@ -74,7 +74,7 @@ Each raw dataset should contain a subject unique ID, a subject visit ID, or both
 
 ### (1) Read and clean raw data
 
-* **`readTransform()`**:  (NOTE describe briefly)
+* **`readTransform()`**:  This function reads in a CSV file and makes optional modifications to the resulting dataframe.
 
 * **Demographics raw data**
     + The example demographics data file contains ID variables `subject_id` and `subject_uid`, in addition to demographic variables such as gender, date of birth, height, weight, etc. As `subject_id` and `subject_uid` already exist, no further cleaning is needed.
@@ -90,7 +90,7 @@ head(demo.in)
     + The example concentration data consists of two files:
         + 1) SampleTimes_DATA.csv: contains the concentration sampling times
         + 2) SampleConcentration_DATA.csv: contains the concentration measurements
-    + (NOTE: explain what if concentration file comes with only one file with all info?)
+    + If all concentration data is in one file, the user should transform the file so it contains a subject unique ID, a subject visit ID, or both ids.
     + Use the function `readTransform()`
       + to read SampleTimes_DATA.csv, and rename the variable `Study.ID` to `subject_id` and create a new variable called `samp`, which indexes the sample number, using the `modify=` argument.
       + to read SampleConcentration_DATA.csv, and transform the concentration values - we use the helper function sampId() to process the subject_id field.
@@ -130,7 +130,7 @@ head(conc.in)
     + The example drug dosing data consists of two files containing two sources of IV dose information:
         + 1) FLOW_DATA.csv: contains aliases for both ID variables, and it is read in with the `readTransform()` function which renames the variables `Subject.Id` to `subject_id` and `Subject.Uniq.Id` to `subject_uid`. 
         + 2) MAR_DATA.csv: contains several variables with a colon (:) character. To preserve the colon in these variable names, the data can be read in without checking for syntactically valid `R` variable names. The data is read in using `read.csv()` with the argument `check.names = FALSE` and then passed to the **`dataTransformation()`** function which renames `Uniq.Id` to `subject_uid`.
-    + (NOTE: explain what if there is only one dosing file?)
+    + If all dosing data is in one file, the user should transform the file so it contains a subject unique ID, a subject visit ID, or both ids.
 
 ```{r flow-in}
 # FLOW dosing data
@@ -149,7 +149,7 @@ head(mar.in)
 
 * **Laboratory raw data**
     + The example laboratory data consists of files two files, Creatinine_DATA.csv and Albumin_DATA.csv. Both files are read in using the `readTransform()` function and `Subject.uniq` is renamed to `subject_uid`.
-    + (NOTE: explain what if there is only one file or more than 2 files?)
+    + Each laboratory file should be transformed so it contains a subject unique ID, a subject visit ID, or both ids.
 
 ```{r labs-in}
 # Serum creatinine lab data
@@ -208,7 +208,7 @@ pullFakeId(dat, xwalk, firstCols = NULL, orderBy = NULL)
     + The `dat=` argument should contain the cleaned input data.frame from pre-processing step (1).
     + The `xwalk=` argument should contain the crosswalk data.frame produced in step (2).
     + Additional arguments `firstCols=` and `orderBy=` control which variables are in the first columns of the output and the sort order, respectively. 
-    + The cleaned structured data are saved as `R` objects for use with the modules.
+    + The cleaned, structured data are saved as `R` objects for use with the modules.
 
 ```{r mod-id-data}
 ## demographics data
@@ -254,7 +254,7 @@ creat.cln <- pullFakeId(creat.in, id.xwalk, 'mod_id',uniq.id = 'subject_uid')
 head(creat.cln)
 saveRDS(creat.cln, file=file.path(dataDir,"creat_mod_id.rds"))
 
-# albumine
+# albumin
 alb.cln <- pullFakeId(alb.in, id.xwalk, 'mod_id', uniq.id = 'subject_uid')
 head(alb.cln)
 saveRDS(alb.cln, file=file.path(dataDir,"alb_mod_id.rds"))
@@ -264,8 +264,8 @@ saveRDS(alb.cln, file=file.path(dataDir,"alb_mod_id.rds"))
 * **Options and parameters**: Before running the processing modules, it is necessary to define several options and parameters. 
 
     + Using `options(pkxwalk =)` allows the modules to access the crosswalk file. 
-    + We can create a `drugname` stub.
-    + We can define the lower limit of quantification (LLOQ) for the drug of interest.
+    + Create a `drugname` stub.
+    + Define the lower limit of quantification (LLOQ) for the drug concentration if applicable.
 
 ```{r mod-setup}
 # set crosswalk option 
@@ -298,7 +298,7 @@ demo.out$exclude
 
 # Pro-Med-Str Part I: IV dose data
 
-* This module processes structured medication data. Only Part I which handles IV dose data is described here. For processing e-prescription data (which is another structured medication data), see [*Pro-Med-Str* - Part II](Pro-Med-Str-Part2.html).
+* This module processes structured medication data. Only Part I which handles IV dose data is described here. For processing structure e-prescription medication data, see [*Pro-Med-Str* - Part II](Pro-Med-Str-Part2.html).
 * The IV dose data comes from two sources:
     + Flow data: patient flow sheets which at this institution record infusion rates and changes to all infusions for all inpatients outside of the operating room.
     + Medication Administration Records (MAR) data: This data record all bolus doses of medications and infusions administered in the operating room.
@@ -418,10 +418,10 @@ str(lab.out)
 # Build-PK-IV
 
 * This module creates PK data for IV medications. 
-* Both dose data from the *Pro-Med-Str1* module and concentration data from the *Pro-DrugLevel* module are required. 
+* Both dose data in the format output from the *Pro-Med-Str1* module and concentration data in the format output from the *Pro-DrugLevel* module are required.
 * Demographic data from the *Pro-Demographic* module and laboratory data from the *Pro-Laboratory* module are optional. 
 * The module is semi-interactive -- it generates several files to check potential data errors, and get feedback from an investigator. If corrected information (‘fix’ files) are provided, the module should be re-run to incorporate the corrections.
-* **run_Build_PK_IVs()** is the function to build PK data with IV dosing data.
+* **run_Build_PK_IV()** is the function to build PK data with IV dosing data.
 
 ```{r Build-PK-IV}
 pk_dat <- run_Build_PK_IV(
