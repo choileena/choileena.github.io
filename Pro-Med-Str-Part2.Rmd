@@ -1,7 +1,7 @@
 ---
 title: "Pro-Med-Str - Part II"
 description: |
-  This lecture describes how to process structured medication data, especially focusing on e-prescription data.
+  This tutorial describes how to process structured medication data, especially focusing on e-prescription data.
 author:
   - name: Elizabeth McNeer
 output:
@@ -17,9 +17,11 @@ library(EHR)
 
 Here add links to vignettes
 
+* See also "Part II: e-prescription data" of "2. EHR Vignette for Structured Data" in `EHR` package
+
 # Introduction
 
-This lecture describes how to use the Pro-Med-Str - Part II module to process structured e-prescription data in *EHRtoPKPD*.
+This tutorial describes how to use the *Pro-Med-Str* - Part II module in *EHRtoPKPD* to process structured e-prescription data.
 
 The major tasks the module performs are as follows:
 
@@ -67,3 +69,7 @@ eRX.out
 ```
 
 In the above example, daily dose was calculated for the first 5 patients by multiplying strength\*dose\*freq.num, and a redundant daily dose was removed for the patient with ID2. In order to calculate a daily dose for the patient with ID3, the strength of 100 from the description was used because STRENGTH_AMOUNT was missing. For the patient with ID6, the dose amounts of 1.5, 1, and 1.5 are added together to get a dose of 4, and the daily dose is calculated as strength\*dose.
+
+### References
+1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
+

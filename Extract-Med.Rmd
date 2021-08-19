@@ -1,7 +1,7 @@
 ---
 title: "Extract-Med"
 description: |
-  This lecture describes how to obtain drug dosing information from unstructured clinical notes using *Extract-Med* module in the system.
+  This tutorial describes how to obtain drug dosing information from unstructured clinical notes using *Extract-Med* module in the system.
 author:
   - name: Hannah L. Weeks, Elizabeth McNeer
 output:
@@ -16,5 +16,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Here add links to vignettes
 
+* See also "Extract-Med" of "1. EHR Vignette for Extract-Med and Pro-Med-NLP" in `EHR` package
+
 # Introduction
+
+
+
+
+### References
+1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
+
+2. Weeks HL, Beck C, McNeer E, Williams ML, Bejan CA, Denny JC, Choi L. medExtractR: A targeted, customizable approach to medication extraction from electronic health records. Journal of the American Medical Informatics Association. 2020 Mar;27(3):407-18. doi: 10.1093/jamia/ocz207.
 

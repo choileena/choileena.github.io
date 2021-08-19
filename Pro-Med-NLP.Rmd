@@ -1,8 +1,9 @@
 ---
 title: "Pro-Med-NLP"
 description: |
-  This lecture describes how to build longitudinal medication dose data from the raw output of an NLP system using the *Pro-Med-NLP* module.
-author: Hannah L. Weeks, Elizabeth McNeer
+  This tutorial describes how to build longitudinal medication dose data from the raw output of an NLP system using the *Pro-Med-NLP* module.
+author: 
+  - name: Hannah L. Weeks, Elizabeth McNeer
 output:
   distill::distill_article:
     toc: true
@@ -38,9 +39,12 @@ findbreaks <- function(x, char = '\\|', charlen = 75) {
 
 Here add links to vignettes
 
+* See also "Pro-Med-NLP" of "1. EHR Vignette for Extract-Med and Pro-Med-NLP" in `EHR` package
+
+
 # Introduction
 
-This lecture describes how to use the *Pro-Med-NLP* module to generate longitudinal medication dose data from the raw output of an NLP system. The module is divided into two parts. Part I parses the raw output and pairs entities together, and Part II calculates dose intake and daily dose and removes redundant information.
+This tutorial describes how to use the *Pro-Med-NLP* module to generate longitudinal medication dose data from the raw output of an NLP system. The module is divided into two parts. Part I parses the raw output and pairs entities together, and Part II calculates dose intake and daily dose and removes redundant information.
 
 # Part I
 
@@ -309,3 +313,9 @@ chk <- do.call(paste, c(k2, sep = '|'))
 lam_part_iii_date <- x[!duplicated(chk),]
 lam_part_iii_date[,c('filename','drugname','drugname_start','dose.daily')]
 ```
+
+### References
+1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
+
+2. McNeer E, Beck C, Weeks HL, Williams ML, James NT, Bejan CA, Choi L. Building Longitudinal Medication Dose Data Using Medication Information Extracted from Clinical Notes in Electronic Health Records. J Am Med Inform Assoc. 2021 Mar 18;28(4):782-790. doi: 10.1093/jamia/ocaa291.
+

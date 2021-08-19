@@ -1,7 +1,7 @@
 ---
 title: "*EHRtoPKPD* Workshops"
 description: |
-  Lecture series demonstrating how to use *EHRtoPKPD* with some examples in EHR package
+  The tutorial series demonstrate how to use the *EHRtoPKPD* with some examples in EHR package.
 output:
   distill::distill_article:
     toc: true
@@ -12,26 +12,27 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Here add links to vignettes
+# Note for Other Modules
+The tutorials for *Pro-Demographic*, Part1 of *Pro-Med-Str*, *Pro-Drug Level*, and *Pro-Laboratory* are provided by giving an example within [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html).
 
 # [*Extract-Med*](Extract-Med.html)
-This lecture describes how to obtain drug dosing information from unstructured clinical notes using *Extract-Med* module in the system.
+This tutorial describes how to obtain drug dosing information from unstructured clinical notes using *Extract-Med* module in the system.
 
 # [*Pro-Med-NLP*](Pro-Med-NLP.html)
-This lecture describes how to build longitudinal medication dose data from the raw output of an NLP system using the *Pro-Med-NLP* module.
-
-# [*Build-PK-Oral*](Build-PK-Oral.html)
-This lecture describes the PK data building procedure in the *EHRtoPKPD* for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.
-
-# [*Build-PK-IV* - Simple](Build-PK-IV-simple.html)
-This lecture describes a simple PK data building procedure in the *EHRtoPKPD* for medications that are typically intravenously administrated. It demonstrates how to quickly build PK data using *Build-PK-IV* without using the data processing modules when cleaned data for concentration, drug dose, demographic and laboratory datasets are already available in an appropriate data form.
-
-# [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html)
-This lecture describes a comprehensive PK data building procedure in the *EHRtoPKPD* for medications that are typically intravenously administrated. It demonstrates how to utilize several data processing modules (e.g., *Pro-Demographic*, *Pro-Med-Str*, *Pro-Drug Level*, *Pro-Laboratory*) to standardize and combine more complex datasets when cleaned data are not available, and then finally build PK data using *Build-PK-IV*.
+This tutorial describes how to build longitudinal medication dose data from the raw output of an NLP system using the *Pro-Med-NLP* module.
 
 # [*Pro-Med-Str* - Part II](Pro-Med-Str-Part2.html)
-This lecture describes how to processes structured medication data, especially focusing on e-prescription data.
+This tutorial describes how to processes structured medication data, especially focusing on e-prescription data.
+
+# [*Build-PK-Oral*](Build-PK-Oral.html)
+This tutorial describes the PK data building procedure in the *EHRtoPKPD* for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data are provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.
+
+# [*Build-PK-IV* - Simple](Build-PK-IV-simple.html)
+This tutorial describes a simple PK data building procedure in the *EHRtoPKPD* for medications that are typically intravenously administrated. It demonstrates how to quickly build PK data using *Build-PK-IV* without using the data processing modules when cleaned data for concentration, drug dose, demographic and laboratory datasets are already available in an appropriate data form.
+
+# [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html)
+This tutorial describes a comprehensive PK data building procedure in the *EHRtoPKPD* for medications that are typically intravenously administrated. It demonstrates how to utilize several data processing modules (e.g., *Pro-Demographic*, *Pro-Med-Str*, *Pro-Drug Level*, *Pro-Laboratory*) to standardize and combine more complex datasets when cleaned data are not available, and then build PK data using *Build-PK-IV*.
 
 # *Pro-Med-Str* - Part I
-This lecture describes how to processes structured medication data, especially focusing on intravenously given dose data.
+This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.
 

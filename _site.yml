@@ -11,8 +11,18 @@ navbar:
       menu:
         - text: "All Workshops"
           href: workshops.html
-        - text: "about"
-          href: about.html
+        - text: "Extract-Med"
+          href: Extract-Med.html
+        - text: "Pro-Med-NLP"
+          href: Pro-Med-NLP.html
+        - text: "Build-PK-Oral"
+          href: Build-PK-Oral.html
+        - text: "Build-PK-IV - Simple"
+          href: Build-PK-IV-simple.html
+        - text: "Build-PK-IV - Comprehensive"
+          href: Build-PK-IV-comprehensive.html
+        - text: "Pro-Med-Str - Part II"
+          href: Pro-Med-Str-Part2.html
     - text: "About"
       href: about.html
   search: true

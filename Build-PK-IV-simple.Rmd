@@ -1,7 +1,7 @@
 ---
 title: "Build-PK-IV - Simple"
 description: |
-  This lecture describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.
+  This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.
 author:
   - name: Nathan T. James, Leena Choi
 output:
@@ -17,8 +17,12 @@ library(pkdata)
 library(lubridate)
 ```
 
+Here add links to vignettes
+
+* See also "Example 1: Quick Data Building with Processed Datasets" of "2. EHR Vignette for Structured Data" in `EHR` package
+
 # Introduction
-This lecture describes a simple pharmacokinetic (PK) data building procedure in *EHRtoPKPD* for medications that are intravenously (IV) administered. It demonstrates how to quickly build PK data using *Build-PK-IV* when cleaned data for concentration, drug dose, demographic and laboratory datasets are available in the appropriate data format. A comprehensive PK data building procedure with *Build-PK-IV* for IV medications that requires several data processing modules is described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html) (see Choi *et al.*$^{1}$ for details).
+This tutorial describes a simple pharmacokinetic (PK) data building procedure in *EHRtoPKPD* for medications that are intravenously (IV) administered. It demonstrates how to quickly build PK data using *Build-PK-IV* when cleaned data for concentration, drug dose, demographic and laboratory datasets are available in the appropriate data format. A comprehensive PK data building procedure with *Build-PK-IV* for IV medications that requires several data processing modules is described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html) (see Choi *et al.*$^{1}$ for details).
 
 To begin we load the `EHR` package, the `pkdata` package, and the `lubridate` package. 
 
@@ -31,62 +35,66 @@ library(lubridate)
 
 # Quick Data Building with Processed Datasets
 
-We first define a directory for the raw data and a directory for interactive checking output files.
-The data includes a demographic file, a drug concentration file, an IV dosing file, and a laboratory file, which are all cleaned and formatted appropriately. 
+There are **four basic steps** to build a PK dataset quickly.
 
-```{r simp-in}
+### (1) First define directories
+* a directory for the raw data
+* a directory for interactive checking output files
+    
+```{r define-directories}
 # define directories
 rawDataDir <- system.file("examples", "str_ex1", package="EHR")
 td <- tempdir()
 dir.create(file.path(td, 'check1'))
 checkDir <- file.path(td, 'check1')
 
-# read in data
-demo <- read.csv(file.path(rawDataDir,"Demographics_DATA_simple.csv"),stringsAsFactors = FALSE)
-head(demo)
-conc.data <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"),stringsAsFactors = FALSE)
-head(conc.data)
-ivdose.data <- read.csv(file.path(rawDataDir,"IVDose_DATA_simple.csv"),stringsAsFactors = FALSE)
-head(ivdose.data)
-creat.data <- read.csv(file.path(rawDataDir,"Creatinine_DATA_simple.csv"),stringsAsFactors = FALSE)
-head(creat.data)
 ```
 
-The `EHR` package modules use a standardized naming convention for patient identification (ID) variables. We rename the unique patient-level ID from `patient_id` to `mod_id` and the visit-level ID from `patient_visit_id` to `mod_id_visit`. If there is only a single visit/course per subject the unique patient-level ID and visit-level ID can be the same, however both `mod_id` and `mod_id_visit` should be defined.
+### (2) Prepare cleaned and appropriately formatted data files and load the data files
+* an IV dosing file
+* a drug concentration file
+* a demographic file
+* a laboratory file (optional)
+    
+```{r simp-in}
+# read in data
+ivdose.data <- read.csv(file.path(rawDataDir,"IVDose_DATA_simple.csv"),stringsAsFactors = FALSE)
+head(ivdose.data, 3)
+conc.data <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"),stringsAsFactors = FALSE)
+head(conc.data, 3)
+demo <- read.csv(file.path(rawDataDir,"Demographics_DATA_simple.csv"),stringsAsFactors = FALSE)
+head(demo, 3)
+creat.data <- read.csv(file.path(rawDataDir,"Creatinine_DATA_simple.csv"),stringsAsFactors = FALSE)
+head(creat.data, 3)
+
+```
+
+### (3) Rename ID variables with standardized names
+* The `EHR` package modules use a standardized naming convention for patient identification (ID) variables. We rename the unique patient-level ID from `patient_id` to `mod_id` and the visit-level ID from `patient_visit_id` to `mod_id_visit`. If there is only a single visit/course per subject, the unique patient-level ID and visit-level ID can be the same, however both `mod_id` and `mod_id_visit` should be defined.
 
 ```{r simp-rename}
+# rename ID variables
 names(conc.data)[1:2] <- names(demo)[1:2] <- c("mod_id", "mod_id_visit")
 names(creat.data)[1] <- names(ivdose.data)[1] <- "mod_id"
+
 ```
 
-<!--
-```{r simp-mods}
-demo.data <- list(demo=demo, exclude=NULL)
-creat.data$date.time <- lubridate::ymd_hms(creat.data$date.time)
-```
 
-```{r simp-xwalk}
-mod_id <- demo[,c("mod_id", "mod_id_visit")]
-pat_id <- mod_id
-names(pat_id) <- c("patient_id","patient_visit_id")
-xwalk1 <- cbind(mod_id, pat_id)
-options(pkxwalk = 'xwalk1')
-```
--->
-
-Using the four datasets, we can build a final PK dataset with the function `run_Build_PK_IV()`.
-
+### (4) Build a final PK dataset with the function `run_Build_PK_IV()` using the prepared datasets above
+* Notice that the data building function generates an automatic message that tells some information about the data processing as well as the final dataset including the variables, the sample size, and missingness - see the message below.
+    
 ```{r sim-build-pk-iv}
+# running run_Build_PK_IV()
 simple_pk_dat <- run_Build_PK_IV(
     conc=conc.data,
     dose=ivdose.data,
-    lab.dat = list(creat.data),
-    lab.vars = c('creat'),
     demo.list = demo,
     demo.vars=c('weight', 'weight_demo', 'height', 'gender', 'ageatsurgery',
                 'stat_sts', 'cpb_sts', 'length_of_icu_stay'),
     demo.abbr=c('wgt', 'wgt_demo', 'height', 'gender',
                 'age', 'stat', 'cpb', 'loi'),
+    lab.dat = list(creat.data),
+    lab.vars = c('creat'),
     pk.vars=c('mod_id_visit', 'time', 'conc', 'dose', 'rate', 'event',
               'other', 'multiple.record', 'date', 'mod_id'),
     drugname='fent',
@@ -94,11 +102,10 @@ simple_pk_dat <- run_Build_PK_IV(
 ```
 
 ```{r sim-build-pk-iv-out}
+# the final PK dataset
 head(simple_pk_dat,15)
 ```
 
 
 ### References
-
-1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr; 107(4): 934-943.  
-
+1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
