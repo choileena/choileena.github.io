@@ -7,17 +7,18 @@ author:
 output:
   distill::distill_article:
     toc: true
-    toc_depth: 1
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(R.options = list(width = 120))
 library(EHR)
 ```
 
 Here add links to vignettes
 
-* See also "Part II: e-prescription data" of "2. EHR Vignette for Structured Data" in `EHR` package
+* See also "Part II: e-prescription data" of "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" in `EHR` package
 
 # Introduction
 

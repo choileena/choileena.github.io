@@ -7,11 +7,12 @@ author:
 output:
   distill::distill_article:
     toc: true
-    toc_depth: 1
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(R.options = list(width = 120))
 library(EHR)
 ```
 
@@ -39,7 +40,7 @@ findbreaks <- function(x, char = '\\|', charlen = 75) {
 
 Here add links to vignettes
 
-* See also "Pro-Med-NLP" of "1. EHR Vignette for Extract-Med and Pro-Med-NLP" in `EHR` package
+* See also "Pro-Med-NLP" of "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" in `EHR` package 
 
 
 # Introduction
@@ -50,14 +51,14 @@ This tutorial describes how to use the *Pro-Med-NLP* module to generate longitud
 
 Two main functions are used in this part of the module, a parse function and `buildDose`.
 
-### Parse functions
+## Parse functions
 Parse functions are available for the medExtractR, MedXN, CLAMP, and MedEx systems (`parseMedExtractR`, `parseMedXN`, `parseCLAMP`, `parseMedEx`). If the user has output from another NLP system, the user can write code to standardize the output before calling the `buildDose` function.
 
 In this tutorial, we will demonstrate the process using the `parseMedExtractR` function. See "1. EHR Vignette for Extract-Med and Pro-Med-NLP" in the `EHR` package for details on the other parse functions.
 
 The parse functions output a standardized form of the data that includes a row for each drug mention and columns for all entities anchored to that drug mention.
 
-### Running `parseMedExtractR`
+## Running `parseMedExtractR`
 
 First, we create variables for the filenames of our raw NLP system data. In the `EHR` package, we have example medExtractR data for tacrolimus and lamotrigine.
 
@@ -91,7 +92,7 @@ lam_mxr_parsed
 
 We now have a single row for each drug mention, but we need to pair appropriate entities together. For example, the third lamotrigine mention has two different doses and two different frequencies. The dose of "3" should be paired with the frequency "morning", and the dose of "2" should be paired with the frequency "evening". In the next section, we describe how to use the `buildDose` function to process this parsed data.
 
-### `buildDose`
+## `buildDose`
 
 After the NLP output is parsed, the `buildDose` function is run to pair the parsed entities. The main `buildDose` function arguments are as follows:
 
@@ -100,7 +101,7 @@ After the NLP output is parsed, the `buildDose` function is run to pair the pars
 
 The output of the `buildDose` function is a dataset with a column for each entity and a row for each pairing.
 
-### Running `buildDose`
+## Running `buildDose`
 
 In our medExtractR example from above, the output of the `buildDose` function is the following:
 
@@ -123,7 +124,7 @@ lam_checkForRare <- buildDose(lam_mxr_parsed, checkForRare=TRUE)
 
 In Part II of the module, we form the final analysis datasets containing computed dosing information at the note and date level for each patient. This process requires more detailed meta data associated with each clinical note file, the format of which is described below.
 
-### `noteMetaData`
+## `noteMetaData`
 
 The meta data argument is required by the functions `collapseDose` and `processLastDose`, and requires four columns: `filename`, `pid`, `date`, `note`. In our example data, pid (patient ID), date, and note can all be extracted from the filename. Take the filename "tacpid1_2008-06-26_note1_1.txt" for example. It contains information in the form "[PID]\_[date]\_[note]", where PID = "tacpid1", date = "2008-06-26" and note = "note1". The function below can build our meta data from each of the filenames.
 
@@ -139,7 +140,7 @@ bmd("tacpid1_2008-06-26_note1_1.txt")
 (tac_metadata <- bmd(tac_part_i_out[['filename']]))
 ```
 
-### `collapseDose`
+## `collapseDose`
 
 The main function used in Part II of the module is the `collapseDose` function. The output of this function is the final dose data with entities standardized, missing values imputed, dose intake and daily dose calculated, and redundancies removed. Two `data.frames` are generated one with redundancies removed at the note level and one at the date level (see McNeer et al. (2020) for details).
 
@@ -151,7 +152,7 @@ The `collapseDose` function requires the following arguments:
 - `noteMetaData`: a `data.frame` with columns for filename, pid (patient id), date, and note
 - `naFreq`: method to use when assigning missing frequencies; the default is to assign the most common frequency
 
-### Running `collapseDose`
+## Running `collapseDose`
 Below, we demonstrate `collapseDose` using our lamotrigine example. In the function call, we supply an additional argument `'xr|er'` to indicate that we want to separately consider extended release formulations of lamotrigine, (usually denoted by "XR" or "ER"). This prevents regular lamotrigine mentions from being collapsed with lamotrigine XR mentions, even if the dosage is identical.
 
 ```{r, eval = FALSE}
@@ -215,7 +216,7 @@ In the case where last dose information was extracted from clinical notes using 
 ```
 Note that in the `lastdose` columns, we now have standardized datetime objects instead of the raw extracted expressions.
 
-### Running `collapseDose` with last dose present
+## Running `collapseDose` with last dose present
 
 For our tacrolimus example above, the output of `collapseDose` is below. Note that we use the output from `addLastDose` rather than directly from `buildDose`.
 
