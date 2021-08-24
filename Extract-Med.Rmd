@@ -7,21 +7,93 @@ author:
 output:
   distill::distill_article:
     toc: true
-    toc_depth: 1
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(R.options = list(width = 120))
+library(EHR)
+library(medExtractR)
 ```
 
 Here add links to vignettes
 
-* See also "Extract-Med" of "1. EHR Vignette for Extract-Med and Pro-Med-NLP" in `EHR` package
+* See also "Extract-Med" of "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" in `EHR` package
 
 # Introduction
 
+This tutorial describes how to use the *Extract-Med* module to obtain drug dosing information from unstructured clinical notes. The *Extract-Med* module uses a natural language processing (NLP) system called medExtractR.$^{2}$
 
+# Unstructured Clinical Notes
 
+The input to medExtractR is a clinical note like the one below.
+
+```{r}
+read.delim(system.file("examples", "lampid1_2016-02-05_note5_1.txt", package = "EHR"),header = FALSE)
+```
+
+If we are interested in the medication Lamotrigine, we would need to extract three mentions from the above note:
+
+- "ltg 200 mg (1.5) daily" on line 16
+- "ltg xr 100 mg 3 in am, 2 in pm" on line 17
+- "Lamotrigine XR 300-200" on line 34
+
+The next section demonstrates how to use the `extractMed` function to run the *Extract-Med* module using the example clinical note from above.
+
+# Running `extractMed`
+
+The following arguments must be specified:
+
+- `note_fn`: The file name of the note on which to run the system. This can be either a single file name (e.g., `"clinical_note01.txt"`) or a vector or list of file names (e.g., `c("clinical_note01.txt", "clinical_note02.txt")` or `list("clinical_note01.txt", "clinical_note02.txt")`).  
+- `drugnames`: Names of the drugs for which we want to extract medication dosing information. This can include any way in which the drug name might be represented in the clinical note, such as generic name (e.g., `"lamotrigine"`), brand name (e.g., `"Lamictal"`), or an abbreviation (e.g., `"LTG"`).  
+- `drgunit`: The unit of the drug(s) listed in `drugnames`, for example `"mg"`.  
+- `windowlength`: Length of the search window around each found drug name in which to search for dosing information. There is no default for this argument, requiring the user to carefully consider its value through tuning (see "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" for more information on tuning).  
+- `max_edit_dist`: The maximum edit distance allowed when identifying `drugnames`. Maximum edit distance determines the difference between two strings, and is defined as the number of insertions, deletions, or substitutions required to change one string into the other. This allows us to capture misspellings in the drug names we are searching for, and its value should be carefully considered through tuning (see "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" for more information on tuning).   
+
+  - The default value is '0', or exact spelling matches to `drugnames`. A value of 0 is always used for drug names with less than 5 characters regardless of the value set by `max_edit_dist`. 
+  - A value of 1 would capture mistakes such as a single missing or extra letter, e.g., "tacrlimus" or "tacroolimus" instead of "tacrolimus"  
+  - A value of 2 would capture these mistakes or a single transposition, e.g. "tcarolimus" instead of "tacrolimus"  
+  - Higher values (3 or above) would capture increasingly more severe mistakes, though setting the value too high can cause similar words to be mistaken as the drug name. 
+
+Below we show how we would run `extractMed` using the example clinical note from the previous section.
+
+```{r}
+mxr_out <- extractMed(note_fn = system.file("examples", "lampid1_2016-02-05_note5_1.txt", package = "EHR"),
+                       drugnames = c("lamotrigine", "lamotrigine XR", 
+                                     "lamictal", "lamictal XR", 
+                                     "LTG", "LTG XR"),
+                       drgunit = "mg",
+                       windowlength = 130,
+                       max_edit_dist = 1,
+                       strength_sep="-")
+```
+
+The additional argument, `strength_sep`, allows users to specify special characters to separate doses administered at different times of day. For example, consider the drug mention "Lamotrigine XR 300-200" from our example clinical note. This indicates that the patient takes 300 mg of the drug in the morning and 200 mg in the evening. Setting `strength_sep = c('-')` would allow `extractMed` to identify *300* and *200* as "Dose" (i.e., dose given intake) since they are separated by the special character "-". The default value is `NULL`.  
+
+Another additional argument allowed in the `extractMed` function is `lastdose`. This is a logical input specifying whether or not the last dose time entity should be extracted. Default value is `FALSE`. See "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" and the "[Pro-Med-NLP Workshop](https://choileena.github.io/Pro-Med-NLP.html)" for more information on last dose.
+
+# Output of `extractMed`
+
+```{r}
+mxr_out
+```
+
+The output from the *Extract-Med* module is a `data.frame` with 4 columns:  
+
+- `filename`: The file name of the corresponding clinical note, to label results.  
+- `entity`: The label of the entity for the extracted expression.  
+- `expr`: Expression extracted from the clinical note.  
+- `pos`: Position of the extracted expression in the note, in the format `startPosition:stopPosition`  
+
+In the above output, we see that all three lamotrigine mentions from our example clinical note have been extracted, and each expression has been assigned the appropriate entity label and position.
+
+The output of `extractMed` must be saved as a CSV file (see code below), the filename of which will serve as the first input to the *Pro-Med-NLP* module (see "[Pro-Med-NLP Workshop](https://choileena.github.io/Pro-Med-NLP.html)").
+
+```{r, eval = FALSE}
+# save as csv file
+write.csv(mxr_out, file='mxr_out.csv', row.names=FALSE)
+```
 
 ### References
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
