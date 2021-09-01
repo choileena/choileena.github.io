@@ -55,7 +55,7 @@ The NLP system is available as an R package, *medExtractR*, and the functions to
 
 * Cole Beck
 * Elizabeth McNeer
-* <a href="michaelleewilliams.github.io">Michael Williams</a>
+* <a href="https://michaelleewilliams.github.io">Michael Williams</a>
 
 <img src="img/MLWpic2.jpeg" class="lhs100" />
 
