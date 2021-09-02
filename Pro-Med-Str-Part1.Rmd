@@ -1,9 +1,9 @@
 ---
-title: "Pro-Demographic"
+title: "Pro-Med-Str - Part I"
 description: |
-  This tutorial describes how to process demographic data using *Pro-Demographic* module in the system.
+  This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.
 author:
-  - name: Michael L. Williams
+  - name: Nathan T. James
 output:
   distill::distill_article:
     toc: true
@@ -16,19 +16,18 @@ knitr::opts_chunk$set(R.options = list(width = 120))
 library(EHR)
 ```
 
-* See also "Pro-Demographic" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
+* See also "Pro-Med-Str Part I: IV dose data" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
 
 # Introduction
 
-This tutorial describes how to use the *Pro-Demographic* module to process demographic data (see Choi *et al.*$^{1}$ for details).
+This tutorial describes how to use the *Pro-Med-Str* - Part II module in *EHRtoPKPD* to process intravenously given dose data (see Choi *et al.*$^{1}$ for details).
 
 To begin we load the `EHR` package. 
 
 ```{r load-lib-dir, eval=FALSE}
-# load EHR package
+# load EHR package and dependency
 library(EHR)
 ```
-
 
 
 

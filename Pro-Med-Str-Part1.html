@@ -86,30 +86,30 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Choi Lab: Pro-Drug Level</title>
+  <title>Choi Lab: Pro-Med-Str - Part I</title>
   
-  <meta property="description" itemprop="description" content="This tutorial describes how to process drug concentration data using *Pro-Drug Level* module in the system."/>
+  <meta property="description" itemprop="description" content="This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data."/>
   
   
-  <meta name="article:author" content="Michael L. Williams"/>
+  <meta name="article:author" content="Nathan T. James"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Choi Lab: Pro-Drug Level"/>
+  <meta property="og:title" content="Choi Lab: Pro-Med-Str - Part I"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="This tutorial describes how to process drug concentration data using *Pro-Drug Level* module in the system."/>
+  <meta property="og:description" content="This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Choi Lab"/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Choi Lab: Pro-Drug Level"/>
-  <meta property="twitter:description" content="This tutorial describes how to process drug concentration data using *Pro-Drug Level* module in the system."/>
+  <meta property="twitter:title" content="Choi Lab: Pro-Med-Str - Part I"/>
+  <meta property="twitter:description" content="This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data."/>
   
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output"]}},"value":[{"type":"character","attributes":{},"value":["Pro-Drug Level"]},{"type":"character","attributes":{},"value":["This tutorial describes how to process drug concentration data using *Pro-Drug Level* module in the system.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Michael L. Williams"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output"]}},"value":[{"type":"character","attributes":{},"value":["Pro-Med-Str - Part I"]},{"type":"character","attributes":{},"value":["This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Nathan T. James"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2095,7 +2095,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Pro-Drug Level","description":"This tutorial describes how to process drug concentration data using *Pro-Drug Level* module in the system.","authors":[{"author":"Michael L. Williams","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
+{"title":"Pro-Med-Str - Part I","description":"This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.","authors":[{"author":"Nathan T. James","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2137,14 +2137,14 @@ Workshops
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Pro-Drug Level</h1>
+<h1>Pro-Med-Str - Part I</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial describes how to process drug concentration data using <em>Pro-Drug Level</em> module in the system.</p></p>
+<p><p>This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.</p></p>
 </div>
 
 <div class="d-byline">
-  Michael L. Williams  
+  Nathan T. James  
   
 
 </div>
@@ -2160,14 +2160,14 @@ Workshops
 </nav>
 </div>
 <ul>
-<li>See also “Pro-Drug Level” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
+<li>See also “Pro-Med-Str Part I: IV dose data” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes how to use the <em>Pro-Drug Level</em> module to process drug concentration data (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
+<p>This tutorial describes how to use the <em>Pro-Med-Str</em> - Part II module in <em>EHRtoPKPD</em> to process intravenously given dose data (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
 <p>To begin we load the <code>EHR</code> package.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package and dependency</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
 </code></pre>
 </div>

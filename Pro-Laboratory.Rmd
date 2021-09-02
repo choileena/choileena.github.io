@@ -25,9 +25,8 @@ This tutorial describes how to use the *Pro-Laboratory* module to process labora
 To begin we load the `EHR` package. 
 
 ```{r load-lib-dir, eval=FALSE}
-# load EHR package and dependency
+# load EHR package
 library(EHR)
-library(medExtractR)
 ```
 
 

@@ -27,7 +27,7 @@ This tutorial describes how to process drug concentration data using *Pro-Drug L
 # [*Pro-Laboratory*](Pro-Laboratory.html)
 This tutorial describes how to process laboratory data using *Pro-Laboratory* module in the system.
 
-# [*Pro-Med-Str* - Part I](Build-PK-IV-comprehensive.html)
+# [*Pro-Med-Str* - Part I](Pro-Med-Str-Part1.html)
 This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data. 
 
 # [*Pro-Med-Str* - Part II](Pro-Med-Str-Part2.html)
