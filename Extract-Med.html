@@ -2179,49 +2179,44 @@ Workshops
 <h1 id="unstructured-clinical-notes">Unstructured Clinical Notes</h1>
 <p>The input to medExtractR is a clinical note like the one below.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.delim</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"lampid1_2016-02-05_note5_1.txt"</span>, package <span class='op'>=</span> <span class='st'>"EHR"</span><span class='op'>)</span>,header <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>                                                                                                                         V1
-1                                                                                                Clinic Summary - Neurology
-2                                                        Appointment with **NAME[ZZZ, YYY XXX] on **DATE[Feb 05 2016] 12:30
-3                                                                                                        Neurology Practice
-4                                                                                                          **STREET-ADDRESS
-5                                                                                                     **PLACE Research Bldg
-6                                                                                                   **PLACE, TN, **ZIP-CODE
-7                                                                                                                   **PHONE
-8                                                                                                              Vital Signs:
-9                                                 [**DATE[Feb 05 2016] 12:35]: Pulse: 94 bpm; BP: 128/91 mm Hg; O2Sat: 98 %
-10                                                                                  Health Problems (today or in the past):
-11                                                                                                                 Epilepsy
-12                                                                                                                Neck pain
-13                                                                                                    Headache [migrainous]
-14                                                                                                             Medications:
-15                                                                                             lyrica 100mg prn twice daily
-16                                                                                                   ltg 200 mg (1.5) daily
-17                                                                                           ltg xr 100 mg 3 in am, 2 in pm
-18                                                                                                               Allergies:
-19                                                                                                        penicillin (rash)
-20                                                                   Clinical Instructions/Patient Education/Decision Aids:
-21                                                                                                               Labs today
-22                                                                                                  Significant Procedures:
-23                                                                                                       2006: NECK SURGERY
-24                                                                                                           Tobacco usage:
-25                                                                            Patient has smoked in the past 12 months: Yes
-26                                            Patient has smoked: Yes (Patient has smoked more than 100 cigarettes-5 packs)
-27 Currently smokes: Heavy smoker (smokes more than 10 cigarettes or 1/2 pack per day or equivalent amount of pipe or cigar
-28                                                                                                                 tobacco)
-29                                                                                                       Functional Status:
-30                                                    - Serious difficulty concentrating, remembering, or making decisions.
-31                                                                         - Serious difficulty walking or climbing stairs.
-32                                                                                        - Difficulty doing errands alone.
-33                                                                                                     Plan and Assessment:
-34                                                                      Patient will continue taking Lamotrigine XR 300-200
-35                                                                                  Electronically Signed By: **[NAME XXX].
-36 ------------------------------------------------------------------------------------------------------------------------
-37                                                                                                        Health Care Team:
-38                                                                          - **NAME[CCC, XXX DDD] - Primary Care Physician</code></pre>
+<pre><code>                                               Clinic Summary - Neurology
+Appointment with **NAME[ZZZ, YYY XXX] on **DATE[Feb 05 2016] 12:30
+Neurology Practice
+**STREET-ADDRESS
+**PLACE Research Bldg
+**PLACE, TN, **ZIP-CODE
+**PHONE
+Vital Signs:
+[**DATE[Feb 05 2016] 12:35]: Pulse: 94 bpm; BP: 128/91 mm Hg; O2Sat: 98 %
+Health Problems (today or in the past):
+Epilepsy
+Neck pain
+Headache [migrainous]
+Medications:
+lyrica 100mg prn twice daily
+ltg 200 mg (1.5) daily
+ltg xr 100 mg 3 in am, 2 in pm
+Allergies:
+penicillin (rash)
+Clinical Instructions/Patient Education/Decision Aids:
+Labs today
+Significant Procedures:
+2006: NECK SURGERY
+Tobacco usage:
+Patient has smoked in the past 12 months: Yes
+Patient has smoked: Yes (Patient has smoked more than 100 cigarettes-5 packs)
+Currently smokes: Heavy smoker (smokes more than 10 cigarettes or 1/2 pack per day or equivalent amount of pipe or cigar
+tobacco)
+Functional Status:
+- Serious difficulty concentrating, remembering, or making decisions.
+- Serious difficulty walking or climbing stairs.
+- Difficulty doing errands alone.
+Plan and Assessment:
+Patient will continue taking Lamotrigine XR 300-200
+Electronically Signed By: **[NAME XXX].
+------------------------------------------------------------------------------------------------------------------------
+Health Care Team:
+- **NAME[CCC, XXX DDD] - Primary Care Physician</code></pre>
 </div>
 <p>If we are interested in the medication Lamotrigine, we would need to extract three mentions from the above note:</p>
 <ul>

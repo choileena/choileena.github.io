@@ -35,8 +35,8 @@ library(medExtractR)
 
 The input to medExtractR is a clinical note like the one below.
 
-```{r}
-read.delim(system.file("examples", "lampid1_2016-02-05_note5_1.txt", package = "EHR"),header = FALSE)
+```{r, echo = FALSE}
+cat(paste(scan(system.file("examples", "lampid1_2016-02-05_note5_1.txt", package = "EHR"), '', sep = '\n'), collapse = '\n'))
 ```
 
 If we are interested in the medication Lamotrigine, we would need to extract three mentions from the above note:
