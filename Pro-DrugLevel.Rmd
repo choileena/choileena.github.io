@@ -1,0 +1,38 @@
+---
+title: "Pro-Drug Level"
+description: |
+  This tutorial describes how to process drug concentration data using *Pro-Drug Level* module in the system.
+author:
+  - name: Michael L. Williams
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(R.options = list(width = 120))
+library(EHR)
+```
+
+* See also "Pro-Drug Level" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
+
+# Introduction
+
+This tutorial describes how to use the *Pro-Drug Level* module to process drug concentration data (see Choi *et al.*$^{1}$ for details).
+
+To begin we load the `EHR` package. 
+
+```{r load-lib-dir, eval=FALSE}
+# load EHR package and dependency
+library(EHR)
+library(medExtractR)
+```
+
+
+
+
+# References
+1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
+
