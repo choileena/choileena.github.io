@@ -17,13 +17,19 @@ library(EHR)
 library(medExtractR)
 ```
 
-Here add links to vignettes
-
-* See also "Extract-Med" of "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" in `EHR` package
+* See also "Extract-Med" of "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" in `EHR` package.
 
 # Introduction
 
-This tutorial describes how to use the *Extract-Med* module to obtain drug dosing information from unstructured clinical notes. The *Extract-Med* module uses a natural language processing (NLP) system called medExtractR.$^{2}$
+This tutorial describes how to use the *Extract-Med* module to obtain drug dosing information from unstructured clinical notes. The *Extract-Med* module uses a natural language processing (NLP) system called medExtractR (see Choi *et al.*$^{1}$ and Weeks *et al.*$^{2}$ for details).
+
+To begin we load the `EHR` package, and the `medExtractR` package. 
+
+```{r load-lib-dir, eval=FALSE}
+# load EHR package and dependency
+library(EHR)
+library(medExtractR)
+```
 
 # Unstructured Clinical Notes
 
@@ -95,7 +101,7 @@ The output of `extractMed` must be saved as a CSV file (see code below), the fil
 write.csv(mxr_out, file='mxr_out.csv', row.names=FALSE)
 ```
 
-### References
+# References
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
 
 2. Weeks HL, Beck C, McNeer E, Williams ML, Bejan CA, Denny JC, Choi L. medExtractR: A targeted, customizable approach to medication extraction from electronic health records. Journal of the American Medical Informatics Association. 2020 Mar;27(3):407-18. doi: 10.1093/jamia/ocz207.

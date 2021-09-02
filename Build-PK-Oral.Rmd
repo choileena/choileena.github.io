@@ -7,7 +7,7 @@ author:
 output:
   distill::distill_article:
     toc: true
-    toc_depth: 1
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
@@ -18,7 +18,7 @@ library(pkdata)
 library(lubridate)
 ```
 
-* See also "[4. EHR Vignette for Build-PK-Oral](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.html)" in `EHR` package
+* See also "[4. EHR Vignette for Build-PK-Oral](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.html)" in `EHR` package.
 
 # Introduction
 We briefly describe a data format typically used in pharmacokinetics (PK), pharmacodynamics (PD) modeling. Then, we describe oral dosing data commonly obtained from electronic health records (EHRs) in the presence of last dose time and absense of last dose time information. Finally, we explain how to run *Build-PK-Oral* module. 
@@ -102,11 +102,11 @@ If a twice-daily dosing assumption is appropriate, then we can begin to think ab
 
 For this reason, we will break up our algorithm into with and without last-dose times and discuss how we arrive at a final dose-building algorithm.
 
-#### Without Last-Dose Times
+## Without Last-Dose Times
 
 When we do not have an extracted last-dose time, we must work off of only our measured concentration timing and assumptions about how routine therapeutic drug monitoring is typically performed.  The majority of these labs are conducted in the morning, and patients will typically hold off on taking their medications until after the blood draw.  For that reason, we assume that a dose is taken 30 minutes after a measured blood concentration, then proceeds with a dose every 12 hours.  The final dose in the sequence will occur 6-18 hours before the next measured concentration, the timing of which will determine the next sequence of doses, and so on until the final measured concentration.  The first measured concentration requires special attention.  Typical therapeutic drug monitoring procedure suggests it is reasonable to assume that the drug has been taken regularly before this first concentration.  The safest assumptiom, assuming no further information is available, is that the drug has been taken every 12 hours for long enough to reach a steady state of trough concentrations. In our PK dose building algorithm, we use a default of 336 hours (i.e., 14 days), ending 12 hours before the first measured concentration.
 
-#### With Last-Dose times
+## With Last-Dose times
 
 In the case where extracted last-dose times are available, we can begin by building the same dataset as without last-dose times.  We then add a row for a dose corresponding to the extracted last dose time and eliminate an appropriate number of doses from the preceding dose sequence to avoid incorrect double-dosing; this is done by removing doses until the last dose in the sequence is 6-18 hours before the extracted last-dose time.  This allows for last-dose times which are more than 12 hours before the extracted concentration to be appropriately accounted for.
 
@@ -143,7 +143,7 @@ All concentrations are being taken in the morning. Given that this is a drug whi
 - `first_interval_hours`: hours of regular dosing leading up to the first drug concentration; the default is 336 hours = 14 days
 - `imputeClosest`: Vector of columns for imputation of missing data using last observation carried forward or, if unavailable, next observation propagated backward
 
-### (1) Build the PK data without last-dose time
+## (1) Build the PK data without last-dose time
 Suppose we do not have the last-dose time information. For illustrative purpose, we remove this information (i.e., column 8 is omitted in this example data).
 
 ```{r}
@@ -160,7 +160,7 @@ run_Build_PK_Oral(x = dat[,-8],
 
 Note that `addl` and `II` dictate an every-twelve-hour dosing schedule which leads up to the proceeding concentration.  Covariates are preserved and a `time` variable which represents hours since first dose is generated. This data is now in an appropriate format for PK analysis but makes no use of the last-dose times. 
 
-### (2) Build the PK data with last-dose time
+## (2) Build the PK data with last-dose time
 Suppose we do now have the last-dose time information although they are extracted along with some (but not all) concentrations. When last-dose times are avaiable, they can be specified in the argument `ldCol` in the input data (e.g., `ldCol = "ld"`. Then, the sequence of doses leading up to the extracted dose is reduced and a new row is inserted which accurately describes the timing of the dose which precedes the relevant concentration.
 
 ```{r}
@@ -177,5 +177,5 @@ run_Build_PK_Oral(x = dat,
 
 Individual 1 has no extracted last-dose times so their data is unchanged from before. Compare, however, rows 7-9 to rows 7-8 of the previous dataset constructed without last-dose times.  The measured concentration of 14.1 on `date` 2019-11-01 is associated with a last-dose time.  `addl` drops from 69 to 68 and the extracted last-dose is added in row 8 with additional `date` 2019-10-31 20:58:36 which is the last-dose time extracted from clinical notes. Notice that the number of doses leading up to the concentration is unchanged and the timing of the final dose has been adjusted to reflect information in the EHR (i.e., the calculated time of 1162.70 for `time`).  This dataset still relies on assumptions about dosing, but should reflect the actual dosing schedule better by incorporating last-dose times from the EHR.
 
-### References  
+# References  
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.

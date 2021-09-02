@@ -12,16 +12,16 @@ img.lhs100 {
 
 figure.rhs {
   float: right;
-  width: 475px;
+  width: 570px;
   padding-left: 1em;
 }
 
 @media(min-width: 768px) {
 
 d-article {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   line-height: 1.4em;
-  grid-template-columns: [screen-start] 2fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+  grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
 }
 }
 
@@ -30,5 +30,9 @@ pre.sourceCode {
 }
 
 d-article h1 {
-  font-size: 50px;
+  font-size: 30px;
+}
+
+d-article h2 {
+  font-size: 25px;
 }

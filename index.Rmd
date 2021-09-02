@@ -46,7 +46,7 @@ Building drug dose data from extracted dose information can be challenging. To a
 
 For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using [*Pro-Med-Str*](Pro-Med-Str-Part2.html) module. 
 
-Other data elements such as drug levels (*[Pro-Drug Level*](Build-PK-IV-comprehensive.html)), demographics ([*Pro-Demographic*](Build-PK-IV-comprehensive.html)), and laboratory data ([*Pro-Laboratory*](Build-PK-IV-comprehensive.html)) can be processed using our system. These data can be combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., [*Build-PK-IV*](Build-PK-IV-simple.html), [*Build-PK-Oral*](Build-PK-Oral.html)). 
+Other data elements such as drug levels ([*Pro-Drug Level*](Build-PK-IV-comprehensive.html)), demographics ([*Pro-Demographic*](Build-PK-IV-comprehensive.html)), and laboratory data ([*Pro-Laboratory*](Build-PK-IV-comprehensive.html)) can be processed using our system. These data can be combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., [*Build-PK-IV*](Build-PK-IV-simple.html), [*Build-PK-Oral*](Build-PK-Oral.html)). 
 
 The NLP system is available as an R package, *medExtractR*, and the functions to run each module are implemented as an R package, *EHR*. More details can be found in Choi *et al.*$^{1}$, and additional modules will be added in the future as it evolves.
 </div>

@@ -20,9 +20,9 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -32,14 +32,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -48,9 +50,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
@@ -2056,16 +2058,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   
   figure.rhs {
     float: right;
-    width: 475px;
+    width: 570px;
     padding-left: 1em;
   }
   
   @media(min-width: 768px) {
   
   d-article {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     line-height: 1.4em;
-    grid-template-columns: [screen-start] 2fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
   }
   }
   
@@ -2074,7 +2076,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
   
   d-article h1 {
-    font-size: 50px;
+    font-size: 30px;
+  }
+  
+  d-article h2 {
+    font-size: 25px;
   }
   
   </style>
@@ -2134,7 +2140,7 @@ Workshops
 <h1>Pro-Med-NLP</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>This tutorial describes how to build longitudinal medication dose data from the raw output of an NLP system using the <em>Pro-Med-NLP</em> module.</p>
+<p><p>This tutorial describes how to build longitudinal medication dose data from the raw output of an NLP system using the <em>Pro-Med-NLP</em> module.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2163,18 +2169,26 @@ Workshops
 <li><a href="#handling-lastdose">Handling <code>lastdose</code></a><ul>
 <li><a href="#running-collapsedose-with-last-dose-present">Running <code>collapseDose</code> with last dose present</a></li>
 </ul></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<p>Here add links to vignettes</p>
 <ul>
-<li>See also “Pro-Med-NLP” of “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” in <code>EHR</code> package</li>
+<li>See also “Pro-Med-NLP” of “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” in <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes how to use the <em>Pro-Med-NLP</em> module to generate longitudinal medication dose data from the raw output of an NLP system. The module is divided into two parts. Part I parses the raw output and pairs entities together, and Part II calculates dose intake and daily dose and removes redundant information.</p>
+<p>This tutorial describes how to use the <em>Pro-Med-NLP</em> module to generate longitudinal medication dose data from the raw output of an NLP system. The module is divided into two parts. Part I parses the raw output and pairs entities together, and Part II calculates dose intake and daily dose and removes redundant information (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> and McNeer <em>et al.</em><span class="math inline">\(^{2}\)</span> for details).</p>
+<p>To begin we load the <code>EHR</code> package.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
 <h1 id="part-i">Part I</h1>
 <p>Two main functions are used in this part of the module, a parse function and <code>buildDose</code>.</p>
 <h2 id="parse-functions">Parse functions</h2>
@@ -2379,7 +2393,7 @@ Workshops
 7 tacpid1_2008-12-16_note3_1.txt tacpid1 2008-12-16 note3</code></pre>
 </div>
 <h2 id="collapsedose"><code>collapseDose</code></h2>
-<p>The main function used in Part II of the module is the <code>collapseDose</code> function. The output of this function is the final dose data with entities standardized, missing values imputed, dose intake and daily dose calculated, and redundancies removed. Two <code>data.frames</code> are generated one with redundancies removed at the note level and one at the date level (see McNeer et al. (2020) for details).</p>
+<p>The main function used in Part II of the module is the <code>collapseDose</code> function. The output of this function is the final dose data with entities standardized, missing values imputed, dose intake and daily dose calculated, and redundancies removed. Two <code>data.frames</code> are generated one with redundancies removed at the note level and one at the date level (see McNeer et al. (2020) for details).</p>
 <p><code>collapseDose</code> allows the user to split the data using drug names given by regular expressions (<code>...</code>). For example, if the data includes multiple drugs, regular expressions can be specified for each drug. Another use of this function is to split the data by different formulations of the drug, such as separating immediate release formulations from extended release formulations, which are often written using “XR” or “ER” in the drug name.</p>
 <p>The <code>collapseDose</code> function requires the following arguments:</p>
 <ul>
@@ -2458,7 +2472,7 @@ Workshops
 <li><code>noteMetaData</code>: note meta data for each file name in <code>mxrData</code></li>
 <li><code>labData</code>: a data frame containing lab dates and times associated with the file names within <code>mxrData</code>. This must contain at a minimum the columns <code>pid</code> and <code>date</code> (in the same format as <code>noteMetaData</code>), as well as <code>labtime</code>, a POSIXct variable indicating the date and time of a laboratory drug measurement</li>
 </ul>
-<p>Extracted last dose times can fall into two categories: a time expression (e.g., “10am”, “22:00”, “7 last night”) or a duration expression (e.g. “14 hour” level), where the “time” of last dose indicates the number of hours since the last dose was taken relative to the time of the clinical visit. In the latter case, the lab time (from the <code>labData</code> argument) is needed in order to convert the extracted duration expression into a datetime variable. Below is an example lab dataset for our sample tacrolimus data.</p>
+<p>Extracted last dose times can fall into two categories: a time expression (e.g., “10am”, “22:00”, “7 last night”) or a duration expression (e.g. “14 hour” level), where the “time” of last dose indicates the number of hours since the last dose was taken relative to the time of the clinical visit. In the latter case, the lab time (from the <code>labData</code> argument) is needed in order to convert the extracted duration expression into a datetime variable. Below is an example lab dataset for our sample tacrolimus data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>tac_lab</span>, package <span class='op'>=</span> <span class='st'>'EHR'</span><span class='op'>)</span>
@@ -2559,7 +2573,7 @@ Workshops
 3            761          NA            1           3        2           3       &lt;NA&gt;       NA          6
 4           2179           2           NA          NA        2           2       &lt;NA&gt;       NA          4</code></pre>
 </div>
-<h3 id="references">References</h3>
+<h1 id="references">References</h1>
 <ol type="1">
 <li><p>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</p></li>
 <li><p>McNeer E, Beck C, Weeks HL, Williams ML, James NT, Bejan CA, Choi L. Building Longitudinal Medication Dose Data Using Medication Information Extracted from Clinical Notes in Electronic Health Records. J Am Med Inform Assoc. 2021 Mar 18;28(4):782-790. doi: 10.1093/jamia/ocaa291.</p></li>
@@ -2572,6 +2586,15 @@ Workshops
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
