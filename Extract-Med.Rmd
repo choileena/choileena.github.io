@@ -3,7 +3,7 @@ title: "Extract-Med"
 description: |
   This tutorial describes how to obtain drug dosing information from unstructured clinical notes using *Extract-Med* module in the system.
 author:
-  - name: Hannah L. Weeks, Elizabeth McNeer
+  - name: Elizabeth McNeer, Hannah L. Weeks
 output:
   distill::distill_article:
     toc: true

@@ -91,7 +91,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="description" itemprop="description" content="This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data."/>
   
   
-  <meta name="article:author" content="Nathan T. James"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Choi Lab: Pro-Med-Str - Part I"/>
@@ -109,7 +108,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output"]}},"value":[{"type":"character","attributes":{},"value":["Pro-Med-Str - Part I"]},{"type":"character","attributes":{},"value":["This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Nathan T. James"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Pro-Med-Str - Part I"]},{"type":"character","attributes":{},"value":["This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2066,7 +2065,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   
   d-article {
     font-size: 1.1rem;
-    line-height: 1.4em;
+    line-height: 1.3em;
     grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
   }
   }
@@ -2095,7 +2094,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Pro-Med-Str - Part I","description":"This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.","authors":[{"author":"Nathan T. James","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
+{"title":"Pro-Med-Str - Part I","description":"This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2143,11 +2142,6 @@ Workshops
 <p><p>This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.</p></p>
 </div>
 
-<div class="d-byline">
-  Nathan T. James  
-  
-
-</div>
 
 <div class="d-article">
 <div class="d-contents d-contents-float">
@@ -2155,6 +2149,9 @@ Workshops
 <h3>Contents</h3>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#input-raw-dose-data">Input raw dose data</a></li>
+<li><a href="#running-run_medstri">Running <code>run_MedStrI()</code></a></li>
+<li><a href="#output-of-run_medstri">Output of <code>run_MedStrI()</code></a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </nav>
@@ -2163,20 +2160,168 @@ Workshops
 <li>See also “Pro-Med-Str Part I: IV dose data” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes how to use the <em>Pro-Med-Str</em> - Part II module in <em>EHRtoPKPD</em> to process intravenously given dose data (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
-<p>To begin we load the <code>EHR</code> package.</p>
+<p>This tutorial describes how to use the <em>Pro-Med-Str</em> - Part II module in <em>EHRtoPKPD</em> system to process intravenous (IV) dose data (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
+<p>To begin we load the <code>EHR</code> package,</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package and dependency</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
+<p>and define three directories:</p>
+<ul>
+<li>one for raw structured data</li>
+<li>one containing files used for interactive checking</li>
+<li>one for processed data.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># define 3 directories</span>
+<span class='va'>rawDataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span> <span class='co'># directory for raw data</span>
+
+<span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>checkDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span> <span class='co'># directory for interactive checking</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span> <span class='co'># directory for processed data</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<h1 id="input-raw-dose-data">Input raw dose data</h1>
+<ul>
+<li>IV dose data can be in various forms, which may need to be pre-processed. As IV dose data can be obtained from different data sources when using electronic health records (EHRs), we illustrate this module using example datasets that come from two sources:
+<ul>
+<li>Flow data: Patient flow sheets which at this institution record infusion rates and changes to all infusions for all inpatients outside of the operating room.</li>
+<li>Medication Administration Records (MAR) data: This data record all bolus doses of medications and infusions administered in the operating room.</li>
+</ul></li>
+<li>Note that if dose data come from a single data file, only this data file needs to be read in.</li>
+</ul>
+<p>The cleaned, structured data saved as <code>R</code> objects for use with <code>run_MedStrI()</code> module are shown below.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># flow dosing data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>flow.cln</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  mod_id mod_visit mod_id_visit     Perform.Date FOCUS_MEDNAME Final.Wt..kg. Final.Rate..NFR.units. Final.Units Flow
+1     13         1         13.1   12/4/2016 5:30      Fentanyl          6.75            1 mcg/kg/hr       3.375   NA
+2     13         1         13.1   12/4/2016 6:00      Fentanyl          6.75            1 mcg/kg/hr       6.750  0.1
+3     13         1         13.1   12/4/2016 7:00      Fentanyl          6.75            1 mcg/kg/hr       4.500  0.1
+4     13         1         13.1   12/4/2016 7:40      Fentanyl          6.75            0 mcg/kg/hr       0.000   NA
+5     14         1         14.1 12/24/2016 19:30      Fentanyl          2.60            2 mcg/kg/hr       2.600   NA
+6     14         1         14.1 12/24/2016 20:00      Fentanyl          2.60            2 mcg/kg/hr       5.200  0.2</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># mar dosing data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mar.cln</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  mod_id       Date  Time                 med:mDrug   med:dosage med:route med:freq med:given
+1     12 2017-02-04 19:15               Nicardipine 3 mcg/kg/min        IV     &lt;NA&gt;     Given
+2     12 2011-10-02 22:11                Famotidine       4.5 mg        IV   q12hrs     Given
+3     12 2011-10-02 20:17          Morphine sulfate         1 mg        IV  q2h prn     Given
+4     12 2011-10-03 02:28 Diphenhydramine injection        12 mg        IV      now     Given
+5     12 2011-10-02 22:11                 Cefazolin       225 mg        IV    q8hrs     Given
+6     12 2011-10-02 23:30          Morphine sulfate         1 mg        IV  q2h prn     Given</code></pre>
+</div>
+<h1 id="running-run_medstri">Running <code>run_MedStrI()</code></h1>
+<ul>
+<li><p><code>run_MedStrI()</code> is the main function to process IV dose data in <em>Pro-Med-Str</em> Part I module</p></li>
+<li><p>The module is semi-interactive – it generates several files to check potential data errors and get feedback from an investigator. If corrected information (‘fix’ files) are provided, the module should be re-run to incorporate the corrections.</p></li>
+<li><p>The following arguments must be specified:</p>
+<ul>
+<li><code>flow.path</code>: file path where Flow data exist</li>
+<li><code>flow.select</code>: list of variables in the Flow data, which are used for processing</li>
+<li><code>flow.rename</code>: rename variables for the variables in flow.select</li>
+<li><code>flow.mod.list</code>: list containing modifications to variables in the Flow data</li>
+<li><code>medchk.path</code>: file path with list of medication names and variants in MAR data to be used</li>
+<li><code>mar.path</code>: file path where the MAR data exist</li>
+<li><code>demo.list</code>: (optional) demographic data, produced from Pro-Demographic, that can be used to impute weight when missing</li>
+<li><code>check.path</code>: file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist</li>
+<li><code>failflow_fn</code>: filename stub for invalid duplicate rows in the Flow data with rate of 0 check file. The stub will be prepended with the string ‘fail’ to create a .csv with the invalid data. The corrected data with failures replaced should use the same filename stub prepended with the string ‘fix’.
+<ul>
+<li>e.g., if <code>failflow_fn</code> is ‘FailFlow’, the file ‘failFailFlow.csv’ with invalid duplicate rows will be created in the directory specified by <code>check.path</code>. The corrected version named ‘fixFailFlow.csv’ should be placed in the same directory.</li>
+</ul></li>
+<li><code>failunit_fn</code>: filename stub for records with units other than those specified with <code>infusion.unit</code> and <code>bolus.unit</code></li>
+<li><code>failnowgt_fn</code>: filename stub for records with missing weight in the Flow data and unit involving ‘kg’</li>
+<li><code>infusion.unit</code>: string specifying units for infusion doses (default: ‘mcg/kg/hr’)</li>
+<li><code>bolus.unit</code>: string specifying units for bolus doses (default: ‘mcg’)</li>
+<li><code>bol.rate.thresh</code>: upper bound for retaining bolus doses. Bolus units with a rate above the threshold are dropped (default: Inf; i.e., keep all bolus doses)</li>
+<li><code>drugname</code>: drug name of interest (e.g., dex, fent)</li>
+</ul></li>
+</ul>
+<p>Below we show how we would run <code>run_MedStrI()</code> using the cleaned dose datasets (i.e., the Flow data and the MAR data) as input.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># define parameters</span>
+<span class='va'>drugname</span> <span class='op'>&lt;-</span> <span class='st'>'fent'</span>
+
+<span class='va'>ivdose.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_MedStrI.html'>run_MedStrI</a></span><span class='op'>(</span>flow.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"flow_mod_id.rds"</span><span class='op'>)</span>, 
+    flow.select <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'mod_id_visit'</span>,<span class='st'>'Perform.Date'</span>,<span class='st'>'Final.Wt..kg.'</span>,
+                    <span class='st'>'Final.Rate..NFR.units.'</span>,<span class='st'>'Final.Units'</span><span class='op'>)</span>,
+    flow.rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'mod_id_visit'</span>, <span class='st'>'Perform.Date'</span>, <span class='st'>'weight'</span>,
+                    <span class='st'>'rate'</span>, <span class='st'>'final.units'</span><span class='op'>)</span>,
+    flow.mod.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+      date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/pkdata/man/parse_dates.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='va'>Perform.Date</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+      unit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'.*[ ]'</span>, <span class='st'>''</span>, <span class='va'>rate</span><span class='op'>)</span><span class='op'>)</span>,
+      rate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'([0-9.]+).*'</span>, <span class='st'>'\\1'</span>, <span class='va'>rate</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+    medchk.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span><span class='st'>'medChecked-%s.csv'</span>, <span class='va'>drugname</span><span class='op'>)</span><span class='op'>)</span>, 
+    mar.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"mar_mod_id.rds"</span><span class='op'>)</span>,
+    demo.list<span class='op'>=</span><span class='cn'>NULL</span>,
+    check.path<span class='op'>=</span><span class='va'>checkDir</span>, 
+    failflow_fn <span class='op'>=</span> <span class='st'>'FailFlow'</span>,
+    failunit_fn <span class='op'>=</span> <span class='st'>'Unit'</span>,
+    failnowgt_fn <span class='op'>=</span> <span class='st'>'NoWgt'</span>,
+    infusion.unit <span class='op'>=</span> <span class='st'>'mcg/kg/hr'</span>,
+    bolus.unit <span class='op'>=</span> <span class='st'>'mcg'</span>,
+    bol.rate.thresh <span class='op'>=</span> <span class='cn'>Inf</span>,
+    drugname <span class='op'>=</span> <span class='va'>drugname</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>The number of rows in the original data                124
+The number of rows after removing the duplicates       124
+no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/failUnit-fent.csv not created
+#########################
+33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/fixNoWgt-fent.csv
+#########################</code></pre>
+</div>
+<h1 id="output-of-run_medstri">Output of <code>run_MedStrI()</code></h1>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ivdose.out</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  mod_id  date.dose infuse.time.real infuse.time infuse.dose          bolus.time bolus.dose given.dose maxint weight
+1      1 2019-03-31             &lt;NA&gt;        &lt;NA&gt;          NA 2019-03-31 18:40:00       12.5         NA      0     NA
+2      1 2019-03-31             &lt;NA&gt;        &lt;NA&gt;          NA 2019-03-31 19:25:00       12.5         NA      0     NA
+3      1 2019-03-31             &lt;NA&gt;        &lt;NA&gt;          NA 2019-03-31 20:26:00       25.0         NA      0     NA
+4      1 2019-03-31             &lt;NA&gt;        &lt;NA&gt;          NA 2019-03-31 20:59:00       12.5         NA      0     NA
+5      1 2019-03-31             &lt;NA&gt;        &lt;NA&gt;          NA 2019-03-31 21:16:00       37.5         NA      0     NA
+6      1 2019-03-31             &lt;NA&gt;        &lt;NA&gt;          NA 2019-03-31 21:19:00       10.0         NA      0     NA</code></pre>
+</div>
+<ul>
+<li><p>The output from the <em>Pro-Med-Str</em> - Part I module is a <code>data.frame</code> with XXX columns:</p>
+<ul>
+<li><code>mod_id</code>: the new id that will be used to merge datasets.</li>
+<li><code>infuse.time.real</code>: infusion dose time. (NEED??: date.dose, infuse.time, given dose)</li>
+<li><code>infuse.dose</code>: infusion dose.<br />
+</li>
+<li><code>bolus.time</code>: bolus dose time.</li>
+<li><code>bolus.dose</code>: bolus dose.</li>
+<li><code>maxint</code>: IV infusion interval.</li>
+<li><code>weight</code>: subject body weight.</li>
+</ul></li>
+</ul>
+<p>This output is the input of <code>run_Build_PK_IV()</code> function in <em>Build-PK-IV</em> module. In the above output, all variables except <code>maxint</code> and <code>weight</code> are the necessary variables that should be reserved to use <code>run_Build_PK_IV()</code>.</p>
 <h1 id="references">References</h1>
 <ol type="1">
 <li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
