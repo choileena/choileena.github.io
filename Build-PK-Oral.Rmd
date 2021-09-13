@@ -27,7 +27,7 @@ We briefly describe a data format typically used in pharmacokinetics (PK), pharm
 
 Software performing population PK/PD modeling typically requires data to be in roughly the same format, following the data requirement for NONMEM as NONMEM has been used for a long time and considered as the gold standard software to perform population PK/PD analysis. Here is an example of data which is in a suitable format for analysis in NONMEM.
 
-```{r echo=FALSE}
+```{r echo=TRUE}
 library(EHR)
 # Data generating function for examples
 mkdat <- function() {
