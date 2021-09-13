@@ -31,7 +31,7 @@ td <- tempdir()
 dir.create(file.path(td, 'checks'))
 checkDir <- file.path(td, 'checks') # directory for interactive checking
 dir.create(file.path(td, 'data'))
-dataDir <- file.path(td, 'data') # directory for processed data\
+dataDir <- file.path(td, 'data') # directory for processed data
 rawDataDir <- system.file("examples", "str_ex2", package="EHR")
 drugname <- 'fent'
 LLOQ <- 0.05
@@ -42,11 +42,11 @@ LLOQ <- 0.05
 We will use example demographic data to demonstrate the *Pro-Demographic* module. The raw data is shown below.
 
 ```{r}
-demo.in <- demo.in <- readTransform(file.path(rawDataDir, "Demographics_DATA.csv"))
+demo.in <- readTransform(file.path(rawDataDir, "Demographics_DATA.csv"))
 head(demo.in,10)
 ```
 
-Each row in the data represents an individual surgical date.  In this case, each individual is assigned a unique ID and has a recorded gender, weight, and height for each surgery.  The goal of *Pro-Demographic* is to merge this information with medication data to make it suitable for population pharmacokinetic analysis. As such, it is recommended that users develop an understanding of *Pro-Med-NLP* and *Pro-Druglevel* as the *Pro-Demographic* module hfunctions in concert with those modules.
+Each row in the data represents an individual surgical date.  In this case, each individual is assigned a unique ID and has a recorded gender, weight, and height for each surgery.  The goal of *Pro-Demographic* is to make the demographic data suitable for merging with medication data for population pharmacokinetic analysis. As such, it is recommended that users develop an understanding of *Pro-Med-NLP* and *Pro-Druglevel* as the *Pro-Demographic* module hfunctions in concert with those modules.
 
 # Additional data
 
@@ -134,7 +134,7 @@ saveRDS(samp.cln, file=file.path(dataDir,"samp_mod_id.rds"))
 
 # Processing the Datasets
 
-The three datasets are now ready for processing `run_Demo` will configure the demographic data.  Detailed descriptions for `run_MedStrI` and `run_DrugLevel` can be found in their respective modules, *Pro-Med-Str* and *Pro-DrugLevel*.
+The three datasets are now ready for processing, `run_Demo` will configure the demographic data.  Detailed descriptions for `run_MedStrI` and `run_DrugLevel` can be found in their respective modules, *Pro-Med-Str* and *Pro-DrugLevel*.
 
 ```{r}
 demo.out <- run_Demo(demo.path = file.path(dataDir, "demo.rds"))

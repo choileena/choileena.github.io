@@ -2179,7 +2179,7 @@ Workshops
 <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>checkDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span> <span class='co'># directory for interactive checking</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>dataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span> <span class='co'># directory for processed data\</span>
+<span class='va'>dataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span> <span class='co'># directory for processed data</span>
 <span class='va'>rawDataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>
 <span class='va'>drugname</span> <span class='op'>&lt;-</span> <span class='st'>'fent'</span>
 <span class='va'>LLOQ</span> <span class='op'>&lt;-</span> <span class='fl'>0.05</span>
@@ -2190,7 +2190,7 @@ Workshops
 <p>We will use example demographic data to demonstrate the <em>Pro-Demographic</em> module. The raw data is shown below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>demo.in</span> <span class='op'>&lt;-</span> <span class='va'>demo.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/readTransform.html'>readTransform</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"Demographics_DATA.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>demo.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/readTransform.html'>readTransform</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"Demographics_DATA.csv"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>demo.in</span>,<span class='fl'>10</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2217,7 +2217,7 @@ Workshops
 9         0    9/4/2017        1600
 10        0    1/5/2017          NA</code></pre>
 </div>
-<p>Each row in the data represents an individual surgical date. In this case, each individual is assigned a unique ID and has a recorded gender, weight, and height for each surgery. The goal of <em>Pro-Demographic</em> is to merge this information with medication data to make it suitable for population pharmacokinetic analysis. As such, it is recommended that users develop an understanding of <em>Pro-Med-NLP</em> and <em>Pro-Druglevel</em> as the <em>Pro-Demographic</em> module hfunctions in concert with those modules.</p>
+<p>Each row in the data represents an individual surgical date. In this case, each individual is assigned a unique ID and has a recorded gender, weight, and height for each surgery. The goal of <em>Pro-Demographic</em> is to make the demographic data suitable for merging with medication data for population pharmacokinetic analysis. As such, it is recommended that users develop an understanding of <em>Pro-Med-NLP</em> and <em>Pro-Druglevel</em> as the <em>Pro-Demographic</em> module hfunctions in concert with those modules.</p>
 <h1 id="additional-data">Additional data</h1>
 <p>For our example we will merge the above demographic data with MAR data in the following form:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2344,7 +2344,7 @@ Workshops
 </div>
 </div>
 <h1 id="processing-the-datasets">Processing the Datasets</h1>
-<p>The three datasets are now ready for processing <code>run_Demo</code> will configure the demographic data. Detailed descriptions for <code>run_MedStrI</code> and <code>run_DrugLevel</code> can be found in their respective modules, <em>Pro-Med-Str</em> and <em>Pro-DrugLevel</em>.</p>
+<p>The three datasets are now ready for processing, <code>run_Demo</code> will configure the demographic data. Detailed descriptions for <code>run_MedStrI</code> and <code>run_DrugLevel</code> can be found in their respective modules, <em>Pro-Med-Str</em> and <em>Pro-DrugLevel</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>demo.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Demo.html'>run_Demo</a></span><span class='op'>(</span>demo.path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>, <span class='st'>"demo.rds"</span><span class='op'>)</span><span class='op'>)</span>
@@ -2406,9 +2406,9 @@ character(0)</code></pre>
                           drugname<span class='op'>=</span><span class='va'>drugname</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpdMVQnU/checks/failUnit-fent.csv not created
+<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpLPal5W/checks/failUnit-fent.csv not created
 #########################
-75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpdMVQnU/checks/failNoWgt-fent.csv AND create /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpdMVQnU/checks/fixNoWgt-fent.csv
+75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpLPal5W/checks/failNoWgt-fent.csv AND create /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpLPal5W/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2426,7 +2426,7 @@ character(0)</code></pre>
 </code></pre>
 </div>
 <pre><code>#########################
-3 rows need review, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpdMVQnU/checks/failMissingConcDate-fent.csv AND create /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpdMVQnU/checks/fixMissingConcDate-fent.csv
+3 rows need review, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpLPal5W/checks/failMissingConcDate-fent.csv AND create /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpLPal5W/checks/fixMissingConcDate-fent.csv
 #########################
 subjects with concentration missing from sample file
  mod_id mod_id_event
@@ -2437,7 +2437,7 @@ subjects with concentration missing from sample file
 16 total unique subjects ids (including multiple visits) currently in the concentration data
 15 total unique subjects in the concentration data
 #########################
-15 rows need review, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpdMVQnU/checks/multipleSetsConc-fent2021-09-12.csv
+15 rows need review, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpLPal5W/checks/multipleSetsConc-fent2021-09-13.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
 15 total unique subjects in the concentration data</code></pre>
@@ -2462,7 +2462,7 @@ subjects with concentration missing from sample file
 The dimension of the PK data before merging with demographics: 214 x 9
 The number of subjects in the PK data before merging with demographics: 15
 The number of subjects in the demographic file, who meet the exclusion criteria: 0
-check NA frequency in demographics, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpdMVQnU/checks/fent-missing-demo.csv
+check NA frequency in demographics, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpLPal5W/checks/fent-missing-demo.csv
 List of IDs missing at least 1 cpb_sts: 12.1
 The list of final demographic variables: gender
 weight
