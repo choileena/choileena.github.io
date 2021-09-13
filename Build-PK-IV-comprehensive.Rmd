@@ -304,6 +304,9 @@ demo.out$exclude
 * The module is semi-interactive -- it generates several files to check potential data errors and get feedback from an investigator. If corrected information ('fix' files) are provided, the module should be re-run to incorporate the corrections. 
 * **run_MedStrI()** is the function to process IV dose data.
 
+
+
+
 ```{r Pro-Med-Str1}
 ivdose.out <- run_MedStrI(flow.path=file.path(dataDir,"flow_mod_id.rds"), 
     flow.select = c('mod_id','mod_id_visit','Perform.Date','Final.Wt..kg.',
