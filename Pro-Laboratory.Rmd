@@ -48,7 +48,7 @@ creat.new <- dataTransformation(creat.in, rename = c('Subject.uniq' = 'subject_u
 
 # Preparing Raw Laboratory Data for the *Pro-Laboratory* Module
 
-In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package and "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for examples of this process.
+In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are `mod_id`, `mod_visit`, and `mod_id_visit`. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package and "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for examples of this process.
 
 For simplicity, we will skip this step in this tutorial.
 
@@ -79,7 +79,7 @@ creat.out <- run_Labs(lab.path=file.path(dataDir,"creat_new.rds"),
     lab.mod.list = list(date.time = expression(parse_dates(fixDates(paste(date, time))))))
 ```
 
-In the above code, the `lab.mod.list` argument specifies a modification to our dataset to include a `date.time` variable, which is created by combining the original `date` and `time` variables. The `lab.select` argument says that we want to keep the `mod_id`, `date.time`, and `creat` variables.
+In the above code, the `lab.mod.list` argument specifies a modification to our dataset to include a `date.time` variable, which is created by combining the original `date` and `time` variables. The `lab.select` argument says that we want to keep the `subject_uid`, `date.time`, and `creat` variables.
 
 # Output of `run_Labs`
 
