@@ -2118,10 +2118,14 @@ Workshops
 <a href="workshops.html">All Workshops</a>
 <a href="Extract-Med.html">Extract-Med</a>
 <a href="Pro-Med-NLP.html">Pro-Med-NLP</a>
+<a href="Pro-Demographic.html">Pro-Demographic</a>
+<a href="Pro-Drug Level.html">Pro-Drug Level</a>
+<a href="Pro-Laboratory.html">Pro-Laboratory</a>
+<a href="Pro-Med-Str-Part1.html">Pro-Med-Str - Part I</a>
+<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
 <a href="Build-PK-Oral.html">Build-PK-Oral</a>
 <a href="Build-PK-IV-simple.html">Build-PK-IV - Simple</a>
 <a href="Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive</a>
-<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2688,7 +2692,7 @@ Workshops
     flow.rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'mod_id_visit'</span>, <span class='st'>'Perform.Date'</span>, <span class='st'>'weight'</span>,
                     <span class='st'>'rate'</span>, <span class='st'>'final.units'</span><span class='op'>)</span>,
     flow.mod.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-      date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/pkdata/man/parse_dates.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='va'>Perform.Date</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+      date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='va'>Perform.Date</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
       unit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'.*[ ]'</span>, <span class='st'>''</span>, <span class='va'>rate</span><span class='op'>)</span><span class='op'>)</span>,
       rate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'([0-9.]+).*'</span>, <span class='st'>'\\1'</span>, <span class='va'>rate</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
     medchk.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span><span class='st'>'medChecked-%s.csv'</span>, <span class='va'>drugname</span><span class='op'>)</span><span class='op'>)</span>, 
@@ -2706,9 +2710,9 @@ Workshops
 </div>
 <pre><code>The number of rows in the original data                124
 The number of rows after removing the duplicates       124
-no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/failUnit-fent.csv not created
+no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/failUnit-fent.csv not created
 #########################
-33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/fixNoWgt-fent.csv
+33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ivdose.out</span><span class='op'>)</span>
@@ -2746,7 +2750,7 @@ no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqj
 </code></pre>
 </div>
 <pre><code>#########################
-3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/fixMissingConcDate-fent.csv
+3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/fixMissingConcDate-fent.csv
 #########################
 subjects with concentration missing from sample file
  mod_id mod_id_event
@@ -2757,7 +2761,7 @@ subjects with concentration missing from sample file
 16 total unique subjects ids (including multiple visits) currently in the concentration data
 15 total unique subjects in the concentration data
 #########################
-15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/multipleSetsConc-fent2021-09-03.csv
+15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/multipleSetsConc-fent2021-09-15.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
 15 total unique subjects in the concentration data</code></pre>
@@ -2825,9 +2829,9 @@ subjects with concentration missing from sample file
 </code></pre>
 </div>
 <pre><code>#########################
-3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/fixMissingConcDate-fent.csv
+3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/fixMissingConcDate-fent.csv
 #########################
-file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/fixMissingConcDate-fent.csv read with failures replaced
+file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/fixMissingConcDate-fent.csv read with failures replaced
 subjects with concentration missing from sample file
 [1] mod_id       mod_id_event
 &lt;0 rows&gt; (or 0-length row.names)
@@ -2835,7 +2839,7 @@ subjects with concentration missing from sample file
 16 total unique subjects ids (including multiple visits) currently in the concentration data
 15 total unique subjects in the concentration data
 #########################
-15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/multipleSetsConc-fent2021-09-03.csv
+15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/multipleSetsConc-fent2021-09-15.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
 15 total unique subjects in the concentration data</code></pre>
@@ -2849,11 +2853,11 @@ subjects with concentration missing from sample file
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>creat.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Labs.html'>run_Labs</a></span><span class='op'>(</span>lab.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"creat_mod_id.rds"</span><span class='op'>)</span>,
     lab.select <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'date.time'</span>,<span class='st'>'creat'</span><span class='op'>)</span>,
-    lab.mod.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/pkdata/man/parse_dates.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>time</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+    lab.mod.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>time</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='va'>alb.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Labs.html'>run_Labs</a></span><span class='op'>(</span>lab.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"alb_mod_id.rds"</span><span class='op'>)</span>,
     lab.select <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'date.time'</span>,<span class='st'>'alb'</span><span class='op'>)</span>,
-    lab.mod.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/pkdata/man/parse_dates.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>time</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+    lab.mod.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>time</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='va'>lab.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>creat.out</span>, <span class='va'>alb.out</span><span class='op'>)</span>
 
@@ -2905,7 +2909,7 @@ subjects with concentration missing from sample file
 The dimension of the PK data before merging with demographics: 234 x 9
 The number of subjects in the PK data before merging with demographics: 15
 The number of subjects in the demographic file, who meet the exclusion criteria: 2
-check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/fent-missing-demo.csv
+check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/fent-missing-demo.csv
 List of IDs missing at least 1 cpb_sts: 12.1
 The list of final demographic variables: weight
 weight_demo

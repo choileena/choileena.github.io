@@ -27,84 +27,50 @@ To begin we load the `EHR` package,
 library(EHR)
 ```
 
-and define three directories:
+# Input raw dose data
 
-- one for raw structured data
-- one containing files used for interactive checking
-- one for processed data. 
-    
-```{r ex2-dirs}
-# define 3 directories
-rawDataDir <- system.file("examples", "str_ex2", package="EHR") # directory for raw data
+We will use example dose data to demonstrate the *Pro-Med-Str Part I* module. The raw data is shown below.
 
+```{r}
+mar.in0 <- read.csv(system.file("examples", "str_ex2","MAR_DATA.csv", package="EHR"), check.names = FALSE)
+head(mar.in0)
+```
+
+This data consists of a patient ID, date, time, medication name, dosage, route, frequency, and medication given.
+
+The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the *Pro-Med-Str Part I* module. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of the `EHR` package for more information. We demonstrate how to rename the patient ID variable below.
+
+
+```{r}
+mar.new <- dataTransformation(mar.in0, rename = c('Uniq.Id' = 'subject_uid'))
+```
+
+# Preparing Raw Dose Data for the *Pro-Med-Str Part I* Module
+
+In practice, the dose data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are `mod_id`, `mod_visit`, and `mod_id_visit`. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package and "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for examples of this process.
+
+For simplicity, we will skip this step in this tutorial.
+
+We need to save our dataset as an RDS file using `saveRDS` as shown below. Here, we create a temporary directory to store the file using `tempdir` to define two directories, `dataDir` for processed data and `checkDir` containing files used for interactive checking (optional); however, `dataDir` and `checkDir` can be a specific directory on your computer.
+
+```{r}
+# define 2 directories
 td <- tempdir()
-dir.create(file.path(td, 'checks'))
-checkDir <- file.path(td, 'checks') # directory for interactive checking
-
 dir.create(file.path(td, 'data'))
 dataDir <- file.path(td, 'data') # directory for processed data
+dir.create(file.path(td, 'checks'))
+checkDir <- file.path(td, 'checks') # directory for interactive checking
+saveRDS(mar.new, file=file.path(dataDir,"mar_new.rds"))
 ```
 
-```{r echo=FALSE}
-## raw dosing data
-# FLOW dosing data
-flow.in <- readTransform(file.path(rawDataDir, "FLOW_DATA.csv"),
-                         rename = c('Subject.Id' = 'subject_id',
-                                    'Subject.Uniq.Id' = 'subject_uid')) 
-#head(flow.in)
-# MAR dosing data
-mar.in0 <- read.csv(file.path(rawDataDir, "MAR_DATA.csv"), check.names = FALSE)
-mar.in <- dataTransformation(mar.in0, rename = c('Uniq.Id' = 'subject_uid'))
-#head(mar.in)
-
-# define list of input datasets
-data <-  list(flow.in,
-              mar.in)
-
-# define list of vectors or character strings that identify the ID variables
-idcols <-  list(c('subject_id', 'subject_uid'), # id vars in flow.in
-                'subject_uid') # id var in mar.in 
-
-# merge all IDs from cleaned datasets and create new ID variables
-id.xwalk <- idCrosswalk(data, idcols, visit.id="subject_id", uniq.id="subject_uid")
-saveRDS(id.xwalk, file=file.path(dataDir,"module_id_xwalk.rds"))
-#head(id.xwalk)
-
-## cleaned dosing data
-# flow
-flow.cln <- pullFakeId(flow.in, id.xwalk,
-    firstCols = c('mod_id', 'mod_visit', 'mod_id_visit'),
-    uniq.id = 'subject_uid')
-#head(flow.cln)
-saveRDS(flow.cln, file=file.path(dataDir,"flow_mod_id.rds"))
-
-# mar
-mar.cln <- pullFakeId(mar.in, id.xwalk, firstCols = 'mod_id', uniq.id = 'subject_uid')
-#head(mar.cln)
-saveRDS(mar.cln, file=file.path(dataDir,"mar_mod_id.rds"))
-
-```
-
-# Input raw dose data
-* IV dose data can be in various forms, which may need to be pre-processed. As IV dose data can be obtained from different data sources when using electronic health records (EHRs), we illustrate this module using example datasets that come from two sources:
-    + Flow data: Patient flow sheets which at this institution record infusion rates and changes to all infusions for all inpatients outside of the operating room.
-    + Medication Administration Records (MAR) data: This data record all bolus doses of medications and infusions administered in the operating room.
-* Note that if dose data come from a single data file, only this data file needs to be read in.
-
-The cleaned, structured data saved as `R` objects for use with `run_MedStrI()` module are shown below.
-
-```{r cleaned dosing data}
-# flow dosing data
-head(flow.cln)
-
-# mar dosing data
-head(mar.cln)
-
-```
+The next section demonstrates how to use the `run_MedStrI` function to run the *Pro-Med-Str* module.
 
 # Running `run_MedStrI()`
+
+* IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset that comes from one data source for simplicity (see "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for a case when dose data are obtained from two data sources).
+
 * `run_MedStrI()` is the main function to process IV dose data in *Pro-Med-Str* Part I module
-* The module is semi-interactive -- it generates several files to check potential data errors and get feedback from an investigator. If corrected information ('fix' files) are provided, the module should be re-run to incorporate the corrections. 
+* The module can be semi-interactive -- it generates several files to check potential data errors and get feedback from an investigator. If corrected information ('fix' files) are provided, the module should be re-run to incorporate the corrections. 
 
 * The following arguments must be specified:
     + `flow.path`: file path where Flow data exist
@@ -124,24 +90,33 @@ head(mar.cln)
     + `bol.rate.thresh`: upper bound for retaining bolus doses. Bolus units with a rate above the threshold are dropped (default: Inf; i.e., keep all bolus doses)
     + `drugname`: drug name of interest (e.g., dex, fent)
 
-Below we show how we would run `run_MedStrI()` using the cleaned dose datasets (i.e., the Flow data and the MAR data) as input.
+Below we show how we would run `run_MedStrI()` using the cleaned dose dataset, "mar_new.rds", as input.
 
 ```{r Pro-Med-Str1}
 # define parameters
 drugname <- 'fent'
 
-ivdose.out <- run_MedStrI(flow.path=file.path(dataDir,"flow_mod_id.rds"), 
+ivdose.out <- run_MedStrI(
+    flow.path=NULL,
     flow.select = c('mod_id','mod_id_visit','Perform.Date','Final.Wt..kg.',
                     'Final.Rate..NFR.units.','Final.Units'),
     flow.rename = c('mod_id','mod_id_visit', 'Perform.Date', 'weight',
                     'rate', 'final.units'),
     flow.mod.list = list(
-      date.time = expression(parse_dates(fixDates(Perform.Date))),
-      unit = expression(sub('.*[ ]', '', rate)),
-      rate = expression(as.numeric(sub('([0-9.]+).*', '\\1', rate)))),
-    medchk.path=file.path(rawDataDir, sprintf('medChecked-%s.csv', drugname)), 
-    mar.path=file.path(dataDir,"mar_mod_id.rds"),
+      date.time =
+    expression(pkdata::parse_dates(fixDates(Perform.Date))), unit =
+    expression(sub(".*[ ]", "", rate)), rate = expression(as.numeric(sub("([0-9.]+).*",
+    "\\1", rate)))),
+    mar.path=file.path(dataDir,"mar_new.rds"),
+    mar.datetimeCol = c('Date', 'Time'),
+    mar.doseCol = 'med:dosage',
+    mar.drugCol = 'med:mDrug',
+    mar.weightCol = NULL,
+    mar.givenCol = NULL,
+    medGivenReq = TRUE,
+    medchk.path=file.path(system.file("examples", "str_ex2", package="EHR"), sprintf('medChecked-%s.csv', drugname)),
     demo.list=NULL,
+    missing.wgt.path = NULL,
     check.path=checkDir, 
     failflow_fn = 'FailFlow',
     failunit_fn = 'Unit',
@@ -149,8 +124,11 @@ ivdose.out <- run_MedStrI(flow.path=file.path(dataDir,"flow_mod_id.rds"),
     infusion.unit = 'mcg/kg/hr',
     bolus.unit = 'mcg',
     bol.rate.thresh = Inf,
-    drugname = drugname)
-
+    rateunit = "mcg/hr",
+    ratewgtunit = "mcg/kg/hr",
+    weightunit = "kg",
+    drugname = drugname
+    )
 ```
 
 # Output of `run_MedStrI()`

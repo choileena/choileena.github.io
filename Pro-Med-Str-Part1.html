@@ -2117,10 +2117,14 @@ Workshops
 <a href="workshops.html">All Workshops</a>
 <a href="Extract-Med.html">Extract-Med</a>
 <a href="Pro-Med-NLP.html">Pro-Med-NLP</a>
+<a href="Pro-Demographic.html">Pro-Demographic</a>
+<a href="Pro-Drug Level.html">Pro-Drug Level</a>
+<a href="Pro-Laboratory.html">Pro-Laboratory</a>
+<a href="Pro-Med-Str-Part1.html">Pro-Med-Str - Part I</a>
+<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
 <a href="Build-PK-Oral.html">Build-PK-Oral</a>
 <a href="Build-PK-IV-simple.html">Build-PK-IV - Simple</a>
 <a href="Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive</a>
-<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2266,7 +2270,7 @@ Workshops
     flow.rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'mod_id_visit'</span>, <span class='st'>'Perform.Date'</span>, <span class='st'>'weight'</span>,
                     <span class='st'>'rate'</span>, <span class='st'>'final.units'</span><span class='op'>)</span>,
     flow.mod.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-      date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/pkdata/man/parse_dates.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='va'>Perform.Date</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+      date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='va'>Perform.Date</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
       unit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'.*[ ]'</span>, <span class='st'>''</span>, <span class='va'>rate</span><span class='op'>)</span><span class='op'>)</span>,
       rate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'([0-9.]+).*'</span>, <span class='st'>'\\1'</span>, <span class='va'>rate</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
     medchk.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span><span class='st'>'medChecked-%s.csv'</span>, <span class='va'>drugname</span><span class='op'>)</span><span class='op'>)</span>, 
@@ -2284,9 +2288,9 @@ Workshops
 </div>
 <pre><code>The number of rows in the original data                124
 The number of rows after removing the duplicates       124
-no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/failUnit-fent.csv not created
+no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/failUnit-fent.csv not created
 #########################
-33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpBN6fDr/checks/fixNoWgt-fent.csv
+33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpEMwVyG/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 </div>
 <h1 id="output-of-run_medstri">Output of <code>run_MedStrI()</code></h1>
