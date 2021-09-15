@@ -42,7 +42,7 @@ The patient ID may need to be renamed so that all input datasets have the same n
 
 
 ```{r}
-mar.new <- dataTransformation(mar.in0, rename = c('Uniq.Id' = 'subject_uid'))
+mar.new <- dataTransformation(mar.in0, rename = c('Uniq.Id' = 'mod_id'))
 ```
 
 # Preparing Raw Dose Data for the *Pro-Med-Str Part I* Module
@@ -56,10 +56,10 @@ We need to save our dataset as an RDS file using `saveRDS` as shown below. Here,
 ```{r}
 # define 2 directories
 td <- tempdir()
-dir.create(file.path(td, 'data'))
 dataDir <- file.path(td, 'data') # directory for processed data
-dir.create(file.path(td, 'checks'))
+dir.create(dataDir)
 checkDir <- file.path(td, 'checks') # directory for interactive checking
+dir.create(checkDir)
 saveRDS(mar.new, file=file.path(dataDir,"mar_new.rds"))
 ```
 
