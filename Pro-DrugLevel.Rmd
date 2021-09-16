@@ -27,17 +27,15 @@ To begin we load the `EHR` package and create some directories to work from.
 ```{r load-lib-dir, eval=TRUE}
 # load EHR package
 library(EHR)
-<<<<<<< HEAD
 rawDataDir <- system.file("examples", "str_ex1", package="EHR")
-=======
 
 td <- tempdir()
 checkDir <- file.path(td, 'checks') # directory for interactive checking
 dir.create(checkDir)
 dataDir <- file.path(td, 'data') # directory for processed data
 dir.create(dataDir)
-rawDataDir <- system.file("examples", "str_ex2", package="EHR")
->>>>>>> 1984b9e1039245048558baeb56af83558d55415b
+rawDataDir <- system.file("examples", "str_ex1", package="EHR")
+
 drugname <- 'fent'
 LLOQ <- 0.05
 ```
@@ -50,10 +48,9 @@ Drug level data is an essential part of pharmacokinetic (pk) data.  It comprises
 
 ```{r}
 # read SampleConcentration_DATA.csv
-conc.in <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"),stringsAsFactors = FALSE)
+conc.in <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"),
+                    stringsAsFactors = FALSE)
 head(conc.in,10)
-
-
 ```
 
 The goal of *Pro-Druglevel* is to make this information suitable for merging medication dosing data to make it suitable for further processing into a complete popPK dataset.
@@ -67,8 +64,10 @@ checkDir <- file.path(td, 'checks') # directory for interactive checking
 dir.create(file.path(td, 'data'))
 dataDir <- file.path(td, 'data') # directory for processed data
 
-conc.new <- dataTransformation(conc.in, rename = c('patient_id' = 'mod_id',
-                                                    'patient_visit_id' = 'mod_id_visit'))
+conc.new <- dataTransformation(conc.in, 
+                               rename = c('patient_id' = 'mod_id',
+                                          'patient_visit_id' = 'mod_id_visit'))
+
 saveRDS(conc.new, file=file.path(dataDir,"conc.rds"))
 ```
 
@@ -82,21 +81,6 @@ conc.out <- run_DrugLevel(conc.path=file.path(dataDir,"conc.rds"),
     check.path=checkDir,
     drugname=drugname,
     LLOQ=LLOQ)
-<<<<<<< HEAD
-=======
-head(conc.out)
-```
-
-```{r}
-ivdose.out <- run_MedStrI(mar.path=file.path(dataDir,"mar.rds"),
-                          mar.datetimeCol = c('Date','Time'),
-                          mar.doseCol = 'med:dosage',
-                          mar.drugCol = 'med:mDrug',
-                          mar.givenCol = 'med:given',
-                          medchk.path=file.path(rawDataDir, "medChecked-fent.csv"),
-                          check.path=checkDir,
-                          drugname=drugname)
->>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 ```
 
 # Processed Data
