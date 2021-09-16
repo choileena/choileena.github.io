@@ -1,19 +1,29 @@
 ---
 title: "About This Site"
 description: |
-  Some additional details about the website.
+  Some additional details about the website and PK software.
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-* More information about the *EHRtoPKPD* can be found at the following sites.
+# More Information
 
-    * https://github.com/choileena
+More information about the *EHRtoPKPD* can be found at the following sites:
 
-    * https://github.com/choileena/EHR
+* https://github.com/choileena
 
-    * https://github.com/choileena/pkdata
+* https://github.com/choileena/EHR
 
-    * https://github.com/choileena/medExtractR
+* https://github.com/choileena/pkdata
+
+* https://github.com/choileena/medExtractR
+
+# PK Software
+
+Under construction.
