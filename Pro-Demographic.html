@@ -2160,10 +2160,9 @@ Workshops
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#demographic-data">Demographic Data</a></li>
-<li><a href="#additional-data">Additional data</a></li>
-<li><a href="#establishing-a-unified-id-system">Establishing a unified ID system</a></li>
-<li><a href="#processing-the-datasets">Processing the Datasets</a></li>
-<li><a href="#building-the-final-dataset">Building the final dataset</a></li>
+<li><a href="#preparing-the-demographic-data">Preparing the Demographic Data</a></li>
+<li><a href="#running-run_demo">Running <code>run_Demo</code></a></li>
+<li><a href="#processed-data">Processed Data</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </nav>
@@ -2178,6 +2177,8 @@ Workshops
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+<<<<<<< HEAD
+=======
 
 <span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>checkDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span> <span class='co'># directory for interactive checking</span>
@@ -2187,6 +2188,7 @@ Workshops
 <span class='va'>rawDataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>
 <span class='va'>drugname</span> <span class='op'>&lt;-</span> <span class='st'>'fent'</span>
 <span class='va'>LLOQ</span> <span class='op'>&lt;-</span> <span class='fl'>0.05</span>
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 </code></pre>
 </div>
 </div>
@@ -2194,212 +2196,78 @@ Workshops
 <p>We will use example demographic data to demonstrate the <em>Pro-Demographic</em> module. The raw data is shown below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>demo.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/readTransform.html'>readTransform</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"Demographics_DATA.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>demo.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>,<span class='st'>"Demographics_DATA.csv"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>]</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>demo.in</span>,<span class='fl'>10</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>   subject_id subject_uid gender weight height surgery_date ageatsurgery stat_sts cpb_sts in_hospital_mortality
-1      1106.0    34364670      0   5.14  59.18    6/28/2014          141        3     133                     0
-2      1444.0    36792472      1   5.67  62.90    1/10/2016          292        1      65                     0
-3      1465.0    36292449      0  23.67 118.02    3/19/2016         2591        2     357                     0
-4      1520.0    34161967      0  14.07  97.04    7/18/2016         1320        5      93                     0
-5      1524.0    37857374      1  23.40 102.80    7/23/2016         1561        3      87                     1
-6      1550.0    37826262      1   6.21  62.03     9/4/2016          208        1     203                     0
-7      1566.0    35885929      0 101.32 176.26    10/1/2016         6365        3     350                     0
-8      1596.0    38340814      1   6.79  62.99    12/3/2016          176        4     132                     0
-9      1607.1    38551767      0  10.81  74.95    8/28/2017          270        4     191                     0
-10     1607.0    38551767      0   2.76  45.94   12/24/2016           23        3     110                     0
-   add_ecmo date_icu_dc time_fromor
-1         0    7/2/2014        1657
-2         0   1/12/2016        1325
-3         0   3/20/2016          NA
-4         0   7/19/2016        1745
-5         0   7/30/2016        1847
-6         0   9/11/2016        1210
-7         0   10/3/2016        1935
-8         0   12/9/2016        1932
-9         0    9/4/2017        1600
-10        0    1/5/2017          NA</code></pre>
+<pre><code>   subject_id subject_uid gender weight height
+1      1106.0    34364670      0   5.14  59.18
+2      1444.0    36792472      1   5.67  62.90
+3      1465.0    36292449      0  23.67 118.02
+4      1520.0    34161967      0  14.07  97.04
+5      1524.0    37857374      1  23.40 102.80
+6      1550.0    37826262      1   6.21  62.03
+7      1566.0    35885929      0 101.32 176.26
+8      1596.0    38340814      1   6.79  62.99
+9      1607.1    38551767      0  10.81  74.95
+10     1607.0    38551767      0   2.76  45.94</code></pre>
 </div>
-<p>Each row in the data represents an individual surgical date. In this case, each individual is assigned a unique ID and has a recorded gender, weight, and height for each surgery. The goal of <em>Pro-Demographic</em> is to make the demographic data suitable for merging with medication data for population pharmacokinetic analysis. As such, it is recommended that users develop an understanding of <em>Pro-Med-NLP</em> and <em>Pro-Druglevel</em> as the <em>Pro-Demographic</em> module hfunctions in concert with those modules.</p>
-<h1 id="additional-data">Additional data</h1>
-<p>For our example we will merge the above demographic data with MAR data in the following form:</p>
+<p>Each row in the data represents an individual surgical date. In this case, each individual is assigned a unique ID and has a recorded gender, weight, and height for each surgery. The goal of <em>Pro-Demographic</em> is to make the demographic data suitable for merging with medication data for population pharmacokinetic analysis while apply exclusion criteria in a reproducible manner which preserves and organizes the original data.</p>
+<h1 id="preparing-the-demographic-data">Preparing the Demographic Data</h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mar.in0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"MAR_DATA.csv"</span><span class='op'>)</span>, check.names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='va'>mar.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/dataTransformation.html'>dataTransformation</a></span><span class='op'>(</span><span class='va'>mar.in0</span>, rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Uniq.Id'</span> <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mar.in</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>  subject_uid       Date  Time                 med:mDrug   med:dosage med:route med:freq med:given
-1    28579217 2017-02-04 19:15               Nicardipine 3 mcg/kg/min        IV     &lt;NA&gt;     Given
-2    28579217 2011-10-02 22:11                Famotidine       4.5 mg        IV   q12hrs     Given
-3    28579217 2011-10-02 20:17          Morphine sulfate         1 mg        IV  q2h prn     Given
-4    28579217 2011-10-03 02:28 Diphenhydramine injection        12 mg        IV      now     Given
-5    28579217 2011-10-02 22:11                 Cefazolin       225 mg        IV    q8hrs     Given
-6    28579217 2011-10-02 23:30          Morphine sulfate         1 mg        IV  q2h prn     Given</code></pre>
-</div>
-<p>Additionally, we will load in medication concentration data. The two datasets together, dosing and concentration, form the basic data of population pharmacokinetic analysis</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># helper function used to make subject_id</span>
-<span class='va'>sampId</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='co'># remove leading zeroes or trailing periods</span>
-  <span class='va'>subid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>'(^0*|\\.$)'</span>, <span class='st'>''</span>, <span class='va'>x</span><span class='op'>)</span>
-  <span class='co'># change _ to .</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>'_([0-9]+[_].*)$'</span>, <span class='st'>'.\\1'</span>, <span class='va'>subid</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-<span class='co'># read SampleConcentration_DATA.csv</span>
-<span class='va'>conc.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/readTransform.html'>readTransform</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"SampleConcentration_DATA.csv"</span><span class='op'>)</span>,
-  modify <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-    subid <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'>sampId</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span><span class='op'>)</span>,
-    subject_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'[_].*'</span>, <span class='st'>''</span>, <span class='va'>subid</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
-    samp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'[^_]*[_]'</span>, <span class='st'>''</span>, <span class='va'>subid</span><span class='op'>)</span><span class='op'>)</span>,
-    name <span class='op'>=</span> <span class='cn'>NULL</span>,
-    data_file <span class='op'>=</span> <span class='cn'>NULL</span>,
-    subid <span class='op'>=</span> <span class='cn'>NULL</span>
-    <span class='op'>)</span>
-  <span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.in</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>  record_id fentanyl_calc_conc subject_id samp
-1         1         0.01413622      466.1    1
-2         2         0.27982075      466.1    2
-3         3         6.11873679     1106.0    1
-4         4         0.59161716     1106.0    2
-5         5         0.11280471     1106.0    3
-6         6         0.02112153     1106.0    4</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read SampleTimes_DATA.csv</span>
-<span class='va'>samp.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/readTransform.html'>readTransform</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"SampleTimes_DATA.csv"</span><span class='op'>)</span>,
-    rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Study.ID'</span> <span class='op'>=</span> <span class='st'>'subject_id'</span><span class='op'>)</span>,
-    modify <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>samp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'Sample '</span>, <span class='st'>''</span>, <span class='va'>Event.Name</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>samp.in</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>  subject_id Event.Name Sample.Collection.Date.and.Time samp
-1      466.1   Sample 1                  2/3/2017 10:46    1
-2      466.1   Sample 2                  2/4/2017 20:30    2
-3     1106.0   Sample 1                 6/28/2014 13:40    1
-4     1106.0   Sample 2                 6/29/2014 03:10    2
-5     1106.0   Sample 3                 6/30/2014 03:35    3
-6     1106.0   Sample 4                  7/1/2014 03:45    4</code></pre>
-</div>
-<h1 id="establishing-a-unified-id-system">Establishing a unified ID system</h1>
-<p>We create a new ID system to aid de-identification of the dataset before further analysis.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>demo.in</span>,
-              <span class='va'>mar.in</span>,
-              <span class='va'>conc.in</span>,
-              <span class='va'>samp.in</span><span class='op'>)</span>
-
-<span class='co'># define list of vectors or character strings that identify the ID variables</span>
-<span class='va'>idcols</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'subject_id'</span>,<span class='st'>'subject_uid'</span><span class='op'>)</span>, <span class='co'># id vars in demo.in</span>
-                <span class='st'>'subject_uid'</span>,
-                <span class='st'>'subject_id'</span>,
-                <span class='st'>'subject_id'</span><span class='op'>)</span> <span class='co'># id var in mar.in) </span>
-
-<span class='co'># merge all IDs from cleaned datasets and create new ID variables</span>
-<span class='va'>id.xwalk</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/idCrosswalk.html'>idCrosswalk</a></span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>idcols</span>, visit.id<span class='op'>=</span><span class='st'>"subject_id"</span>, uniq.id<span class='op'>=</span><span class='st'>"subject_uid"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>id.xwalk</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"module_id_xwalk.rds"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data2'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data2'</span><span class='op'>)</span>
 
 
-<span class='va'>demo.cln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pullFakeId.html'>pullFakeId</a></span><span class='op'>(</span><span class='va'>demo.in</span>, <span class='va'>id.xwalk</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>demo.cln</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>  gender weight height surgery_date ageatsurgery stat_sts cpb_sts in_hospital_mortality add_ecmo date_icu_dc
-1      0   5.14  59.18    6/28/2014          141        3     133                     0        0    7/2/2014
-2      1   5.67  62.90    1/10/2016          292        1      65                     0        0   1/12/2016
-3      0  23.67 118.02    3/19/2016         2591        2     357                     0        0   3/20/2016
-4      0  14.07  97.04    7/18/2016         1320        5      93                     0        0   7/19/2016
-5      1  23.40 102.80    7/23/2016         1561        3      87                     1        0   7/30/2016
-6      1   6.21  62.03     9/4/2016          208        1     203                     0        0   9/11/2016
-  time_fromor mod_visit mod_id mod_id_visit
-1        1657         1      2          2.1
-2        1325         1      3          3.1
-3          NA         1      4          4.1
-4        1745         1      5          5.1
-5        1847         1      6          6.1
-6        1210         1      7          7.1</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>demo.cln</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"demo.rds"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>mar.cln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pullFakeId.html'>pullFakeId</a></span><span class='op'>(</span><span class='va'>mar.in</span>, <span class='va'>id.xwalk</span>, firstCols <span class='op'>=</span> <span class='st'>'mod_id'</span>, uniq.id <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>mar.cln</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"mar.rds"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>conc.cln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pullFakeId.html'>pullFakeId</a></span><span class='op'>(</span><span class='va'>conc.in</span>, <span class='va'>id.xwalk</span>,
-    firstCols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'record_id'</span>, <span class='st'>'mod_id'</span>, <span class='st'>'mod_visit'</span>, <span class='st'>'mod_id_visit'</span>, <span class='st'>'samp'</span><span class='op'>)</span>,
-    orderBy <span class='op'>=</span> <span class='st'>'record_id'</span>,
-    uniq.id <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>conc.cln</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>samp.cln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pullFakeId.html'>pullFakeId</a></span><span class='op'>(</span><span class='va'>samp.in</span>, <span class='va'>id.xwalk</span>,
-    firstCols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>, <span class='st'>'mod_visit'</span>, <span class='st'>'mod_id_visit'</span>, <span class='st'>'samp'</span><span class='op'>)</span>, 
-    orderBy <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id_visit'</span>,<span class='st'>'samp'</span><span class='op'>)</span>,
-    uniq.id <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>samp.cln</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"samp_mod_id.rds"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>demo.in</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"demo.rds"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<h1 id="processing-the-datasets">Processing the Datasets</h1>
-<p>The three datasets are now ready for processing, <code>run_Demo</code> will configure the demographic data. Detailed descriptions for <code>run_MedStrI</code> and <code>run_DrugLevel</code> can be found in their respective modules, <em>Pro-Med-Str</em> and <em>Pro-DrugLevel</em>.</p>
+<h1 id="running-run_demo">Running <code>run_Demo</code></h1>
+<p><code>run_Demo</code> will configure the demographic data, apply exclusion criteria and saving a record of exclusion rules/excluded individuals. The argument <code>toexclude</code> takes an expression evaluating to <code>TRUE</code>/<code>FALSE</code> indicating which individuals will be excluded from the final dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>demo.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Demo.html'>run_Demo</a></span><span class='op'>(</span>demo.path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>, <span class='st'>"demo.rds"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>low_wgt</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>val</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>{</span>  <span class='va'>x</span> <span class='op'>&lt;</span> <span class='fl'>6</span> <span class='op'>}</span>
+<span class='va'>demo.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Demo.html'>run_Demo</a></span><span class='op'>(</span>demo.path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>, <span class='st'>"demo.rds"</span><span class='op'>)</span>,
+                     toexclude <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'>low_wgt</span><span class='op'>(</span><span class='va'>weight</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>The number of subjects in the demographic data, who meet the exclusion criteria: 0</code></pre>
+</div>
+<h1 id="processed-data">Processed Data</h1>
+<p>The demographic data is now ready for further processing.</p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>demo.out</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>$demo
-   gender weight height surgery_date ageatsurgery stat_sts cpb_sts in_hospital_mortality add_ecmo date_icu_dc
-1       0   5.14  59.18    6/28/2014          141        3     133                     0        0    7/2/2014
-2       1   5.67  62.90    1/10/2016          292        1      65                     0        0   1/12/2016
-3       0  23.67 118.02    3/19/2016         2591        2     357                     0        0   3/20/2016
-4       0  14.07  97.04    7/18/2016         1320        5      93                     0        0   7/19/2016
-5       1  23.40 102.80    7/23/2016         1561        3      87                     1        0   7/30/2016
-6       1   6.21  62.03     9/4/2016          208        1     203                     0        0   9/11/2016
-7       0 101.32 176.26    10/1/2016         6365        3     350                     0        0   10/3/2016
-8       1   6.79  62.99    12/3/2016          176        4     132                     0        0   12/9/2016
-9       0  10.81  74.95    8/28/2017          270        4     191                     0        0    9/4/2017
-10      0   2.76  45.94   12/24/2016           23        3     110                     0        0    1/5/2017
-11      0   5.21  58.16    6/23/2017          148        4     165                     0        0   6/28/2017
-12      1   5.44  60.44    9/11/2017          123        1      69                     0        0  10/25/2017
-13      1   5.38  60.39     9/2/2017          114        1      NA                     0        0  10/25/2017
-14      1   4.20  54.95    3/31/2019           74        5     227                     0        1    4/1/2019
-15      0   5.00  55.68     4/5/2019          123        3     255                     0        0   4/10/2019
-16      0   5.80  61.90     4/7/2019          243        2     113                     0        0   4/10/2019
-17      0  21.99 116.90     2/4/2017         2451        1     107                     0        0    2/5/2017
-18      0   9.23  77.08    10/2/2011          499        2     128                     0        0   10/5/2011
-   time_fromor mod_visit mod_id mod_id_visit
-1         1657         1      2          2.1
-2         1325         1      3          3.1
-3           NA         1      4          4.1
-4         1745         1      5          5.1
-5         1847         1      6          6.1
-6         1210         1      7          7.1
-7         1935         1      8          8.1
-8         1932         1      9          9.1
-9         1600         2     10         10.2
-10          NA         1     10         10.1
-11        1355         1     11         11.1
-12        1955         2     12         12.2
-13          NA         1     12         12.1
-14        1252         1     13         13.1
-15        2025         1     14         14.1
-16        1328         1     15         15.1
-17        1322         2      1          1.2
-18        1442         1      1          1.1
+   subject_id subject_uid gender weight height
+1      1106.0    34364670      0   5.14  59.18
+2      1444.0    36792472      1   5.67  62.90
+3      1465.0    36292449      0  23.67 118.02
+4      1520.0    34161967      0  14.07  97.04
+5      1524.0    37857374      1  23.40 102.80
+6      1550.0    37826262      1   6.21  62.03
+7      1566.0    35885929      0 101.32 176.26
+8      1596.0    38340814      1   6.79  62.99
+9      1607.1    38551767      0  10.81  74.95
+10     1607.0    38551767      0   2.76  45.94
+11     1724.0    39087607      0   5.21  58.16
+12     1770.1    39418554      1   5.44  60.44
+13     1770.0    39418554      1   5.38  60.39
+14     2157.0    42023523      1   4.20  54.95
+15     2162.0    42044808      0   5.00  55.68
+16     2164.0    41221120      0   5.80  61.90
+17      466.1    28579217      0  21.99 116.90
+18      466.0    28579217      0   9.23  77.08
 
 $exclude
+<<<<<<< HEAD
+NULL</code></pre>
+=======
 character(0)</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2487,13 +2355,13 @@ The dimension of the final PK data exported with the key demographics: 214 x 10 
 4         10.1 0.00        NA  10    0   1    1   0  2.76  45.94
 5         10.1 1.25        NA  15    0   1    1   0  2.76  45.94
 6         10.1 2.67        NA  25    0   1    1   0  2.76  45.94</code></pre>
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 </div>
-<p>This data is now of a form suitable for population pharmacokinetic analysis with demographic data appropriately incorporated.</p>
 <h1 id="references">References</h1>
 <ol type="1">
 <li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
 </ol>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

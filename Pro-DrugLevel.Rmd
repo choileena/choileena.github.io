@@ -27,6 +27,9 @@ To begin we load the `EHR` package and create some directories to work from.
 ```{r load-lib-dir, eval=TRUE}
 # load EHR package
 library(EHR)
+<<<<<<< HEAD
+rawDataDir <- system.file("examples", "str_ex1", package="EHR")
+=======
 
 td <- tempdir()
 checkDir <- file.path(td, 'checks') # directory for interactive checking
@@ -34,6 +37,7 @@ dir.create(checkDir)
 dataDir <- file.path(td, 'data') # directory for processed data
 dir.create(dataDir)
 rawDataDir <- system.file("examples", "str_ex2", package="EHR")
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 drugname <- 'fent'
 LLOQ <- 0.05
 ```
@@ -45,109 +49,41 @@ LLOQ <- 0.05
 Drug level data is an essential part of pharmacokinetic (pk) data.  It comprises the dependent variable in the model, the response elicited by medication dosing.  It is generally measured as drug concentration in the blood calculated in mass per volume.
 
 ```{r}
-# helper function used to make subject_id
-sampId <- function(x) {
-  # remove leading zeroes or trailing periods
-  subid <- gsub('(^0*|\\.$)', '', x)
-  # change _ to .
-  gsub('_([0-9]+[_].*)$', '.\\1', subid)
-}
-
 # read SampleConcentration_DATA.csv
-conc.in <- readTransform(file.path(rawDataDir, "SampleConcentration_DATA.csv"),
-  modify = list(
-    subid = expression(sampId(name)),
-    subject_id = expression(as.numeric(sub('[_].*', '', subid))),
-    samp = expression(sub('[^_]*[_]', '', subid)),
-    name = NULL,
-    data_file = NULL,
-    subid = NULL
-    )
-  )
-head(conc.in)
+conc.in <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"),stringsAsFactors = FALSE)
+head(conc.in,10)
+
+
 ```
 
-Each row in the data represents an observation of fentanyl blood level in an individual.  Each is associated with a sample number, the details of which are in another file.
+The goal of *Pro-Druglevel* is to make this information suitable for merging medication dosing data to make it suitable for further processing into a complete popPK dataset.
+
+# Preparing the Demographic Data
 
 ```{r}
-# read SampleTimes_DATA.csv
-samp.in <- readTransform(file.path(rawDataDir, "SampleTimes_DATA.csv"),
-    rename = c('Study.ID' = 'subject_id'),
-    modify = list(samp = expression(as.numeric(sub('Sample ', '', Event.Name)))))
-head(samp.in)
+td <- tempdir()
+dir.create(file.path(td, 'checks'))
+checkDir <- file.path(td, 'checks') # directory for interactive checking
+dir.create(file.path(td, 'data'))
+dataDir <- file.path(td, 'data') # directory for processed data
+
+conc.new <- dataTransformation(conc.in, rename = c('patient_id' = 'mod_id',
+                                                    'patient_visit_id' = 'mod_id_visit'))
+saveRDS(conc.new, file=file.path(dataDir,"conc.rds"))
 ```
 
-The goal of *Pro-Druglevel* is to make this information suitable for merging medication dosing data to make it suitable for population pharmacokinetic analysis. As such, it is recommended that users develop an understanding of *Pro-Med-NLP* and as the *Pro-Druglevel* module functions in concert with that modules.
+# Running `run_Druglevel`
 
-# Additional Data
-
-Load drug dosing data to demonstrate how the data is merged.
-
-```{r mar-in}
-mar.in0 <- read.csv(file.path(rawDataDir, "MAR_DATA.csv"), check.names = FALSE)
-mar.in <- dataTransformation(mar.in0, rename = c('Uniq.Id' = 'subject_uid'))
-head(mar.in)
-```
-
-# Establishing a unified ID system
-
-We create a new ID system to aid de-identification of the dataset before further analysis.
-
-```{r}
-demo.in <- readTransform(file.path(rawDataDir, "Demographics_DATA.csv"))
-
-
-
-data <-  list(demo.in,
-              mar.in,
-              conc.in,
-              samp.in)
-
-# define list of vectors or character strings that identify the ID variables
-idcols <-  list(c('subject_id','subject_uid'),
-                'subject_uid',
-                'subject_id',
-                'subject_id')
-
-# merge all IDs from cleaned datasets and create new ID variables
-id.xwalk <- idCrosswalk(data, idcols, visit.id="subject_id", uniq.id="subject_uid")
-saveRDS(id.xwalk, file=file.path(dataDir,"module_id_xwalk.rds"))
-
-
-demo.cln <- pullFakeId(demo.in, id.xwalk)
-head(demo.cln)
-saveRDS(demo.cln, file=file.path(dataDir,"demo.rds"))
-
-mar.cln <- pullFakeId(mar.in, id.xwalk, firstCols = 'mod_id', uniq.id = 'subject_uid')
-saveRDS(mar.cln, file=file.path(dataDir,"mar.rds"))
-
-conc.cln <- pullFakeId(conc.in, id.xwalk,
-    firstCols = c('record_id', 'mod_id', 'mod_visit', 'mod_id_visit', 'samp'),
-    orderBy = 'record_id',
-    uniq.id = 'subject_uid')
-saveRDS(conc.cln, file=file.path(dataDir,"conc.rds"))
-
-samp.cln <- pullFakeId(samp.in, id.xwalk,
-    firstCols = c('mod_id', 'mod_visit', 'mod_id_visit', 'samp'), 
-    orderBy = c('mod_id_visit','samp'),
-    uniq.id = 'subject_uid')
-saveRDS(samp.cln, file=file.path(dataDir,"samp_mod_id.rds"))
-```
-
-# Processing the Datasets
-
-The three datasets are now ready for processing, `run_Druglevel` will configure the drug level data by merging concentration and sample data.  A detailed descriptions for `run_MedStrI` can be found in the module *Pro-Med-Str*.
+`run_Druglevel` will configure the drug level data into a form ready for further processing by module within the `EHR` package. The `check.path` argument takes a string indicating a path to a local directory.  The module looks for inconsistencies or possible data errors and saves them for expert review.
 
 ```{r}
 conc.out <- run_DrugLevel(conc.path=file.path(dataDir,"conc.rds"),
-    conc.select=c('mod_id','mod_id_visit','samp','fentanyl_calc_conc'),
-    conc.rename=c(fentanyl_calc_conc = 'conc.level', samp= 'event'),
-    conc.mod.list=list(mod_id_event = expression(paste(mod_id_visit, event, sep = '_'))),
-    samp.path=file.path(dataDir,"samp_mod_id.rds"),
-    samp.mod.list=list(mod_id_event = expression(paste(mod_id_visit, samp, sep = '_'))),
+    conc.select=c('mod_id','mod_id_visit','event','conc.level','date.time'),
     check.path=checkDir,
     drugname=drugname,
     LLOQ=LLOQ)
+<<<<<<< HEAD
+=======
 head(conc.out)
 ```
 
@@ -160,25 +96,16 @@ ivdose.out <- run_MedStrI(mar.path=file.path(dataDir,"mar.rds"),
                           medchk.path=file.path(rawDataDir, "medChecked-fent.csv"),
                           check.path=checkDir,
                           drugname=drugname)
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 ```
 
-# Building the final dataset
+# Processed Data
 
-Pass the two processed datasets to `run_Build_PK_IV` now.  The drug level data will be appropriately represented in the final dataset
+The concentration data is now ready for expert review or further processing by modules in `EHR`.
 
 ```{r}
-pk_dat <- run_Build_PK_IV(
-    conc=conc.out,
-    dose=ivdose.out,
-    pk.vars=c('conc','mod_id_visit', 'time', 'dose', 'rate', 'event',
-              'other', 'multiple.record', 'date', 'mod_id'),
-    drugname=drugname,
-    check.path=checkDir)
-
-head(pk_dat)
+head(conc.out)
 ```
-
-This data is now of a form suitable for population pharmacokinetic analysis.
 
 # References
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.

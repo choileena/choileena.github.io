@@ -2160,10 +2160,9 @@ Workshops
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#drug-level-data">Drug Level Data</a></li>
-<li><a href="#additional-data">Additional Data</a></li>
-<li><a href="#establishing-a-unified-id-system">Establishing a unified ID system</a></li>
-<li><a href="#processing-the-datasets">Processing the Datasets</a></li>
-<li><a href="#building-the-final-dataset">Building the final dataset</a></li>
+<li><a href="#preparing-the-demographic-data">Preparing the Demographic Data</a></li>
+<li><a href="#running-run_druglevel">Running <code>run_Druglevel</code></a></li>
+<li><a href="#processed-data">Processed Data</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </nav>
@@ -2178,6 +2177,9 @@ Workshops
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+<<<<<<< HEAD
+<span class='va'>rawDataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex1"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>
+=======
 
 <span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>checkDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span> <span class='co'># directory for interactive checking</span>
@@ -2185,6 +2187,7 @@ Workshops
 <span class='va'>dataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span> <span class='co'># directory for processed data</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>dataDir</span><span class='op'>)</span>
 <span class='va'>rawDataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 <span class='va'>drugname</span> <span class='op'>&lt;-</span> <span class='st'>'fent'</span>
 <span class='va'>LLOQ</span> <span class='op'>&lt;-</span> <span class='fl'>0.05</span>
 </code></pre>
@@ -2194,161 +2197,70 @@ Workshops
 <p>Drug level data is an essential part of pharmacokinetic (pk) data. It comprises the dependent variable in the model, the response elicited by medication dosing. It is generally measured as drug concentration in the blood calculated in mass per volume.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># helper function used to make subject_id</span>
-<span class='va'>sampId</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='co'># remove leading zeroes or trailing periods</span>
-  <span class='va'>subid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>'(^0*|\\.$)'</span>, <span class='st'>''</span>, <span class='va'>x</span><span class='op'>)</span>
-  <span class='co'># change _ to .</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>'_([0-9]+[_].*)$'</span>, <span class='st'>'.\\1'</span>, <span class='va'>subid</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-<span class='co'># read SampleConcentration_DATA.csv</span>
-<span class='va'>conc.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/readTransform.html'>readTransform</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"SampleConcentration_DATA.csv"</span><span class='op'>)</span>,
-  modify <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-    subid <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'>sampId</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span><span class='op'>)</span>,
-    subject_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'[_].*'</span>, <span class='st'>''</span>, <span class='va'>subid</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
-    samp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'[^_]*[_]'</span>, <span class='st'>''</span>, <span class='va'>subid</span><span class='op'>)</span><span class='op'>)</span>,
-    name <span class='op'>=</span> <span class='cn'>NULL</span>,
-    data_file <span class='op'>=</span> <span class='cn'>NULL</span>,
-    subid <span class='op'>=</span> <span class='cn'>NULL</span>
-    <span class='op'>)</span>
-  <span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.in</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read SampleConcentration_DATA.csv</span>
+<span class='va'>conc.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"Concentration_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.in</span>,<span class='fl'>10</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>  record_id fentanyl_calc_conc subject_id samp
-1         1         0.01413622      466.1    1
-2         2         0.27982075      466.1    2
-3         3         6.11873679     1106.0    1
-4         4         0.59161716     1106.0    2
-5         5         0.11280471     1106.0    3
-6         6         0.02112153     1106.0    4</code></pre>
+<pre><code>   patient_id patient_visit_id event conc.level           date.time
+1          10             10.1     4       0.17 2019-02-02 05:30:00
+2          10             10.1     2       4.05 2019-02-24 14:00:00
+3          10             10.1     3       0.64 2019-02-25 03:30:00
+4          10             10.1     5       0.33 2019-02-27 02:45:00
+5          10             10.1     6       0.07 2019-02-28 03:30:00
+6          10             10.1     7       0.05 2019-03-01 02:35:00
+7          10             10.1     8       0.01 2019-03-02 05:06:00
+8           1              1.2     1       0.02 2016-01-07 11:30:00
+9           1              1.2     2       2.83 2016-01-08 13:45:00
+10          1              1.2     3       0.41 2016-01-09 04:11:00</code></pre>
 </div>
-<p>Each row in the data represents an observation of fentanyl blood level in an individual. Each is associated with a sample number, the details of which are in another file.</p>
+<p>The goal of <em>Pro-Druglevel</em> is to make this information suitable for merging medication dosing data to make it suitable for further processing into a complete popPK dataset.</p>
+<h1 id="preparing-the-demographic-data">Preparing the Demographic Data</h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read SampleTimes_DATA.csv</span>
-<span class='va'>samp.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/readTransform.html'>readTransform</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"SampleTimes_DATA.csv"</span><span class='op'>)</span>,
-    rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Study.ID'</span> <span class='op'>=</span> <span class='st'>'subject_id'</span><span class='op'>)</span>,
-    modify <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>samp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>'Sample '</span>, <span class='st'>''</span>, <span class='va'>Event.Name</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>samp.in</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>  subject_id Event.Name Sample.Collection.Date.and.Time samp
-1      466.1   Sample 1                  2/3/2017 10:46    1
-2      466.1   Sample 2                  2/4/2017 20:30    2
-3     1106.0   Sample 1                 6/28/2014 13:40    1
-4     1106.0   Sample 2                 6/29/2014 03:10    2
-5     1106.0   Sample 3                 6/30/2014 03:35    3
-6     1106.0   Sample 4                  7/1/2014 03:45    4</code></pre>
-</div>
-<p>The goal of <em>Pro-Druglevel</em> is to make this information suitable for merging medication dosing data to make it suitable for population pharmacokinetic analysis. As such, it is recommended that users develop an understanding of <em>Pro-Med-NLP</em> and as the <em>Pro-Druglevel</em> module functions in concert with that modules.</p>
-<h1 id="additional-data">Additional Data</h1>
-<p>Load drug dosing data to demonstrate how the data is merged.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mar.in0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"MAR_DATA.csv"</span><span class='op'>)</span>, check.names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='va'>mar.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/dataTransformation.html'>dataTransformation</a></span><span class='op'>(</span><span class='va'>mar.in0</span>, rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Uniq.Id'</span> <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mar.in</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>  subject_uid       Date  Time                 med:mDrug   med:dosage med:route med:freq med:given
-1    28579217 2017-02-04 19:15               Nicardipine 3 mcg/kg/min        IV     &lt;NA&gt;     Given
-2    28579217 2011-10-02 22:11                Famotidine       4.5 mg        IV   q12hrs     Given
-3    28579217 2011-10-02 20:17          Morphine sulfate         1 mg        IV  q2h prn     Given
-4    28579217 2011-10-03 02:28 Diphenhydramine injection        12 mg        IV      now     Given
-5    28579217 2011-10-02 22:11                 Cefazolin       225 mg        IV    q8hrs     Given
-6    28579217 2011-10-02 23:30          Morphine sulfate         1 mg        IV  q2h prn     Given</code></pre>
-</div>
-<h1 id="establishing-a-unified-id-system">Establishing a unified ID system</h1>
-<p>We create a new ID system to aid de-identification of the dataset before further analysis.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>demo.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/readTransform.html'>readTransform</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>, <span class='st'>"Demographics_DATA.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>checkDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span> <span class='co'># directory for interactive checking</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span> <span class='co'># directory for processed data</span>
 
-
-
-<span class='va'>data</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>demo.in</span>,
-              <span class='va'>mar.in</span>,
-              <span class='va'>conc.in</span>,
-              <span class='va'>samp.in</span><span class='op'>)</span>
-
-<span class='co'># define list of vectors or character strings that identify the ID variables</span>
-<span class='va'>idcols</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'subject_id'</span>,<span class='st'>'subject_uid'</span><span class='op'>)</span>,
-                <span class='st'>'subject_uid'</span>,
-                <span class='st'>'subject_id'</span>,
-                <span class='st'>'subject_id'</span><span class='op'>)</span>
-
-<span class='co'># merge all IDs from cleaned datasets and create new ID variables</span>
-<span class='va'>id.xwalk</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/idCrosswalk.html'>idCrosswalk</a></span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>idcols</span>, visit.id<span class='op'>=</span><span class='st'>"subject_id"</span>, uniq.id<span class='op'>=</span><span class='st'>"subject_uid"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>id.xwalk</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"module_id_xwalk.rds"</span><span class='op'>)</span><span class='op'>)</span>
-
-
-<span class='va'>demo.cln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pullFakeId.html'>pullFakeId</a></span><span class='op'>(</span><span class='va'>demo.in</span>, <span class='va'>id.xwalk</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>demo.cln</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>  gender weight height surgery_date ageatsurgery stat_sts cpb_sts in_hospital_mortality add_ecmo date_icu_dc
-1      0   5.14  59.18    6/28/2014          141        3     133                     0        0    7/2/2014
-2      1   5.67  62.90    1/10/2016          292        1      65                     0        0   1/12/2016
-3      0  23.67 118.02    3/19/2016         2591        2     357                     0        0   3/20/2016
-4      0  14.07  97.04    7/18/2016         1320        5      93                     0        0   7/19/2016
-5      1  23.40 102.80    7/23/2016         1561        3      87                     1        0   7/30/2016
-6      1   6.21  62.03     9/4/2016          208        1     203                     0        0   9/11/2016
-  time_fromor mod_visit mod_id mod_id_visit
-1        1657         1      2          2.1
-2        1325         1      3          3.1
-3          NA         1      4          4.1
-4        1745         1      5          5.1
-5        1847         1      6          6.1
-6        1210         1      7          7.1</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>demo.cln</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"demo.rds"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>mar.cln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pullFakeId.html'>pullFakeId</a></span><span class='op'>(</span><span class='va'>mar.in</span>, <span class='va'>id.xwalk</span>, firstCols <span class='op'>=</span> <span class='st'>'mod_id'</span>, uniq.id <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>mar.cln</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"mar.rds"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>conc.cln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pullFakeId.html'>pullFakeId</a></span><span class='op'>(</span><span class='va'>conc.in</span>, <span class='va'>id.xwalk</span>,
-    firstCols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'record_id'</span>, <span class='st'>'mod_id'</span>, <span class='st'>'mod_visit'</span>, <span class='st'>'mod_id_visit'</span>, <span class='st'>'samp'</span><span class='op'>)</span>,
-    orderBy <span class='op'>=</span> <span class='st'>'record_id'</span>,
-    uniq.id <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>conc.cln</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>samp.cln</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pullFakeId.html'>pullFakeId</a></span><span class='op'>(</span><span class='va'>samp.in</span>, <span class='va'>id.xwalk</span>,
-    firstCols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>, <span class='st'>'mod_visit'</span>, <span class='st'>'mod_id_visit'</span>, <span class='st'>'samp'</span><span class='op'>)</span>, 
-    orderBy <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id_visit'</span>,<span class='st'>'samp'</span><span class='op'>)</span>,
-    uniq.id <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>samp.cln</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"samp_mod_id.rds"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>conc.new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/dataTransformation.html'>dataTransformation</a></span><span class='op'>(</span><span class='va'>conc.in</span>, rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'patient_id'</span> <span class='op'>=</span> <span class='st'>'mod_id'</span>,
+                                                    <span class='st'>'patient_visit_id'</span> <span class='op'>=</span> <span class='st'>'mod_id_visit'</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>conc.new</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<h1 id="processing-the-datasets">Processing the Datasets</h1>
-<p>The three datasets are now ready for processing, <code>run_Druglevel</code> will configure the drug level data by merging concentration and sample data. A detailed descriptions for <code>run_MedStrI</code> can be found in the module <em>Pro-Med-Str</em>.</p>
+<h1 id="running-run_druglevel">Running <code>run_Druglevel</code></h1>
+<p><code>run_Druglevel</code> will configure the drug level data into a form ready for further processing by module within the <code>EHR</code> package. The <code>check.path</code> argument takes a string indicating a path to a local directory. The module looks for inconsistencies or possible data errors and saves them for expert review.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>conc.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_DrugLevel.html'>run_DrugLevel</a></span><span class='op'>(</span>conc.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span>,
-    conc.select<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'mod_id_visit'</span>,<span class='st'>'samp'</span>,<span class='st'>'fentanyl_calc_conc'</span><span class='op'>)</span>,
-    conc.rename<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>fentanyl_calc_conc <span class='op'>=</span> <span class='st'>'conc.level'</span>, samp<span class='op'>=</span> <span class='st'>'event'</span><span class='op'>)</span>,
-    conc.mod.list<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mod_id_event <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>mod_id_visit</span>, <span class='va'>event</span>, sep <span class='op'>=</span> <span class='st'>'_'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
-    samp.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"samp_mod_id.rds"</span><span class='op'>)</span>,
-    samp.mod.list<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mod_id_event <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>mod_id_visit</span>, <span class='va'>samp</span>, sep <span class='op'>=</span> <span class='st'>'_'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+    conc.select<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'mod_id_visit'</span>,<span class='st'>'event'</span>,<span class='st'>'conc.level'</span>,<span class='st'>'date.time'</span><span class='op'>)</span>,
     check.path<span class='op'>=</span><span class='va'>checkDir</span>,
     drugname<span class='op'>=</span><span class='va'>drugname</span>,
     LLOQ<span class='op'>=</span><span class='va'>LLOQ</span><span class='op'>)</span>
 </code></pre>
 </div>
+<<<<<<< HEAD
+<pre><code>no failures, file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//Rtmp9R6AyK/checks/failMissingConcDate-fent.csv not created
+=======
 <pre><code>#########################
 3 rows need review, see file /tmp/RtmpHsEZM9/checks/failMissingConcDate-fent.csv AND create /tmp/RtmpHsEZM9/checks/fixMissingConcDate-fent.csv
 #########################
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 subjects with concentration missing from sample file
- mod_id mod_id_event
-      8        8.1_1
-      8        8.1_2
-      8        8.1_3
-1 subjects have multiple sets of concentration data
-16 total unique subjects ids (including multiple visits) currently in the concentration data
-15 total unique subjects in the concentration data
+[1] mod_id       mod_id_event
+&lt;0 rows&gt; (or 0-length row.names)
+0 subjects have multiple sets of concentration data
+10 total unique subjects ids (including multiple visits) currently in the concentration data
+10 total unique subjects in the concentration data
 #########################
+<<<<<<< HEAD
+0 rows need review, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//Rtmp9R6AyK/checks/multipleSetsConc-fent2021-09-16.csv
+#########################
+10 total unique subjects ids (after excluding multiple visits) in the concentration data
+10 total unique subjects in the concentration data</code></pre>
+=======
 15 rows need review, see file /tmp/RtmpHsEZM9/checks/multipleSetsConc-fent2021-09-16.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
@@ -2381,40 +2293,28 @@ subjects with concentration missing from sample file
 #########################
 75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /tmp/RtmpHsEZM9/checks/failNoWgt-fent.csv AND create /tmp/RtmpHsEZM9/checks/fixNoWgt-fent.csv
 #########################</code></pre>
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 </div>
-<h1 id="building-the-final-dataset">Building the final dataset</h1>
-<p>Pass the two processed datasets to <code>run_Build_PK_IV</code> now. The drug level data will be appropriately represented in the final dataset</p>
+<h1 id="processed-data">Processed Data</h1>
+<p>The concentration data is now ready for expert review or further processing by modules in <code>EHR</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pk_dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Build_PK_IV.html'>run_Build_PK_IV</a></span><span class='op'>(</span>
-    conc<span class='op'>=</span><span class='va'>conc.out</span>,
-    dose<span class='op'>=</span><span class='va'>ivdose.out</span>,
-    pk.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'conc'</span>,<span class='st'>'mod_id_visit'</span>, <span class='st'>'time'</span>, <span class='st'>'dose'</span>, <span class='st'>'rate'</span>, <span class='st'>'event'</span>,
-              <span class='st'>'other'</span>, <span class='st'>'multiple.record'</span>, <span class='st'>'date'</span>, <span class='st'>'mod_id'</span><span class='op'>)</span>,
-    drugname<span class='op'>=</span><span class='va'>drugname</span>,
-    check.path<span class='op'>=</span><span class='va'>checkDir</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.out</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>0 duplicated rows
-The dimension of the final PK data: 214 x 7 with 15 distinct subjects (mod_id_visit)</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>pk_dat</span><span class='op'>)</span>
-</code></pre>
+<pre><code>   mod_id mod_id_visit event conc.level           date.time mod_id_event eid
+8       1          1.2     1       0.02 2016-01-07 11:30:00        1.2_1   1
+9       1          1.2     2       2.83 2016-01-08 13:45:00        1.2_2   1
+10      1          1.2     3       0.41 2016-01-09 04:11:00        1.2_3   1
+11      1          1.2     4       0.04 2016-01-11 06:24:00        1.2_4   1
+12      1          1.2     5       0.01 2016-01-12 06:45:00        1.2_5   1
+13      2          2.1     1       0.78 2015-06-14 15:11:00        2.1_1   1</code></pre>
 </div>
-<pre><code>  mod_id_visit time      conc amt rate mdv evid
-1          1.2 0.00        NA  50    0   1    1
-2          1.2 0.25        NA  20    0   1    1
-3          1.2 4.25 0.2798208  NA   NA   0    0
-4          2.1 0.00        NA  20    0   1    1
-5          2.1 0.50        NA  20    0   1    1
-6          2.1 0.75        NA  10    0   1    1</code></pre>
-</div>
-<p>This data is now of a form suitable for population pharmacokinetic analysis.</p>
 <h1 id="references">References</h1>
 <ol type="1">
 <li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
 </ol>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
