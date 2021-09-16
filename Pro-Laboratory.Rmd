@@ -46,7 +46,7 @@ The patient ID may need to be renamed so that all input datasets have the same n
 creat.new <- dataTransformation(creat.in, rename = c('Subject.uniq' = 'subject_uid'))
 ```
 
-# Preparing Raw Laboratory Data for the *Pro-Laboratory* Module
+# Preparing Raw Laboratory Data
 
 In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are `mod_id`, `mod_visit`, and `mod_id_visit`. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package and "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for examples of this process.
 

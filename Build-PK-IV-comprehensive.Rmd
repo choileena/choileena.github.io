@@ -308,18 +308,27 @@ demo.out$exclude
 
 
 ```{r Pro-Med-Str1}
-ivdose.out <- run_MedStrI(flow.path=file.path(dataDir,"flow_mod_id.rds"), 
+ivdose.out <- run_MedStrI(
+    flow.path=file.path(dataDir,"flow_mod_id.rds"), 
     flow.select = c('mod_id','mod_id_visit','Perform.Date','Final.Wt..kg.',
                     'Final.Rate..NFR.units.','Final.Units'),
     flow.rename = c('mod_id','mod_id_visit', 'Perform.Date', 'weight',
                     'rate', 'final.units'),
     flow.mod.list = list(
-      date.time = expression(parse_dates(fixDates(Perform.Date))),
-      unit = expression(sub('.*[ ]', '', rate)),
-      rate = expression(as.numeric(sub('([0-9.]+).*', '\\1', rate)))),
-    medchk.path=file.path(rawDataDir, sprintf('medChecked-%s.csv', drugname)), 
+      date.time =
+    expression(pkdata::parse_dates(fixDates(Perform.Date))), unit =
+    expression(sub(".*[ ]", "", rate)), rate = expression(as.numeric(sub("([0-9.]+).*",
+    "\\1", rate)))),
     mar.path=file.path(dataDir,"mar_mod_id.rds"),
+    mar.datetimeCol = c('Date', 'Time'),
+    mar.doseCol = 'med:dosage',
+    mar.drugCol = 'med:mDrug',
+    mar.weightCol = NULL,
+    mar.givenCol = NULL,
+    medGivenReq = TRUE,
+    medchk.path=file.path(system.file("examples", "str_ex2", package="EHR"), sprintf('medChecked-%s.csv', drugname)),
     demo.list=NULL,
+    missing.wgt.path = NULL,
     check.path=checkDir, 
     failflow_fn = 'FailFlow',
     failunit_fn = 'Unit',
@@ -327,7 +336,11 @@ ivdose.out <- run_MedStrI(flow.path=file.path(dataDir,"flow_mod_id.rds"),
     infusion.unit = 'mcg/kg/hr',
     bolus.unit = 'mcg',
     bol.rate.thresh = Inf,
-    drugname = drugname)
+    rateunit = "mcg/hr",
+    ratewgtunit = "mcg/kg/hr",
+    weightunit = "kg",
+    drugname = drugname
+    )
 
 head(ivdose.out)
 ```

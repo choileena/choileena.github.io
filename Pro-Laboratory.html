@@ -2160,7 +2160,7 @@ Workshops
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#laboratory-data">Laboratory Data</a></li>
-<li><a href="#preparing-raw-laboratory-data-for-the-pro-laboratory-module">Preparing Raw Laboratory Data for the <em>Pro-Laboratory</em> Module</a></li>
+<li><a href="#preparing-raw-laboratory-data">Preparing Raw Laboratory Data</a></li>
 <li><a href="#running-run_labs">Running <code>run_Labs</code></a></li>
 <li><a href="#output-of-run_labs">Output of <code>run_Labs</code></a></li>
 <li><a href="#references">References</a></li>
@@ -2204,7 +2204,7 @@ Workshops
 </code></pre>
 </div>
 </div>
-<h1 id="preparing-raw-laboratory-data-for-the-pro-laboratory-module">Preparing Raw Laboratory Data for the <em>Pro-Laboratory</em> Module</h1>
+<h1 id="preparing-raw-laboratory-data">Preparing Raw Laboratory Data</h1>
 <p>In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are <code>mod_id</code>, <code>mod_visit</code>, and <code>mod_id_visit</code>. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package and “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for examples of this process.</p>
 <p>For simplicity, we will skip this step in this tutorial.</p>
 <p>We need to save our dataset as an RDS file using <code>saveRDS</code> as shown below. Here, we create a temporary directory to store the file using <code>tempdir</code>; however, <code>dataDir</code> can be a specific directory on your computer.</p>
@@ -2230,7 +2230,7 @@ Workshops
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>creat.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Labs.html'>run_Labs</a></span><span class='op'>(</span>lab.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"creat_new.rds"</span><span class='op'>)</span>,
     lab.select <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'subject_uid'</span>,<span class='st'>'date.time'</span>,<span class='st'>'creat'</span><span class='op'>)</span>,
-    lab.mod.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>time</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+    lab.mod.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>date.time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'>parse_dates</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>time</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
