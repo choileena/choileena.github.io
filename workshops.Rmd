@@ -29,28 +29,29 @@ This tutorial describes how to process drug concentration data using *Pro-Drug L
 ## [*Pro-Laboratory*](Pro-Laboratory.html)
 This tutorial describes how to process laboratory data using *Pro-Laboratory* module in the system.
 
-## [*Pro-Med-Str* - Part I](Pro-Med-Str-Part1.html)
+## [*Pro-Med-Str* : Part I](Pro-Med-Str-Part1.html)
 This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data. 
 
-## [*Pro-Med-Str* - Part II](Pro-Med-Str-Part2.html)
+## [*Pro-Med-Str* : Part II](Pro-Med-Str-Part2.html)
 This tutorial describes how to processes structured medication data, especially focusing on e-prescription data.
 
 ## [*Build-PK-Oral*](Build-PK-Oral.html)
 This tutorial describes the PK data building procedure in the *EHRtoPKPD* for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data are provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.
 
-## [*Build-PK-IV* - Simple](Build-PK-IV-simple.html)
+## [*Build-PK-IV* : Simple](Build-PK-IV-simple.html)
 This tutorial describes a simple PK data building procedure in the *EHRtoPKPD* for medications that are typically intravenously administrated. It demonstrates how to quickly build PK data using *Build-PK-IV* without using the data processing modules when cleaned data for concentration, drug dose, demographic and laboratory datasets are already available in an appropriate data form.
 
-## [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html)
+## [*Build-PK-IV* : Comprehensive](Build-PK-IV-comprehensive.html)
 This tutorial describes a comprehensive PK data building procedure in the *EHRtoPKPD* for medications that are typically intravenously administrated. It demonstrates how to utilize several data processing modules (e.g., *Pro-Demographic*, *Pro-Med-Str*, *Pro-Drug Level*, *Pro-Laboratory*) to standardize and combine more complex datasets when cleaned data are not available, and then build PK data using *Build-PK-IV*.
 
 # Population PK/PD Data Format
 Software performing population PK/PD modeling typically requires specific data format for the key variables. Most of these software follows the data requirement for NONMEM, as NONMEM has been used for a long time and considered as the gold standard software to perform population PK/PD analysis. We describe two most commonly used data format in population PK/PD modeling.
 
-## Oral Dosing
+## [Oral Dosing PK Data](Oral-Dosing-PK-Data.html)
 
+Under construction.
 
-## Intravenous (IV) Dosing
+## [IV Dosing PK Data](IV-Dosing-PK-Data.html)
 
-
+Under construction.
 

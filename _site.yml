@@ -18,19 +18,23 @@ navbar:
         - text: "Pro-Demographic"
           href: Pro-Demographic.html
         - text: "Pro-Drug Level"
-          href: Pro-Drug Level.html
+          href: Pro-DrugLevel.html
         - text: "Pro-Laboratory"
           href: Pro-Laboratory.html
-        - text: "Pro-Med-Str - Part I"
+        - text: "Pro-Med-Str : Part I"
           href: Pro-Med-Str-Part1.html
-        - text: "Pro-Med-Str - Part II"
+        - text: "Pro-Med-Str : Part II"
           href: Pro-Med-Str-Part2.html
         - text: "Build-PK-Oral"
           href: Build-PK-Oral.html
-        - text: "Build-PK-IV - Simple"
+        - text: "Build-PK-IV : Simple"
           href: Build-PK-IV-simple.html
-        - text: "Build-PK-IV - Comprehensive"
+        - text: "Build-PK-IV : Comprehensive"
           href: Build-PK-IV-comprehensive.html
+        - text: "Oral Dosing PK Data"
+          href: Oral Dosing PK Data	
+        - text: "IV Dosing PK Data"
+          href: IV Dosing PK Data	
     - text: "About"
       href: about.html
   search: true
