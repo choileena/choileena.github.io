@@ -1,7 +1,7 @@
 ---
 title: "Pro-Med-Str - Part I"
 description: |
-  This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.
+  This tutorial describes how to process structured medication data, especially focusing on intravenously given dose data.
 output:
   distill::distill_article:
     toc: true
@@ -18,7 +18,7 @@ library(EHR)
 
 # Introduction
 
-This tutorial describes how to use the *Pro-Med-Str* - Part II module in *EHRtoPKPD* system to process intravenous (IV) dose data (see Choi *et al.*$^{1}$ for details).
+This tutorial describes how to use the *Pro-Med-Str* - Part I module in *EHRtoPKPD* system to process intravenous (IV) dose data (see Choi *et al.*$^{1}$ for details).
 
 To begin we load the `EHR` package,
 
@@ -27,7 +27,7 @@ To begin we load the `EHR` package,
 library(EHR)
 ```
 
-# Input raw dose data
+# Input Raw Dose Data
 
 We will use example dose data to demonstrate the *Pro-Med-Str Part I* module. The raw data is shown below.
 
@@ -51,7 +51,7 @@ In practice, the dose data will need to be combined with other input datasets. T
 
 For simplicity, we will skip this step in this tutorial.
 
-We need to save our dataset as an RDS file using `saveRDS` as shown below. Here, we create a temporary directory to store the file using `tempdir` to define two directories, `dataDir` for processed data and `checkDir` containing files used for interactive checking (optional); however, `dataDir` and `checkDir` can be a specific directory on your computer.
+We need to save our dataset as an RDS file using `saveRDS` as shown below. Here, we create a temporary directory to store the files using `tempdir`. We define two directories, `dataDir` for processed data and `checkDir` containing files used for interactive checking (optional). Instead of using a temporary directory, `dataDir` and `checkDir` can be specific directories on your computer.
 
 ```{r}
 # define 2 directories
