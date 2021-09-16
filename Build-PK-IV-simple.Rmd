@@ -38,14 +38,13 @@ There are **four basic steps** to build a PK dataset quickly.
 ## (1) First define directories
 * a directory for the raw data
 * a directory for interactive checking output files
-    
+
 ```{r define-directories}
 # define directories
 rawDataDir <- system.file("examples", "str_ex1", package="EHR")
 td <- tempdir()
-dir.create(file.path(td, 'check1'))
 checkDir <- file.path(td, 'check1')
-
+dir.create(checkDir)
 ```
 
 ## (2) Prepare cleaned and appropriately formatted data files and load the data files
@@ -53,7 +52,7 @@ checkDir <- file.path(td, 'check1')
 * a drug concentration file
 * a demographic file
 * a laboratory file (optional)
-    
+
 ```{r simp-in}
 # read in data
 ivdose.data <- read.csv(file.path(rawDataDir,"IVDose_DATA_simple.csv"),stringsAsFactors = FALSE)
@@ -80,7 +79,7 @@ names(creat.data)[1] <- names(ivdose.data)[1] <- "mod_id"
 
 ## (4) Build a final PK dataset with the function `run_Build_PK_IV()` using the prepared datasets above
 * Notice that the data building function generates an automatic message that tells some information about the data processing as well as the final dataset including the variables, the sample size, and missingness - see the message below.
-    
+
 ```{r sim-build-pk-iv}
 # running run_Build_PK_IV()
 simple_pk_dat <- run_Build_PK_IV(

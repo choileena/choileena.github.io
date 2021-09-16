@@ -28,10 +28,10 @@ To begin we load the `EHR` package and create some directories to work from.
 library(EHR)
 
 td <- tempdir()
-dir.create(file.path(td, 'checks'))
 checkDir <- file.path(td, 'checks') # directory for interactive checking
-dir.create(file.path(td, 'data'))
+dir.create(checkDir)
 dataDir <- file.path(td, 'data') # directory for processed data
+dir.create(dataDir)
 rawDataDir <- system.file("examples", "str_ex2", package="EHR")
 drugname <- 'fent'
 LLOQ <- 0.05
@@ -143,6 +143,10 @@ head(demo.out)
 
 ```{r}
 ivdose.out <- run_MedStrI(mar.path=file.path(dataDir,"mar.rds"),
+                          mar.datetimeCol = c('Date','Time'),
+                          mar.doseCol = 'med:dosage',
+                          mar.drugCol = 'med:mDrug',
+                          mar.givenCol = 'med:given',
                           medchk.path=file.path(rawDataDir, "medChecked-fent.csv"),
                           check.path=checkDir,
                           drugname=drugname)

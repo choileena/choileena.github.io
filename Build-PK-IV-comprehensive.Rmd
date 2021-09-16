@@ -51,11 +51,11 @@ library(lubridate)
 rawDataDir <- system.file("examples", "str_ex2", package="EHR") # directory for raw data
 
 td <- tempdir()
-dir.create(file.path(td, 'checks'))
 checkDir <- file.path(td, 'checks') # directory for interactive checking
+dir.create(checkDir)
 
-dir.create(file.path(td, 'data'))
 dataDir <- file.path(td, 'data') # directory for processed data
+dir.create(dataDir)
 
 # examine raw data files in rawDataDir
 dir(rawDataDir)
