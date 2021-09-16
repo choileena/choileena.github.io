@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -86,29 +85,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Choi Lab: About this site</title>
+  <title>Choi Lab: About This Site</title>
 
-  <meta property="description" itemprop="description" content="Some additional details about the website"/>
+  <meta property="description" itemprop="description" content="Some additional details about the website."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Choi Lab: About this site"/>
+  <meta property="og:title" content="Choi Lab: About This Site"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Some additional details about the website"/>
+  <meta property="og:description" content="Some additional details about the website."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Choi Lab"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Choi Lab: About this site"/>
-  <meta property="twitter:description" content="Some additional details about the website"/>
+  <meta property="twitter:title" content="Choi Lab: About This Site"/>
+  <meta property="twitter:description" content="Some additional details about the website."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description"]}},"value":[{"type":"character","attributes":{},"value":["About this site"]},{"type":"character","attributes":{},"value":["Some additional details about the website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description"]}},"value":[{"type":"character","attributes":{},"value":["About This Site"]},{"type":"character","attributes":{},"value":["Some additional details about the website."]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2033,7 +2032,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2058,17 +2057,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   figure.rhs {
     float: right;
-    width: 475px;
+    width: 570px;
     padding-left: 1em;
   }
 
   @media(min-width: 768px) {
 
   d-article {
-    font-size: 0.9rem;
-    line-height: 1.4em;
-    grid-template-columns: [screen-start] 2fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    font-size: 1.1rem;
+    line-height: 1.3em;
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
   }
+  }
+
+  pre.sourceCode {
+    background-color: #D4E6FC;
+  }
+
+  d-article h1 {
+    font-size: 30px;
+  }
+
+  d-article h2 {
+    font-size: 25px;
   }
 
   </style>
@@ -2083,7 +2094,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"About this site","description":"Some additional details about the website","authors":[]}
+{"title":"About This Site","description":"Some additional details about the website.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2104,7 +2115,16 @@ Workshops
 </button>
 <div class="nav-dropdown-content">
 <a href="workshops.html">All Workshops</a>
-<a href="about.html">about</a>
+<a href="Extract-Med.html">Extract-Med</a>
+<a href="Pro-Med-NLP.html">Pro-Med-NLP</a>
+<a href="Pro-Demographic.html">Pro-Demographic</a>
+<a href="Pro-Drug Level.html">Pro-Drug Level</a>
+<a href="Pro-Laboratory.html">Pro-Laboratory</a>
+<a href="Pro-Med-Str-Part1.html">Pro-Med-Str - Part I</a>
+<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
+<a href="Build-PK-Oral.html">Build-PK-Oral</a>
+<a href="Build-PK-IV-simple.html">Build-PK-IV - Simple</a>
+<a href="Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2120,19 +2140,24 @@ Workshops
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>About this site</h1>
+<h1>About This Site</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Some additional details about the website</p></p>
+<p><p>Some additional details about the website.</p></p>
 </div>
 
 
 <div class="d-article">
-<p><a href="https://github.com/choileena" class="uri">https://github.com/choileena</a></p>
-<p><a href="https://github.com/choileena/EHR" class="uri">https://github.com/choileena/EHR</a></p>
-<p><a href="https://github.com/choileena/pkdata" class="uri">https://github.com/choileena/pkdata</a></p>
-<p><a href="https://github.com/choileena/medExtractR" class="uri">https://github.com/choileena/medExtractR</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<ul>
+<li><p>More information about the <em>EHRtoPKPD</em> can be found at the following sites.</p>
+<ul>
+<li><p><a href="https://github.com/choileena" class="uri">https://github.com/choileena</a></p></li>
+<li><p><a href="https://github.com/choileena/EHR" class="uri">https://github.com/choileena/EHR</a></p></li>
+<li><p><a href="https://github.com/choileena/pkdata" class="uri">https://github.com/choileena/pkdata</a></p></li>
+<li><p><a href="https://github.com/choileena/medExtractR" class="uri">https://github.com/choileena/medExtractR</a></p></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div></li>
+</ul>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

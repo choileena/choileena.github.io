@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -88,7 +87,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Choi Lab: Pro-Med-Str - Part II</title>
 
-  <meta property="description" itemprop="description" content="This lecture describes how to processes structured medication data, especially focusing on e-prescription data."/>
+  <meta property="description" itemprop="description" content="This tutorial describes how to process structured medication data, especially focusing on e-prescription data."/>
 
 
   <meta name="article:author" content="Elizabeth McNeer"/>
@@ -96,20 +95,20 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Choi Lab: Pro-Med-Str - Part II"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="This lecture describes how to processes structured medication data, especially focusing on e-prescription data."/>
+  <meta property="og:description" content="This tutorial describes how to process structured medication data, especially focusing on e-prescription data."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Choi Lab"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Choi Lab: Pro-Med-Str - Part II"/>
-  <meta property="twitter:description" content="This lecture describes how to processes structured medication data, especially focusing on e-prescription data."/>
+  <meta property="twitter:description" content="This tutorial describes how to process structured medication data, especially focusing on e-prescription data."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output"]}},"value":[{"type":"character","attributes":{},"value":["Pro-Med-Str - Part II"]},{"type":"character","attributes":{},"value":["This lecture describes how to processes structured medication data, especially focusing on e-prescription data.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Elizabeth McNeer"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[1]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output"]}},"value":[{"type":"character","attributes":{},"value":["Pro-Med-Str - Part II"]},{"type":"character","attributes":{},"value":["This tutorial describes how to process structured medication data, especially focusing on e-prescription data.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Elizabeth McNeer"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2034,7 +2033,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2059,17 +2058,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   figure.rhs {
     float: right;
-    width: 475px;
+    width: 570px;
     padding-left: 1em;
   }
 
   @media(min-width: 768px) {
 
   d-article {
-    font-size: 0.9rem;
-    line-height: 1.4em;
-    grid-template-columns: [screen-start] 2fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    font-size: 1.1rem;
+    line-height: 1.3em;
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
   }
+  }
+
+  pre.sourceCode {
+    background-color: #D4E6FC;
+  }
+
+  d-article h1 {
+    font-size: 30px;
+  }
+
+  d-article h2 {
+    font-size: 25px;
   }
 
   </style>
@@ -2084,7 +2095,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Pro-Med-Str - Part II","description":"This lecture describes how to processes structured medication data, especially focusing on e-prescription data.","authors":[{"author":"Elizabeth McNeer","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
+{"title":"Pro-Med-Str - Part II","description":"This tutorial describes how to process structured medication data, especially focusing on e-prescription data.","authors":[{"author":"Elizabeth McNeer","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2105,7 +2116,16 @@ Workshops
 </button>
 <div class="nav-dropdown-content">
 <a href="workshops.html">All Workshops</a>
-<a href="about.html">about</a>
+<a href="Extract-Med.html">Extract-Med</a>
+<a href="Pro-Med-NLP.html">Pro-Med-NLP</a>
+<a href="Pro-Demographic.html">Pro-Demographic</a>
+<a href="Pro-Drug Level.html">Pro-Drug Level</a>
+<a href="Pro-Laboratory.html">Pro-Laboratory</a>
+<a href="Pro-Med-Str-Part1.html">Pro-Med-Str - Part I</a>
+<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
+<a href="Build-PK-Oral.html">Build-PK-Oral</a>
+<a href="Build-PK-IV-simple.html">Build-PK-IV - Simple</a>
+<a href="Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2124,12 +2144,11 @@ Workshops
 <h1>Pro-Med-Str - Part II</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This lecture describes how to processes structured medication data, especially focusing on e-prescription data.</p></p>
+<p><p>This tutorial describes how to process structured medication data, especially focusing on e-prescription data.</p></p>
 </div>
 
 <div class="d-byline">
-  
-  Elizabeth McNeer
+  Elizabeth McNeer  
   
 
 </div>
@@ -2140,12 +2159,107 @@ Workshops
 <h3>Contents</h3>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#raw-e-prescription-data">Raw E-Prescription Data</a></li>
+<li><a href="#processing-the-data">Processing the Data</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
 </div>
 <p>Here add links to vignettes</p>
+<ul>
+<li>See also “Part II: e-prescription data” of “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” in <code>EHR</code> package</li>
+</ul>
 <h1 id="introduction">Introduction</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>This tutorial describes how to use the <em>Pro-Med-Str</em> - Part II module in <em>EHRtoPKPD</em> to process structured e-prescription data.</p>
+<p>The major tasks the module performs are as follows:</p>
+<ul>
+<li>Creating numeric variables for strength, dose, and frequency</li>
+<li>Calculating daily dose</li>
+<li>Removing duplicate daily doses for a patient</li>
+</ul>
+<h1 id="raw-e-prescription-data">Raw E-Prescription Data</h1>
+<p>To use this module, all prescriptions must be for only one drug. Different names, such as brand names and generic names, for the same drug are allowed (e.g., Lamictal and lamotrigine). The data used in this module must include columns for ID, date, strength, dose amount, and frequency. If a description column is included, this module will attempt to extract the strength from the description column in cases where the strength is missing.</p>
+<p>Below is example e-prescription data from the <code>EHR</code> package including columns for ID, drug name, dose, frequency, date, strength, and description.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>rawDataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>
+<span class='op'>(</span><span class='va'>eRX</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"e-rx_DATA.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  GRID    MED_NAME   RX_DOSE             FREQUENCY ENTRY_DATE STRENGTH_AMOUNT
+1  ID1 lamotrigine         1                   bid 2009-02-24             100
+2  ID2 lamotrigine         2                   bid 2006-12-30             100
+3  ID2    Lamictal         1                   bid 2006-12-30             200
+4  ID3 Lamictal XR         3                   bid 2004-08-24                
+5  ID4 lamotrigine         1           twice a day 2010-05-22          200 mg
+6  ID5 lamotrigine    2 tabs                   qam 2007-06-13             200
+7  ID6 lamotrigine 1.5+1+1.5 brkfst, lunch, dinner 2015-03-14             100
+                                         DESCRIPTION
+1 lamotrigine 100 mg tablet (Also Known As Lamictal)
+2 lamotrigine 100 mg tablet (Also Known As Lamictal)
+3                             LaMICtal 200 mg tablet
+4                       Lamictal XR 100 mg 24 hr Tab
+5 lamotrigine 200 mg tablet (Also Known As Lamictal)
+6         LaMICtal XR 200 mg tablet,extended release
+7 lamoTRIgine 100 mg tablet (Also Known As Lamictal)</code></pre>
+</div>
+<p>To get a daily dose for each patient, we multiply strength*dose*frequency. In order to do this, the STRENGTH_AMOUNT, RX_DOSE, and FREQUENCY variables need to be converted to numeric. Strengths that include units will have the units removed (e.g., numeric strength for ID4 will be 200), frequencies will be converted to the equivalent number of times per day that the medication is taken (e.g., bid = 2, twice a day = 2, qam = 1), and doses will have words like “tabs” removed (e.g., numeric dose for ID5 will be 2). For ID6, separate doses are written for breakfast, lunch, and dinner, so the numeric dose will be 4 (1.5+1+1.5), and the daily dose will be calculated as strength*dose. ID3 is missing a value for STRENGTH_AMOUNT, but we can use the strength that is present in the DESCRIPTION column. In the next section, we show how the <code>run_MedStrII</code> function in the <code>EHR</code> package takes care of all of these tasks for us and calculates a daily dose.</p>
+<h1 id="processing-the-data">Processing the Data</h1>
+<p>We begin by loading the <code>EHR</code> package.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>The e-prescription data can be processed by the <code>run_MedStrII</code> function using:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>eRX.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_MedStrII.html'>run_MedStrII</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"e-rx_DATA.csv"</span><span class='op'>)</span>,
+    select <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'GRID'</span>,<span class='st'>'MED_NAME'</span>,<span class='st'>'RX_DOSE'</span>,<span class='st'>'FREQUENCY'</span>,<span class='st'>'ENTRY_DATE'</span>,<span class='st'>'STRENGTH_AMOUNT'</span>,<span class='st'>'DESCRIPTION'</span><span class='op'>)</span>,
+    rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'ID'</span>,<span class='st'>'MED_NAME'</span>,<span class='st'>'RX_DOSE'</span>,<span class='st'>'FREQUENCY'</span>,<span class='st'>'ENTRY_DATE'</span>,<span class='st'>'STRENGTH_AMOUNT'</span>,<span class='st'>'DESCRIPTION'</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>The following arguments are used in the <code>run_MedStrII</code> function:</p>
+<ul>
+<li><code>file</code>: file name of prescription data</li>
+<li><code>select</code>: the names of the columns to select</li>
+<li><code>rename</code>: new column names; the default are the names required for the underlying functions, <code>processErx</code> and <code>processErxAddl</code></li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>eRX.out</span>
+</code></pre>
+</div>
+<pre><code>   ID    MED_NAME   RX_DOSE             FREQUENCY ENTRY_DATE STRENGTH_AMOUNT
+1 ID1 lamotrigine         1                   bid 2009-02-24             100
+2 ID2 lamotrigine         2                   bid 2006-12-30             100
+4 ID3 Lamictal XR         3                   bid 2004-08-24                
+5 ID4 lamotrigine         1           twice a day 2010-05-22          200 mg
+6 ID5 lamotrigine    2 tabs                   qam 2007-06-13             200
+7 ID6 lamotrigine 1.5+1+1.5 brkfst, lunch, dinner 2015-03-14             100
+                                         DESCRIPTION strength freq.standard freq.num dose daily.dose       date
+1 lamotrigine 100 mg tablet (also known as lamictal)      100           bid        2    1        200 2009-02-24
+2 lamotrigine 100 mg tablet (also known as lamictal)      100           bid        2    2        400 2006-12-30
+4                       lamictal xr 100 mg 24 hr tab      100           bid        2    3        600 2004-08-24
+5 lamotrigine 200 mg tablet (also known as lamictal)      200           bid        2    1        400 2010-05-22
+6         lamictal xr 200 mg tablet,extended release      200            am        1    2        400 2007-06-13
+7 lamotrigine 100 mg tablet (also known as lamictal)      100           tid        3    4        400 2015-03-14
+  num_doses num_freqs
+1        NA        NA
+2        NA        NA
+4        NA        NA
+5        NA        NA
+6        NA        NA
+7         3         3</code></pre>
+</div>
+<p>In the above example, daily dose was calculated for the first 5 patients by multiplying strength*dose*freq.num, and a redundant daily dose was removed for the patient with ID2. In order to calculate a daily dose for the patient with ID3, the strength of 100 from the description was used because STRENGTH_AMOUNT was missing. For the patient with ID6, the dose amounts of 1.5, 1, and 1.5 are added together to get a dose of 4, and the daily dose is calculated as strength*dose.</p>
+<h1 id="references">References</h1>
+<ol type="1">
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

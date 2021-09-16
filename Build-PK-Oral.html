@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -88,7 +87,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Choi Lab: Build-PK-Oral</title>
 
-  <meta property="description" itemprop="description" content="This lecture describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system."/>
+  <meta property="description" itemprop="description" content="This tutorial describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system."/>
 
 
   <meta name="article:author" content="Michael L. Williams"/>
@@ -96,20 +95,20 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Choi Lab: Build-PK-Oral"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="This lecture describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system."/>
+  <meta property="og:description" content="This tutorial describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Choi Lab"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Choi Lab: Build-PK-Oral"/>
-  <meta property="twitter:description" content="This lecture describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system."/>
+  <meta property="twitter:description" content="This tutorial describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output"]}},"value":[{"type":"character","attributes":{},"value":["Build-PK-Oral"]},{"type":"character","attributes":{},"value":["This lecture describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Michael L. Williams"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[1]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output"]}},"value":[{"type":"character","attributes":{},"value":["Build-PK-Oral"]},{"type":"character","attributes":{},"value":["This tutorial describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Michael L. Williams"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2034,7 +2033,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2059,17 +2058,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   figure.rhs {
     float: right;
-    width: 475px;
+    width: 570px;
     padding-left: 1em;
   }
 
   @media(min-width: 768px) {
 
   d-article {
-    font-size: 0.9rem;
-    line-height: 1.4em;
-    grid-template-columns: [screen-start] 2fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    font-size: 1.1rem;
+    line-height: 1.3em;
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
   }
+  }
+
+  pre.sourceCode {
+    background-color: #D4E6FC;
+  }
+
+  d-article h1 {
+    font-size: 30px;
+  }
+
+  d-article h2 {
+    font-size: 25px;
   }
 
   </style>
@@ -2084,7 +2095,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Build-PK-Oral","description":"This lecture describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.","authors":[{"author":"Michael L. Williams","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
+{"title":"Build-PK-Oral","description":"This tutorial describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.","authors":[{"author":"Michael L. Williams","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2105,7 +2116,16 @@ Workshops
 </button>
 <div class="nav-dropdown-content">
 <a href="workshops.html">All Workshops</a>
-<a href="about.html">about</a>
+<a href="Extract-Med.html">Extract-Med</a>
+<a href="Pro-Med-NLP.html">Pro-Med-NLP</a>
+<a href="Pro-Demographic.html">Pro-Demographic</a>
+<a href="Pro-Drug Level.html">Pro-Drug Level</a>
+<a href="Pro-Laboratory.html">Pro-Laboratory</a>
+<a href="Pro-Med-Str-Part1.html">Pro-Med-Str - Part I</a>
+<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
+<a href="Build-PK-Oral.html">Build-PK-Oral</a>
+<a href="Build-PK-IV-simple.html">Build-PK-IV - Simple</a>
+<a href="Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2124,12 +2144,11 @@ Workshops
 <h1>Build-PK-Oral</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This lecture describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using <em>Build-PK-Oral</em> when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the <em>Extract-Med</em> module and processed with the <em>Pro-Med-NLP</em> module in the system.</p></p>
+<p><p>This tutorial describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using <em>Build-PK-Oral</em> when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the <em>Extract-Med</em> module and processed with the <em>Pro-Med-NLP</em> module in the system.</p></p>
 </div>
 
 <div class="d-byline">
-  
-  Michael L. Williams
+  Michael L. Williams  
   
 
 </div>
@@ -2140,119 +2159,156 @@ Workshops
 <h3>Contents</h3>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#build-pk-oral">Build-PK-Oral</a></li>
+<li><a href="#population-pkpd-data-format">Population PK/PD Data Format</a></li>
+<li><a href="#ehr-sourced-oral-dosing-data">EHR Sourced Oral Dosing Data</a>
+<ul>
+<li><a href="#without-last-dose-times">Without Last-Dose Times</a></li>
+<li><a href="#with-last-dose-times">With Last-Dose times</a></li>
+</ul></li>
+<li><a href="#build-pk-oral">Build-PK-Oral</a>
+<ul>
+<li><a href="#build-the-pk-data-without-last-dose-time">(1) Build the PK data without last-dose time</a></li>
+<li><a href="#build-the-pk-data-with-last-dose-time">(2) Build the PK data with last-dose time</a></li>
+</ul></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
 </div>
-<p>Here add links to vignettes</p>
+<ul>
+<li>See also “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.html">4. EHR Vignette for Build-PK-Oral</a>” in <code>EHR</code> package.</li>
+</ul>
 <h1 id="introduction">Introduction</h1>
-<h3 id="population-pkpd-data-format">Population PKPD Data Format</h3>
-<p>Software which performs population PKPD model fitting typically require data to be in roughly the same format. Here is an example of data which is in a suitable format for analysis in NONMEM, the oldest and most popular choice for implementation of nonlinear mixed effects models suitable for PKPD analysis (among other applications).</p>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
+<p>We briefly describe a data format typically used in pharmacokinetics (PK), pharmacodynamics (PD) modeling. Then, we describe oral dosing data commonly obtained from electronic health records (EHRs) in the presence of last dose time and absense of last dose time information. Finally, we explain how to run <em>Build-PK-Oral</em> module.</p>
+<h1 id="population-pkpd-data-format">Population PK/PD Data Format</h1>
+<p>Software performing population PK/PD modeling typically requires data to be in roughly the same format, following the data requirement for NONMEM as NONMEM has been used for a long time and considered as the gold standard software to perform population PK/PD analysis. Here is an example of data which is in a suitable format for analysis in NONMEM.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>exampledata</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+<span class='co'># Data generating function for examples</span>
+<span class='va'>mkdat</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>npat</span><span class='op'>=</span><span class='fl'>3</span>
+  <span class='va'>visits</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='va'>npat</span>, min<span class='op'>=</span><span class='fl'>2</span>, max<span class='op'>=</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>id</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>npat</span>, <span class='va'>visits</span><span class='op'>)</span>
+  <span class='va'>dt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>700</span>, <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>visits</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, 
+                                 origin <span class='op'>=</span> <span class='st'>'2019-01-01'</span><span class='op'>)</span>, <span class='st'>'10:00:00'</span><span class='op'>)</span>, tz <span class='op'>=</span> <span class='st'>'UTC'</span><span class='op'>)</span> 
+  <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>visits</span><span class='op'>)</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>*</span><span class='fl'>60</span><span class='op'>*</span><span class='fl'>60</span><span class='op'>)</span>
+  <span class='va'>dose_morn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.5</span>,<span class='fl'>5</span>,<span class='fl'>7.5</span>,<span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>visits</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='va'>conc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>visits</span><span class='op'>)</span>, <span class='fl'>1.5</span><span class='op'>*</span><span class='va'>dose_morn</span>, <span class='fl'>1</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>)</span>
+  <span class='va'>ld</span> <span class='op'>&lt;-</span> <span class='va'>dt</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>16</span>, <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>visits</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>3600</span>
+  <span class='va'>ld</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>visits</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>.3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span>
+  <span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>40</span><span class='op'>:</span><span class='fl'>75</span>, <span class='va'>npat</span><span class='op'>)</span>, <span class='va'>visits</span><span class='op'>)</span>
+  <span class='va'>weight</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>npat</span>, <span class='fl'>180</span>, <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>,<span class='va'>visits</span><span class='op'>)</span>
+  <span class='va'>hgb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>npat</span>, <span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='va'>visits</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>dt</span>, <span class='va'>dose_morn</span>, <span class='va'>conc</span>, <span class='va'>age</span>, <span class='va'>weight</span>, <span class='va'>hgb</span>, <span class='va'>ld</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='co'># Make example data</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>mkdat</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>ex</span> <span class='op'>&lt;-</span> <span class='va'>dat</span>
+<span class='va'>dat2</span> <span class='op'>&lt;-</span> <span class='va'>dat</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>8</span><span class='op'>]</span>
+
+<span class='co'># Build PK data without last-dose times</span>
+<span class='va'>exampledata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Build_PK_Oral.html'>run_Build_PK_Oral</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>dat2</span>,
+                  idCol <span class='op'>=</span> <span class='st'>"id"</span>,
+                  dtCol <span class='op'>=</span> <span class='st'>"dt"</span>,
+                  doseCol <span class='op'>=</span> <span class='st'>"dose_morn"</span>,
+                  concCol <span class='op'>=</span> <span class='st'>"conc"</span>,
+                  ldCol <span class='op'>=</span> <span class='cn'>NULL</span>,
+                  first_interval_hours <span class='op'>=</span> <span class='fl'>336</span>,
+                  imputeClosest <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='va'>exampledata</span> <span class='op'>&lt;-</span> <span class='va'>exampledata</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CID"</span>,<span class='st'>"time"</span>,<span class='st'>"conc"</span>,<span class='st'>"dose"</span>,
+                              <span class='st'>"addl"</span>,<span class='st'>"II"</span>,<span class='st'>"mdv"</span>,<span class='st'>"age"</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>exampledata</span>
 </code></pre>
 </div>
-<pre><code>   CID time conc dose addl II mdv age
-1    1   NA 16.1   NA   NA NA   0  46
-2    1   NA  6.4   NA   NA NA   0  46
-3    1   NA  5.6   NA   NA NA   0  46
-4    1   NA  6.6   NA   NA NA   0  46
-5    1   NA  5.0   NA   NA NA   0  46
-6    1   NA   NA 10.0   27 12   1  46
-7    1   NA   NA 10.0  139 12   1  46
-8    1   NA   NA  5.0  105 12   1  46
-9    1   NA   NA  5.0  285 12   1  46
-10   1   NA   NA  5.0  265 12   1  46
-11   2   NA 15.1   NA   NA NA   0  72
-12   2   NA 11.7   NA   NA NA   0  72
-13   2   NA  2.9   NA   NA NA   0  72
-14   2   NA  2.2   NA   NA NA   0  72
-15   2   NA  4.3   NA   NA NA   0  72
-16   2   NA   NA 10.0   27 12   1  72
-17   2   NA   NA 10.0   65 12   1  72
-18   2   NA   NA  7.5   25 12   1  72
-19   2   NA   NA  2.5   29 12   1  72
-20   2   NA   NA  2.5   29 12   1  72
-21   3   NA  3.4   NA   NA NA   0  56
-22   3   NA 10.2   NA   NA NA   0  56
-23   3   NA  7.5   NA   NA NA   0  56
-24   3   NA   NA  2.5   27 12   1  56
-25   3   NA   NA  2.5  159 12   1  56
-26   3   NA   NA  7.5   17 12   1  56</code></pre>
+<pre><code>   CID   time conc dose addl II mdv age
+1    1    0.0   NA 10.0   27 12   1  46
+2    1  336.0 16.1   NA   NA NA   0  46
+3    1  336.5   NA 10.0  139 12   1  46
+4    1 2015.0  6.4   NA   NA NA   0  46
+5    1 2015.5   NA  5.0  105 12   1  46
+6    1 3287.0  5.6   NA   NA NA   0  46
+7    1 3287.5   NA  5.0  285 12   1  46
+8    1 6720.0  6.6   NA   NA NA   0  46
+9    1 6720.5   NA  5.0  265 12   1  46
+10   1 9911.0  5.0   NA   NA NA   0  46
+11   2    0.0   NA 10.0   27 12   1  72
+12   2  336.0 15.1   NA   NA NA   0  72
+13   2  336.5   NA 10.0   65 12   1  72
+14   2 1128.0 11.7   NA   NA NA   0  72
+15   2 1128.5   NA  7.5   25 12   1  72
+16   2 1440.0  2.9   NA   NA NA   0  72
+17   2 1440.5   NA  2.5   29 12   1  72
+18   2 1800.0  2.2   NA   NA NA   0  72
+19   2 1800.5   NA  2.5   29 12   1  72
+20   2 2160.0  4.3   NA   NA NA   0  72
+21   3    0.0   NA  2.5   27 12   1  56
+22   3  336.0  3.4   NA   NA NA   0  56
+23   3  336.5   NA  2.5  159 12   1  56
+24   3 2256.0 10.2   NA   NA NA   0  56
+25   3 2256.5   NA  7.5   17 12   1  56
+26   3 2472.0  7.5   NA   NA NA   0  56</code></pre>
 </div>
-<p>This simple example has two types of rows, dose events (information concerning dosing) and concentration events (information concerning blood concentration levels for the drug of interest). The rows indicate the following information:</p>
+<p>This simple example has two types of data rows, dose events (information concerning dosing) and concentration events (information concerning blood concentration levels for the drug of interest). The columns indicate the following information:</p>
 <ol type="1">
-<li><code>CID</code>: Unique identifier for each individual in the dataset.</li>
-<li><code>time</code>: Time of either the dose or concentration of interest.</li>
-<li><code>conc</code>: Drug blood concentration, <code>NA</code> for a dose event.</li>
-<li><code>dose</code>: Dose amount, we are concerned solely with oral dosing in this module, <code>NA</code> for concentration events.</li>
-<li><code>addl</code>: Additional doses, the number of times for an oral dose to be repeated.</li>
-<li><code>II</code>: Interdose interval, the amount of time between each additional dose.</li>
-<li><code>mdv</code>: Missing dependent variable, indicates that there is no dependent variable (in this case, blood concentration) in the row, denotes dose events.</li>
-<li><code>age</code>: Each column can store model covariates, these can be time varying or fixed by individual.</li>
+<li><code>CID</code>: unique identifier for each individual in the dataset.</li>
+<li><code>time</code>: time of either dosing or concentration measurement.</li>
+<li><code>conc</code>: drug blood concentration, <code>NA</code> for a dose event.</li>
+<li><code>dose</code>: dose amount, we are concerned solely with oral dosing in this module, <code>NA</code> for concentration events.</li>
+<li><code>addl</code>: additional doses, the number of times for an oral dose to be repeated.</li>
+<li><code>II</code>: interdose interval, the amount of time between each additional dose.</li>
+<li><code>mdv</code>: missing dependent variable; 1 for indicating that there is no dependent variable (in this case, blood concentration).</li>
+<li><code>age</code>: each column can have covariates; these can be time varying or fixed within individual.</li>
 </ol>
-<p>Taking as an example the first row, which is a dose event, we can interpret that a dose of 10 mg is taken at time 0 then 27 additional doses are taken every 12 hours (time can take any unit). If we calculate each of these 27 doses then we see that the final dose is given at <code>time=324</code>, 12 hours before the measured concentration of 16.1 in row 2. Of course this same dosing information could be expressed in 28 rows, (10 mg at time 0, 10 mg at time 12, 10 mg at time 24, etc.) but this more compact form is preferable in the presence of a regular dosing interval.</p>
-<h3 id="ehr-sourced-oral-dosing-data">EHR Sourced Oral Dosing Data</h3>
-<p>Now that we know the form that our data ultimately needs to take, we can consider how the data looks in it’s raw form. The module <code>Extract-Med</code> takes raw EHR notes to produce extracted medication data. See the relevant workshop to understand that process. Other modules (<code>Pro-Phenotype</code>, <code>Pro-Med-NLP</code>, <code>Pro-Med-Str</code>, <code>Pro-Drug-Level</code>, <code>Pro-Laboratory</code>, <code>Pro-Demographic</code>) take this extracted information and process it further, our interest is in the intermediate dataset generated by these modules but not yet in the form presented above. Here is an example of such data.</p>
+<p>Taking the first row as an example, which is a dose event, a dose of 10 mg is taken at time 0 then 27 additional doses are taken every 12 hours (time can take any unit). If we calculate each of these 27 doses then we see that the final dose is given at <code>time=324</code>, 12 hours before the measured concentration of 16.1 in row 2. Of course this same dosing information could be expressed in 28 rows, (10 mg at time 0, 10 mg at time 12, 10 mg at time 24, etc.) but this more compact form is preferable in the presence of a regular dosing interval.</p>
+<h1 id="ehr-sourced-oral-dosing-data">EHR Sourced Oral Dosing Data</h1>
+<p>Now that we know an appropriate form which our data ultimately needs to take, we can consider how the data looks in it’s raw form. Drug dose information can be obtained from structured e-prescription databases, or extracted from clinical notes using the module <em>Extract-Med</em> (see <a href="Extract-Med.html"><em>Extract-Med</em></a> to understand that process). The obtained dose information can be processing using Part II of <em>Pro-Med-Str</em> for the one from e-prescription databases and <em>Pro-Med-NLP</em> for the one extracted from clinical notes. Other data can be also processed using relevant modules (e.g., <em>Pro-Drug Level</em>, <em>Pro-Laboratory</em>). Our interest is in the intermediate dataset generated by these modules but not yet in the form presented above. Here is an example of such data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ex</span>
 </code></pre>
 </div>
-<pre><code>   id                  dt dose_morn conc age weight  hgb
-1   1 2019-02-27 10:00:00      10.0 16.1  46    154 12.0
-2   1 2019-05-08 10:00:00       5.0  6.4  46    154 12.0
-3   1 2019-06-30 10:00:00       5.0  5.6  46    154 12.0
-4   1 2019-11-20 10:00:00       5.0  6.6  46    154 12.0
-5   1 2020-04-01 10:00:00       2.5  5.0  46    154 12.0
-6   2 2020-04-10 10:00:00      10.0 15.1  72    193  8.6
-7   2 2020-05-13 10:00:00       7.5 11.7  72    193  8.6
-8   2 2020-05-26 10:00:00       2.5  2.9  72    193  8.6
-9   2 2020-06-10 10:00:00       2.5  2.2  72    193  8.6
-10  2 2020-06-25 10:00:00       2.5  4.3  72    193  8.6
-11  3 2020-07-07 10:00:00       2.5  3.4  56    167 12.2
-12  3 2020-09-25 10:00:00       7.5 10.2  56    167 12.2
-13  3 2020-10-04 10:00:00       5.0  7.5  56    167 12.2
-                    ld
-1  2019-02-26 22:00:00
-2  2019-05-07 18:00:00
-3                 &lt;NA&gt;
-4  2019-11-19 18:00:00
-5                 &lt;NA&gt;
-6                 &lt;NA&gt;
-7  2020-05-12 21:00:00
-8                 &lt;NA&gt;
-9                 &lt;NA&gt;
-10                &lt;NA&gt;
-11                &lt;NA&gt;
-12 2020-09-24 22:00:00
-13                &lt;NA&gt;</code></pre>
+<pre><code>   id                  dt dose_morn conc age weight  hgb                  ld
+1   1 2019-02-27 10:00:00      10.0 16.1  46    154 12.0 2019-02-26 22:00:00
+2   1 2019-05-08 10:00:00       5.0  6.4  46    154 12.0 2019-05-07 18:00:00
+3   1 2019-06-30 10:00:00       5.0  5.6  46    154 12.0                &lt;NA&gt;
+4   1 2019-11-20 10:00:00       5.0  6.6  46    154 12.0 2019-11-19 18:00:00
+5   1 2020-04-01 10:00:00       2.5  5.0  46    154 12.0                &lt;NA&gt;
+6   2 2020-04-10 10:00:00      10.0 15.1  72    193  8.6                &lt;NA&gt;
+7   2 2020-05-13 10:00:00       7.5 11.7  72    193  8.6 2020-05-12 21:00:00
+8   2 2020-05-26 10:00:00       2.5  2.9  72    193  8.6                &lt;NA&gt;
+9   2 2020-06-10 10:00:00       2.5  2.2  72    193  8.6                &lt;NA&gt;
+10  2 2020-06-25 10:00:00       2.5  4.3  72    193  8.6                &lt;NA&gt;
+11  3 2020-07-07 10:00:00       2.5  3.4  56    167 12.2                &lt;NA&gt;
+12  3 2020-09-25 10:00:00       7.5 10.2  56    167 12.2 2020-09-24 22:00:00
+13  3 2020-10-04 10:00:00       5.0  7.5  56    167 12.2                &lt;NA&gt;</code></pre>
 </div>
-<p>The ID, time, and covariate data in this dataframe is self explanatory. The difficult data to deal with can be found in <code>dose_morn</code>, <code>conc</code>, and <code>ld</code>. <code>conc</code> is a measured blood concentration which is recorded at the time indicated in <code>time</code>. <code>dose_morn</code> is the dose which was taken in the morning of that measured concentration, as extracted by <code>Extract-Med</code>. <code>ld</code> is the last-dose time, the extracted time of the dose which precedes the measured concentration, if present in the EHR. This information can be used to construct a course of drug dosing but some assumptions need to be made. Consider the two following assumptions:</p>
+<p>The ID, time, and covariate data in this dataframe is self explanatory. The difficult data to deal with can be found in <code>dose_morn</code>, <code>conc</code>, and <code>ld</code>. <code>conc</code> is a measured blood concentration which is recorded at the time indicated in <code>time</code>. <code>dose_morn</code> is the dose which was taken in the morning of that measured concentration, as extracted by <em>Extract-Med</em>. <code>ld</code> is the last-dose time, the extracted time of the dose which precedes the measured concentration, if present in the EHR. This information can be used to construct a course of drug dosing but some assumptions need to be made. Consider the two following assumptions:</p>
 <ol type="1">
 <li>Dosing only occurs on the morning of the recorded dose.</li>
 <li>Dosing occurs twice daily at 8am and 8pm.</li>
 </ol>
-<p>Obviously, the correct assumption will depend on the drug of interest, some drugs are taken on a regular schedule, others are as needed. Drugs which undergo routine therapeutic drug monitoring tend to be the latter so assumption 2 will likely be the better assumption.</p>
-<p>If a twice-daily dosing assumption is appropriate, then we can begin to think about how to best choose the timing of each dose, can we exploit some information in our dataset to determine dose timings which are more realistic than, say every day 8am and 8pm. In doing so we need to remember that the timing of the dose before the measured concentration is most important for estimating the PK profile. Some other things to consider:</p>
+<p>Obviously, the correct assumption will depend on the drug of interest – some drugs are taken on a regular schedule, while others are as needed. Drugs undergoing routine therapeutic drug monitoring tend to be the latter so assumption 2 will likely be the better assumption.</p>
+<p>If a twice-daily dosing assumption is appropriate, then we can begin to think about how to best choose the timing of each dose. Can we exploit some information in our dataset to determine dose timings which are more realistic than, say every day 8am and 8pm. In doing so we need to remember that the timing of the dose before the measured concentration is most important for estimating the PK profile. Some other things to consider:</p>
 <ol type="1">
 <li>The timing of the concentration measurement itself may impact dosing.</li>
 <li>There may or may not be an extracted last-dose time to work with.</li>
 </ol>
 <p>For this reason, we will break up our algorithm into with and without last-dose times and discuss how we arrive at a final dose-building algorithm.</p>
-<h4 id="without-last-dose-times">Without Last-Dose Times</h4>
-<p>When we do not have an extracted last-dose time, we must work off of only our measured concentration timing and assumptions about how routine therapeutic monitoring is typically performed. The majority of these labs are conducted in the morning, and patients will typically hold off on taking their medications until after the blood draw. For that reason, we assume that a dose is taken 30 minutes after a measured blood concentration, then proceeds with a dose every 12 hours. The final dose in the seq uence will occur 6-18 hours before the next measured concentration, the timing of which will determine the next sequence of doses, and so on until the final measured concentration. The First measured dose requires special attention. Typical drug monitoring procedure suggests it is reasonable to assume that the drug has been taken regularly before this first concentration. The safest assumptiom, assuming no further information is available, is that the drug has been taken every 12 hours for long enough to reach a steady state of trough concentrations. In our system this defaults to 336 hours, ending 12 hours before the first measured concentration.</p>
-<h4 id="with-last-dose-times">With Last-Dose times</h4>
-<p>In the case where extracted last-dose times are available, we can begin by building the same dataset as without last-dose times. We then add a row for the extracted last dose and eliminate an appropriate number of doses from the preceding dose sequence to avoid incorrect double-dosing, this is done by removing doses until the last dose in the sequence is 6-18 hours before the extracted last-dose time. This allows for last-dose times which are more than 12 hours before the extracted concentration to be appropriately accounted for.</p>
+<h2 id="without-last-dose-times">Without Last-Dose Times</h2>
+<p>When we do not have an extracted last-dose time, we must work off of only our measured concentration timing and assumptions about how routine therapeutic drug monitoring is typically performed. The majority of these labs are conducted in the morning, and patients will typically hold off on taking their medications until after the blood draw. For that reason, we assume that a dose is taken 30 minutes after a measured blood concentration, then proceeds with a dose every 12 hours. The final dose in the sequence will occur 6-18 hours before the next measured concentration, the timing of which will determine the next sequence of doses, and so on until the final measured concentration. The first measured concentration requires special attention. Typical therapeutic drug monitoring procedure suggests it is reasonable to assume that the drug has been taken regularly before this first concentration. The safest assumptiom, assuming no further information is available, is that the drug has been taken every 12 hours for long enough to reach a steady state of trough concentrations. In our PK dose building algorithm, we use a default of 336 hours (i.e., 14 days), ending 12 hours before the first measured concentration.</p>
+<h2 id="with-last-dose-times">With Last-Dose times</h2>
+<p>In the case where extracted last-dose times are available, we can begin by building the same dataset as without last-dose times. We then add a row for a dose corresponding to the extracted last dose time and eliminate an appropriate number of doses from the preceding dose sequence to avoid incorrect double-dosing; this is done by removing doses until the last dose in the sequence is 6-18 hours before the extracted last-dose time. This allows for last-dose times which are more than 12 hours before the extracted concentration to be appropriately accounted for.</p>
 <h1 id="build-pk-oral">Build-PK-Oral</h1>
-<p>In order to run the <code>Build-PK-Oral</code> we first need to load the EHR package into our R environment.</p>
+<p>We now describe how to build the PK data without last-dose time and with last-dose time, both of which can be built using <strong><code>run_Build_PK_Oral()</code></strong> by defining the argument <code>ldCol</code> differently.</p>
+<p>To begin we load the <code>EHR</code> package, the <code>pkdata</code> package, and the <code>lubridate</code> package.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package and dependencies</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>pkdata</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2262,47 +2318,35 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ex</span>
 </code></pre>
 </div>
-<pre><code>   id                  dt dose_morn conc age weight  hgb
-1   1 2019-02-27 10:00:00      10.0 16.1  46    154 12.0
-2   1 2019-05-08 10:00:00       5.0  6.4  46    154 12.0
-3   1 2019-06-30 10:00:00       5.0  5.6  46    154 12.0
-4   1 2019-11-20 10:00:00       5.0  6.6  46    154 12.0
-5   1 2020-04-01 10:00:00       2.5  5.0  46    154 12.0
-6   2 2020-04-10 10:00:00      10.0 15.1  72    193  8.6
-7   2 2020-05-13 10:00:00       7.5 11.7  72    193  8.6
-8   2 2020-05-26 10:00:00       2.5  2.9  72    193  8.6
-9   2 2020-06-10 10:00:00       2.5  2.2  72    193  8.6
-10  2 2020-06-25 10:00:00       2.5  4.3  72    193  8.6
-11  3 2020-07-07 10:00:00       2.5  3.4  56    167 12.2
-12  3 2020-09-25 10:00:00       7.5 10.2  56    167 12.2
-13  3 2020-10-04 10:00:00       5.0  7.5  56    167 12.2
-                    ld
-1  2019-02-26 22:00:00
-2  2019-05-07 18:00:00
-3                 &lt;NA&gt;
-4  2019-11-19 18:00:00
-5                 &lt;NA&gt;
-6                 &lt;NA&gt;
-7  2020-05-12 21:00:00
-8                 &lt;NA&gt;
-9                 &lt;NA&gt;
-10                &lt;NA&gt;
-11                &lt;NA&gt;
-12 2020-09-24 22:00:00
-13                &lt;NA&gt;</code></pre>
+<pre><code>   id                  dt dose_morn conc age weight  hgb                  ld
+1   1 2019-02-27 10:00:00      10.0 16.1  46    154 12.0 2019-02-26 22:00:00
+2   1 2019-05-08 10:00:00       5.0  6.4  46    154 12.0 2019-05-07 18:00:00
+3   1 2019-06-30 10:00:00       5.0  5.6  46    154 12.0                &lt;NA&gt;
+4   1 2019-11-20 10:00:00       5.0  6.6  46    154 12.0 2019-11-19 18:00:00
+5   1 2020-04-01 10:00:00       2.5  5.0  46    154 12.0                &lt;NA&gt;
+6   2 2020-04-10 10:00:00      10.0 15.1  72    193  8.6                &lt;NA&gt;
+7   2 2020-05-13 10:00:00       7.5 11.7  72    193  8.6 2020-05-12 21:00:00
+8   2 2020-05-26 10:00:00       2.5  2.9  72    193  8.6                &lt;NA&gt;
+9   2 2020-06-10 10:00:00       2.5  2.2  72    193  8.6                &lt;NA&gt;
+10  2 2020-06-25 10:00:00       2.5  4.3  72    193  8.6                &lt;NA&gt;
+11  3 2020-07-07 10:00:00       2.5  3.4  56    167 12.2                &lt;NA&gt;
+12  3 2020-09-25 10:00:00       7.5 10.2  56    167 12.2 2020-09-24 22:00:00
+13  3 2020-10-04 10:00:00       5.0  7.5  56    167 12.2                &lt;NA&gt;</code></pre>
 </div>
-<p>There are 3 individuals in the dataset, each has a set of EHR-extracted dose and blood concentrations data along with demographic data and information commonly found with laboratory data:</p>
+<p>There are 3 individuals in the dataset. Each has a set of EHR-extracted dose and blood concentrations data along with demographic data and information commonly found with laboratory data:</p>
 <p>All concentrations are being taken in the morning. Given that this is a drug which should be taken orally every 12 hours, we can construct a reasonable dosing schedule which details the amount and timing of each dose.</p>
-<p><code>run_Build_PK_Oral()</code> will build an appropriate dataset for population PK analysis, given specification of appropriate columns:</p>
+<p><code>run_Build_PK_Oral()</code> will build an appropriate dataset for population PK analysis for drugs orally administered, given specification of appropriate columns:</p>
 <ul>
 <li><code>idCol</code>: subject identification number</li>
 <li><code>dtCol</code>: time of concentration measurement</li>
 <li><code>doseCol</code>: dose</li>
 <li><code>concCol</code>: drug concentration</li>
 <li><code>ldCol</code>: last-dose time; the default is <code>NULL</code> to ignore</li>
-<li><code>first_interval_hours</code>: Hours of regular dosing leading up to the first concentration; the default is 336 hours = 14 days</li>
+<li><code>first_interval_hours</code>: hours of regular dosing leading up to the first drug concentration; the default is 336 hours = 14 days</li>
 <li><code>imputeClosest</code>: Vector of columns for imputation of missing data using last observation carried forward or, if unavailable, next observation propagated backward</li>
 </ul>
+<h2 id="build-the-pk-data-without-last-dose-time">(1) Build the PK data without last-dose time</h2>
+<p>Suppose we do not have the last-dose time information. For illustrative purpose, we remove this information (i.e., column 8 is omitted in this example data).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Build PK data without last-dose times</span>
@@ -2316,35 +2360,37 @@ Workshops
                   imputeClosest <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>   CID time                date conc dose addl II mdv age weight  hgb
-1    1   NA 2019-02-27 10:00:00 16.1   NA   NA NA   0  46    154 12.0
-2    1   NA 2019-05-08 10:00:00  6.4   NA   NA NA   0  46    154 12.0
-3    1   NA 2019-06-30 10:00:00  5.6   NA   NA NA   0  46    154 12.0
-4    1   NA 2019-11-20 10:00:00  6.6   NA   NA NA   0  46    154 12.0
-5    1   NA 2020-04-01 10:00:00  5.0   NA   NA NA   0  46    154 12.0
-6    1   NA                &lt;NA&gt;   NA 10.0   27 12   1  46    154 12.0
-7    1   NA                &lt;NA&gt;   NA 10.0  139 12   1  46    154 12.0
-8    1   NA                &lt;NA&gt;   NA  5.0  105 12   1  46    154 12.0
-9    1   NA                &lt;NA&gt;   NA  5.0  285 12   1  46    154 12.0
-10   1   NA                &lt;NA&gt;   NA  5.0  265 12   1  46    154 12.0
-11   2   NA 2020-04-10 10:00:00 15.1   NA   NA NA   0  72    193  8.6
-12   2   NA 2020-05-13 10:00:00 11.7   NA   NA NA   0  72    193  8.6
-13   2   NA 2020-05-26 10:00:00  2.9   NA   NA NA   0  72    193  8.6
-14   2   NA 2020-06-10 10:00:00  2.2   NA   NA NA   0  72    193  8.6
-15   2   NA 2020-06-25 10:00:00  4.3   NA   NA NA   0  72    193  8.6
-16   2   NA                &lt;NA&gt;   NA 10.0   27 12   1  72    193  8.6
-17   2   NA                &lt;NA&gt;   NA 10.0   65 12   1  72    193  8.6
-18   2   NA                &lt;NA&gt;   NA  7.5   25 12   1  72    193  8.6
-19   2   NA                &lt;NA&gt;   NA  2.5   29 12   1  72    193  8.6
-20   2   NA                &lt;NA&gt;   NA  2.5   29 12   1  72    193  8.6
-21   3   NA 2020-07-07 10:00:00  3.4   NA   NA NA   0  56    167 12.2
-22   3   NA 2020-09-25 10:00:00 10.2   NA   NA NA   0  56    167 12.2
-23   3   NA 2020-10-04 10:00:00  7.5   NA   NA NA   0  56    167 12.2
-24   3   NA                &lt;NA&gt;   NA  2.5   27 12   1  56    167 12.2
-25   3   NA                &lt;NA&gt;   NA  2.5  159 12   1  56    167 12.2
-26   3   NA                &lt;NA&gt;   NA  7.5   17 12   1  56    167 12.2</code></pre>
+<pre><code>   CID   time                date conc dose addl II mdv age weight  hgb
+1    1    0.0 2019-02-13 10:00:00   NA 10.0   27 12   1  46    154 12.0
+2    1  336.0 2019-02-27 10:00:00 16.1   NA   NA NA   0  46    154 12.0
+3    1  336.5 2019-02-27 10:30:00   NA 10.0  139 12   1  46    154 12.0
+4    1 2015.0 2019-05-08 10:00:00  6.4   NA   NA NA   0  46    154 12.0
+5    1 2015.5 2019-05-08 10:30:00   NA  5.0  105 12   1  46    154 12.0
+6    1 3287.0 2019-06-30 10:00:00  5.6   NA   NA NA   0  46    154 12.0
+7    1 3287.5 2019-06-30 10:30:00   NA  5.0  285 12   1  46    154 12.0
+8    1 6720.0 2019-11-20 10:00:00  6.6   NA   NA NA   0  46    154 12.0
+9    1 6720.5 2019-11-20 10:30:00   NA  5.0  265 12   1  46    154 12.0
+10   1 9911.0 2020-04-01 10:00:00  5.0   NA   NA NA   0  46    154 12.0
+11   2    0.0 2020-03-27 10:00:00   NA 10.0   27 12   1  72    193  8.6
+12   2  336.0 2020-04-10 10:00:00 15.1   NA   NA NA   0  72    193  8.6
+13   2  336.5 2020-04-10 10:30:00   NA 10.0   65 12   1  72    193  8.6
+14   2 1128.0 2020-05-13 10:00:00 11.7   NA   NA NA   0  72    193  8.6
+15   2 1128.5 2020-05-13 10:30:00   NA  7.5   25 12   1  72    193  8.6
+16   2 1440.0 2020-05-26 10:00:00  2.9   NA   NA NA   0  72    193  8.6
+17   2 1440.5 2020-05-26 10:30:00   NA  2.5   29 12   1  72    193  8.6
+18   2 1800.0 2020-06-10 10:00:00  2.2   NA   NA NA   0  72    193  8.6
+19   2 1800.5 2020-06-10 10:30:00   NA  2.5   29 12   1  72    193  8.6
+20   2 2160.0 2020-06-25 10:00:00  4.3   NA   NA NA   0  72    193  8.6
+21   3    0.0 2020-06-23 10:00:00   NA  2.5   27 12   1  56    167 12.2
+22   3  336.0 2020-07-07 10:00:00  3.4   NA   NA NA   0  56    167 12.2
+23   3  336.5 2020-07-07 10:30:00   NA  2.5  159 12   1  56    167 12.2
+24   3 2256.0 2020-09-25 10:00:00 10.2   NA   NA NA   0  56    167 12.2
+25   3 2256.5 2020-09-25 10:30:00   NA  7.5   17 12   1  56    167 12.2
+26   3 2472.0 2020-10-04 10:00:00  7.5   NA   NA NA   0  56    167 12.2</code></pre>
 </div>
-<p>Note that <code>addl</code> and <code>II</code> dictate an every-twelve-hour dosing schedule which leads up to the proceeding concentration. Covariates are preserved and a <code>time</code> variable which represents hours since first dose is generated. This data is now in an appropriate format for PK analysis but makes no use of the last-dose times although they are extracted along with some (but not all) concentrations. When last-dose times are present in the input data and they are specified in the argument <code>ldCol</code>, the sequence of doses leading up to the extracted dose is reduced and a new row is inserted which accurately describes the timing of the dose which precedes the relevant concentration.</p>
+<p>Note that <code>addl</code> and <code>II</code> dictate an every-twelve-hour dosing schedule which leads up to the proceeding concentration. Covariates are preserved and a <code>time</code> variable which represents hours since first dose is generated. This data is now in an appropriate format for PK analysis but makes no use of the last-dose times.</p>
+<h2 id="build-the-pk-data-with-last-dose-time">(2) Build the PK data with last-dose time</h2>
+<p>Suppose we do now have the last-dose time information although they are extracted along with some (but not all) concentrations. When last-dose times are avaiable, they can be specified in the argument <code>ldCol</code> in the input data (e.g., <code>ldCol = "ld"</code>. Then, the sequence of doses leading up to the extracted dose is reduced and a new row is inserted which accurately describes the timing of the dose which precedes the relevant concentration.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Build PK data with last-dose times</span>
@@ -2358,43 +2404,43 @@ Workshops
                   imputeClosest <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>   CID time                date conc dose addl II mdv age weight  hgb
-1    1   NA 2019-02-27 10:00:00 16.1   NA   NA NA   0  46    154 12.0
-2    1   NA 2019-05-08 10:00:00  6.4   NA   NA NA   0  46    154 12.0
-3    1   NA 2019-06-30 10:00:00  5.6   NA   NA NA   0  46    154 12.0
-4    1   NA 2019-11-20 10:00:00  6.6   NA   NA NA   0  46    154 12.0
-5    1   NA 2020-04-01 10:00:00  5.0   NA   NA NA   0  46    154 12.0
-6    1   NA                &lt;NA&gt;   NA 10.0  138 12   1  46    154 12.0
-7    1   NA                &lt;NA&gt;   NA  5.0  105 12   1  46    154 12.0
-8    1   NA                &lt;NA&gt;   NA  5.0  284 12   1  46    154 12.0
-9    1   NA                &lt;NA&gt;   NA  5.0  265 12   1  46    154 12.0
-10   1   NA                &lt;NA&gt;   NA 10.0    0 NA   1  46    154 12.0
-11   1   NA                &lt;NA&gt;   NA 10.0    0 NA   1  46    154 12.0
-12   1   NA                &lt;NA&gt;   NA  5.0    0 NA   1  46    154 12.0
-13   1   NA                &lt;NA&gt;   NA 10.0   26 12   1  46    154 12.0
-14   2   NA 2020-04-10 10:00:00 15.1   NA   NA NA   0  72    193  8.6
-15   2   NA 2020-05-13 10:00:00 11.7   NA   NA NA   0  72    193  8.6
-16   2   NA 2020-05-26 10:00:00  2.9   NA   NA NA   0  72    193  8.6
-17   2   NA 2020-06-10 10:00:00  2.2   NA   NA NA   0  72    193  8.6
-18   2   NA 2020-06-25 10:00:00  4.3   NA   NA NA   0  72    193  8.6
-19   2   NA                &lt;NA&gt;   NA 10.0   64 12   1  72    193  8.6
-20   2   NA                &lt;NA&gt;   NA  7.5   25 12   1  72    193  8.6
-21   2   NA                &lt;NA&gt;   NA  2.5   29 12   1  72    193  8.6
-22   2   NA                &lt;NA&gt;   NA  2.5   29 12   1  72    193  8.6
-23   2   NA                &lt;NA&gt;   NA 10.0    0 NA   1  72    193  8.6
-24   2   NA                &lt;NA&gt;   NA 10.0   27 12   1  72    193  8.6
-25   3   NA 2020-07-07 10:00:00  3.4   NA   NA NA   0  56    167 12.2
-26   3   NA 2020-09-25 10:00:00 10.2   NA   NA NA   0  56    167 12.2
-27   3   NA 2020-10-04 10:00:00  7.5   NA   NA NA   0  56    167 12.2
-28   3   NA                &lt;NA&gt;   NA  2.5  158 12   1  56    167 12.2
-29   3   NA                &lt;NA&gt;   NA  7.5   17 12   1  56    167 12.2
-30   3   NA                &lt;NA&gt;   NA  2.5    0 NA   1  56    167 12.2
-31   3   NA                &lt;NA&gt;   NA  2.5   27 12   1  56    167 12.2</code></pre>
+<pre><code>   CID   time                date conc dose addl II mdv age weight  hgb
+1    1    0.0 2019-02-13 10:00:00   NA 10.0   26 12   1  46    154 12.0
+2    1  324.0 2019-02-26 22:00:00   NA 10.0    0 NA   1  46    154 12.0
+3    1  336.0 2019-02-27 10:00:00 16.1   NA   NA NA   0  46    154 12.0
+4    1  336.5 2019-02-27 10:30:00   NA 10.0  138 12   1  46    154 12.0
+5    1 1999.0 2019-05-07 18:00:00   NA 10.0    0 NA   1  46    154 12.0
+6    1 2015.0 2019-05-08 10:00:00  6.4   NA   NA NA   0  46    154 12.0
+7    1 2015.5 2019-05-08 10:30:00   NA  5.0  105 12   1  46    154 12.0
+8    1 3287.0 2019-06-30 10:00:00  5.6   NA   NA NA   0  46    154 12.0
+9    1 3287.5 2019-06-30 10:30:00   NA  5.0  284 12   1  46    154 12.0
+10   1 6704.0 2019-11-19 18:00:00   NA  5.0    0 NA   1  46    154 12.0
+11   1 6720.0 2019-11-20 10:00:00  6.6   NA   NA NA   0  46    154 12.0
+12   1 6720.5 2019-11-20 10:30:00   NA  5.0  265 12   1  46    154 12.0
+13   1 9911.0 2020-04-01 10:00:00  5.0   NA   NA NA   0  46    154 12.0
+14   2    0.0 2020-03-27 10:00:00   NA 10.0   27 12   1  72    193  8.6
+15   2  336.0 2020-04-10 10:00:00 15.1   NA   NA NA   0  72    193  8.6
+16   2  336.5 2020-04-10 10:30:00   NA 10.0   64 12   1  72    193  8.6
+17   2 1115.0 2020-05-12 21:00:00   NA 10.0    0 NA   1  72    193  8.6
+18   2 1128.0 2020-05-13 10:00:00 11.7   NA   NA NA   0  72    193  8.6
+19   2 1128.5 2020-05-13 10:30:00   NA  7.5   25 12   1  72    193  8.6
+20   2 1440.0 2020-05-26 10:00:00  2.9   NA   NA NA   0  72    193  8.6
+21   2 1440.5 2020-05-26 10:30:00   NA  2.5   29 12   1  72    193  8.6
+22   2 1800.0 2020-06-10 10:00:00  2.2   NA   NA NA   0  72    193  8.6
+23   2 1800.5 2020-06-10 10:30:00   NA  2.5   29 12   1  72    193  8.6
+24   2 2160.0 2020-06-25 10:00:00  4.3   NA   NA NA   0  72    193  8.6
+25   3    0.0 2020-06-23 10:00:00   NA  2.5   27 12   1  56    167 12.2
+26   3  336.0 2020-07-07 10:00:00  3.4   NA   NA NA   0  56    167 12.2
+27   3  336.5 2020-07-07 10:30:00   NA  2.5  158 12   1  56    167 12.2
+28   3 2244.0 2020-09-24 22:00:00   NA  2.5    0 NA   1  56    167 12.2
+29   3 2256.0 2020-09-25 10:00:00 10.2   NA   NA NA   0  56    167 12.2
+30   3 2256.5 2020-09-25 10:30:00   NA  7.5   17 12   1  56    167 12.2
+31   3 2472.0 2020-10-04 10:00:00  7.5   NA   NA NA   0  56    167 12.2</code></pre>
 </div>
-<p>Individual 1 has no extracted last-dose times so their data is unchanged from before. Compare, however, rows 7-9 to rows 7-8 of the previous dataset constructed without last-dose times. The measured concentration of 14.1 on <code>date</code> 2019-11-01 is associated with a last-dose time. <code>addl</code> drops from 69 to 68 and the extracted last-dose is added in row 8 with additional <code>date</code> 2019-10-31 20:58:36, the last-dose time extracted from clinical notes. Notice that the number of doses leading up to the concentration is unchanged and the timing of the final dose has been adjusted to reflect information in the EHR (i.e., the calculated time of 1162.70 for <code>time</code>). This dataset still relies on assumptions about dosing, but should reflect the actual dosing schedule better by incorporating last-dose times from the EHR.</p>
-<h3 id="references">References</h3>
+<p>Individual 1 has no extracted last-dose times so their data is unchanged from before. Compare, however, rows 7-9 to rows 7-8 of the previous dataset constructed without last-dose times. The measured concentration of 14.1 on <code>date</code> 2019-11-01 is associated with a last-dose time. <code>addl</code> drops from 69 to 68 and the extracted last-dose is added in row 8 with additional <code>date</code> 2019-10-31 20:58:36 which is the last-dose time extracted from clinical notes. Notice that the number of doses leading up to the concentration is unchanged and the timing of the final dose has been adjusted to reflect information in the EHR (i.e., the calculated time of 1162.70 for <code>time</code>). This dataset still relies on assumptions about dosing, but should reflect the actual dosing schedule better by incorporating last-dose times from the EHR.</p>
+<h1 id="references">References</h1>
 <ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr; 107(4): 934-943.</li>
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
 </ol>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

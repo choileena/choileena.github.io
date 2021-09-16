@@ -1,0 +1,98 @@
+---
+title: "Pro-Demographic"
+description: |
+  This tutorial describes how to process demographic data using *Pro-Demographic* module in the system.
+author:
+  - name: Michael L. Williams
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(R.options = list(width = 120))
+library(EHR)
+```
+
+* See also "Pro-Demographic" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
+
+# Introduction
+
+This tutorial describes how to use the *Pro-Demographic* module to process demographic data (see Choi *et al.*$^{1}$ for details).
+
+To begin we load the `EHR` package and create some directories to work from. 
+
+```{r load-lib-dir, eval=FALSE}
+# load EHR package
+library(EHR)
+<<<<<<< HEAD
+=======
+
+td <- tempdir()
+checkDir <- file.path(td, 'checks') # directory for interactive checking
+dir.create(checkDir)
+dataDir <- file.path(td, 'data') # directory for processed data
+dir.create(dataDir)
+rawDataDir <- system.file("examples", "str_ex2", package="EHR")
+drugname <- 'fent'
+LLOQ <- 0.05
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
+```
+
+# Demographic Data
+
+We will use example demographic data to demonstrate the *Pro-Demographic* module. The raw data is shown below.
+
+```{r}
+demo.in <- read.csv(system.file("examples", "str_ex2","Demographics_DATA.csv", package="EHR"))[,c(1,2,3,4,5)]
+head(demo.in,10)
+```
+
+Each row in the data represents an individual surgical date.  In this case, each individual is assigned a unique ID and has a recorded gender, weight, and height for each surgery.  The goal of *Pro-Demographic* is to make the demographic data suitable for merging with medication data for population pharmacokinetic analysis while apply exclusion criteria in a reproducible manner which preserves and organizes the original data.
+
+# Preparing the Demographic Data
+
+```{r}
+td <- tempdir()
+dir.create(file.path(td, 'data2'))
+dataDir <- file.path(td, 'data2')
+
+
+<<<<<<< HEAD
+saveRDS(demo.in, file=file.path(dataDir,"demo.rds"))
+=======
+```{r}
+ivdose.out <- run_MedStrI(mar.path=file.path(dataDir,"mar.rds"),
+                          mar.datetimeCol = c('Date','Time'),
+                          mar.doseCol = 'med:dosage',
+                          mar.drugCol = 'med:mDrug',
+                          mar.givenCol = 'med:given',
+                          medchk.path=file.path(rawDataDir, "medChecked-fent.csv"),
+                          check.path=checkDir,
+                          drugname=drugname)
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
+```
+
+# Running `run_Demo`
+
+`run_Demo` will configure the demographic data, apply exclusion criteria and saving a record of exclusion rules/excluded individuals.  The argument `toexclude` takes an expression evaluating to `TRUE`/`FALSE` indicating which individuals will be excluded from the final dataset.
+
+```{r}
+low_wgt <- function(x, val=1) {  x < 6 }
+demo.out <- run_Demo(demo.path = file.path(dataDir, "demo.rds"),
+                     toexclude = expression(low_wgt(weight)))
+```
+
+# Processed Data
+
+The demographic data is now ready for further processing.
+
+```{r}
+head(demo.out)
+```
+
+
+# References
+1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.

@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -88,27 +87,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>Choi Lab: *EHRtoPKPD* Workshops</title>
 
-  <meta property="description" itemprop="description" content="Lecture series demonstrating how to use *EHRtoPKPD* with some examples in EHR package"/>
+  <meta property="description" itemprop="description" content="The tutorial series demonstrate how to use the *EHRtoPKPD* with some examples in EHR package."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Choi Lab: *EHRtoPKPD* Workshops"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Lecture series demonstrating how to use *EHRtoPKPD* with some examples in EHR package"/>
+  <meta property="og:description" content="The tutorial series demonstrate how to use the *EHRtoPKPD* with some examples in EHR package."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Choi Lab"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Choi Lab: *EHRtoPKPD* Workshops"/>
-  <meta property="twitter:description" content="Lecture series demonstrating how to use *EHRtoPKPD* with some examples in EHR package"/>
+  <meta property="twitter:description" content="The tutorial series demonstrate how to use the *EHRtoPKPD* with some examples in EHR package."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["*EHRtoPKPD* Workshops"]},{"type":"character","attributes":{},"value":["Lecture series demonstrating how to use *EHRtoPKPD* with some examples in EHR package\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[1]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["*EHRtoPKPD* Workshops"]},{"type":"character","attributes":{},"value":["The tutorial series demonstrate how to use the *EHRtoPKPD* with some examples in EHR package.\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2033,7 +2032,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2058,17 +2057,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   figure.rhs {
     float: right;
-    width: 475px;
+    width: 570px;
     padding-left: 1em;
   }
 
   @media(min-width: 768px) {
 
   d-article {
-    font-size: 0.9rem;
-    line-height: 1.4em;
-    grid-template-columns: [screen-start] 2fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    font-size: 1.1rem;
+    line-height: 1.3em;
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
   }
+  }
+
+  pre.sourceCode {
+    background-color: #D4E6FC;
+  }
+
+  d-article h1 {
+    font-size: 30px;
+  }
+
+  d-article h2 {
+    font-size: 25px;
   }
 
   </style>
@@ -2083,7 +2094,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"*EHRtoPKPD* Workshops","description":"Lecture series demonstrating how to use *EHRtoPKPD* with some examples in EHR package","authors":[]}
+{"title":"*EHRtoPKPD* Workshops","description":"The tutorial series demonstrate how to use the *EHRtoPKPD* with some examples in EHR package.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2104,7 +2115,16 @@ Workshops
 </button>
 <div class="nav-dropdown-content">
 <a href="workshops.html">All Workshops</a>
-<a href="about.html">about</a>
+<a href="Extract-Med.html">Extract-Med</a>
+<a href="Pro-Med-NLP.html">Pro-Med-NLP</a>
+<a href="Pro-Demographic.html">Pro-Demographic</a>
+<a href="Pro-Drug Level.html">Pro-Drug Level</a>
+<a href="Pro-Laboratory.html">Pro-Laboratory</a>
+<a href="Pro-Med-Str-Part1.html">Pro-Med-Str - Part I</a>
+<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
+<a href="Build-PK-Oral.html">Build-PK-Oral</a>
+<a href="Build-PK-IV-simple.html">Build-PK-IV - Simple</a>
+<a href="Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2123,7 +2143,7 @@ Workshops
 <h1>EHRtoPKPD Workshops</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Lecture series demonstrating how to use <em>EHRtoPKPD</em> with some examples in EHR package</p></p>
+<p><p>The tutorial series demonstrate how to use the <em>EHRtoPKPD</em> with some examples in EHR package.</p></p>
 </div>
 
 
@@ -2132,31 +2152,52 @@ Workshops
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
+<li><a href="#modules">Modules</a>
+<ul>
 <li><a href="#extract-med"><span><em>Extract-Med</em></span></a></li>
 <li><a href="#pro-med-nlp"><span><em>Pro-Med-NLP</em></span></a></li>
+<li><a href="#pro-demographic"><span><em>Pro-Demographic</em></span></a></li>
+<li><a href="#pro-drug-level"><span><em>Pro-Drug Level</em></span></a></li>
+<li><a href="#pro-laboratory"><span><em>Pro-Laboratory</em></span></a></li>
+<li><a href="#pro-med-str---part-i"><span><em>Pro-Med-Str</em> - Part I</span></a></li>
+<li><a href="#pro-med-str---part-ii"><span><em>Pro-Med-Str</em> - Part II</span></a></li>
 <li><a href="#build-pk-oral"><span><em>Build-PK-Oral</em></span></a></li>
 <li><a href="#build-pk-iv---simple"><span><em>Build-PK-IV</em> - Simple</span></a></li>
 <li><a href="#build-pk-iv---comprehensive"><span><em>Build-PK-IV</em> - Comprehensive</span></a></li>
-<li><a href="#pro-med-str---part-ii"><span><em>Pro-Med-Str</em> - Part II</span></a></li>
-<li><a href="#pro-med-str---part-i"><em>Pro-Med-Str</em> - Part I</a></li>
+</ul></li>
+<li><a href="#population-pkpd-data-format">Population PK/PD Data Format</a>
+<ul>
+<li><a href="#oral-dosing">Oral Dosing</a></li>
+<li><a href="#intravenous-iv-dosing">Intravenous (IV) Dosing</a></li>
+</ul></li>
 </ul>
 </nav>
 </div>
-<p>Here add links to vignettes</p>
-<h1 id="extract-med"><a href="Extract-Med.html"><em>Extract-Med</em></a></h1>
-<p>This lecture describes how to obtain drug dosing information from unstructured clinical notes using <em>Extract-Med</em> module in the system.</p>
-<h1 id="pro-med-nlp"><a href="Pro-Med-NLP.html"><em>Pro-Med-NLP</em></a></h1>
-<p>This lecture describes how to build longitudinal medication dose data from the raw output of an NLP system using the <em>Pro-Med-NLP</em> module.</p>
-<h1 id="build-pk-oral"><a href="Build-PK-Oral.html"><em>Build-PK-Oral</em></a></h1>
-<p>This lecture describes the PK data building procedure in the <em>EHRtoPKPD</em> for medications that are typically orally administrated. It demonstrates how to quickly build PK data using <em>Build-PK-Oral</em> when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the <em>Extract-Med</em> module and processed with the <em>Pro-Med-NLP</em> module in the system.</p>
-<h1 id="build-pk-iv---simple"><a href="Build-PK-IV-simple.html"><em>Build-PK-IV</em> - Simple</a></h1>
-<p>This lecture describes a simple PK data building procedure in the <em>EHRtoPKPD</em> for medications that are typically intravenously administrated. It demonstrates how to quickly build PK data using <em>Build-PK-IV</em> without using the data processing modules when cleaned data for concentration, drug dose, demographic and laboratory datasets are already available in an appropriate data form.</p>
-<h1 id="build-pk-iv---comprehensive"><a href="Build-PK-IV-comprehensive.html"><em>Build-PK-IV</em> - Comprehensive</a></h1>
-<p>This lecture describes a comprehensive PK data building procedure in the <em>EHRtoPKPD</em> for medications that are typically intravenously administrated. It demonstrates how to utilize several data processing modules (e.g., <em>Pro-Demographic</em>, <em>Pro-Med-Str</em>, <em>Pro-Drug Level</em>, <em>Pro-Laboratory</em>) to standardize and combine more complex datasets when cleaned data are not available, and then finally build PK data using <em>Build-PK-IV</em>.</p>
-<h1 id="pro-med-str---part-ii"><a href="Pro-Med-Str-Part2.html"><em>Pro-Med-Str</em> - Part II</a></h1>
-<p>This lecture describes how to processes structured medication data, especially focusing on e-prescription data.</p>
-<h1 id="pro-med-str---part-i"><em>Pro-Med-Str</em> - Part I</h1>
-<p>This lecture describes how to processes structured medication data, especially focusing on intravenously given dose data.</p>
+<h1 id="modules">Modules</h1>
+<h2 id="extract-med"><a href="Extract-Med.html"><em>Extract-Med</em></a></h2>
+<p>This tutorial describes how to obtain drug dosing information from unstructured clinical notes using <em>Extract-Med</em> module in the system.</p>
+<h2 id="pro-med-nlp"><a href="Pro-Med-NLP.html"><em>Pro-Med-NLP</em></a></h2>
+<p>This tutorial describes how to build longitudinal medication dose data from the raw output of an NLP system using the <em>Pro-Med-NLP</em> module.</p>
+<h2 id="pro-demographic"><a href="Pro-Demographic.html"><em>Pro-Demographic</em></a></h2>
+<p>This tutorial describes how to process demographic data using <em>Pro-Demographic</em> module in the system.</p>
+<h2 id="pro-drug-level"><a href="Pro-DrugLevel.html"><em>Pro-Drug Level</em></a></h2>
+<p>This tutorial describes how to process drug concentration data using <em>Pro-Drug Level</em> module in the system.</p>
+<h2 id="pro-laboratory"><a href="Pro-Laboratory.html"><em>Pro-Laboratory</em></a></h2>
+<p>This tutorial describes how to process laboratory data using <em>Pro-Laboratory</em> module in the system.</p>
+<h2 id="pro-med-str---part-i"><a href="Pro-Med-Str-Part1.html"><em>Pro-Med-Str</em> - Part I</a></h2>
+<p>This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.</p>
+<h2 id="pro-med-str---part-ii"><a href="Pro-Med-Str-Part2.html"><em>Pro-Med-Str</em> - Part II</a></h2>
+<p>This tutorial describes how to processes structured medication data, especially focusing on e-prescription data.</p>
+<h2 id="build-pk-oral"><a href="Build-PK-Oral.html"><em>Build-PK-Oral</em></a></h2>
+<p>This tutorial describes the PK data building procedure in the <em>EHRtoPKPD</em> for medications that are typically orally administrated. It demonstrates how to quickly build PK data using <em>Build-PK-Oral</em> when drug dose data are provided by users or generated from unstructured clinical notes using extracted dosing information with the <em>Extract-Med</em> module and processed with the <em>Pro-Med-NLP</em> module in the system.</p>
+<h2 id="build-pk-iv---simple"><a href="Build-PK-IV-simple.html"><em>Build-PK-IV</em> - Simple</a></h2>
+<p>This tutorial describes a simple PK data building procedure in the <em>EHRtoPKPD</em> for medications that are typically intravenously administrated. It demonstrates how to quickly build PK data using <em>Build-PK-IV</em> without using the data processing modules when cleaned data for concentration, drug dose, demographic and laboratory datasets are already available in an appropriate data form.</p>
+<h2 id="build-pk-iv---comprehensive"><a href="Build-PK-IV-comprehensive.html"><em>Build-PK-IV</em> - Comprehensive</a></h2>
+<p>This tutorial describes a comprehensive PK data building procedure in the <em>EHRtoPKPD</em> for medications that are typically intravenously administrated. It demonstrates how to utilize several data processing modules (e.g., <em>Pro-Demographic</em>, <em>Pro-Med-Str</em>, <em>Pro-Drug Level</em>, <em>Pro-Laboratory</em>) to standardize and combine more complex datasets when cleaned data are not available, and then build PK data using <em>Build-PK-IV</em>.</p>
+<h1 id="population-pkpd-data-format">Population PK/PD Data Format</h1>
+<p>Software performing population PK/PD modeling typically requires specific data format for the key variables. Most of these software follows the data requirement for NONMEM, as NONMEM has been used for a long time and considered as the gold standard software to perform population PK/PD analysis. We describe two most commonly used data format in population PK/PD modeling.</p>
+<h2 id="oral-dosing">Oral Dosing</h2>
+<h2 id="intravenous-iv-dosing">Intravenous (IV) Dosing</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

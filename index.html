@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -2030,7 +2029,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2055,17 +2054,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   figure.rhs {
     float: right;
-    width: 475px;
+    width: 570px;
     padding-left: 1em;
   }
 
   @media(min-width: 768px) {
 
   d-article {
-    font-size: 0.9rem;
-    line-height: 1.4em;
-    grid-template-columns: [screen-start] 2fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    font-size: 1.1rem;
+    line-height: 1.3em;
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
   }
+  }
+
+  pre.sourceCode {
+    background-color: #D4E6FC;
+  }
+
+  d-article h1 {
+    font-size: 30px;
+  }
+
+  d-article h2 {
+    font-size: 25px;
   }
 
   </style>
@@ -2101,7 +2112,16 @@ Workshops
 </button>
 <div class="nav-dropdown-content">
 <a href="workshops.html">All Workshops</a>
-<a href="about.html">about</a>
+<a href="Extract-Med.html">Extract-Med</a>
+<a href="Pro-Med-NLP.html">Pro-Med-NLP</a>
+<a href="Pro-Demographic.html">Pro-Demographic</a>
+<a href="Pro-Drug Level.html">Pro-Drug Level</a>
+<a href="Pro-Laboratory.html">Pro-Laboratory</a>
+<a href="Pro-Med-Str-Part1.html">Pro-Med-Str - Part I</a>
+<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
+<a href="Build-PK-Oral.html">Build-PK-Oral</a>
+<a href="Build-PK-IV-simple.html">Build-PK-IV - Simple</a>
+<a href="Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2129,29 +2149,47 @@ Workshops
 <p><img src="img/Choi_Leena.jpg" class="rhs100" /></p>
 <p align="right">
 Leena Choi, PhD<br />
-Vice Chair of Diversity and Inclusion, Department of Biostatistics<br />
-Professor of Biostatistics
+Professor of Biostatistics<br />
+Vice Chair of Diversity and Inclusion<br />
+Department of Biostatistics
 </p>
 </div>
-<p align="center">
+<p align="right">
 <a href="https://www.vumc.org/biostatistics/person/leena-choi-phd">https://www.vumc.org/biostatistics/person/leena-choi-phd</a>
 </p>
-<p>The major research focus of our lab is to construct a system for drug-related studies such as pharmacokinetics (PK), pharmacodynamics (PD), and pharmacogenomics (PGx) studies using electronic health records (EHRs), which is called “<em>EHRtoPKPD</em>”. This system would allow to perform the studies more efficiently by standardizing data extraction, data processing, and data building procedures. This system would provide the foundation for PK/PD-model guided clinical decision support systems embedded in EHRs to provide an optimal pharmacotherapy, the overarching goal of precision medicine.</p>
+<p><strong>The major research focus of our lab is to construct a system, called “<em>EHRtoPKPD</em>”, for drug-related studies such as pharmacokinetics (PK), pharmacodynamics (PD), and pharmacogenomics (PGx) studies using electronic health records (EHRs). This system would allow to perform drug-related studie more efficiently by standardizing data extraction, data processing, and data building procedures. This system would provide a foundation for PK/PD-model guided clinical decision support systems embedded in EHRs to provide an optimal pharmacotherapy, the overarching goal of precision medicine.</strong></p>
 <div>
 <figure class="rhs">
-<img src="img/systemAll.png" />
+<img src="img/systemAll.png" usemap="#system" />
 <figcaption>
 <strong>The <em>EHRtoPKPD</em>, a System for PK/PD Studies using EHRs.</strong><br />
 Modified from <em>Clin Pharm Ther 2020</em>.
 </figcaption>
 </figure>
-<p><em>EHRtoPKPD</em> is a modular system, divided into the three major procedures: data extraction (“<em>Extract-</em>”), data processing (“<em>Pro-</em>”), and data building (“<em>Build-</em>”). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using <em>Pro-Med-Str</em> module. However, we found that dosing data obtained from e-prescription databases often are not accurate enough for PK/PD studies. Thus, we developed more flexible and targeted NLP system that performed better than existing state-of-art NLP systems for drug dose extraction. Our NLP system was incorporated into our system (<em>Extract-Med</em> module), which can directly extract drug dose information from clinical notes, which is also available as an R package, <em>medExtractR</em>. As building drug dose data from extracted dose information can be very challenging, we developed a dose data building algorithm which was also implemented in our system (<em>Pro-Med-NLP</em>). Other data elements such as drug levels (<em>Pro-Drug Level</em>), demographics (<em>Pro-Demographic</em>), and laboratory data (<em>Pro-Laboratory</em>) can be processed using our system, and then combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., <em>Build-PK-IV</em>, <em>Build-PK-Oral</em>). The functions to run each module is implemented as R packages, <em>medExtractR</em> and <em>EHR</em>. More details can be found in Choi <em>et al.</em><span class="math inline">\(^{1}\)</span>, and additional modules will be added in the future as it evolves.</p>
+<map name="system">
+<!--<area shape="rect" coords="" alt="Extract-Phenotype" href="">-->
+<area shape="rect" coords="100,120,180,165" alt="Extract-Med" href="Extract-Med.html">
+<!--<area shape="rect" coords="" alt="Pro-Phenotype" href="">-->
+<area shape="rect" coords="100,200,180,245" alt="Pro-Med-NLP" href="Pro-Med-NLP.html">
+<area shape="rect" coords="200,200,285,245" alt="Pro-Med-Str" href="Pro-Med-Str-Part2.html">
+<area shape="rect" coords="35,407,112,452" alt="Build-PK-Oral" href="Build-PK-Oral.html">
+<area shape="rect" coords="175,407,250,452" alt="Build-PK-IV" href="Build-PK-IV-simple.html">
+</map>
+<p><em>EHRtoPKPD</em> is a modular system, divided into the three major procedures: data extraction (“<em>Extract-</em>”), data processing (“<em>Pro-</em>”), and data building (“<em>Build-</em>”). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models.</p>
+<p>For drugs with complex prescription pattern, dose data obtained from e-prescription databases may not be accurate enough to perform PK/PD studies. For these drugs, we may need to extract drug dose information from clinical notes using a natural language processing (NLP) system. We developed a flexible and targeted NLP system that can directly extract drug dose information from clinical notes, which was incorporated into our system (<a href="Extract-Med.html"><em>Extract-Med</em></a>).</p>
+<p>Building drug dose data from extracted dose information can be challenging. To address these challenges, we developed a dose data building algorithm that was implemented in our system (<a href="Pro-Med-NLP.html"><em>Pro-Med-NLP</em></a>).</p>
+<p>For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using <a href="Pro-Med-Str-Part2.html"><em>Pro-Med-Str</em></a> module.</p>
+<p>Other data elements such as drug levels (<a href="Build-PK-IV-comprehensive.html"><em>Pro-Drug Level</em></a>), demographics (<a href="Build-PK-IV-comprehensive.html"><em>Pro-Demographic</em></a>), and laboratory data (<a href="Build-PK-IV-comprehensive.html"><em>Pro-Laboratory</em></a>) can be processed using our system. These data can be combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., <a href="Build-PK-IV-simple.html"><em>Build-PK-IV</em></a>, <a href="Build-PK-Oral.html"><em>Build-PK-Oral</em></a>).</p>
+The NLP system is available as an R package, <em>medExtractR</em>, and the functions to run each module are implemented as an R package, <em>EHR</em>. More details can be found in Choi <em>et al.</em><span class="math inline">\(^{1}\)</span>, and additional modules will be added in the future as it evolves.
 </div>
 <h3 id="lab-team">Lab Team</h3>
 <ul>
 <li>Cole Beck</li>
 <li>Elizabeth McNeer</li>
-<li>Michael Williams</li>
+<li><a href="https://michaelleewilliams.github.io">Michael Williams</a></li>
+</ul>
+<p><img src="img/MLWpic2.jpeg" class="lhs100" /></p>
+<ul>
 <li><a href="https://www.ntjames.com/">Nathan T. James, ScM</a></li>
 </ul>
 <p><img src="img/Nathan_James.jpg" class="lhs100" /></p>
@@ -2161,8 +2199,7 @@ Modified from <em>Clin Pharm Ther 2020</em>.
 </ul>
 <h3 id="references">References</h3>
 <ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr; 107(4): 934-943.<br />
-</li>
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

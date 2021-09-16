@@ -1,0 +1,112 @@
+---
+title: "Pro-Drug Level"
+description: |
+  This tutorial describes how to process drug concentration data using *Pro-Drug Level* module in the system.
+author:
+  - name: Michael L. Williams
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(R.options = list(width = 120))
+library(EHR)
+```
+
+* See also "Pro-Drug Level" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
+
+# Introduction
+
+This tutorial describes how to use the *Pro-Drug Level* module to process drug concentration data (see Choi *et al.*$^{1}$ for details).
+
+To begin we load the `EHR` package and create some directories to work from. 
+
+```{r load-lib-dir, eval=TRUE}
+# load EHR package
+library(EHR)
+<<<<<<< HEAD
+rawDataDir <- system.file("examples", "str_ex1", package="EHR")
+=======
+
+td <- tempdir()
+checkDir <- file.path(td, 'checks') # directory for interactive checking
+dir.create(checkDir)
+dataDir <- file.path(td, 'data') # directory for processed data
+dir.create(dataDir)
+rawDataDir <- system.file("examples", "str_ex2", package="EHR")
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
+drugname <- 'fent'
+LLOQ <- 0.05
+```
+
+
+
+# Drug Level Data
+
+Drug level data is an essential part of pharmacokinetic (pk) data.  It comprises the dependent variable in the model, the response elicited by medication dosing.  It is generally measured as drug concentration in the blood calculated in mass per volume.
+
+```{r}
+# read SampleConcentration_DATA.csv
+conc.in <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"),stringsAsFactors = FALSE)
+head(conc.in,10)
+
+
+```
+
+The goal of *Pro-Druglevel* is to make this information suitable for merging medication dosing data to make it suitable for further processing into a complete popPK dataset.
+
+# Preparing the Demographic Data
+
+```{r}
+td <- tempdir()
+dir.create(file.path(td, 'checks'))
+checkDir <- file.path(td, 'checks') # directory for interactive checking
+dir.create(file.path(td, 'data'))
+dataDir <- file.path(td, 'data') # directory for processed data
+
+conc.new <- dataTransformation(conc.in, rename = c('patient_id' = 'mod_id',
+                                                    'patient_visit_id' = 'mod_id_visit'))
+saveRDS(conc.new, file=file.path(dataDir,"conc.rds"))
+```
+
+# Running `run_Druglevel`
+
+`run_Druglevel` will configure the drug level data into a form ready for further processing by module within the `EHR` package. The `check.path` argument takes a string indicating a path to a local directory.  The module looks for inconsistencies or possible data errors and saves them for expert review.
+
+```{r}
+conc.out <- run_DrugLevel(conc.path=file.path(dataDir,"conc.rds"),
+    conc.select=c('mod_id','mod_id_visit','event','conc.level','date.time'),
+    check.path=checkDir,
+    drugname=drugname,
+    LLOQ=LLOQ)
+<<<<<<< HEAD
+=======
+head(conc.out)
+```
+
+```{r}
+ivdose.out <- run_MedStrI(mar.path=file.path(dataDir,"mar.rds"),
+                          mar.datetimeCol = c('Date','Time'),
+                          mar.doseCol = 'med:dosage',
+                          mar.drugCol = 'med:mDrug',
+                          mar.givenCol = 'med:given',
+                          medchk.path=file.path(rawDataDir, "medChecked-fent.csv"),
+                          check.path=checkDir,
+                          drugname=drugname)
+>>>>>>> 1984b9e1039245048558baeb56af83558d55415b
+```
+
+# Processed Data
+
+The concentration data is now ready for expert review or further processing by modules in `EHR`.
+
+```{r}
+head(conc.out)
+```
+
+# References
+1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
+

@@ -1,0 +1,94 @@
+---
+title: "Pro-Laboratory"
+description: |
+  This tutorial describes how to process laboratory data using *Pro-Laboratory* module in the system.
+author:
+  - name: Elizabeth McNeer
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(R.options = list(width = 120))
+library(EHR)
+```
+
+* See also "Pro-Laboratory" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
+
+# Introduction
+
+This tutorial describes how to use the *Pro-Laboratory* module to process laboratory data (see Choi *et al.*$^{1}$ for details).
+
+To begin we load the `EHR` package. 
+
+```{r load-lib-dir, eval=FALSE}
+# load EHR package
+library(EHR)
+```
+
+# Laboratory Data
+
+We will use example creatinine lab data to demonstrate the *Pro-Laboratory* module. The raw data is shown below.
+
+```{r}
+creat.in <- read.csv(system.file("examples", "str_ex2","Creatinine_DATA.csv", package="EHR"))
+head(creat.in)
+```
+
+This data consists of a patient ID, date, time, and the creatinine level.
+
+The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the *Pro-Laboratory* module. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of the `EHR` package for more information. We demonstrate how to rename the patient ID variable below.
+
+```{r}
+creat.new <- dataTransformation(creat.in, rename = c('Subject.uniq' = 'subject_uid'))
+```
+
+# Preparing Raw Laboratory Data
+
+In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are `mod_id`, `mod_visit`, and `mod_id_visit`. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package and "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for examples of this process.
+
+For simplicity, we will skip this step in this tutorial.
+
+We need to save our dataset as an RDS file using `saveRDS` as shown below. Here, we create a temporary directory to store the file using `tempdir`; however, `dataDir` can be a specific directory on your computer.
+
+```{r}
+td <- tempdir()
+dir.create(file.path(td, 'data2'))
+dataDir <- file.path(td, 'data2')
+saveRDS(creat.new, file=file.path(dataDir,"creat_new.rds"))
+```
+
+The next section demonstrates how to use the `run_Labs` function to run the *Pro-Laboratory* module.
+
+# Running `run_Labs`
+
+The following arguments must be specified:
+
+- `lab.path`: The file path where the laboratory data exist. It must be an RDS file.
+- `lab.select`: The list of variables in the laboratory data to be retained.
+- `lab.mod.list`: A list containing modifications to variables in the laboratory data.
+
+Below we show how we would run `run_Labs` using the example laboratory data from above.
+
+```{r}
+creat.out <- run_Labs(lab.path=file.path(dataDir,"creat_new.rds"),
+    lab.select = c('subject_uid','date.time','creat'),
+    lab.mod.list = list(date.time = expression(parse_dates(fixDates(paste(date, time))))))
+```
+
+In the above code, the `lab.mod.list` argument specifies a modification to our dataset to include a `date.time` variable, which is created by combining the original `date` and `time` variables. The `lab.select` argument says that we want to keep the `subject_uid`, `date.time`, and `creat` variables.
+
+# Output of `run_Labs`
+
+```{r}
+head(creat.out)
+```
+
+This data can be merged with data from other modules. See the "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for an example.
+
+# References
+1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
+
