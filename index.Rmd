@@ -63,7 +63,13 @@ The NLP system is available as an R package, *medExtractR*, and the functions to
 ### Lab Team
 
 * Cole Beck
+
+<img src="img/BeckC_2018.jpg" class="lhs100" />
+
 * Elizabeth McNeer
+
+<img src="img/McNeer_headshot.jpg" class="lhs100" />
+
 * <a href="https://michaelleewilliams.github.io">Michael Williams</a>
 
 <img src="img/MLWpic2.jpeg" class="lhs100" />
@@ -75,6 +81,8 @@ The NLP system is available as an R package, *medExtractR*, and the functions to
 ### Lab Alumni
 
 * Hannah L. Weeks
+
+<img src="img/weeks_headshot.jpeg" class="lhs100" />
 
 ### References
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
