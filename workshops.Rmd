@@ -30,10 +30,10 @@ This tutorial describes how to process drug concentration data using *Pro-Drug L
 This tutorial describes how to process laboratory data using *Pro-Laboratory* module in the system.
 
 ## [*Pro-Med-Str* : Part I](Pro-Med-Str-Part1.html)
-This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data. 
+This tutorial describes how to process structured medication data, especially focusing on intravenously given dose data. 
 
 ## [*Pro-Med-Str* : Part II](Pro-Med-Str-Part2.html)
-This tutorial describes how to processes structured medication data, especially focusing on e-prescription data.
+This tutorial describes how to process structured medication data, especially focusing on e-prescription data.
 
 ## [*Build-PK-Oral*](Build-PK-Oral.html)
 This tutorial describes the PK data building procedure in the *EHRtoPKPD* for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data are provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.
