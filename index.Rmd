@@ -43,6 +43,9 @@ Modified from *Clin Pharm Ther 2020*.</figcaption>
 <!--<area shape="rect" coords="" alt="Pro-Phenotype" href="">-->
 <area shape="rect" coords="100,200,180,245" alt="Pro-Med-NLP" href="Pro-Med-NLP.html">
 <area shape="rect" coords="200,200,285,245" alt="Pro-Med-Str" href="Pro-Med-Str-Part2.html">
+<area shape="rect" coords="300,200,375,245" alt="Pro-Drug-Level" href="Pro-DrugLevel.html">
+<area shape="rect" coords="393,200,470,245" alt="Pro-Laboratory" href="Pro-Laboratory.html">
+<area shape="rect" coords="486,200,565,245" alt="Pro-Demographic" href="Pro-Demographic.html">
 <area shape="rect" coords="35,407,112,452" alt="Build-PK-Oral" href="Build-PK-Oral.html">
 <area shape="rect" coords="175,407,250,452" alt="Build-PK-IV" href="Build-PK-IV-simple.html">
 </map>
