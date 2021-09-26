@@ -42,7 +42,7 @@ The patient ID may need to be renamed so that all input datasets have the same n
 
 
 ```{r}
-mar.new <- dataTransformation(mar.in0, rename = c('Uniq.Id' = 'mod_id'))
+mar.new <- dataTransformation(mar.in0, rename = c('Uniq.Id' = 'subject_uid'))
 ```
 
 # Preparing Raw Dose Data
@@ -109,7 +109,7 @@ ivdose.out <- run_MedStrI(
     "\\1", rate)))),
     flow.columns = list(),
     mar.path=file.path(dataDir,"mar_new.rds"),
-    mar.columns = list(),
+    mar.columns = list(id='subject_uid', datetime=c('Date','Time'), dose='med:dosage', drug='med:mDrug', given='med:given'),
     medGivenReq = TRUE,
     medchk.path = file.path(system.file("examples", "str_ex2", package="EHR"), sprintf('medChecked-%s.csv', drugname)),
     demo.list=NULL,

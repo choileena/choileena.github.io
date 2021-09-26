@@ -2043,6 +2043,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+  <script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-728B0KW1HX"></script>
+  <script type="text/javascript" cookie-consent="tracking">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-728B0KW1HX');
+  </script>
   <style type="text/css">
   img.rhs100 {
     float: right;
@@ -2699,16 +2706,15 @@ Workshops
     <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'>pkdata</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/pkdata/man/parse_dates.html'>parse_dates</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/EHR/man/pk-internal.html'>fixDates</a></span><span class='op'>(</span><span class='va'>Perform.Date</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, unit <span class='op'>=</span>
     <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>".*[ ]"</span>, <span class='st'>""</span>, <span class='va'>rate</span><span class='op'>)</span><span class='op'>)</span>, rate <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>"([0-9.]+).*"</span>,
     <span class='st'>"\\1"</span>, <span class='va'>rate</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+    flow.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='st'>'mod_id'</span>, datetime<span class='op'>=</span><span class='st'>'Perform.Date'</span>, finalunits<span class='op'>=</span><span class='st'>'final.units'</span>, unit<span class='op'>=</span><span class='st'>'unit'</span>, rate<span class='op'>=</span><span class='st'>'rate'</span>, weight<span class='op'>=</span><span class='st'>'weight'</span><span class='op'>)</span>,
     mar.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"mar_mod_id.rds"</span><span class='op'>)</span>,
-    mar.datetimeCol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Date'</span>, <span class='st'>'Time'</span><span class='op'>)</span>,
-    mar.doseCol <span class='op'>=</span> <span class='st'>'med:dosage'</span>,
-    mar.drugCol <span class='op'>=</span> <span class='st'>'med:mDrug'</span>,
-    mar.weightCol <span class='op'>=</span> <span class='cn'>NULL</span>,
-    mar.givenCol <span class='op'>=</span> <span class='cn'>NULL</span>,
+    mar.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='st'>'mod_id'</span>, datetime<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Date'</span>,<span class='st'>'Time'</span><span class='op'>)</span>, dose<span class='op'>=</span><span class='st'>'med:dosage'</span>, drug<span class='op'>=</span><span class='st'>'med:mDrug'</span>, given<span class='op'>=</span><span class='st'>'med:given'</span><span class='op'>)</span>,
     medGivenReq <span class='op'>=</span> <span class='cn'>TRUE</span>,
     medchk.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span><span class='st'>'medChecked-%s.csv'</span>, <span class='va'>drugname</span><span class='op'>)</span><span class='op'>)</span>,
     demo.list<span class='op'>=</span><span class='cn'>NULL</span>,
+    demo.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='st'>'mod_id'</span>, datetime<span class='op'>=</span><span class='st'>'surgery_date'</span>, weight<span class='op'>=</span><span class='st'>'weight'</span><span class='op'>)</span>,
     missing.wgt.path <span class='op'>=</span> <span class='cn'>NULL</span>,
+    wgt.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='st'>'mod_id'</span>, datetime<span class='op'>=</span><span class='st'>'surgery_date'</span>, weight<span class='op'>=</span><span class='st'>'weight'</span><span class='op'>)</span>,
     check.path<span class='op'>=</span><span class='va'>checkDir</span>, 
     failflow_fn <span class='op'>=</span> <span class='st'>'FailFlow'</span>,
     failunit_fn <span class='op'>=</span> <span class='st'>'Unit'</span>,
@@ -2725,9 +2731,9 @@ Workshops
 </div>
 <pre><code>The number of rows in the original data                124
 The number of rows after removing the duplicates       124
-no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/failUnit-fent.csv not created
+no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/failUnit-fent.csv not created
 #########################
-34 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/fixNoWgt-fent.csv
+33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ivdose.out</span><span class='op'>)</span>
@@ -2765,7 +2771,7 @@ no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqj
 </code></pre>
 </div>
 <pre><code>#########################
-3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/fixMissingConcDate-fent.csv
+3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/fixMissingConcDate-fent.csv
 #########################
 subjects with concentration missing from sample file
  mod_id mod_id_event
@@ -2776,7 +2782,7 @@ subjects with concentration missing from sample file
 16 total unique subjects ids (including multiple visits) currently in the concentration data
 15 total unique subjects in the concentration data
 #########################
-15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/multipleSetsConc-fent2021-09-16.csv
+15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/multipleSetsConc-fent2021-09-26.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
 15 total unique subjects in the concentration data</code></pre>
@@ -2844,9 +2850,9 @@ subjects with concentration missing from sample file
 </code></pre>
 </div>
 <pre><code>#########################
-3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/fixMissingConcDate-fent.csv
+3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/fixMissingConcDate-fent.csv
 #########################
-file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/fixMissingConcDate-fent.csv read with failures replaced
+file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/fixMissingConcDate-fent.csv read with failures replaced
 subjects with concentration missing from sample file
 [1] mod_id       mod_id_event
 &lt;0 rows&gt; (or 0-length row.names)
@@ -2854,7 +2860,7 @@ subjects with concentration missing from sample file
 16 total unique subjects ids (including multiple visits) currently in the concentration data
 15 total unique subjects in the concentration data
 #########################
-15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/multipleSetsConc-fent2021-09-16.csv
+15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/multipleSetsConc-fent2021-09-26.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
 15 total unique subjects in the concentration data</code></pre>
@@ -2924,7 +2930,7 @@ subjects with concentration missing from sample file
 The dimension of the PK data before merging with demographics: 234 x 9
 The number of subjects in the PK data before merging with demographics: 15
 The number of subjects in the demographic file, who meet the exclusion criteria: 2
-check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/checks/fent-missing-demo.csv
+check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpdkhmlQ/checks/fent-missing-demo.csv
 List of IDs missing at least 1 cpb_sts: 12.1
 The list of final demographic variables: weight
 weight_demo
