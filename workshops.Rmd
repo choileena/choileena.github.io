@@ -48,10 +48,10 @@ This tutorial describes a comprehensive PK data building procedure in the *EHRto
 Software performing population PK/PD modeling typically requires specific data format for the key variables. Most of these software follows the data requirement for NONMEM, as NONMEM has been used for a long time and considered as the gold standard software to perform population PK/PD analysis. We describe two most commonly used data format in population PK/PD modeling.
 
 ## [Oral Dosing PK Data](Oral-Dosing-PK-Data.html)
-
-Under construction.
+This tutorial describes a data format typically used in population PK modeling for orally administered medications.
 
 ## [IV Dosing PK Data](IV-Dosing-PK-Data.html)
+This tutorial describes a data format typically used in population PK modeling for intravenously administrated medications.
 
 Under construction.
 
