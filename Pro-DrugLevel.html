@@ -2043,6 +2043,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+  <script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-728B0KW1HX"></script>
+  <script type="text/javascript" cookie-consent="tracking">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-728B0KW1HX');
+  </script>
   <style type="text/css">
   img.rhs100 {
     float: right;
@@ -2119,13 +2126,15 @@ Workshops
 <a href="Extract-Med.html">Extract-Med</a>
 <a href="Pro-Med-NLP.html">Pro-Med-NLP</a>
 <a href="Pro-Demographic.html">Pro-Demographic</a>
-<a href="Pro-Drug Level.html">Pro-Drug Level</a>
+<a href="Pro-DrugLevel.html">Pro-Drug Level</a>
 <a href="Pro-Laboratory.html">Pro-Laboratory</a>
-<a href="Pro-Med-Str-Part1.html">Pro-Med-Str - Part I</a>
-<a href="Pro-Med-Str-Part2.html">Pro-Med-Str - Part II</a>
+<a href="Pro-Med-Str-Part1.html">Pro-Med-Str : Part I</a>
+<a href="Pro-Med-Str-Part2.html">Pro-Med-Str : Part II</a>
 <a href="Build-PK-Oral.html">Build-PK-Oral</a>
-<a href="Build-PK-IV-simple.html">Build-PK-IV - Simple</a>
-<a href="Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive</a>
+<a href="Build-PK-IV-simple.html">Build-PK-IV : Simple</a>
+<a href="Build-PK-IV-comprehensive.html">Build-PK-IV : Comprehensive</a>
+<a href="PK-Data-Oral-Dosing.html">PK Data for Oral Dosing</a>
+<a href="PK-Data-IV-Dosing.html">PK Data for IV Dosing</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2226,7 +2235,7 @@ Workshops
 <span class='va'>conc.new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/dataTransformation.html'>dataTransformation</a></span><span class='op'>(</span><span class='va'>conc.in</span>, 
                                rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'patient_id'</span> <span class='op'>=</span> <span class='st'>'mod_id'</span>,
                                           <span class='st'>'patient_visit_id'</span> <span class='op'>=</span> <span class='st'>'mod_id_visit'</span><span class='op'>)</span><span class='op'>)</span>
-
+ 
 <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>conc.new</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2242,7 +2251,7 @@ Workshops
     LLOQ<span class='op'>=</span><span class='va'>LLOQ</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no failures, file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpNxHyYV/checks/failMissingConcDate-fent.csv not created
+<pre><code>no failures, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpGOJrV3/checks/failMissingConcDate-fent.csv not created
 subjects with concentration missing from sample file
 [1] mod_id       mod_id_event
 &lt;0 rows&gt; (or 0-length row.names)
@@ -2250,7 +2259,7 @@ subjects with concentration missing from sample file
 10 total unique subjects ids (including multiple visits) currently in the concentration data
 10 total unique subjects in the concentration data
 #########################
-0 rows need review, see file /var/folders/xg/j6j24m81549dfl3pvjkpc3100000gn/T//RtmpNxHyYV/checks/multipleSetsConc-fent2021-09-16.csv
+0 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpGOJrV3/checks/multipleSetsConc-fent2021-09-27.csv
 #########################
 10 total unique subjects ids (after excluding multiple visits) in the concentration data
 10 total unique subjects in the concentration data</code></pre>

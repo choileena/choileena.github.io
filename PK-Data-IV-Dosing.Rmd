@@ -1,7 +1,7 @@
 ---
-title: "Oral Dosing"
+title: "PK Data for IV Dosing"
 description: |
-  This tutorial describes .... .
+  This tutorial introduces the population pharmacokinetic modeling novice to the data format appropriate for most PK model fitting software systems with a focus on IV dosing data.
 author:
   - name: Nathan T. James
 output:
@@ -22,9 +22,8 @@ library(lubridate)
 
 * See also "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" in `EHR` package.
 
-
 # Introduction
-We briefly describe a data format typically used in pharmacokinetics (PK), pharmacodynamics (PD) modeling .... 
+We briefly describe a data format typically used in pharmacokinetics (PK), pharmacodynamics (PD) modeling.  There is a brief example dataset and a breakdown of the information contained in each column and their appropriate formatting.
 
 # Population PK/PD Data Format for IV Dosing
 
@@ -37,6 +36,7 @@ library(EHR)
 
 ```
 
+Under construction.
 
 # References  
 1. NONMEM manual

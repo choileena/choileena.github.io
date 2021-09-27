@@ -32,10 +32,10 @@ navbar:
           href: Build-PK-IV-simple.html
         - text: "Build-PK-IV : Comprehensive"
           href: Build-PK-IV-comprehensive.html
-        - text: "Oral Dosing PK Data"
-          href: Oral Dosing PK Data	
-        - text: "IV Dosing PK Data"
-          href: IV Dosing PK Data	
+        - text: "PK Data for Oral Dosing"
+          href: PK-Data-Oral-Dosing.html
+        - text: "PK Data for IV Dosing"
+          href: PK-Data-IV-Dosing.html
     - text: "About"
       href: about.html
   search: true

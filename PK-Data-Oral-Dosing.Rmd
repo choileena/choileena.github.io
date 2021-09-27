@@ -1,7 +1,7 @@
 ---
-title: "Oral Dosing"
+title: "PK Data for Oral Dosing"
 description: |
-  This tutorial introduces the population pharmacokinetic modeling novice to the data format appropriate for most model fitting software systems with a focus on oral dosing data.
+  This tutorial introduces the population pharmacokinetic modeling novice to the data format appropriate for most PK model fitting software systems with a focus on oral dosing data.
 author:
   - name: Michael L. Williams
 output:
@@ -37,7 +37,7 @@ mkdat <- function() {
   dt <- as.POSIXct(paste(as.Date(sort(sample(700, sum(visits))), 
                                  origin = '2019-01-01'), '10:00:00'), tz = 'UTC') 
   + rnorm(sum(visits), 0, 1*60*60)
-  dose_morn <- sample(c(2.5,5,7.5,10), sum(e3visits), replace = TRUE)
+  dose_morn <- sample(c(2.5,5,7.5,10), sum(visits), replace = TRUE)
   conc <- round(rnorm(sum(visits), 1.5*dose_morn, 1),1)
   ld <- dt - sample(10:16, sum(visits), replace = TRUE) * 3600
   ld[rnorm(sum(visits)) < .3] <- NA
