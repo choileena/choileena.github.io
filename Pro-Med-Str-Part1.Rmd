@@ -38,7 +38,7 @@ head(mar.in0)
 
 This data consists of a patient ID, date, time, medication name, dosage, route, frequency, and medication given.
 
-The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the *Pro-Med-Str Part I* module. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of the `EHR` package for more information. We demonstrate how to rename the patient ID variable below.
+The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the *Pro-Med-Str Part I* module. We demonstrate how to rename the patient ID variable below.
 
 
 ```{r}
@@ -67,12 +67,12 @@ The next section demonstrates how to use the `run_MedStrI` function to run the *
 
 # Running `run_MedStrI()`
 
-* IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset that comes from one data source for simplicity (see "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for a case when dose data are obtained from two data sources).
+* IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset (called "MAR") that comes from one data source for simplicity (see "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for a case when dose data are obtained from two data sources).
 
-* `run_MedStrI()` is the main function to process IV dose data in *Pro-Med-Str* Part I module
+* `run_MedStrI()` is the main function to process IV dose data in *Pro-Med-Str* Part I module.
 * The module can be semi-interactive -- it generates several files to check potential data errors and get feedback from an investigator. If corrected information ('fix' files) are provided, the module should be re-run to incorporate the corrections. 
 
-* Raw IV dose data can come from two different data sources as described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html). In this tutorial, we use only one IV dose data called "MAR" and describe most relevant arguments to process this data. A detailed description of all arguments can be found in the manual of `run_MedStrI()`.
+* `run_MedStrI()` can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets. A detailed description of all arguments can be found in the `EHR` package manual of `run_MedStrI()`.
     + `mar.path`: file path where the MAR data exist
     + `mar.columns`: a named list that should specify columns in MAR data; ‘id’, ‘datetime’ and ‘dose’ are required. ‘drug’, ‘weight’, ‘given’ may also be specified. ‘datetime’ is date and time for data measurement, which can refer to a single date-time variable (datetime = 'date_time') or two variables holding date and time separately (e.g., datetime = c('Date', 'Time')). ‘dose’ can also be given as a single variable or two variables. If given as a single column, the column's values should contain dose and units such as '25 mcg'. If given as two column names, the dose column should come before the unit column (e.g., dose = c('doseamt', 'unit')). If ‘drug’ is present, the ‘medchk.path’ argument should also be provided, which contain a csv file with a list of drug names that should be used to subset the relevant drugs. The ‘given’ variable should be used in conjunction with the ‘medGivenReq’ argument.
     + `medGivenReq`: values in the ‘given’ column should equal “Given”; if this is FALSE, NA values are also allowed
@@ -87,7 +87,7 @@ The next section demonstrates how to use the `run_MedStrI` function to run the *
     + `weightunit`: string specifying units for subject body weight (default: 'kg')
     + `drugname`: drug name of interest (e.g., dex, fent)
 
-Below we show how we would run `run_MedStrI()` using the cleaned dose dataset, "mar_new.rds", as input.
+Below we show how we would run `run_MedStrI()` using the cleaned IV dose dataset, "mar_new.rds", as input.
 
 ```{r Pro-Med-Str1}
 # define parameters
@@ -109,6 +109,8 @@ ivdose.out <- run_MedStrI(
     drugname = drugname
     )
 ```
+
+After `run_MedStrI()` is executed, it provides messages such as those shown above, which contain some information about data checking.
 
 # Output of `run_MedStrI()`
 

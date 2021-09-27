@@ -2200,7 +2200,7 @@ Workshops
 6 28579217 2011-10-02 23:30          Morphine sulfate         1 mg        IV  q2h prn     Given</code></pre>
 </div>
 <p>This data consists of a patient ID, date, time, medication name, dosage, route, frequency, and medication given.</p>
-<p>The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the <em>Pro-Med-Str Part I</em> module. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of the <code>EHR</code> package for more information. We demonstrate how to rename the patient ID variable below.</p>
+<p>The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the <em>Pro-Med-Str Part I</em> module. We demonstrate how to rename the patient ID variable below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mar.new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/dataTransformation.html'>dataTransformation</a></span><span class='op'>(</span><span class='va'>mar.in0</span>, rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Uniq.Id'</span> <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span><span class='op'>)</span>
@@ -2226,10 +2226,10 @@ Workshops
 <p>The next section demonstrates how to use the <code>run_MedStrI</code> function to run the <em>Pro-Med-Str</em> module.</p>
 <h1 id="running-run_medstri">Running <code>run_MedStrI()</code></h1>
 <ul>
-<li><p>IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset that comes from one data source for simplicity (see “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for a case when dose data are obtained from two data sources).</p></li>
-<li><p><code>run_MedStrI()</code> is the main function to process IV dose data in <em>Pro-Med-Str</em> Part I module</p></li>
+<li><p>IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset (called “MAR”) that comes from one data source for simplicity (see “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for a case when dose data are obtained from two data sources).</p></li>
+<li><p><code>run_MedStrI()</code> is the main function to process IV dose data in <em>Pro-Med-Str</em> Part I module.</p></li>
 <li><p>The module can be semi-interactive – it generates several files to check potential data errors and get feedback from an investigator. If corrected information (‘fix’ files) are provided, the module should be re-run to incorporate the corrections.</p></li>
-<li><p>Raw IV dose data can come from two different data sources as described in <a href="Build-PK-IV-comprehensive.html"><em>Build-PK-IV</em> - Comprehensive</a>. In this tutorial, we use only one IV dose data called “MAR” and describe most relevant arguments to process this data. A detailed description of all arguments can be found in the manual of <code>run_MedStrI()</code>.</p>
+<li><p><code>run_MedStrI()</code> can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets. A detailed description of all arguments can be found in the <code>EHR</code> package manual of <code>run_MedStrI()</code>.</p>
 <ul>
 <li><code>mar.path</code>: file path where the MAR data exist</li>
 <li><code>mar.columns</code>: a named list that should specify columns in MAR data; ‘id’, ‘datetime’ and ‘dose’ are required. ‘drug’, ‘weight’, ‘given’ may also be specified. ‘datetime’ is date and time for data measurement, which can refer to a single date-time variable (datetime = ‘date_time’) or two variables holding date and time separately (e.g., datetime = c(‘Date’, ‘Time’)). ‘dose’ can also be given as a single variable or two variables. If given as a single column, the column’s values should contain dose and units such as ‘25 mcg’. If given as two column names, the dose column should come before the unit column (e.g., dose = c(‘doseamt’, ‘unit’)). If ‘drug’ is present, the ‘medchk.path’ argument should also be provided, which contain a csv file with a list of drug names that should be used to subset the relevant drugs. The ‘given’ variable should be used in conjunction with the ‘medGivenReq’ argument.</li>
@@ -2246,7 +2246,7 @@ Workshops
 <li><code>drugname</code>: drug name of interest (e.g., dex, fent)</li>
 </ul></li>
 </ul>
-<p>Below we show how we would run <code>run_MedStrI()</code> using the cleaned dose dataset, “mar_new.rds”, as input.</p>
+<p>Below we show how we would run <code>run_MedStrI()</code> using the cleaned IV dose dataset, “mar_new.rds”, as input.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># define parameters</span>
@@ -2269,11 +2269,12 @@ Workshops
     <span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpGOJrV3/checks/failUnit-fent.csv not created
+<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpTpF8N9/checks/failUnit-fent.csv not created
 #########################
-75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpGOJrV3/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpGOJrV3/checks/fixNoWgt-fent.csv
+75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpTpF8N9/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpTpF8N9/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 </div>
+<p>After <code>run_MedStrI()</code> is executed, it provides messages such as those shown above, which contain some information about data checking.</p>
 <h1 id="output-of-run_medstri">Output of <code>run_MedStrI()</code></h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
