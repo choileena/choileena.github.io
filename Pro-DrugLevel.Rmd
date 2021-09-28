@@ -22,66 +22,77 @@ library(EHR)
 
 This tutorial describes how to use the *Pro-Drug Level* module to process drug concentration data (see Choi *et al.*$^{1}$ for details).
 
-To begin we load the `EHR` package and create some directories to work from. 
+To begin we load the `EHR` package. 
 
 ```{r load-lib-dir, eval=TRUE}
 # load EHR package
 library(EHR)
-rawDataDir <- system.file("examples", "str_ex1", package="EHR")
-
-td <- tempdir()
-checkDir <- file.path(td, 'checks') # directory for interactive checking
-dir.create(checkDir)
-dataDir <- file.path(td, 'data') # directory for processed data
-dir.create(dataDir)
-rawDataDir <- system.file("examples", "str_ex1", package="EHR")
-
-drugname <- 'fent'
-LLOQ <- 0.05
 ```
-
-
 
 # Drug Level Data
 
 Drug level data is an essential part of pharmacokinetic (pk) data.  It comprises the dependent variable in the model, the response elicited by medication dosing.  It is generally measured as drug concentration in the blood calculated in mass per volume.
 
+We will use example drug level data from the `EHR` package. The raw data is shown below.
+
 ```{r}
-# read SampleConcentration_DATA.csv
-conc.in <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"),
+# read Concentration_DATA_simple.csv
+conc.in <- read.csv(system.file("examples", "str_ex1","Concentration_DATA_simple.csv",package="EHR"),
                     stringsAsFactors = FALSE)
 head(conc.in,10)
 ```
 
-The goal of *Pro-Druglevel* is to make this information suitable for merging medication dosing data to make it suitable for further processing into a complete popPK dataset.
+The goal of *Pro-Drug Level* is to make this information suitable for merging with medication dosing data for further processing into a complete popPK dataset.
 
-# Preparing the Demographic Data
+The patient ID and patient visit ID may need to be renamed so that all input datasets have the same names for these variables. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of the `EHR` package for more information. We demonstrate how to rename these variables using the `dataTransformation` function below.
 
-```{r}
-td <- tempdir()
-dir.create(file.path(td, 'checks'))
-checkDir <- file.path(td, 'checks') # directory for interactive checking
-dir.create(file.path(td, 'data'))
-dataDir <- file.path(td, 'data') # directory for processed data
-
+```{r,echo=FALSE}
 conc.new <- dataTransformation(conc.in, 
                                rename = c('patient_id' = 'mod_id',
                                           'patient_visit_id' = 'mod_id_visit'))
+```
+
+# Preparing the Drug Level Data
+
+The data must be saved as an RDS file. Below, we show how to save the data in a temporary directory; however, `dataDir` can be a specific directory on your computer.
+
+```{r}
+td <- tempdir()
+dir.create(file.path(td, 'data'))
+dataDir <- file.path(td, 'data') # directory for processed data
  
 saveRDS(conc.new, file=file.path(dataDir,"conc.rds"))
 ```
 
+The next section demonstrates how to use the `run_DrugLevel` function to run the *Pro-Drug Level* module.
+
 # Running `run_Druglevel`
 
-`run_Druglevel` will configure the drug level data into a form ready for further processing by module within the `EHR` package. The `check.path` argument takes a string indicating a path to a local directory.  The module looks for inconsistencies or possible data errors and saves them for expert review.
+`run_Druglevel` will configure the drug level data into a form ready for further processing by modules within the `EHR` package. The following arguments are used:
+
+ * `conc.path`: The file path where the drug level data exist. It must be an RDS file.
+ * `conc.select`: The list of variables in the drug level data to be retained.
+ * `check.path`: Path to a local directory where inconsistencies or possible data errors are saved for expert review.
+ * `drugname`: Drug of interest.
+ * `LLOQ`: Lower limit of concentration values. Values below this are invalid.
+ 
+Below we show how we would run `run_DrugLevel` using the example drug level data from above. We create a temporary directory for the check files, but `checkDir` can be a specific directory on your computer.
 
 ```{r}
+dir.create(file.path(td, 'checks'))
+checkDir <- file.path(td, 'checks') # directory for interactive checking
+
+drugname <- 'fent'
+LLOQ <- 0.05
+
 conc.out <- run_DrugLevel(conc.path=file.path(dataDir,"conc.rds"),
     conc.select=c('mod_id','mod_id_visit','event','conc.level','date.time'),
     check.path=checkDir,
     drugname=drugname,
     LLOQ=LLOQ)
 ```
+
+In the above code, our drug of interest is fentanyl, so we set `drugname` to be `fent`, and our lower limit of concentration value (`LLOQ`) is 0.05. The message printed out by the function tells us that 0 subjects need to be reviewed.
 
 # Processed Data
 
