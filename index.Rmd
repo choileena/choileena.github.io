@@ -33,7 +33,7 @@ Department of Biostatistics
 
 <div>
 <figure class="rhs">
-<img src="img/systemAll.png" usemap="#system" />
+<img src="img/systemAll-str.png" usemap="#system" />
 <figcaption>**The *EHRtoPKPD*, a System for PK/PD Studies using EHRs.**  
 Modified from *Clin Pharm Ther 2020*.</figcaption>
 </figure>
@@ -42,7 +42,8 @@ Modified from *Clin Pharm Ther 2020*.</figcaption>
 <area shape="rect" coords="100,120,180,165" alt="Extract-Med" href="Extract-Med.html">
 <!--<area shape="rect" coords="" alt="Pro-Phenotype" href="">-->
 <area shape="rect" coords="100,200,180,245" alt="Pro-Med-NLP" href="Pro-Med-NLP.html">
-<area shape="rect" coords="200,200,285,245" alt="Pro-Med-Str" href="Pro-Med-Str-Part2.html">
+<area shape="rect" coords="205,200,240,245" alt="Pro-Med-Str" href="Pro-Med-Str-Part1.html">
+<area shape="rect" coords="245,200,285,245" alt="Pro-Med-Str" href="Pro-Med-Str-Part2.html">
 <area shape="rect" coords="300,200,375,245" alt="Pro-Drug-Level" href="Pro-DrugLevel.html">
 <area shape="rect" coords="393,200,470,245" alt="Pro-Laboratory" href="Pro-Laboratory.html">
 <area shape="rect" coords="486,200,565,245" alt="Pro-Demographic" href="Pro-Demographic.html">
@@ -65,27 +66,31 @@ The NLP system is available as an R package, *medExtractR*, and the functions to
 
 ### Lab Team
 
-* Cole Beck
-
-<img src="img/BeckC_2018.jpg" class="lhs100" />
-
-* Elizabeth McNeer
-
-<img src="img/McNeer_headshot.jpg" class="lhs100" />
-
-* <a href="https://michaelleewilliams.github.io">Michael Williams</a>
-
-<img src="img/MLWpic2.jpeg" class="lhs100" />
-
-* <a href="https://www.ntjames.com/">Nathan T. James, ScM</a>
-
-<img src="img/Nathan_James.jpg" class="lhs100" />
+<table>
+  <tr>
+    <td>Cole Beck</td>
+    <td>Elizabeth McNeer</td>
+    <td><a href="https://michaelleewilliams.github.io">Michael Williams</a></td>
+    <td><a href="https://www.ntjames.com/">Nathan T. James, ScM</a></td>
+  </tr>
+  <tr>
+    <td><img src="img/BeckC_2018.jpg" style="height:200px" /></td>
+    <td><img src="img/McNeer_headshot.jpg" style="height:200px" /></td>
+    <td><img src="img/MLWpic2.jpeg" style="height:200px" /></td>
+    <td><img src="img/Nathan_James.jpg" style="height:200px" /></td>
+  </tr>
+</table>
 
 ### Lab Alumni
 
-* Hannah L. Weeks
-
-<img src="img/weeks_headshot.jpeg" class="lhs100" />
+<table>
+  <tr>
+    <td>Hannah L. Weeks</td>
+  </tr>
+  <tr>
+    <td><img src="img/weeks_headshot.jpeg" style="height:200px" /></td>
+  </tr>
+</table>
 
 ### References
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
