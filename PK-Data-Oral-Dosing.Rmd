@@ -21,14 +21,13 @@ library(lubridate)
 * See also "[4. EHR Vignette for Build-PK-Oral](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.html)" in `EHR` package.
 
 # Introduction
-We briefly describe a data format typically used in pharmacokinetics (PK), pharmacodynamics (PD) modeling.  There is a brief example dataset and a breakdown of the information contained in each column and their appropriate formatting.
+We briefly describe a data format typically used in pharmacokinetics (PK) and pharmacodynamics (PD) modeling, especially relevant to our example oral dosing data. We describe the data form using data items required in NONMEM, which is acceptable in most PK software. More extensive description of data format appropriate for PK software can be found in the manual of each software such as the MONMEM manual$^{1}$.
+ 
+# Population PK/PD Data Format
 
-# Population PK/PD Data Format for Oral Dosing
+Here is an example of data for orally administered drugs in a suitable format for PK analysis using most PK software including NONMEM.
 
-Here is an example of PK data for orally administered drugs in a suitable format for analysis in NONMEM.
-
-```{r echo=TRUE}
-library(EHR)
+```{r echo=FALSE}
 # Data generating function for examples
 mkdat <- function() {
   npat=3
@@ -53,6 +52,7 @@ dat <- mkdat()
 ex <- dat
 dat2 <- dat[,-8]
 
+library(EHR)
 # Build PK data without last-dose times
 exampledata <- run_Build_PK_Oral(x = dat2,
                   idCol = "id",
@@ -64,21 +64,25 @@ exampledata <- run_Build_PK_Oral(x = dat2,
                   imputeClosest = NULL)
 exampledata <- exampledata[,c("CID","time","conc","dose",
                               "addl","II","mdv","age")]
+```
+
+```{r echo=TRUE}
 exampledata
 ```
 
 This simple example has two types of data rows, dose events (information concerning dosing) and concentration events (information concerning blood concentration levels for the drug of interest).  The columns indicate the following information:
 
-1. `CID`: unique identifier for each individual in the dataset.
+1. `CID`: unique identifier for each individual in the dataset; with "C" in the first column name, a NONMEM control file will ignore all column names so that users can redefine them using the required data items name.
 1. `time`: time of either dosing or concentration measurement.
-1. `conc`: drug blood concentration, `NA` for a dose event.
-1. `dose`: dose amount, we are concerned solely with oral dosing in this module, `NA` for concentration events.
-1. `addl`: additional doses, the number of times for an oral dose to be repeated.
+1. `amt`: dose amount; `NA` for concentration events.
+1. `conc`: drug blood concentration value, which is DV (dependentt variable) as NONMEM data item; `NA` for a dose event.
+1. `mdv`: missing dependent variable; 1 for indicating that there is no dependent variable (in this case, blood concentration), 0 for dependent variable.
+1. `evid`: event ID; 1 for indicating dose event (amt, II, and addl for this record will be used for the drug dose information if evid = 1), 0 for observation (or dependent variable if mdv = 0).
+1. `addl`: additional doses; the number of times for additional oral dose to be repeated, which is 1 less than total number of repeated (identical) doses.
 1. `II`: interdose interval, the amount of time between each additional dose.
-1. `mdv`: missing dependent variable; 1 for indicating that there is no dependent variable (in this case, blood concentration).
-1. `age`: each column can have covariates; these can be time varying or fixed within individual.
+1. `age`: an example covariate; each column can have covariates - these can be time varying or fixed within individual.
 
-Taking the first row as an example, which is a dose event, a dose of 10 mg is taken at time 0 then 27 additional doses are taken every 12 hours (time can take any unit).  If we calculate each of these 27 doses then we see that the final dose is given at `time=324`, 12 hours before the measured concentration of 16.1 in row 2.  Of course this same dosing information could be expressed in 28 rows, (10 mg at time 0, 10 mg at time 12, 10 mg at time 24, etc.) but this more compact form is preferable in the presence of a regular dosing interval.
+Taking the first row as an example, which is a dose event, a dose of 10 mg is taken at time 0 then 27 additional doses (the same 10 mg) are taken every 12 hours (time can take any unit, or the same unit of time variable).  If we calculate each of these 27 doses then we see that the final dose is given at `time = 324`, 12 hours before the measured concentration of 16.1 in row 2.  Of course this same dosing information could be expressed in 28 rows, (10 mg at time 0, 10 mg at time 12, 10 mg at time 24, etc.) but this more compact form is preferable in the presence of a regular dosing interval.
 
 # References  
-1. NONMEM manual
+1. Beal, S.L., Sheiner, L.B., Boeckmann, A.J. & Bauer, R.J. (Eds). NONMEM 7.5 users guides (1989–2020).

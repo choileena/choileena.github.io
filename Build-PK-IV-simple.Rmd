@@ -2,8 +2,6 @@
 title: "Build-PK-IV - Simple"
 description: |
   This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.
-author:
-  - name: Nathan T. James, Leena Choi
 output:
   distill::distill_article:
     toc: true
@@ -128,7 +126,7 @@ Below we show the final PK dataset.
 head(simple_pk_dat,15)
 ```
 
-This dataset includes the `mod_id_visit` variable and standard NONMEM formatted variables:
+This dataset includes the `mod_id_visit` variable and standard NONMEM formatted variables (for details of data items, see [PK-Data-IV-Dosing](PK-Data-IV-Dosing.html)).
 
 * time - time of dosing or concentration event
 * conc - observed concentration (NA for dosing records)
