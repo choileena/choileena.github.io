@@ -24,6 +24,3 @@ More information about the *EHRtoPKPD* can be found at the following sites:
 
 * https://github.com/choileena/medExtractR
 
-# PK Software
-
-Under construction.

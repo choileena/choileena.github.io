@@ -91,7 +91,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta property="description" itemprop="description" content="This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered."/>
   
   
-  <meta name="article:author" content="Nathan T. James, Leena Choi"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Choi Lab: Build-PK-IV - Simple"/>
@@ -109,7 +108,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","output"]}},"value":[{"type":"character","attributes":{},"value":["Build-PK-IV - Simple"]},{"type":"character","attributes":{},"value":["This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Nathan T. James, Leena Choi"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Build-PK-IV - Simple"]},{"type":"character","attributes":{},"value":["This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2043,6 +2042,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+  <script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-728B0KW1HX"></script>
+  <script type="text/javascript" cookie-consent="tracking">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-728B0KW1HX');
+  </script>
   <style type="text/css">
   img.rhs100 {
     float: right;
@@ -2095,7 +2101,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Build-PK-IV - Simple","description":"This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.","authors":[{"author":"Nathan T. James, Leena Choi","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
+{"title":"Build-PK-IV - Simple","description":"This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2126,8 +2132,8 @@ Workshops
 <a href="Build-PK-Oral.html">Build-PK-Oral</a>
 <a href="Build-PK-IV-simple.html">Build-PK-IV : Simple</a>
 <a href="Build-PK-IV-comprehensive.html">Build-PK-IV : Comprehensive</a>
-<a href="Oral Dosing PK Data">Oral Dosing PK Data</a>
-<a href="IV Dosing PK Data">IV Dosing PK Data</a>
+<a href="PK-Data-Oral-Dosing.html">PK Data for Oral Dosing</a>
+<a href="PK-Data-IV-Dosing.html">PK Data for IV Dosing</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2149,11 +2155,6 @@ Workshops
 <p><p>This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.</p></p>
 </div>
 
-<div class="d-byline">
-  Nathan T. James, Leena Choi  
-  
-
-</div>
 
 <div class="d-article">
 <div class="d-contents d-contents-float">
@@ -2191,8 +2192,8 @@ Workshops
 <p>There are <strong>four basic steps</strong> to build a PK dataset quickly.</p>
 <h2 id="first-define-directories">(1) First define directories</h2>
 <ul>
-<li>a directory for the raw data</li>
-<li>a directory for interactive checking output files</li>
+<li>a directory for the raw data (<code>rawDataDir</code> in the example below)</li>
+<li>a directory for interactive checking output files (<code>checkDir</code> in the example below)</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2205,6 +2206,7 @@ Workshops
 </div>
 </div>
 <h2 id="prepare-cleaned-and-appropriately-formatted-data-files-and-load-the-data-files">(2) Prepare cleaned and appropriately formatted data files and load the data files</h2>
+<p>Four types of files are used in the <em>Build-PK-IV</em> module:</p>
 <ul>
 <li>an IV dosing file</li>
 <li>a drug concentration file</li>
@@ -2262,10 +2264,9 @@ Workshops
 2          2 2015-06-22 04:00:00  0.69
 3          2 2015-06-21 01:55:00  0.78</code></pre>
 </div>
+<p>All four of the above datasets have been cleaned and put in the appropriate data format. The <code>patient_id</code> variable is present in all four of the above datasets. This is a unique patient-level ID. The concentration and demographic files also contain a <code>patient_visit_id</code> variable, which is a unique visit-level ID. In order to run the <em>Build-PK-IV</em> module, these variables must be renamed, as we demonstrate in the next section.</p>
 <h2 id="rename-id-variables-with-standardized-names">(3) Rename ID variables with standardized names</h2>
-<ul>
-<li>The <code>EHR</code> package modules use a standardized naming convention for patient identification (ID) variables. We rename the unique patient-level ID from <code>patient_id</code> to <code>mod_id</code> and the visit-level ID from <code>patient_visit_id</code> to <code>mod_id_visit</code>. If there is only a single visit/course per subject, the unique patient-level ID and visit-level ID can be the same, however both <code>mod_id</code> and <code>mod_id_visit</code> should be defined.</li>
-</ul>
+<p>The <code>EHR</code> package modules use a standardized naming convention for patient identification (ID) variables. We rename the unique patient-level ID from <code>patient_id</code> to <code>mod_id</code> and the visit-level ID from <code>patient_visit_id</code> to <code>mod_id_visit</code>. If there is only a single visit/course per subject, the unique patient-level ID and visit-level ID can be the same, however both <code>mod_id</code> and <code>mod_id_visit</code> should be defined.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># rename ID variables</span>
@@ -2275,9 +2276,20 @@ Workshops
 </div>
 </div>
 <h2 id="build-a-final-pk-dataset-with-the-function-run_build_pk_iv-using-the-prepared-datasets-above">(4) Build a final PK dataset with the function <code>run_Build_PK_IV()</code> using the prepared datasets above</h2>
+<p>The following arguments are used in the <code>run_Build_PK_IV</code> function:</p>
 <ul>
-<li>Notice that the data building function generates an automatic message that tells some information about the data processing as well as the final dataset including the variables, the sample size, and missingness - see the message below.</li>
+<li><code>conc</code>: concentration data</li>
+<li><code>dose</code>: IV dose data</li>
+<li><code>demo.list</code>: file name for demographic file</li>
+<li><code>demo.vars</code>: vector of demographic variables to include in final output</li>
+<li><code>demo.abbr</code>: vector of abbreviations for demographic variables in <code>demo.vars</code></li>
+<li><code>lab.dat</code>: list containing laboratory files</li>
+<li><code>lab.vars</code>: vector containing names for laboratory files</li>
+<li><code>pk.vars</code>: PK variables to include</li>
+<li><code>drugname</code>: drug name stub</li>
+<li><code>check.path</code>: file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist</li>
 </ul>
+<p>Below we show how to run <code>run_Build_PK_IV</code> using the example data from above.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># running run_Build_PK_IV()</span>
@@ -2301,7 +2313,7 @@ Workshops
 The dimension of the PK data before merging with demographics: 149 x 9
 The number of subjects in the PK data before merging with demographics: 10
 The number of subjects in the demographic file, who meet the exclusion criteria: 0
-check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpV0hbzG/check1/fent-missing-demo.csv
+check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpMEHMsW/check1/fent-missing-demo.csv
 List of IDs missing at least 1 cpb_sts: 
 Checked: all missing cpb_sts are 0
 The list of final demographic variables: weight
@@ -2315,6 +2327,8 @@ length_of_icu_stay
 Checked: there are no missing creat
 The dimension of the final PK data exported with the key demographics: 149 x 16 with 10 distinct subjects (mod_id_visit)</code></pre>
 </div>
+<p>Notice that the data building function generates an automatic message that tells some information about the data processing as well as the final dataset including the variables, the sample size, and missingness.</p>
+<p>Below we show the final PK dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># the final PK dataset</span>
@@ -2354,6 +2368,16 @@ The dimension of the final PK data exported with the key demographics: 149 x 16 
 14      0  209    1 195   5  0.64
 15      0  209    1 195   5  0.64</code></pre>
 </div>
+<p>This dataset includes the <code>mod_id_visit</code> variable and standard NONMEM formatted variables (for details of data items, see <a href="PK-Data-IV-Dosing.html">PK-Data-IV-Dosing</a>).</p>
+<ul>
+<li>time - time of dosing or concentration event</li>
+<li>conc - observed concentration (NA for dosing records)</li>
+<li>amt - dose amount administered (NA for concentration records)</li>
+<li>rate - rate of drug administration (e.g., rate=0 for bolus doses)</li>
+<li>mdv - missing dependent variable (dv) indicator (e.g., 0 = not missing dv, 1 = missing dv)</li>
+<li>evid - event ID (e.g., 0 = observation, 1 = dose event)</li>
+</ul>
+<p>It also includes the demographic variables we specified in the <code>demo.vars</code> argument that have been renamed according to <code>demo.abbr</code>.</p>
 <h1 id="references">References</h1>
 <ol type="1">
 <li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>

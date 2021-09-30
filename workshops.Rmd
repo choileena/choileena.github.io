@@ -30,10 +30,10 @@ This tutorial describes how to process drug concentration data using *Pro-Drug L
 This tutorial describes how to process laboratory data using *Pro-Laboratory* module in the system.
 
 ## [*Pro-Med-Str* : Part I](Pro-Med-Str-Part1.html)
-This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data. 
+This tutorial describes how to process structured medication data, especially focusing on intravenously given dose data. 
 
 ## [*Pro-Med-Str* : Part II](Pro-Med-Str-Part2.html)
-This tutorial describes how to processes structured medication data, especially focusing on e-prescription data.
+This tutorial describes how to process structured medication data, especially focusing on e-prescription data.
 
 ## [*Build-PK-Oral*](Build-PK-Oral.html)
 This tutorial describes the PK data building procedure in the *EHRtoPKPD* for medications that are typically orally administrated. It demonstrates how to quickly build PK data using *Build-PK-Oral* when drug dose data are provided by users or generated from unstructured clinical notes using extracted dosing information with the *Extract-Med* module and processed with the *Pro-Med-NLP* module in the system.
@@ -47,11 +47,11 @@ This tutorial describes a comprehensive PK data building procedure in the *EHRto
 # Population PK/PD Data Format
 Software performing population PK/PD modeling typically requires specific data format for the key variables. Most of these software follows the data requirement for NONMEM, as NONMEM has been used for a long time and considered as the gold standard software to perform population PK/PD analysis. We describe two most commonly used data format in population PK/PD modeling.
 
-## [Oral Dosing PK Data](Oral-Dosing-PK-Data.html)
+## [PK Data for Oral Dosing](PK-Data-Oral-Dosing.html)
+This tutorial describes an example data format typically used in population PK modeling for orally administered medications.
 
-Under construction.
-
-## [IV Dosing PK Data](IV-Dosing-PK-Data.html)
+## [PK Data for IV Dosing](PK-Data-IV-Dosing.html)
+This tutorial describes an example data format typically used in population PK modeling for intravenously administrated medications.
 
 Under construction.
 

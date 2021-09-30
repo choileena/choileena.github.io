@@ -10,7 +10,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(R.options = list(width = 120))
+knitr::opts_chunk$set(R.options = list(width = 130))
 library(EHR)
 ```
 
@@ -38,11 +38,11 @@ head(mar.in0)
 
 This data consists of a patient ID, date, time, medication name, dosage, route, frequency, and medication given.
 
-The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the *Pro-Med-Str Part I* module. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of the `EHR` package for more information. We demonstrate how to rename the patient ID variable below.
+The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the *Pro-Med-Str Part I* module. We demonstrate how to rename the patient ID variable below.
 
 
 ```{r}
-mar.new <- dataTransformation(mar.in0, rename = c('Uniq.Id' = 'mod_id'))
+mar.new <- dataTransformation(mar.in0, rename = c('Uniq.Id' = 'subject_uid'))
 ```
 
 # Preparing Raw Dose Data
@@ -67,60 +67,39 @@ The next section demonstrates how to use the `run_MedStrI` function to run the *
 
 # Running `run_MedStrI()`
 
-* IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset that comes from one data source for simplicity (see "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for a case when dose data are obtained from two data sources).
+* IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset (called "MAR") that comes from one data source for simplicity (see "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for a case when dose data are obtained from two data sources).
 
-* `run_MedStrI()` is the main function to process IV dose data in *Pro-Med-Str* Part I module
+* `run_MedStrI()` is the main function to process IV dose data in *Pro-Med-Str* Part I module.
 * The module can be semi-interactive -- it generates several files to check potential data errors and get feedback from an investigator. If corrected information ('fix' files) are provided, the module should be re-run to incorporate the corrections. 
 
-* The following arguments must be specified:
-    + `flow.path`: file path where Flow data exist
-    + `flow.select`: list of variables in the Flow data, which are used for processing
-    + `flow.rename`: rename variables for the variables in flow.select
-    + `flow.mod.list`: list containing modifications to variables in the Flow data
-    + `medchk.path`: file path with list of medication names and variants in MAR data to be used 
+* `run_MedStrI()` can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets. A detailed description of all arguments can be found in the `EHR` package manual of `run_MedStrI()`.
     + `mar.path`: file path where the MAR data exist
-    + `demo.list`: (optional) demographic data, produced from Pro-Demographic, that can be used to impute weight when missing
+    + `mar.columns`: a named list that should specify columns in MAR data; ‘id’, ‘datetime’ and ‘dose’ are required. ‘drug’, ‘weight’, ‘given’ may also be specified. ‘datetime’ is date and time for data measurement, which can refer to a single date-time variable (datetime = 'date_time') or two variables holding date and time separately (e.g., datetime = c('Date', 'Time')). ‘dose’ can also be given as a single variable or two variables. If given as a single column, the column's values should contain dose and units such as '25 mcg'. If given as two column names, the dose column should come before the unit column (e.g., dose = c('doseamt', 'unit')). If ‘drug’ is present, the ‘medchk.path’ argument should also be provided, which contain a csv file with a list of drug names that should be used to subset the relevant drugs. The ‘given’ variable should be used in conjunction with the ‘medGivenReq’ argument.
+    + `medGivenReq`: values in the ‘given’ column should equal “Given”; if this is FALSE, NA values are also allowed
+    + `medchk.path`: file path with list of medication names and variants in MAR data to be used 
     + `check.path`: file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist
-    + `failflow_fn`: filename stub for invalid duplicate rows in the Flow data with rate of 0 check file. The stub will be prepended with the string 'fail' to create a .csv with the invalid data. The corrected data with failures replaced should use the same filename stub prepended with the string 'fix'.
-         - e.g., if `failflow_fn` is 'FailFlow', the file 'failFailFlow.csv' with invalid duplicate rows will be created in the directory specified by `check.path`. The corrected version named 'fixFailFlow.csv' should be placed in the same directory.
     + `failunit_fn`: filename stub for records with units other than those specified with `infusion.unit` and `bolus.unit`
-    + `failnowgt_fn`: filename stub for records with missing weight in the Flow data and unit involving 'kg'
-    + `infusion.unit`: string specifying units for infusion doses (default: 'mcg/kg/hr')
-    + `bolus.unit`: string specifying units for bolus doses (default: 'mcg')
+    + `infusion.unit`: string specifying units for infusion doses to check correct unit (default: 'mcg/kg/hr')
+    + `bolus.unit`: string specifying units for bolus doses to check correct unit (default: 'mcg')
     + `bol.rate.thresh`: upper bound for retaining bolus doses. Bolus units with a rate above the threshold are dropped (default: Inf; i.e., keep all bolus doses)
+    + `rateunit`: string specifying units for infusion rate (default: 'mcg/hr')
+    + `ratewgtunit`: string specifying units for infusion rate per body weight (default: 'mcg/kg/hr')
+    + `weightunit`: string specifying units for subject body weight (default: 'kg')
     + `drugname`: drug name of interest (e.g., dex, fent)
 
-Below we show how we would run `run_MedStrI()` using the cleaned dose dataset, "mar_new.rds", as input.
+Below we show how we would run `run_MedStrI()` using the cleaned IV dose dataset, "mar_new.rds", as input.
 
 ```{r Pro-Med-Str1}
 # define parameters
 drugname <- 'fent'
 
 ivdose.out <- run_MedStrI(
-    flow.path=NULL,
-    flow.select = c('mod_id','mod_id_visit','Perform.Date','Final.Wt..kg.',
-                    'Final.Rate..NFR.units.','Final.Units'),
-    flow.rename = c('mod_id','mod_id_visit', 'Perform.Date', 'weight',
-                    'rate', 'final.units'),
-    flow.mod.list = list(
-      date.time =
-    expression(pkdata::parse_dates(fixDates(Perform.Date))), unit =
-    expression(sub(".*[ ]", "", rate)), rate = expression(as.numeric(sub("([0-9.]+).*",
-    "\\1", rate)))),
     mar.path=file.path(dataDir,"mar_new.rds"),
-    mar.datetimeCol = c('Date', 'Time'),
-    mar.doseCol = 'med:dosage',
-    mar.drugCol = 'med:mDrug',
-    mar.weightCol = NULL,
-    mar.givenCol = NULL,
+    mar.columns = list(id='subject_uid', datetime=c('Date','Time'), dose='med:dosage', drug='med:mDrug', given='med:given'),
     medGivenReq = TRUE,
-    medchk.path=file.path(system.file("examples", "str_ex2", package="EHR"), sprintf('medChecked-%s.csv', drugname)),
-    demo.list=NULL,
-    missing.wgt.path = NULL,
+    medchk.path = file.path(system.file("examples", "str_ex2", package="EHR"), sprintf('medChecked-%s.csv', drugname)),
     check.path=checkDir, 
-    failflow_fn = 'FailFlow',
     failunit_fn = 'Unit',
-    failnowgt_fn = 'NoWgt',
     infusion.unit = 'mcg/kg/hr',
     bolus.unit = 'mcg',
     bol.rate.thresh = Inf,
@@ -131,21 +110,26 @@ ivdose.out <- run_MedStrI(
     )
 ```
 
+After `run_MedStrI()` is executed, it provides messages such as those shown above, which contain some information about data checking.
+
 # Output of `run_MedStrI()`
 
 ```{r}
 head(ivdose.out)
 ```
 
-* The output from the *Pro-Med-Str* - Part I module is a `data.frame` with XXX columns:  
+* The output from the *Pro-Med-Str* - Part I module is a `data.frame` with the following columns:  
 
-  - `mod_id`: the new id that will be used to merge datasets.
-  - `infuse.time.real`: infusion dose time. (NEED??: date.dose,  infuse.time, given dose)
-  - `infuse.dose`: infusion dose.  
+  - `subject_uid`: the new id that will be used to merge datasets.
+  - `date.dose`: dose given date.
+  - `infuse.time.real`: infusion dose time recorded in the raw data.
+  - `infuse.time`: infusion dose time processed based on continuous infusion time; this time is used in the PK data building).  
+  - `infuse.dose`: infusion dose.
   - `bolus.time`: bolus dose time.
   - `bolus.dose`: bolus dose.
-  - `maxint`: IV infusion interval.
-  - `weight`: subject body weight.
+  - `given.dose`: variable in the raw data stating the dose was given.
+  - `maxint`: infusion recording interval (e.g., 15 min, 1 hour).
+  - `weight`: subject body weight recorded near infusion time.
 
 This output is the input of `run_Build_PK_IV()` function in *Build-PK-IV* module. In the above output, all variables except `maxint` and `weight` are the necessary variables that should be reserved to use `run_Build_PK_IV()`.
 

@@ -2,8 +2,6 @@
 title: "Build-PK-IV - Simple"
 description: |
   This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.
-author:
-  - name: Nathan T. James, Leena Choi
 output:
   distill::distill_article:
     toc: true
@@ -38,8 +36,8 @@ library(lubridate)
 There are **four basic steps** to build a PK dataset quickly.
 
 ## (1) First define directories
-* a directory for the raw data
-* a directory for interactive checking output files
+* a directory for the raw data (`rawDataDir` in the example below)
+* a directory for interactive checking output files (`checkDir` in the example below)
 
 ```{r define-directories}
 # define directories
@@ -50,6 +48,9 @@ dir.create(checkDir)
 ```
 
 ## (2) Prepare cleaned and appropriately formatted data files and load the data files
+
+Four types of files are used in the *Build-PK-IV* module:
+
 * an IV dosing file
 * a drug concentration file
 * a demographic file
@@ -68,8 +69,10 @@ head(creat.data, 3)
 
 ```
 
+All four of the above datasets have been cleaned and put in the appropriate data format. The `patient_id` variable is present in all four of the above datasets. This is a unique patient-level ID. The concentration and demographic files also contain a `patient_visit_id` variable, which is a unique visit-level ID. In order to run the *Build-PK-IV* module, these variables must be renamed, as we demonstrate in the next section.
+
 ## (3) Rename ID variables with standardized names
-* The `EHR` package modules use a standardized naming convention for patient identification (ID) variables. We rename the unique patient-level ID from `patient_id` to `mod_id` and the visit-level ID from `patient_visit_id` to `mod_id_visit`. If there is only a single visit/course per subject, the unique patient-level ID and visit-level ID can be the same, however both `mod_id` and `mod_id_visit` should be defined.
+The `EHR` package modules use a standardized naming convention for patient identification (ID) variables. We rename the unique patient-level ID from `patient_id` to `mod_id` and the visit-level ID from `patient_visit_id` to `mod_id_visit`. If there is only a single visit/course per subject, the unique patient-level ID and visit-level ID can be the same, however both `mod_id` and `mod_id_visit` should be defined.
 
 ```{r simp-rename}
 # rename ID variables
@@ -80,7 +83,21 @@ names(creat.data)[1] <- names(ivdose.data)[1] <- "mod_id"
 
 
 ## (4) Build a final PK dataset with the function `run_Build_PK_IV()` using the prepared datasets above
-* Notice that the data building function generates an automatic message that tells some information about the data processing as well as the final dataset including the variables, the sample size, and missingness - see the message below.
+
+The following arguments are used in the `run_Build_PK_IV` function:
+
+* `conc`: concentration data
+* `dose`: IV dose data
+* `demo.list`: file name for demographic file
+* `demo.vars`: vector of demographic variables to include in final output
+* `demo.abbr`: vector of abbreviations for demographic variables in `demo.vars`
+* `lab.dat`: list containing laboratory files
+* `lab.vars`: vector containing names for laboratory files
+* `pk.vars`: PK variables to include
+* `drugname`: drug name stub
+* `check.path`: file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist
+
+Below we show how to run `run_Build_PK_IV` using the example data from above.
 
 ```{r sim-build-pk-iv}
 # running run_Build_PK_IV()
@@ -100,11 +117,25 @@ simple_pk_dat <- run_Build_PK_IV(
     check.path=checkDir)
 ```
 
+Notice that the data building function generates an automatic message that tells some information about the data processing as well as the final dataset including the variables, the sample size, and missingness.
+
+Below we show the final PK dataset.
+
 ```{r sim-build-pk-iv-out}
 # the final PK dataset
 head(simple_pk_dat,15)
 ```
 
+This dataset includes the `mod_id_visit` variable and standard NONMEM formatted variables (for details of data items, see [PK-Data-IV-Dosing](PK-Data-IV-Dosing.html)).
+
+* time - time of dosing or concentration event
+* conc - observed concentration (NA for dosing records)
+* amt - dose amount administered (NA for concentration records)
+* rate - rate of drug administration (e.g., rate=0 for bolus doses)
+* mdv - missing dependent variable (dv) indicator (e.g., 0 = not missing dv, 1 = missing dv)
+* evid - event ID (e.g., 0 = observation, 1 = dose event)
+
+It also includes the demographic variables we specified in the `demo.vars` argument that have been renamed according to `demo.abbr`.
 
 # References
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.

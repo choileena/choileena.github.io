@@ -2042,6 +2042,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+  <script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-728B0KW1HX"></script>
+  <script type="text/javascript" cookie-consent="tracking">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-728B0KW1HX');
+  </script>
   <style type="text/css">
   img.rhs100 {
     float: right;
@@ -2125,8 +2132,8 @@ Workshops
 <a href="Build-PK-Oral.html">Build-PK-Oral</a>
 <a href="Build-PK-IV-simple.html">Build-PK-IV : Simple</a>
 <a href="Build-PK-IV-comprehensive.html">Build-PK-IV : Comprehensive</a>
-<a href="Oral Dosing PK Data">Oral Dosing PK Data</a>
-<a href="IV Dosing PK Data">IV Dosing PK Data</a>
+<a href="PK-Data-Oral-Dosing.html">PK Data for Oral Dosing</a>
+<a href="PK-Data-IV-Dosing.html">PK Data for IV Dosing</a>
 </div>
 </div>
 <a href="about.html">About</a>
@@ -2167,8 +2174,8 @@ Workshops
 <li><a href="#build-pk-iv-comprehensive"><span><em>Build-PK-IV</em> : Comprehensive</span></a></li>
 </ul></li>
 <li><a href="#population-pkpd-data-format">Population PK/PD Data Format</a><ul>
-<li><a href="#oral-dosing-pk-data"><span>Oral Dosing PK Data</span></a></li>
-<li><a href="#iv-dosing-pk-data"><span>IV Dosing PK Data</span></a></li>
+<li><a href="#pk-data-for-oral-dosing"><span>PK Data for Oral Dosing</span></a></li>
+<li><a href="#pk-data-for-iv-dosing"><span>PK Data for IV Dosing</span></a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2185,9 +2192,9 @@ Workshops
 <h2 id="pro-laboratory"><a href="Pro-Laboratory.html"><em>Pro-Laboratory</em></a></h2>
 <p>This tutorial describes how to process laboratory data using <em>Pro-Laboratory</em> module in the system.</p>
 <h2 id="pro-med-str-part-i"><a href="Pro-Med-Str-Part1.html"><em>Pro-Med-Str</em> : Part I</a></h2>
-<p>This tutorial describes how to processes structured medication data, especially focusing on intravenously given dose data.</p>
+<p>This tutorial describes how to process structured medication data, especially focusing on intravenously given dose data.</p>
 <h2 id="pro-med-str-part-ii"><a href="Pro-Med-Str-Part2.html"><em>Pro-Med-Str</em> : Part II</a></h2>
-<p>This tutorial describes how to processes structured medication data, especially focusing on e-prescription data.</p>
+<p>This tutorial describes how to process structured medication data, especially focusing on e-prescription data.</p>
 <h2 id="build-pk-oral"><a href="Build-PK-Oral.html"><em>Build-PK-Oral</em></a></h2>
 <p>This tutorial describes the PK data building procedure in the <em>EHRtoPKPD</em> for medications that are typically orally administrated. It demonstrates how to quickly build PK data using <em>Build-PK-Oral</em> when drug dose data are provided by users or generated from unstructured clinical notes using extracted dosing information with the <em>Extract-Med</em> module and processed with the <em>Pro-Med-NLP</em> module in the system.</p>
 <h2 id="build-pk-iv-simple"><a href="Build-PK-IV-simple.html"><em>Build-PK-IV</em> : Simple</a></h2>
@@ -2196,9 +2203,10 @@ Workshops
 <p>This tutorial describes a comprehensive PK data building procedure in the <em>EHRtoPKPD</em> for medications that are typically intravenously administrated. It demonstrates how to utilize several data processing modules (e.g., <em>Pro-Demographic</em>, <em>Pro-Med-Str</em>, <em>Pro-Drug Level</em>, <em>Pro-Laboratory</em>) to standardize and combine more complex datasets when cleaned data are not available, and then build PK data using <em>Build-PK-IV</em>.</p>
 <h1 id="population-pkpd-data-format">Population PK/PD Data Format</h1>
 <p>Software performing population PK/PD modeling typically requires specific data format for the key variables. Most of these software follows the data requirement for NONMEM, as NONMEM has been used for a long time and considered as the gold standard software to perform population PK/PD analysis. We describe two most commonly used data format in population PK/PD modeling.</p>
-<h2 id="oral-dosing-pk-data"><a href="Oral-Dosing-PK-Data.html">Oral Dosing PK Data</a></h2>
-<p>Under construction.</p>
-<h2 id="iv-dosing-pk-data"><a href="IV-Dosing-PK-Data.html">IV Dosing PK Data</a></h2>
+<h2 id="pk-data-for-oral-dosing"><a href="PK-Data-Oral-Dosing.html">PK Data for Oral Dosing</a></h2>
+<p>This tutorial describes an example data format typically used in population PK modeling for orally administered medications.</p>
+<h2 id="pk-data-for-iv-dosing"><a href="PK-Data-IV-Dosing.html">PK Data for IV Dosing</a></h2>
+<p>This tutorial describes an example data format typically used in population PK modeling for intravenously administrated medications.</p>
 <p>Under construction.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

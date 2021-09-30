@@ -12,7 +12,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(R.options = list(width = 120))
+knitr::opts_chunk$set(R.options = list(width = 130))
 library(EHR)
 ```
 
@@ -27,8 +27,6 @@ To begin we load the `EHR` package and create some directories to work from.
 ```{r load-lib-dir, eval=FALSE}
 # load EHR package
 library(EHR)
-<<<<<<< HEAD
-=======
 
 td <- tempdir()
 checkDir <- file.path(td, 'checks') # directory for interactive checking
@@ -38,7 +36,6 @@ dir.create(dataDir)
 rawDataDir <- system.file("examples", "str_ex2", package="EHR")
 drugname <- 'fent'
 LLOQ <- 0.05
->>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 ```
 
 # Demographic Data
@@ -60,19 +57,8 @@ dir.create(file.path(td, 'data2'))
 dataDir <- file.path(td, 'data2')
 
 
-<<<<<<< HEAD
+
 saveRDS(demo.in, file=file.path(dataDir,"demo.rds"))
-=======
-```{r}
-ivdose.out <- run_MedStrI(mar.path=file.path(dataDir,"mar.rds"),
-                          mar.datetimeCol = c('Date','Time'),
-                          mar.doseCol = 'med:dosage',
-                          mar.drugCol = 'med:mDrug',
-                          mar.givenCol = 'med:given',
-                          medchk.path=file.path(rawDataDir, "medChecked-fent.csv"),
-                          check.path=checkDir,
-                          drugname=drugname)
->>>>>>> 1984b9e1039245048558baeb56af83558d55415b
 ```
 
 # Running `run_Demo`

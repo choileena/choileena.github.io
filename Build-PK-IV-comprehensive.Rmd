@@ -12,7 +12,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(R.options = list(width = 120))
+knitr::opts_chunk$set(R.options = list(width = 140))
 library(EHR)
 library(pkdata)
 library(lubridate)
@@ -319,16 +319,15 @@ ivdose.out <- run_MedStrI(
     expression(pkdata::parse_dates(fixDates(Perform.Date))), unit =
     expression(sub(".*[ ]", "", rate)), rate = expression(as.numeric(sub("([0-9.]+).*",
     "\\1", rate)))),
+    flow.columns = list(id='mod_id', datetime='Perform.Date', finalunits='final.units', unit='unit', rate='rate', weight='weight'),
     mar.path=file.path(dataDir,"mar_mod_id.rds"),
-    mar.datetimeCol = c('Date', 'Time'),
-    mar.doseCol = 'med:dosage',
-    mar.drugCol = 'med:mDrug',
-    mar.weightCol = NULL,
-    mar.givenCol = NULL,
+    mar.columns = list(id='mod_id', datetime=c('Date','Time'), dose='med:dosage', drug='med:mDrug', given='med:given'),
     medGivenReq = TRUE,
     medchk.path=file.path(system.file("examples", "str_ex2", package="EHR"), sprintf('medChecked-%s.csv', drugname)),
     demo.list=NULL,
+    demo.columns = list(id='mod_id', datetime='surgery_date', weight='weight'),
     missing.wgt.path = NULL,
+    wgt.columns = list(id='mod_id', datetime='surgery_date', weight='weight'),
     check.path=checkDir, 
     failflow_fn = 'FailFlow',
     failunit_fn = 'Unit',
