@@ -2269,9 +2269,9 @@ Workshops
     <span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpTpF8N9/checks/failUnit-fent.csv not created
+<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpPqRkCF/checks/failUnit-fent.csv not created
 #########################
-75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpTpF8N9/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpTpF8N9/checks/fixNoWgt-fent.csv
+75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpPqRkCF/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpPqRkCF/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 </div>
 <p>After <code>run_MedStrI()</code> is executed, it provides messages such as those shown above, which contain some information about data checking.</p>
@@ -2281,20 +2281,13 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ivdose.out</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>  subject_uid  date.dose infuse.time.real infuse.time infuse.dose          bolus.time bolus.dose given.dose maxint
-1    28579217 2011-10-02             &lt;NA&gt;        &lt;NA&gt;          NA 2011-10-02 15:35:00         25         NA      0
-2    28579217 2011-10-02             &lt;NA&gt;        &lt;NA&gt;          NA 2011-10-02 17:26:00         25         NA      0
-3    28579217 2017-02-04             &lt;NA&gt;        &lt;NA&gt;          NA 2017-02-04 16:15:00         50         NA      0
-4    28579217 2017-02-04             &lt;NA&gt;        &lt;NA&gt;          NA 2017-02-04 16:30:00         20         NA      0
-5    28579217 2017-02-04             &lt;NA&gt;        &lt;NA&gt;          NA 2017-02-04 20:57:00         20         NA      0
-6    34161967 2016-07-18             &lt;NA&gt;        &lt;NA&gt;          NA 2016-07-18 14:56:00        100         NA      0
-  weight
-1     NA
-2     NA
-3     NA
-4     NA
-5     NA
-6     NA</code></pre>
+<pre><code>  subject_uid  date.dose infuse.time.real infuse.time infuse.dose          bolus.time bolus.dose given.dose maxint weight
+1    28579217 2011-10-02             &lt;NA&gt;        &lt;NA&gt;          NA 2011-10-02 15:35:00         25         NA      0     NA
+2    28579217 2011-10-02             &lt;NA&gt;        &lt;NA&gt;          NA 2011-10-02 17:26:00         25         NA      0     NA
+3    28579217 2017-02-04             &lt;NA&gt;        &lt;NA&gt;          NA 2017-02-04 16:15:00         50         NA      0     NA
+4    28579217 2017-02-04             &lt;NA&gt;        &lt;NA&gt;          NA 2017-02-04 16:30:00         20         NA      0     NA
+5    28579217 2017-02-04             &lt;NA&gt;        &lt;NA&gt;          NA 2017-02-04 20:57:00         20         NA      0     NA
+6    34161967 2016-07-18             &lt;NA&gt;        &lt;NA&gt;          NA 2016-07-18 14:56:00        100         NA      0     NA</code></pre>
 </div>
 <ul>
 <li><p>The output from the <em>Pro-Med-Str</em> - Part I module is a <code>data.frame</code> with the following columns:</p>

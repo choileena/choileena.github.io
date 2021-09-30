@@ -2263,22 +2263,22 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tac_mxr_parsed</span>
 </code></pre>
 </div>
-<pre><code>                         filename             drugname       strength        dose route                  freq
-1: tacpid1_2008-06-26_note1_1.txt    Prograf::930::937 1 mg::951::955 3::956::957       twice a day::976::987
-2: tacpid1_2008-06-26_note1_1.txt  prograf::2709::2716                                        bid::2721::2724
-3: tacpid1_2008-06-26_note2_1.txt    Prograf::618::625 1 mg::639::643 3::644::645       twice a day::664::675
-4: tacpid1_2008-12-16_note3_1.txt Tacrolimus::722::732                                                       
-5: tacpid1_2008-12-16_note3_1.txt    Prograf::761::768 1 mg::770::774 3::775::776       twice a day::795::806
-6: tacpid1_2008-12-16_note3_1.txt  Prograf::2179::2186                                        bid::2194::2197
-7: tacpid1_2008-12-16_note3_1.txt  Prograf::2205::2212                                                       
-           dosestr           dosechange             lastdose
-1:                                                          
-2: 3mg::2717::2720                        8:30pm::2740::2746
-3:                                           14 hr::678::683
-4:                                                          
-5:                                                          
-6: 2mg::2190::2193 decrease::2170::2178                     
-7:                                      10:30 pm::2231::2239</code></pre>
+<pre><code>                         filename             drugname       strength        dose route                  freq         dosestr
+1: tacpid1_2008-06-26_note1_1.txt    Prograf::930::937 1 mg::951::955 3::956::957       twice a day::976::987                
+2: tacpid1_2008-06-26_note1_1.txt  prograf::2709::2716                                        bid::2721::2724 3mg::2717::2720
+3: tacpid1_2008-06-26_note2_1.txt    Prograf::618::625 1 mg::639::643 3::644::645       twice a day::664::675                
+4: tacpid1_2008-12-16_note3_1.txt Tacrolimus::722::732                                                                       
+5: tacpid1_2008-12-16_note3_1.txt    Prograf::761::768 1 mg::770::774 3::775::776       twice a day::795::806                
+6: tacpid1_2008-12-16_note3_1.txt  Prograf::2179::2186                                        bid::2194::2197 2mg::2190::2193
+7: tacpid1_2008-12-16_note3_1.txt  Prograf::2205::2212                                                                       
+             dosechange             lastdose
+1:                                          
+2:                        8:30pm::2740::2746
+3:                           14 hr::678::683
+4:                                          
+5:                                          
+6: decrease::2170::2178                     
+7:                      10:30 pm::2231::2239</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2335,32 +2335,19 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>lam_part_i_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/buildDose.html'>buildDose</a></span><span class='op'>(</span><span class='va'>lam_mxr_parsed</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>                         filename       drugname strength dose route        freq dosestr dosechange lastdose
-1  lampid1_2016-02-05_note4_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;         BID  300 mg       &lt;NA&gt;     &lt;NA&gt;
-2  lampid1_2016-02-05_note4_1.txt    Lamotrigine    200mg  1.5  &lt;NA&gt; twice daily    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
-3  lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    3  &lt;NA&gt;     morning    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
-4  lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    2  &lt;NA&gt;     evening    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
-5  lampid1_2016-02-05_note5_1.txt            ltg   200 mg  1.5  &lt;NA&gt;       daily    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
-6  lampid1_2016-02-05_note5_1.txt         ltg xr   100 mg    3  &lt;NA&gt;       in am    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
-7  lampid1_2016-02-05_note5_1.txt         ltg xr   100 mg    2  &lt;NA&gt;       in pm    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
-8  lampid2_2008-07-20_note6_1.txt    lamotrigine     &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
-9  lampid2_2008-07-20_note6_1.txt       lamictal     &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;        q12h  150 mg       &lt;NA&gt;     &lt;NA&gt;
-10 lampid2_2008-07-20_note6_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;         BID   200mg   Increase     &lt;NA&gt;
-11 lampid2_2012-04-15_note7_1.txt    lamotrigine   150 mg &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
-12 lampid2_2012-04-15_note7_1.txt       Lamictal     &lt;NA&gt;    1  &lt;NA&gt; twice a day    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
-   drugname_start
-1             810
-2             847
-3             954
-4             954
-5             442
-6             465
-7             465
-8            1267
-9            1280
-10           2273
-11            103
-12            141</code></pre>
+<pre><code>                         filename       drugname strength dose route        freq dosestr dosechange lastdose drugname_start
+1  lampid1_2016-02-05_note4_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;         BID  300 mg       &lt;NA&gt;     &lt;NA&gt;            810
+2  lampid1_2016-02-05_note4_1.txt    Lamotrigine    200mg  1.5  &lt;NA&gt; twice daily    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            847
+3  lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    3  &lt;NA&gt;     morning    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954
+4  lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    2  &lt;NA&gt;     evening    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954
+5  lampid1_2016-02-05_note5_1.txt            ltg   200 mg  1.5  &lt;NA&gt;       daily    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            442
+6  lampid1_2016-02-05_note5_1.txt         ltg xr   100 mg    3  &lt;NA&gt;       in am    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            465
+7  lampid1_2016-02-05_note5_1.txt         ltg xr   100 mg    2  &lt;NA&gt;       in pm    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            465
+8  lampid2_2008-07-20_note6_1.txt    lamotrigine     &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;           1267
+9  lampid2_2008-07-20_note6_1.txt       lamictal     &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;        q12h  150 mg       &lt;NA&gt;     &lt;NA&gt;           1280
+10 lampid2_2008-07-20_note6_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt;  &lt;NA&gt;         BID   200mg   Increase     &lt;NA&gt;           2273
+11 lampid2_2012-04-15_note7_1.txt    lamotrigine   150 mg &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            103
+12 lampid2_2012-04-15_note7_1.txt       Lamictal     &lt;NA&gt;    1  &lt;NA&gt; twice a day    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            141</code></pre>
 </div>
 <p>We see that the third mention in the lamotrigine dataset now has two rows (rows 3 and 4), one with a dose of “3” and a frequency of “morning” and one with a dose of “2” and a frequency of “evening”. The “drugname_start” column gives us the start position for the drug name, which tells us that these two rows come from the same mention.</p>
 <p>If the <code>checkForRare</code> argument is set to <code>TRUE</code>, any extracted expressions with a proportion of occurrence less than 0.2 are returned as rare values. When rare values are identified, a warning is printed to notify the user. The <code>var</code> column indicates the entity (note that <code>dose</code> in this output refers to dose amount, while <code>dosestr</code> would indicate dose given intake). This can be used as a quick check for potentially inaccurate information and allow the user to remove incorrect extractions before applying the Pro-Med-NLP module as incorrect extractions would reduce accuracy of the dose building data. Note that these values may still be correct extractions even though they are rare, as is the case for our output below.</p>
@@ -2432,26 +2419,26 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lam_part_ii</span><span class='op'>$</span><span class='va'>note</span>
 </code></pre>
 </div>
-<pre><code>                        filename       drugname strength dose  route  freq dosestr dosechange lastdose drugname_start
-1 lampid1_2016-02-05_note4_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid  300 mg       &lt;NA&gt;     &lt;NA&gt;            810
-2 lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    3 orally    am    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954
-3 lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    2 orally    pm    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954
-4 lampid1_2016-02-05_note5_1.txt            ltg   200 mg  1.5 orally daily    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            442
-5 lampid1_2016-02-05_note5_1.txt         ltg xr   100 mg    3 orally    am    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            465
-6 lampid1_2016-02-05_note5_1.txt         ltg xr   100 mg    2 orally    pm    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            465
-7 lampid2_2008-07-20_note6_1.txt       lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid  150 mg       &lt;NA&gt;     &lt;NA&gt;           1280
-8 lampid2_2008-07-20_note6_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid   200mg   Increase     &lt;NA&gt;           2273
-9 lampid2_2012-04-15_note7_1.txt       Lamictal     &lt;NA&gt;    1 orally   bid    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            141
-  dosestr.num strength.num doseamt.num freq.num dose.intake intaketime dose.seq dose.daily
-1         300           NA          NA        2         300       &lt;NA&gt;       NA        600
-2          NA          100         3.0        1         300         am        1        500
-3          NA          100         2.0        1         200         pm        2        500
-4          NA          200         1.5        1         300       &lt;NA&gt;       NA        300
-5          NA          100         3.0        1         300         am        1        500
-6          NA          100         2.0        1         200         pm        2        500
-7         150           NA          NA        2         150       &lt;NA&gt;       NA        300
-8         200           NA          NA        2         200       &lt;NA&gt;       NA        400
-9          NA          150         1.0        2         150       &lt;NA&gt;       NA        300</code></pre>
+<pre><code>                        filename       drugname strength dose  route  freq dosestr dosechange lastdose drugname_start dosestr.num
+1 lampid1_2016-02-05_note4_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid  300 mg       &lt;NA&gt;     &lt;NA&gt;            810         300
+2 lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    3 orally    am    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954          NA
+3 lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    2 orally    pm    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954          NA
+4 lampid1_2016-02-05_note5_1.txt            ltg   200 mg  1.5 orally daily    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            442          NA
+5 lampid1_2016-02-05_note5_1.txt         ltg xr   100 mg    3 orally    am    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            465          NA
+6 lampid1_2016-02-05_note5_1.txt         ltg xr   100 mg    2 orally    pm    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            465          NA
+7 lampid2_2008-07-20_note6_1.txt       lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid  150 mg       &lt;NA&gt;     &lt;NA&gt;           1280         150
+8 lampid2_2008-07-20_note6_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid   200mg   Increase     &lt;NA&gt;           2273         200
+9 lampid2_2012-04-15_note7_1.txt       Lamictal     &lt;NA&gt;    1 orally   bid    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            141          NA
+  strength.num doseamt.num freq.num dose.intake intaketime dose.seq dose.daily
+1           NA          NA        2         300       &lt;NA&gt;       NA        600
+2          100         3.0        1         300         am        1        500
+3          100         2.0        1         200         pm        2        500
+4          200         1.5        1         300       &lt;NA&gt;       NA        300
+5          100         3.0        1         300         am        1        500
+6          100         2.0        1         200         pm        2        500
+7           NA          NA        2         150       &lt;NA&gt;       NA        300
+8           NA          NA        2         200       &lt;NA&gt;       NA        400
+9          150         1.0        2         150       &lt;NA&gt;       NA        300</code></pre>
 </div>
 <p>Date level collapsing:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2459,22 +2446,22 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lam_part_ii</span><span class='op'>$</span><span class='va'>date</span>
 </code></pre>
 </div>
-<pre><code>                        filename       drugname strength dose  route  freq dosestr dosechange lastdose drugname_start
-1 lampid1_2016-02-05_note4_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid  300 mg       &lt;NA&gt;     &lt;NA&gt;            810
-2 lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    3 orally    am    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954
-3 lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    2 orally    pm    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954
-4 lampid1_2016-02-05_note5_1.txt            ltg   200 mg  1.5 orally daily    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            442
-5 lampid2_2008-07-20_note6_1.txt       lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid  150 mg       &lt;NA&gt;     &lt;NA&gt;           1280
-6 lampid2_2008-07-20_note6_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid   200mg   Increase     &lt;NA&gt;           2273
-7 lampid2_2012-04-15_note7_1.txt       Lamictal     &lt;NA&gt;    1 orally   bid    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            141
-  dosestr.num strength.num doseamt.num freq.num dose.intake intaketime dose.seq dose.daily
-1         300           NA          NA        2         300       &lt;NA&gt;       NA        600
-2          NA          100         3.0        1         300         am        1        500
-3          NA          100         2.0        1         200         pm        2        500
-4          NA          200         1.5        1         300       &lt;NA&gt;       NA        300
-5         150           NA          NA        2         150       &lt;NA&gt;       NA        300
-6         200           NA          NA        2         200       &lt;NA&gt;       NA        400
-7          NA          150         1.0        2         150       &lt;NA&gt;       NA        300</code></pre>
+<pre><code>                        filename       drugname strength dose  route  freq dosestr dosechange lastdose drugname_start dosestr.num
+1 lampid1_2016-02-05_note4_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid  300 mg       &lt;NA&gt;     &lt;NA&gt;            810         300
+2 lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    3 orally    am    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954          NA
+3 lampid1_2016-02-05_note4_1.txt Lamotrigine XR   100 mg    2 orally    pm    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            954          NA
+4 lampid1_2016-02-05_note5_1.txt            ltg   200 mg  1.5 orally daily    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            442          NA
+5 lampid2_2008-07-20_note6_1.txt       lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid  150 mg       &lt;NA&gt;     &lt;NA&gt;           1280         150
+6 lampid2_2008-07-20_note6_1.txt       Lamictal     &lt;NA&gt; &lt;NA&gt; orally   bid   200mg   Increase     &lt;NA&gt;           2273         200
+7 lampid2_2012-04-15_note7_1.txt       Lamictal     &lt;NA&gt;    1 orally   bid    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            141          NA
+  strength.num doseamt.num freq.num dose.intake intaketime dose.seq dose.daily
+1           NA          NA        2         300       &lt;NA&gt;       NA        600
+2          100         3.0        1         300         am        1        500
+3          100         2.0        1         200         pm        2        500
+4          200         1.5        1         300       &lt;NA&gt;       NA        300
+5           NA          NA        2         150       &lt;NA&gt;       NA        300
+6           NA          NA        2         200       &lt;NA&gt;       NA        400
+7          150         1.0        2         150       &lt;NA&gt;       NA        300</code></pre>
 </div>
 <p>In the final datasets above, we see that a daily dose has been calculated and redundant daily doses have been removed at either the note or date level.</p>
 <h1 id="handling-lastdose">Handling <code>lastdose</code></h1>
@@ -2502,14 +2489,10 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>tac_ld</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/processLastDose.html'>processLastDose</a></span><span class='op'>(</span>mxrData <span class='op'>=</span> <span class='va'>tac_mxr</span>, noteMetaData <span class='op'>=</span> <span class='va'>tac_metadata</span>, labData <span class='op'>=</span> <span class='va'>tac_lab</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>                        filename            lastdose    ld_pos     pid       date raw_time ld_start time_type
-1 tacpid1_2008-06-26_note1_1.txt 2008-06-25 20:30:00 2740:2746 tacpid1 2008-06-26   8:30pm     2740      time
-2 tacpid1_2008-06-26_note2_1.txt 2008-06-25 20:42:00   678:683 tacpid1 2008-06-26    14 hr      678  duration
-3 tacpid1_2008-12-16_note3_1.txt 2008-12-15 22:30:00 2231:2239 tacpid1 2008-12-16 10:30 pm     2231      time
-              labtime
-1 2008-06-26 10:42:00
-2 2008-06-26 10:42:00
-3 2008-12-16 12:11:00</code></pre>
+<pre><code>                        filename            lastdose    ld_pos     pid       date raw_time ld_start time_type             labtime
+1 tacpid1_2008-06-26_note1_1.txt 2008-06-25 20:30:00 2740:2746 tacpid1 2008-06-26   8:30pm     2740      time 2008-06-26 10:42:00
+2 tacpid1_2008-06-26_note2_1.txt 2008-06-25 20:42:00   678:683 tacpid1 2008-06-26    14 hr      678  duration 2008-06-26 10:42:00
+3 tacpid1_2008-12-16_note3_1.txt 2008-12-15 22:30:00 2231:2239 tacpid1 2008-12-16 10:30 pm     2231      time 2008-12-16 12:11:00</code></pre>
 </div>
 <p>The function output contains the processed and standardized last dose time (<code>lastdose</code>), the original extracted expression (<code>raw_time</code>), whether the raw expression was a time or duration (<code>time_type</code>), as well as position information for the last dose time (<code>ld_start</code>) for appropriate pairing with dosing information in <code>addLastDose</code>. The <code>labtime</code> column in the output above corresponds to the information provided in the <code>labData</code> argument.</p>
 <p>The <code>addLastDose</code> function requires the following arguments:</p>
@@ -2523,22 +2506,14 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>tac_part_i_out_lastdose</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/addLastDose.html'>addLastDose</a></span><span class='op'>(</span>buildData <span class='op'>=</span> <span class='va'>tac_part_i_out</span>, lastdoseData <span class='op'>=</span> <span class='va'>tac_ld</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>                        filename   drugname strength dose route        freq dosestr dosechange            lastdose
-1 tacpid1_2008-06-26_note1_1.txt    Prograf     1 mg    3    NA twice a day    &lt;NA&gt;       &lt;NA&gt;                &lt;NA&gt;
-2 tacpid1_2008-06-26_note1_1.txt    prograf     &lt;NA&gt; &lt;NA&gt;    NA         bid     3mg       &lt;NA&gt; 2008-06-25 20:30:00
-3 tacpid1_2008-06-26_note2_1.txt    Prograf     1 mg    3    NA twice a day    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:42:00
-4 tacpid1_2008-12-16_note3_1.txt Tacrolimus     &lt;NA&gt; &lt;NA&gt;    NA        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;                &lt;NA&gt;
-5 tacpid1_2008-12-16_note3_1.txt    Prograf     1 mg    3    NA twice a day    &lt;NA&gt;       &lt;NA&gt;                &lt;NA&gt;
-6 tacpid1_2008-12-16_note3_1.txt    Prograf     &lt;NA&gt; &lt;NA&gt;    NA         bid     2mg   decrease                &lt;NA&gt;
-7 tacpid1_2008-12-16_note3_1.txt    Prograf     &lt;NA&gt; &lt;NA&gt;    NA        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt; 2008-12-15 22:30:00
-  drugname_start
-1            930
-2           2709
-3            618
-4            722
-5            761
-6           2179
-7           2205</code></pre>
+<pre><code>                        filename   drugname strength dose route        freq dosestr dosechange            lastdose drugname_start
+1 tacpid1_2008-06-26_note1_1.txt    Prograf     1 mg    3    NA twice a day    &lt;NA&gt;       &lt;NA&gt;                &lt;NA&gt;            930
+2 tacpid1_2008-06-26_note1_1.txt    prograf     &lt;NA&gt; &lt;NA&gt;    NA         bid     3mg       &lt;NA&gt; 2008-06-25 20:30:00           2709
+3 tacpid1_2008-06-26_note2_1.txt    Prograf     1 mg    3    NA twice a day    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:42:00            618
+4 tacpid1_2008-12-16_note3_1.txt Tacrolimus     &lt;NA&gt; &lt;NA&gt;    NA        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;                &lt;NA&gt;            722
+5 tacpid1_2008-12-16_note3_1.txt    Prograf     1 mg    3    NA twice a day    &lt;NA&gt;       &lt;NA&gt;                &lt;NA&gt;            761
+6 tacpid1_2008-12-16_note3_1.txt    Prograf     &lt;NA&gt; &lt;NA&gt;    NA         bid     2mg   decrease                &lt;NA&gt;           2179
+7 tacpid1_2008-12-16_note3_1.txt    Prograf     &lt;NA&gt; &lt;NA&gt;    NA        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt; 2008-12-15 22:30:00           2205</code></pre>
 </div>
 <p>Note that in the <code>lastdose</code> columns, we now have standardized datetime objects instead of the raw extracted expressions.</p>
 <h2 id="running-collapsedose-with-last-dose-present">Running <code>collapseDose</code> with last dose present</h2>
@@ -2558,16 +2533,16 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tac_part_ii</span><span class='op'>$</span><span class='va'>note</span>
 </code></pre>
 </div>
-<pre><code>                        filename drugname strength dose  route freq dosestr dosechange            lastdose
-1 tacpid1_2008-06-26_note1_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:30:00
-2 tacpid1_2008-06-26_note2_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:42:00
-3 tacpid1_2008-12-16_note3_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-12-15 22:30:00
-4 tacpid1_2008-12-16_note3_1.txt  Prograf     &lt;NA&gt; &lt;NA&gt; orally  bid     2mg   decrease 2008-12-15 22:30:00
-  drugname_start dosestr.num strength.num doseamt.num freq.num dose.intake intaketime dose.seq dose.daily
-1            930          NA            1           3        2           3       &lt;NA&gt;       NA          6
-2            618          NA            1           3        2           3       &lt;NA&gt;       NA          6
-3            761          NA            1           3        2           3       &lt;NA&gt;       NA          6
-4           2179           2           NA          NA        2           2       &lt;NA&gt;       NA          4</code></pre>
+<pre><code>                        filename drugname strength dose  route freq dosestr dosechange            lastdose drugname_start dosestr.num
+1 tacpid1_2008-06-26_note1_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:30:00            930          NA
+2 tacpid1_2008-06-26_note2_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:42:00            618          NA
+3 tacpid1_2008-12-16_note3_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-12-15 22:30:00            761          NA
+4 tacpid1_2008-12-16_note3_1.txt  Prograf     &lt;NA&gt; &lt;NA&gt; orally  bid     2mg   decrease 2008-12-15 22:30:00           2179           2
+  strength.num doseamt.num freq.num dose.intake intaketime dose.seq dose.daily
+1            1           3        2           3       &lt;NA&gt;       NA          6
+2            1           3        2           3       &lt;NA&gt;       NA          6
+3            1           3        2           3       &lt;NA&gt;       NA          6
+4           NA          NA        2           2       &lt;NA&gt;       NA          4</code></pre>
 </div>
 <p>Date level collapsing:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2575,16 +2550,16 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tac_part_ii</span><span class='op'>$</span><span class='va'>date</span>
 </code></pre>
 </div>
-<pre><code>                        filename drugname strength dose  route freq dosestr dosechange            lastdose
-1 tacpid1_2008-06-26_note1_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:30:00
-2 tacpid1_2008-06-26_note2_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:42:00
-3 tacpid1_2008-12-16_note3_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-12-15 22:30:00
-4 tacpid1_2008-12-16_note3_1.txt  Prograf     &lt;NA&gt; &lt;NA&gt; orally  bid     2mg   decrease 2008-12-15 22:30:00
-  drugname_start dosestr.num strength.num doseamt.num freq.num dose.intake intaketime dose.seq dose.daily
-1            930          NA            1           3        2           3       &lt;NA&gt;       NA          6
-2            618          NA            1           3        2           3       &lt;NA&gt;       NA          6
-3            761          NA            1           3        2           3       &lt;NA&gt;       NA          6
-4           2179           2           NA          NA        2           2       &lt;NA&gt;       NA          4</code></pre>
+<pre><code>                        filename drugname strength dose  route freq dosestr dosechange            lastdose drugname_start dosestr.num
+1 tacpid1_2008-06-26_note1_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:30:00            930          NA
+2 tacpid1_2008-06-26_note2_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-06-25 20:42:00            618          NA
+3 tacpid1_2008-12-16_note3_1.txt  Prograf     1 mg    3 orally  bid    &lt;NA&gt;       &lt;NA&gt; 2008-12-15 22:30:00            761          NA
+4 tacpid1_2008-12-16_note3_1.txt  Prograf     &lt;NA&gt; &lt;NA&gt; orally  bid     2mg   decrease 2008-12-15 22:30:00           2179           2
+  strength.num doseamt.num freq.num dose.intake intaketime dose.seq dose.daily
+1            1           3        2           3       &lt;NA&gt;       NA          6
+2            1           3        2           3       &lt;NA&gt;       NA          6
+3            1           3        2           3       &lt;NA&gt;       NA          6
+4           NA          NA        2           2       &lt;NA&gt;       NA          4</code></pre>
 </div>
 <h1 id="references">References</h1>
 <ol type="1">
