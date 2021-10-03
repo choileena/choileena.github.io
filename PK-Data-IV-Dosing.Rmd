@@ -67,8 +67,7 @@ exampledata <- run_Build_PK_Oral(x = dat2,
                   ldCol = NULL,
                   first_interval_hours = 336,
                   imputeClosest = NULL)
-exampledata <- exampledata[,c("CID","time","conc","dose",
-                              "addl","II","mdv","age")]
+exampledata <- exampledata[,c("id","time","amt","dv","mdv","evid","addl","II","age")]
 ```
 
 ```{r echo=TRUE}
@@ -77,11 +76,10 @@ exampledata
 
 This simple example has two types of data rows, dose events (information concerning dosing) and concentration events (information concerning blood concentration levels for the drug of interest).  The columns indicate the following information:
 
-1. `CID`: unique identifier for each individual in the dataset; with "C" in the first column name, a NONMEM control file will ignore all column names so that users can redefine them using the required data items name.
+1. `id`: unique identifier for each individual in the dataset.
 1. `time`: time of either dosing or concentration measurement.
 1. `amt`: dose amount; `NA` for concentration events.
-1. `conc`: drug blood concentration value, which is DV (dependentt variable) as NONMEM data item; `NA` for a dose event.
-1. rate: rate of infusion of drug; rate = 0 if a bolus is given.
+1. `dv`: drug blood concentration value, which is DV (dependent variable) as NONMEM data item; `NA` for a dose event.
 1. `mdv`: missing dependent variable; 1 for indicating that there is no dependent variable (in this case, blood concentration), 0 for dependent variable.
 1. `evid`: event ID; 1 for indicating dose event (amt, II, and addl for this record will be used for the drug dose information if evid = 1), 0 for observation (or dependent variable if mdv = 0).
 1. `weight`: an example covariate; each column can have covariates - these can be time varying or fixed within individual.

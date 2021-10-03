@@ -81,8 +81,16 @@ Each raw dataset should contain a subject unique ID, a subject visit ID, or both
 
 ```{r demo-in}
 # demographics data
+# demographics data
 demo.in <- readTransform(file.path(rawDataDir, "Demographics_DATA.csv"))
-head(demo.in)
+# pre-process the demographic data 
+# date.time variable is expected in demographic data
+# if date.time variable is not already in the demographic data, it can be generated 
+# using other variables as in this example
+z1 <- EHR:::fixDates(demo.in[, 'surgery_date'])
+z2 <- sub("^([0-9]{2})([0-9]{2})$", "\\1:\\2", sprintf("%04d", demo.in[,
+'time_fromor']))
+demo.in[,'date.time'] <- pkdata::parse_dates(paste(z1, z2))
 ```
 
 * **Concentration raw data**
@@ -136,6 +144,12 @@ head(conc.in)
 flow.in <- readTransform(file.path(rawDataDir, "FLOW_DATA.csv"),
                          rename = c('Subject.Id' = 'subject_id',
                                     'Subject.Uniq.Id' = 'subject_uid')) 
+# pre-process the flow data 
+# date.time variable should be in an appropriate form
+flow.in[,'date.time'] <- pkdata::parse_dates(EHR:::fixDates(flow.in[,'Perform.Date']))
+# unit and rate are required: separate unit and rate from 'Final.Rate..NFR.units.' if needed
+flow.in[,'unit'] <- sub('.*[ ]', '', flow.in[,'Final.Rate..NFR.units.'])
+flow.in[,'rate'] <- as.numeric(sub('([0-9.]+).*', '\\1', flow.in[,'Final.Rate..NFR.units.']))
 head(flow.in)
 ```
 
@@ -309,37 +323,28 @@ demo.out$exclude
 
 ```{r Pro-Med-Str1}
 ivdose.out <- run_MedStrI(
-    flow.path=file.path(dataDir,"flow_mod_id.rds"), 
-    flow.select = c('mod_id','mod_id_visit','Perform.Date','Final.Wt..kg.',
-                    'Final.Rate..NFR.units.','Final.Units'),
-    flow.rename = c('mod_id','mod_id_visit', 'Perform.Date', 'weight',
-                    'rate', 'final.units'),
-    flow.mod.list = list(
-      date.time =
-    expression(pkdata::parse_dates(fixDates(Perform.Date))), unit =
-    expression(sub(".*[ ]", "", rate)), rate = expression(as.numeric(sub("([0-9.]+).*",
-    "\\1", rate)))),
-    flow.columns = list(id='mod_id', datetime='Perform.Date', finalunits='final.units', unit='unit', rate='rate', weight='weight'),
     mar.path=file.path(dataDir,"mar_mod_id.rds"),
     mar.columns = list(id='mod_id', datetime=c('Date','Time'), dose='med:dosage', drug='med:mDrug', given='med:given'),
     medGivenReq = TRUE,
+    flow.path=file.path(dataDir,"flow_mod_id.rds"),
+    flow.columns = list(id = 'mod_id', datetime = 'date.time', finalunits = 'Final.Units', 
+                        unit = 'unit', rate = 'rate', weight = 'Final.Wt..kg.'),
     medchk.path=file.path(system.file("examples", "str_ex2", package="EHR"), sprintf('medChecked-%s.csv', drugname)),
-    demo.list=NULL,
-    demo.columns = list(id='mod_id', datetime='surgery_date', weight='weight'),
+    demo.list = NULL,
+    demo.columns = list(),
     missing.wgt.path = NULL,
-    wgt.columns = list(id='mod_id', datetime='surgery_date', weight='weight'),
-    check.path=checkDir, 
+    wgt.columns = list(),
+    check.path = checkDir,
     failflow_fn = 'FailFlow',
     failunit_fn = 'Unit',
     failnowgt_fn = 'NoWgt',
     infusion.unit = 'mcg/kg/hr',
     bolus.unit = 'mcg',
     bol.rate.thresh = Inf,
-    rateunit = "mcg/hr",
-    ratewgtunit = "mcg/kg/hr",
-    weightunit = "kg",
-    drugname = drugname
-    )
+    rateunit = 'mcg/hr',
+    ratewgtunit = 'mcg/kg/hr',
+    weightunit = 'kg',
+    drugname = drugname)
 
 head(ivdose.out)
 ```
@@ -360,7 +365,7 @@ conc.out <- run_DrugLevel(conc.path=file.path(dataDir,"conc_mod_id.rds"),
     check.path=checkDir,
     failmiss_fn = 'MissingConcDate-',
     multsets_fn = 'multipleSetsConc-',
-    faildup_fn = 'DuplicateConc-',
+    faildup_fn = 'DuplicateConc-', 
     drugname=drugname,
     LLOQ=LLOQ,
     demo.list=demo.out)
@@ -435,22 +440,24 @@ str(lab.out)
 * Both dose data in the format output from the *Pro-Med-Str1* module and concentration data in the format output from the *Pro-DrugLevel* module are required.
 * Demographic data from the *Pro-Demographic* module and laboratory data from the *Pro-Laboratory* module are optional. 
 * The module is semi-interactive -- it generates several files to check potential data errors, and get feedback from an investigator. If corrected information (‘fix’ files) are provided, the module should be re-run to incorporate the corrections.
+* If `pk.vars` includes ‘date’, the output generates its original date-time to which the ‘time’ is mapped. Users can use `pk.vars` to include variables for demographics or labs that are already merged with the concentration dataset when they prefer to provide a single concentration data file (required). But a separate dose data file is still required.
 * **run_Build_PK_IV()** is the function to build PK data with IV dosing data.
 
 ```{r Build-PK-IV}
 pk_dat <- run_Build_PK_IV(
     conc=conc.out,
+    conc.columns = list(id = 'mod_id', datetime = 'date.time', druglevel = 'conc.level', 
+                        idvisit = 'mod_id_visit'),
     dose=ivdose.out,
-    demo.list=demo.out,
-    demo.vars=c('weight', 'weight_demo', 'height', 'gender',
-                'ageatsurgery', 'stat_sts', 'cpb_sts',
-                'length_of_icu_stay'),
-    demo.abbr=c('wgt', 'wgt_demo', 'height', 'gender',
-                'age', 'stat', 'cpb', 'loi'),
-    lab.dat = lab.out,
-    lab.vars = c('creat','alb'),
-    pk.vars=c('mod_id_visit', 'time', 'conc', 'dose', 'rate', 'event',
-              'other', 'multiple.record', 'date', 'mod_id'),
+    dose.columns = list(id = 'mod_id', date = 'date.dose', infuseDatetime = 'infuse.time', 
+                        infuseDose = 'infuse.dose', infuseTimeExact= 'infuse.time.real',
+                        bolusDatetime = 'bolus.time', bolusDose = 'bolus.dose', 
+                        gap = 'maxint', weight = 'weight'),
+    demo.list = demo.out,
+    demo.columns = list(id = 'mod_id', datetime = 'date.time', idvisit = 'mod_id_visit'),
+    lab.list = lab.out,
+    lab.columns = list(id = 'mod_id', datetime = 'date.time'),
+    pk.vars=c('date'),
     drugname=drugname,
     check.path=checkDir,
     missdemo_fn='-missing-demo',

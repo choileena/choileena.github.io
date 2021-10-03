@@ -51,7 +51,7 @@ In practice, the dose data will need to be combined with other input datasets. T
 
 For simplicity, we will skip this step in this tutorial.
 
-We need to save our dataset as an RDS file using `saveRDS` as shown below. Here, we create a temporary directory to store the files using `tempdir`. We define two directories, `dataDir` for processed data and `checkDir` containing files used for interactive checking (optional). Instead of using a temporary directory, `dataDir` and `checkDir` can be specific directories on your computer.
+We save our dataset as an RDS file using `saveRDS` as shown below (CSV or RData is also acceptable data form). Here, we create a temporary directory to store the files using `tempdir`. We define two directories, `dataDir` for processed data and `checkDir` containing files used for interactive checking (optional). Instead of using a temporary directory, `dataDir` and `checkDir` can be specific directories on your computer.
 
 ```{r}
 # define 2 directories
@@ -72,19 +72,19 @@ The next section demonstrates how to use the `run_MedStrI` function to run the *
 * `run_MedStrI()` is the main function to process IV dose data in *Pro-Med-Str* Part I module.
 * The module can be semi-interactive -- it generates several files to check potential data errors and get feedback from an investigator. If corrected information ('fix' files) are provided, the module should be re-run to incorporate the corrections. 
 
-* `run_MedStrI()` can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets. A detailed description of all arguments can be found in the `EHR` package manual of `run_MedStrI()`.
-    + `mar.path`: file path where the MAR data exist
+* `run_MedStrI()` can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets, MAR data. A detailed description of all arguments can be found in the `EHR` package manual of `run_MedStrI()`.
+    + `mar.path`: file name of MAR data (CSV, RData, RDS), or data.frame
     + `mar.columns`: a named list that should specify columns in MAR data; ‘id’, ‘datetime’ and ‘dose’ are required. ‘drug’, ‘weight’, ‘given’ may also be specified. ‘datetime’ is date and time for data measurement, which can refer to a single date-time variable (datetime = 'date_time') or two variables holding date and time separately (e.g., datetime = c('Date', 'Time')). ‘dose’ can also be given as a single variable or two variables. If given as a single column, the column's values should contain dose and units such as '25 mcg'. If given as two column names, the dose column should come before the unit column (e.g., dose = c('doseamt', 'unit')). If ‘drug’ is present, the ‘medchk.path’ argument should also be provided, which contain a csv file with a list of drug names that should be used to subset the relevant drugs. The ‘given’ variable should be used in conjunction with the ‘medGivenReq’ argument.
-    + `medGivenReq`: values in the ‘given’ column should equal “Given”; if this is FALSE, NA values are also allowed
-    + `medchk.path`: file path with list of medication names and variants in MAR data to be used 
-    + `check.path`: file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist
+    + `medGivenReq`: indicator if values in the MAR given column should equal "Given";  if this is FALSE (the default), NA values are also acceptable.
+    + `medchk.path`: (optional) file name containing data set (CSV, RData, RDS), or data.frame; should have the column ‘medname’ with list of acceptable drug names used to filter MAR data.
+    + `check.path`: (optional) file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist. The default (NULL) will not produce any check files.
     + `failunit_fn`: filename stub for records with units other than those specified with `infusion.unit` and `bolus.unit`
-    + `infusion.unit`: string specifying units for infusion doses to check correct unit (default: 'mcg/kg/hr')
-    + `bolus.unit`: string specifying units for bolus doses to check correct unit (default: 'mcg')
+    + `infusion.unit`: string specifying units for infusion doses (default: 'mcg/kg/hr')
+    + `bolus.unit`: string specifying units for bolus doses (default: 'mcg')
     + `bol.rate.thresh`: upper bound for retaining bolus doses. Bolus units with a rate above the threshold are dropped (default: Inf; i.e., keep all bolus doses)
-    + `rateunit`: string specifying units for infusion rate (default: 'mcg/hr')
-    + `ratewgtunit`: string specifying units for infusion rate per body weight (default: 'mcg/kg/hr')
-    + `weightunit`: string specifying units for subject body weight (default: 'kg')
+    + `rateunit`: string specifying units for hourly rate (default: 'mcg/hr')
+    + `ratewgtunit`: string specifying units for hourly rate by weight (default: 'mcg/kg/hr')
+    + `weightunit`: string specifying units for weight (default: 'kg')
     + `drugname`: drug name of interest (e.g., dex, fent)
 
 Below we show how we would run `run_MedStrI()` using the cleaned IV dose dataset, "mar_new.rds", as input.

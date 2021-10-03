@@ -2188,40 +2188,40 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>exampledata</span>
 </code></pre>
 </div>
-<pre><code>   CID   time conc dose addl II mdv age
-1    1    0.0   NA 10.0   27 12   1  46
-2    1  336.0 16.1   NA   NA NA   0  46
-3    1  336.5   NA 10.0  139 12   1  46
-4    1 2015.0  6.4   NA   NA NA   0  46
-5    1 2015.5   NA  5.0  105 12   1  46
-6    1 3287.0  5.6   NA   NA NA   0  46
-7    1 3287.5   NA  5.0  285 12   1  46
-8    1 6720.0  6.6   NA   NA NA   0  46
-9    1 6720.5   NA  5.0  265 12   1  46
-10   1 9911.0  5.0   NA   NA NA   0  46
-11   2    0.0   NA 10.0   27 12   1  72
-12   2  336.0 15.1   NA   NA NA   0  72
-13   2  336.5   NA 10.0   65 12   1  72
-14   2 1128.0 11.7   NA   NA NA   0  72
-15   2 1128.5   NA  7.5   25 12   1  72
-16   2 1440.0  2.9   NA   NA NA   0  72
-17   2 1440.5   NA  2.5   29 12   1  72
-18   2 1800.0  2.2   NA   NA NA   0  72
-19   2 1800.5   NA  2.5   29 12   1  72
-20   2 2160.0  4.3   NA   NA NA   0  72
-21   3    0.0   NA  2.5   27 12   1  56
-22   3  336.0  3.4   NA   NA NA   0  56
-23   3  336.5   NA  2.5  159 12   1  56
-24   3 2256.0 10.2   NA   NA NA   0  56
-25   3 2256.5   NA  7.5   17 12   1  56
-26   3 2472.0  7.5   NA   NA NA   0  56</code></pre>
+<pre><code>   id   time  amt   dv mdv evid addl II age
+1   1    0.0 10.0   NA   1    1   27 12  46
+2   1  336.0   NA 16.1   0    0   NA NA  46
+3   1  336.5 10.0   NA   1    1  139 12  46
+4   1 2015.0   NA  6.4   0    0   NA NA  46
+5   1 2015.5  5.0   NA   1    1  105 12  46
+6   1 3287.0   NA  5.6   0    0   NA NA  46
+7   1 3287.5  5.0   NA   1    1  285 12  46
+8   1 6720.0   NA  6.6   0    0   NA NA  46
+9   1 6720.5  5.0   NA   1    1  265 12  46
+10  1 9911.0   NA  5.0   0    0   NA NA  46
+11  2    0.0 10.0   NA   1    1   27 12  72
+12  2  336.0   NA 15.1   0    0   NA NA  72
+13  2  336.5 10.0   NA   1    1   65 12  72
+14  2 1128.0   NA 11.7   0    0   NA NA  72
+15  2 1128.5  7.5   NA   1    1   25 12  72
+16  2 1440.0   NA  2.9   0    0   NA NA  72
+17  2 1440.5  2.5   NA   1    1   29 12  72
+18  2 1800.0   NA  2.2   0    0   NA NA  72
+19  2 1800.5  2.5   NA   1    1   29 12  72
+20  2 2160.0   NA  4.3   0    0   NA NA  72
+21  3    0.0  2.5   NA   1    1   27 12  56
+22  3  336.0   NA  3.4   0    0   NA NA  56
+23  3  336.5  2.5   NA   1    1  159 12  56
+24  3 2256.0   NA 10.2   0    0   NA NA  56
+25  3 2256.5  7.5   NA   1    1   17 12  56
+26  3 2472.0   NA  7.5   0    0   NA NA  56</code></pre>
 </div>
 <p>This simple example has two types of data rows, dose events (information concerning dosing) and concentration events (information concerning blood concentration levels for the drug of interest). The columns indicate the following information:</p>
 <ol type="1">
-<li><code>CID</code>: unique identifier for each individual in the dataset; with “C” in the first column name, a NONMEM control file will ignore all column names so that users can redefine them using the required data items name.</li>
+<li><code>id</code>: unique identifier for each individual in the dataset.</li>
 <li><code>time</code>: time of either dosing or concentration measurement.</li>
 <li><code>amt</code>: dose amount; <code>NA</code> for concentration events.</li>
-<li><code>conc</code>: drug blood concentration value, which is DV (dependentt variable) as NONMEM data item; <code>NA</code> for a dose event.</li>
+<li><code>dv</code>: drug blood concentration value, which is DV (dependent variable) as NONMEM data item; <code>NA</code> for a dose event.</li>
 <li><code>mdv</code>: missing dependent variable; 1 for indicating that there is no dependent variable (in this case, blood concentration), 0 for dependent variable.</li>
 <li><code>evid</code>: event ID; 1 for indicating dose event (amt, II, and addl for this record will be used for the drug dose information if evid = 1), 0 for observation (or dependent variable if mdv = 0).</li>
 <li><code>addl</code>: additional doses; the number of times for additional oral dose to be repeated, which is 1 less than total number of repeated (identical) doses.</li>

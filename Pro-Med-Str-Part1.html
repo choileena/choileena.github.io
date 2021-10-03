@@ -2210,7 +2210,7 @@ Workshops
 <h1 id="preparing-raw-dose-data">Preparing Raw Dose Data</h1>
 <p>In practice, the dose data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are <code>mod_id</code>, <code>mod_visit</code>, and <code>mod_id_visit</code>. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package and “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for examples of this process.</p>
 <p>For simplicity, we will skip this step in this tutorial.</p>
-<p>We need to save our dataset as an RDS file using <code>saveRDS</code> as shown below. Here, we create a temporary directory to store the files using <code>tempdir</code>. We define two directories, <code>dataDir</code> for processed data and <code>checkDir</code> containing files used for interactive checking (optional). Instead of using a temporary directory, <code>dataDir</code> and <code>checkDir</code> can be specific directories on your computer.</p>
+<p>We save our dataset as an RDS file using <code>saveRDS</code> as shown below (CSV or RData is also acceptable data form). Here, we create a temporary directory to store the files using <code>tempdir</code>. We define two directories, <code>dataDir</code> for processed data and <code>checkDir</code> containing files used for interactive checking (optional). Instead of using a temporary directory, <code>dataDir</code> and <code>checkDir</code> can be specific directories on your computer.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># define 2 directories</span>
@@ -2229,20 +2229,20 @@ Workshops
 <li><p>IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset (called “MAR”) that comes from one data source for simplicity (see “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for a case when dose data are obtained from two data sources).</p></li>
 <li><p><code>run_MedStrI()</code> is the main function to process IV dose data in <em>Pro-Med-Str</em> Part I module.</p></li>
 <li><p>The module can be semi-interactive – it generates several files to check potential data errors and get feedback from an investigator. If corrected information (‘fix’ files) are provided, the module should be re-run to incorporate the corrections.</p></li>
-<li><p><code>run_MedStrI()</code> can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets. A detailed description of all arguments can be found in the <code>EHR</code> package manual of <code>run_MedStrI()</code>.</p>
+<li><p><code>run_MedStrI()</code> can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets, MAR data. A detailed description of all arguments can be found in the <code>EHR</code> package manual of <code>run_MedStrI()</code>.</p>
 <ul>
-<li><code>mar.path</code>: file path where the MAR data exist</li>
+<li><code>mar.path</code>: file name of MAR data (CSV, RData, RDS), or data.frame</li>
 <li><code>mar.columns</code>: a named list that should specify columns in MAR data; ‘id’, ‘datetime’ and ‘dose’ are required. ‘drug’, ‘weight’, ‘given’ may also be specified. ‘datetime’ is date and time for data measurement, which can refer to a single date-time variable (datetime = ‘date_time’) or two variables holding date and time separately (e.g., datetime = c(‘Date’, ‘Time’)). ‘dose’ can also be given as a single variable or two variables. If given as a single column, the column’s values should contain dose and units such as ‘25 mcg’. If given as two column names, the dose column should come before the unit column (e.g., dose = c(‘doseamt’, ‘unit’)). If ‘drug’ is present, the ‘medchk.path’ argument should also be provided, which contain a csv file with a list of drug names that should be used to subset the relevant drugs. The ‘given’ variable should be used in conjunction with the ‘medGivenReq’ argument.</li>
-<li><code>medGivenReq</code>: values in the ‘given’ column should equal “Given”; if this is FALSE, NA values are also allowed</li>
-<li><code>medchk.path</code>: file path with list of medication names and variants in MAR data to be used</li>
-<li><code>check.path</code>: file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist</li>
+<li><code>medGivenReq</code>: indicator if values in the MAR given column should equal “Given”; if this is FALSE (the default), NA values are also acceptable.</li>
+<li><code>medchk.path</code>: (optional) file name containing data set (CSV, RData, RDS), or data.frame; should have the column ‘medname’ with list of acceptable drug names used to filter MAR data.</li>
+<li><code>check.path</code>: (optional) file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist. The default (NULL) will not produce any check files.</li>
 <li><code>failunit_fn</code>: filename stub for records with units other than those specified with <code>infusion.unit</code> and <code>bolus.unit</code></li>
-<li><code>infusion.unit</code>: string specifying units for infusion doses to check correct unit (default: ‘mcg/kg/hr’)</li>
-<li><code>bolus.unit</code>: string specifying units for bolus doses to check correct unit (default: ‘mcg’)</li>
+<li><code>infusion.unit</code>: string specifying units for infusion doses (default: ‘mcg/kg/hr’)</li>
+<li><code>bolus.unit</code>: string specifying units for bolus doses (default: ‘mcg’)</li>
 <li><code>bol.rate.thresh</code>: upper bound for retaining bolus doses. Bolus units with a rate above the threshold are dropped (default: Inf; i.e., keep all bolus doses)</li>
-<li><code>rateunit</code>: string specifying units for infusion rate (default: ‘mcg/hr’)</li>
-<li><code>ratewgtunit</code>: string specifying units for infusion rate per body weight (default: ‘mcg/kg/hr’)</li>
-<li><code>weightunit</code>: string specifying units for subject body weight (default: ‘kg’)</li>
+<li><code>rateunit</code>: string specifying units for hourly rate (default: ‘mcg/hr’)</li>
+<li><code>ratewgtunit</code>: string specifying units for hourly rate by weight (default: ‘mcg/kg/hr’)</li>
+<li><code>weightunit</code>: string specifying units for weight (default: ‘kg’)</li>
 <li><code>drugname</code>: drug name of interest (e.g., dex, fent)</li>
 </ul></li>
 </ul>
@@ -2269,9 +2269,9 @@ Workshops
     <span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpPqRkCF/checks/failUnit-fent.csv not created
+<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpJIkJaw/checks/failUnit-fent.csv not created
 #########################
-75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpPqRkCF/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpPqRkCF/checks/fixNoWgt-fent.csv
+75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpJIkJaw/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpJIkJaw/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 </div>
 <p>After <code>run_MedStrI()</code> is executed, it provides messages such as those shown above, which contain some information about data checking.</p>
