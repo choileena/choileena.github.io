@@ -2181,7 +2181,7 @@ Workshops
 <p>EXAMPE DATA HERE</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span>
 <span class='co'># Data generating function for examples</span>
 <span class='va'>mkdat</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>npat</span><span class='op'>=</span><span class='fl'>3</span>
@@ -2206,7 +2206,7 @@ Workshops
 <span class='va'>ex</span> <span class='op'>&lt;-</span> <span class='va'>dat</span>
 <span class='va'>dat2</span> <span class='op'>&lt;-</span> <span class='va'>dat</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>8</span><span class='op'>]</span>
 
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span>
 <span class='co'># Build PK data without last-dose times</span>
 <span class='va'>exampledata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Build_PK_Oral.html'>run_Build_PK_Oral</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>dat2</span>,
                   idCol <span class='op'>=</span> <span class='st'>"id"</span>,

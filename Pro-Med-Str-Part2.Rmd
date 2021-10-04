@@ -55,15 +55,15 @@ The e-prescription data can be processed by the `run_MedStrII` function using:
 
 ```{r Pro-Med-Str2}
 eRX.out <- run_MedStrII(file.path(rawDataDir,"e-rx_DATA.csv"),
-    select = c('GRID','MED_NAME','RX_DOSE','FREQUENCY','ENTRY_DATE','STRENGTH_AMOUNT','DESCRIPTION'),
-    rename = c('ID','MED_NAME','RX_DOSE','FREQUENCY','ENTRY_DATE','STRENGTH_AMOUNT','DESCRIPTION'))
+    dat.columns = list(id = 'GRID', dose = 'RX_DOSE', freq = 'FREQUENCY', date = 'ENTRY_DATE', str = 'STRENGTH_AMOUNT', desc = 'DESCRIPTION')
+)
+
 ```
 
 The following arguments are used in the `run_MedStrII` function:
 
-* `file`: file name of prescription data
-* `select`: the names of the columns to select
-* `rename`: new column names; the default are the names required for the underlying functions, `processErx` and `processErxAddl`
+* `file`: file name of prescription data (CSV, RData, RDS), or data.frame
+* `dat.columns`: a named list that should specify columns in data; ‘id’, ‘dose’, ‘freq’, ‘date’, and ‘str’ are required. ‘desc’ may also be specified
 
 ```{r}
 eRX.out

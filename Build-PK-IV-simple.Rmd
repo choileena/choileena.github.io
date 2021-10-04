@@ -88,7 +88,7 @@ The following arguments are used in the `run_Build_PK_IV` function:
 * `conc.columns`: a named list that should specify columns in concentration data
 * `dose`: IV dose data
 * `dose.columns`:  a named list that should specify columns in dose data
-* `demo.list`: demographic data
+* `demo.list`: demographic data; if provided, ‘id’ is required in `demo.columns`
 * `demo.columns`: a named list that should specify columns in demographic data
 * `lab.list`: laboratory data
 * `lab.columns`: a named list that should specify columns in lab data
@@ -110,7 +110,7 @@ simple_pk_dat <- run_Build_PK_IV(
                         bolusDatetime = 'bolus.time', bolusDose = 'bolus.dose', 
                         gap = 'maxint', weight = 'weight'),
     demo.list = demo,
-    demo.columns = list(id = 'mod_id', datetime = 'surgery_date_time', idvisit = 'mod_id_visit'),
+    demo.columns = list(id = 'mod_id', idvisit = 'mod_id_visit'),
     lab.list = list(creat.data),
     lab.columns = list(id = 'mod_id', datetime = 'date.time'),
     check.path=checkDir)

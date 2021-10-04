@@ -446,7 +446,7 @@ pk_dat <- run_Build_PK_IV(
                         bolusDatetime = 'bolus.time', bolusDose = 'bolus.dose', 
                         gap = 'maxint', weight = 'weight'),
     demo.list = demo.out,
-    demo.columns = list(id = 'mod_id', datetime = 'date.time', idvisit = 'mod_id_visit'),
+    demo.columns = list(id = 'mod_id', idvisit = 'mod_id_visit'),
     lab.list = lab.out,
     lab.columns = list(id = 'mod_id', datetime = 'date.time'),
     pk.vars=c('date'),
