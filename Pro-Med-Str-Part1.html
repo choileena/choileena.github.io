@@ -2228,15 +2228,20 @@ Workshops
 <ul>
 <li><p>IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset (called “MAR”) that comes from one data source for simplicity (see “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for a case when dose data are obtained from two data sources).</p></li>
 <li><p><code>run_MedStrI()</code> is the main function to process IV dose data in <em>Pro-Med-Str</em> Part I module.</p></li>
-<li><p>The module can be semi-interactive – it generates several files to check potential data errors and get feedback from an investigator. If corrected information (‘fix’ files) are provided, the module should be re-run to incorporate the corrections.</p></li>
+<li><p>The module can be semi-interactive for data checking (although it is not required, we recommend using this feature). If <code>check.path</code> is provided (the default is NULL), it generates several files to check potential data errors and get feedback from an investigator; otherwise, the interactive checking will not be performed. If corrected information (‘fix’ files) are provided, the module should be re-run to incorporate the corrections.</p></li>
 <li><p><code>run_MedStrI()</code> can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets, MAR data. A detailed description of all arguments can be found in the <code>EHR</code> package manual of <code>run_MedStrI()</code>.</p>
 <ul>
 <li><code>mar.path</code>: file name of MAR data (CSV, RData, RDS), or data.frame</li>
 <li><code>mar.columns</code>: a named list that should specify columns in MAR data; ‘id’, ‘datetime’ and ‘dose’ are required. ‘drug’, ‘weight’, ‘given’ may also be specified. ‘datetime’ is date and time for data measurement, which can refer to a single date-time variable (datetime = ‘date_time’) or two variables holding date and time separately (e.g., datetime = c(‘Date’, ‘Time’)). ‘dose’ can also be given as a single variable or two variables. If given as a single column, the column’s values should contain dose and units such as ‘25 mcg’. If given as two column names, the dose column should come before the unit column (e.g., dose = c(‘doseamt’, ‘unit’)). If ‘drug’ is present, the ‘medchk.path’ argument should also be provided, which contain a csv file with a list of drug names that should be used to subset the relevant drugs. The ‘given’ variable should be used in conjunction with the ‘medGivenReq’ argument.</li>
-<li><code>medGivenReq</code>: indicator if values in the MAR given column should equal “Given”; if this is FALSE (the default), NA values are also acceptable.</li>
+<li><code>medGivenReq</code>: indicator if values in the MAR given column should equal “Given”; if this is FALSE (the default), NA values are also acceptable. This is a variable that flags whether the medication for inpatients is given as sometimes other dose instead of actual dose given can be specified for communications (e.g., a scheduled dose change). Depending on users’ EHR system and data types, we recommend confirming actual dose given and this argument can be useful for that purpose.</li>
 <li><code>medchk.path</code>: (optional) file name containing data set (CSV, RData, RDS), or data.frame; should have the column ‘medname’ with list of acceptable drug names used to filter MAR data.</li>
+<li><code>demo.list</code>: (optional) demographic information; if available, the output from ‘run_Demo’ or a correctly formatted data.frame; if provided, ‘weight’ is required in <code>demo.columns</code> as it is used to impute weight when missing.</li>
+<li><code>demo.columns</code>: a named list that should specify columns in demographic data; ‘id’, ‘datetime’, and ‘weight’ are required.</li>
 <li><code>check.path</code>: (optional) file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist. The default (NULL) will not produce any check files.</li>
-<li><code>failunit_fn</code>: filename stub for records with units other than those specified with <code>infusion.unit</code> and <code>bolus.unit</code></li>
+</ul></li>
+<li><p>All the following arguments are optional (i.e., default values can be used), but if the required data items for the dose data such as ‘unit’ are not provided, this function does not work.</p>
+<ul>
+<li><code>failunit_fn</code>: filename stub for records with units other than those specified with <code>infusion.unit</code> and <code>bolus.unit</code> (default: ‘Unit’)</li>
 <li><code>infusion.unit</code>: string specifying units for infusion doses (default: ‘mcg/kg/hr’)</li>
 <li><code>bolus.unit</code>: string specifying units for bolus doses (default: ‘mcg’)</li>
 <li><code>bol.rate.thresh</code>: upper bound for retaining bolus doses. Bolus units with a rate above the threshold are dropped (default: Inf; i.e., keep all bolus doses)</li>
@@ -2257,6 +2262,8 @@ Workshops
     mar.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='st'>'subject_uid'</span>, datetime<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Date'</span>,<span class='st'>'Time'</span><span class='op'>)</span>, dose<span class='op'>=</span><span class='st'>'med:dosage'</span>, drug<span class='op'>=</span><span class='st'>'med:mDrug'</span>, given<span class='op'>=</span><span class='st'>'med:given'</span><span class='op'>)</span>,
     medGivenReq <span class='op'>=</span> <span class='cn'>TRUE</span>,
     medchk.path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span><span class='st'>'medChecked-%s.csv'</span>, <span class='va'>drugname</span><span class='op'>)</span><span class='op'>)</span>,
+    demo.list <span class='op'>=</span> <span class='cn'>NULL</span>,
+    demo.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
     check.path<span class='op'>=</span><span class='va'>checkDir</span>, 
     failunit_fn <span class='op'>=</span> <span class='st'>'Unit'</span>,
     infusion.unit <span class='op'>=</span> <span class='st'>'mcg/kg/hr'</span>,
@@ -2269,9 +2276,9 @@ Workshops
     <span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpJIkJaw/checks/failUnit-fent.csv not created
+<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmppoZ2WU/checks/failUnit-fent.csv not created
 #########################
-75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpJIkJaw/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpJIkJaw/checks/fixNoWgt-fent.csv
+75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmppoZ2WU/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmppoZ2WU/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 </div>
 <p>After <code>run_MedStrI()</code> is executed, it provides messages such as those shown above, which contain some information about data checking.</p>
@@ -2295,17 +2302,17 @@ Workshops
 <li><code>subject_uid</code>: the new id that will be used to merge datasets.</li>
 <li><code>date.dose</code>: dose given date.</li>
 <li><code>infuse.time.real</code>: infusion dose time recorded in the raw data.</li>
-<li><code>infuse.time</code>: infusion dose time processed based on continuous infusion time; this time is used in the PK data building).<br />
-</li>
+<li><code>infuse.time</code>: infusion dose time processed based on continuous infusion time.</li>
 <li><code>infuse.dose</code>: infusion dose.</li>
 <li><code>bolus.time</code>: bolus dose time.</li>
 <li><code>bolus.dose</code>: bolus dose.</li>
 <li><code>given.dose</code>: variable in the raw data stating the dose was given.</li>
-<li><code>maxint</code>: infusion recording interval (e.g., 15 min, 1 hour).</li>
+<li><code>maxint</code>: infusion recording interval (e.g., 15 min, 60 min).</li>
 <li><code>weight</code>: subject body weight recorded near infusion time.</li>
 </ul></li>
+<li><p>Note:</p></li>
 </ul>
-<p>This output is the input of <code>run_Build_PK_IV()</code> function in <em>Build-PK-IV</em> module. In the above output, all variables except <code>maxint</code> and <code>weight</code> are the necessary variables that should be reserved to use <code>run_Build_PK_IV()</code>.</p>
+<p>This output is the input of <code>run_Build_PK_IV()</code> function in <em>Build-PK-IV</em> module. In the above output, all variables except <code>given.dose</code> are the necessary variables that should be reserved to use <code>run_Build_PK_IV()</code>.</p>
 <h1 id="references">References</h1>
 <ol type="1">
 <li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>

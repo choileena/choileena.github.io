@@ -70,15 +70,20 @@ The next section demonstrates how to use the `run_MedStrI` function to run the *
 * IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset (called "MAR") that comes from one data source for simplicity (see "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for a case when dose data are obtained from two data sources).
 
 * `run_MedStrI()` is the main function to process IV dose data in *Pro-Med-Str* Part I module.
-* The module can be semi-interactive -- it generates several files to check potential data errors and get feedback from an investigator. If corrected information ('fix' files) are provided, the module should be re-run to incorporate the corrections. 
+
+* The module can be semi-interactive for data checking (although it is not required, we recommend using this feature). If `check.path` is provided (the default is NULL), it generates several files to check potential data errors and get feedback from an investigator; otherwise, the interactive checking will not be performed. If corrected information ('fix' files) are provided, the module should be re-run to incorporate the corrections. 
 
 * `run_MedStrI()` can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets, MAR data. A detailed description of all arguments can be found in the `EHR` package manual of `run_MedStrI()`.
     + `mar.path`: file name of MAR data (CSV, RData, RDS), or data.frame
     + `mar.columns`: a named list that should specify columns in MAR data; ‘id’, ‘datetime’ and ‘dose’ are required. ‘drug’, ‘weight’, ‘given’ may also be specified. ‘datetime’ is date and time for data measurement, which can refer to a single date-time variable (datetime = 'date_time') or two variables holding date and time separately (e.g., datetime = c('Date', 'Time')). ‘dose’ can also be given as a single variable or two variables. If given as a single column, the column's values should contain dose and units such as '25 mcg'. If given as two column names, the dose column should come before the unit column (e.g., dose = c('doseamt', 'unit')). If ‘drug’ is present, the ‘medchk.path’ argument should also be provided, which contain a csv file with a list of drug names that should be used to subset the relevant drugs. The ‘given’ variable should be used in conjunction with the ‘medGivenReq’ argument.
-    + `medGivenReq`: indicator if values in the MAR given column should equal "Given";  if this is FALSE (the default), NA values are also acceptable.
+    + `medGivenReq`: indicator if values in the MAR given column should equal "Given";  if this is FALSE (the default), NA values are also acceptable. This is a variable that flags whether the medication for inpatients is given as sometimes other dose instead of actual dose given can be specified for communications (e.g., a scheduled dose change). Depending on users' EHR system and data types, we recommend confirming actual dose given and this argument can be useful for that purpose.
     + `medchk.path`: (optional) file name containing data set (CSV, RData, RDS), or data.frame; should have the column ‘medname’ with list of acceptable drug names used to filter MAR data.
+    + `demo.list`: (optional) demographic information; if available, the output from 'run_Demo' or a correctly formatted data.frame; if provided, ‘weight’ is required in `demo.columns` as it is used to impute weight when missing.
+    + `demo.columns`: a named list that should specify columns in demographic data; ‘id’, ‘datetime’, and ‘weight’ are required.
     + `check.path`: (optional) file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist. The default (NULL) will not produce any check files.
-    + `failunit_fn`: filename stub for records with units other than those specified with `infusion.unit` and `bolus.unit`
+    
+* All the following arguments are optional (i.e., default values can be used), but if the required data items for the dose data such as 'unit' are not provided, this function does not work.
+    + `failunit_fn`: filename stub for records with units other than those specified with `infusion.unit` and `bolus.unit` (default: 'Unit')
     + `infusion.unit`: string specifying units for infusion doses (default: 'mcg/kg/hr')
     + `bolus.unit`: string specifying units for bolus doses (default: 'mcg')
     + `bol.rate.thresh`: upper bound for retaining bolus doses. Bolus units with a rate above the threshold are dropped (default: Inf; i.e., keep all bolus doses)
@@ -98,6 +103,8 @@ ivdose.out <- run_MedStrI(
     mar.columns = list(id='subject_uid', datetime=c('Date','Time'), dose='med:dosage', drug='med:mDrug', given='med:given'),
     medGivenReq = TRUE,
     medchk.path = file.path(system.file("examples", "str_ex2", package="EHR"), sprintf('medChecked-%s.csv', drugname)),
+    demo.list = NULL,
+    demo.columns = list(),
     check.path=checkDir, 
     failunit_fn = 'Unit',
     infusion.unit = 'mcg/kg/hr',
@@ -123,15 +130,17 @@ head(ivdose.out)
   - `subject_uid`: the new id that will be used to merge datasets.
   - `date.dose`: dose given date.
   - `infuse.time.real`: infusion dose time recorded in the raw data.
-  - `infuse.time`: infusion dose time processed based on continuous infusion time; this time is used in the PK data building).  
+  - `infuse.time`: infusion dose time processed based on continuous infusion time.
   - `infuse.dose`: infusion dose.
   - `bolus.time`: bolus dose time.
   - `bolus.dose`: bolus dose.
   - `given.dose`: variable in the raw data stating the dose was given.
-  - `maxint`: infusion recording interval (e.g., 15 min, 1 hour).
+  - `maxint`: infusion recording interval (e.g., 15 min, 60 min).
   - `weight`: subject body weight recorded near infusion time.
 
-This output is the input of `run_Build_PK_IV()` function in *Build-PK-IV* module. In the above output, all variables except `maxint` and `weight` are the necessary variables that should be reserved to use `run_Build_PK_IV()`.
+* Note:
+
+This output is the input of `run_Build_PK_IV()` function in *Build-PK-IV* module. In the above output, all variables except `given.dose` are the necessary variables that should be reserved to use `run_Build_PK_IV()`.
 
 # References
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.

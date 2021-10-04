@@ -18,8 +18,6 @@ library(pkdata)
 library(lubridate)
 ```
 
-* See also "[4. EHR Vignette for Build-PK-Oral](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.html)" in `EHR` package.
-
 # Introduction
 We briefly describe a data format typically used in pharmacokinetics (PK) and pharmacodynamics (PD) modeling, especially relevant to our example oral dosing data. We describe the data form using data items required in NONMEM, which is acceptable in most PK software. More extensive description of data format appropriate for PK software can be found in the manual of each software such as the MONMEM manual$^{1}$.
  
@@ -82,6 +80,8 @@ This simple example has two types of data rows, dose events (information concern
 1. `age`: an example covariate; each column can have covariates - these can be time varying or fixed within individual.
 
 Taking the first row as an example, which is a dose event, a dose of 10 mg is taken at time 0 then 27 additional doses (the same 10 mg) are taken every 12 hours (time can take any unit, or the same unit of time variable).  If we calculate each of these 27 doses then we see that the final dose is given at `time = 324`, 12 hours before the measured concentration of 16.1 in row 2.  Of course this same dosing information could be expressed in 28 rows, (10 mg at time 0, 10 mg at time 12, 10 mg at time 24, etc.) but this more compact form is preferable in the presence of a regular dosing interval.
+
+This PK data form will be generated using *Build-PK-Oral* module (see [*Build-PK-Oral*](Build-PK-Oral.html)).
 
 # References  
 1. Beal, S.L., Sheiner, L.B., Boeckmann, A.J. & Bauer, R.J. (Eds). NONMEM 7.5 users guides (1989–2020).

@@ -81,16 +81,8 @@ Each raw dataset should contain a subject unique ID, a subject visit ID, or both
 
 ```{r demo-in}
 # demographics data
-# demographics data
 demo.in <- readTransform(file.path(rawDataDir, "Demographics_DATA.csv"))
-# pre-process the demographic data 
-# date.time variable is expected in demographic data
-# if date.time variable is not already in the demographic data, it can be generated 
-# using other variables as in this example
-z1 <- EHR:::fixDates(demo.in[, 'surgery_date'])
-z2 <- sub("^([0-9]{2})([0-9]{2})$", "\\1:\\2", sprintf("%04d", demo.in[,
-'time_fromor']))
-demo.in[,'date.time'] <- pkdata::parse_dates(paste(z1, z2))
+head(demo.in)
 ```
 
 * **Concentration raw data**
