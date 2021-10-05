@@ -65,7 +65,7 @@ Note:
 
 - The NLP system is available as an R package, *medExtractR*, and the functions to run each module are implemented as an R package, *EHR*. More details can be found in Choi *et al.*$^{1}$, and additional modules will be added in the future as it evolves.
 
-- As this package is still in active development, we recommend installing from our GitHub repository with the following command:
+- As the R package, *EHR*, is still in active development, we recommend installing from our GitHub repository with the following command:
 devtools::install_github('choileena/EHR/EHR/')
 
 </div>

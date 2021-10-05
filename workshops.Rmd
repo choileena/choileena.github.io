@@ -14,10 +14,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Note:
 
-- As this package is still in active development, we recommend installing from our GitHub repository with the following command:
+- As the R package, *EHR*, is still in active development, we recommend installing from our GitHub repository with the following command:
 devtools::install_github('choileena/EHR/EHR/')
 
-- Some workshops are under construction.
+- Some workshops are still under development.
 
 # Modules
 
@@ -60,5 +60,5 @@ This tutorial describes an example data format typically used in population PK m
 ## [PK Data for IV Dosing](PK-Data-IV-Dosing.html)
 This tutorial describes an example data format typically used in population PK modeling for intravenously administrated medications.
 
-Under construction.
+Under development.
 

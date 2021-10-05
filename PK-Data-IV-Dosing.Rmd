@@ -18,7 +18,7 @@ library(pkdata)
 library(lubridate)
 ```
 
-**Under construction.**
+**Under development.**
 
 # Introduction
 We briefly describe a data format typically used in pharmacokinetics (PK) and pharmacodynamics (PD) modeling, especially relevant to our example intravenous (IV) dosing data. We describe the data form using data items required in NONMEM, which is acceptable in most PK software. More extensive description of data format appropriate for PK software can be found in the manual of each software such as the MONMEM manual$^{1}$.

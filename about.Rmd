@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 Note:
 
-- As this package is still in active development, we recommend installing from our GitHub repository with the following command:
+- As the R package, *EHR*, is still in active development, we recommend installing from our GitHub repository with the following command:
 devtools::install_github('choileena/EHR/EHR/')
 
 # More Information
