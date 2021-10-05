@@ -55,9 +55,6 @@ Each row in the data represents an individual surgical date.  In this case, each
 td <- tempdir()
 dir.create(file.path(td, 'data2'))
 dataDir <- file.path(td, 'data2')
-
-
-
 saveRDS(demo.in, file=file.path(dataDir,"demo.rds"))
 ```
 
