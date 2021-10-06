@@ -2276,9 +2276,9 @@ Workshops
     <span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeD306a/checks/failUnit-fent.csv not created
+<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmptRc12t/checks/failUnit-fent.csv not created
 #########################
-75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeD306a/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeD306a/checks/fixNoWgt-fent.csv
+75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmptRc12t/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmptRc12t/checks/fixNoWgt-fent.csv
 #########################</code></pre>
 </div>
 <p>After <code>run_MedStrI()</code> is executed, it provides messages such as those shown above, which contain some information about data checking.</p>
@@ -2307,7 +2307,7 @@ Workshops
 <li><code>bolus.time</code>: bolus dose time.</li>
 <li><code>bolus.dose</code>: bolus dose.</li>
 <li><code>given.dose</code>: the raw dose given is preserved from the flow sheet data when available (identified as “finalunits” in flow.columns).</li>
-<li><code>maxint</code>: infusion recording interval (e.g., default: maxint = 15 min for MAR data; maxint = 60 min for flow data). Depending institutions, this output variable should be used with caution when running <code>run_Build_PK_IV</code>. For example of Vanderbilt University Medical Center, after <em>Epic</em> EHR system was implemented, only MAR data are collected without flow sheet data, which have infusion data recorded with any time intervals, and hence <code>maxint</code> should not be set for ‘gap’ in <code>dose.columns</code> argument of <code>run_Build_PK_IV</code> function. See <a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a> of <code>EHR</code> package for details.</li>
+<li><code>maxint</code>: infusion recording interval (e.g., default: maxint = 15 min for MAR data; maxint = 60 min for flow data). In a typical setting this variable should be unused but it may be specified as the ‘gap’ variable in the <code>dose.columns</code> argument of the <code>run_Build_PK_IV</code> function. The user may also modify this variable to set an appropriate recording interval. For more details review the <code>run_Build_PK_IV</code> section of <a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a> of the <code>EHR</code> package.</li>
 <li><code>weight</code>: subject body weight recorded near infusion time, which will be used in dose calculation.</li>
 </ul></li>
 <li>Note:</li>
