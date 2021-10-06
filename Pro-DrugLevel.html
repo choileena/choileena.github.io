@@ -2185,7 +2185,7 @@ Workshops
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2224,7 +2224,6 @@ Workshops
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>dataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span> <span class='co'># directory for processed data</span>
- 
 <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>conc.new</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2255,7 +2254,7 @@ Workshops
     LLOQ<span class='op'>=</span><span class='va'>LLOQ</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no failures, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//Rtmp6Wru0v/checks/failMissingConcDate-fent.csv not created
+<pre><code>no failures, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmptRc12t/checks/failMissingConcDate-fent.csv not created
 subjects with concentration missing from sample file
 [1] mod_id       mod_id_event
 &lt;0 rows&gt; (or 0-length row.names)
@@ -2263,7 +2262,7 @@ subjects with concentration missing from sample file
 10 total unique subjects ids (including multiple visits) currently in the concentration data
 10 total unique subjects in the concentration data
 #########################
-0 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//Rtmp6Wru0v/checks/multipleSetsConc-fent2021-09-30.csv
+0 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmptRc12t/checks/multipleSetsConc-fent2021-10-06.csv
 #########################
 10 total unique subjects ids (after excluding multiple visits) in the concentration data
 10 total unique subjects in the concentration data</code></pre>

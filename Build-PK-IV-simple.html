@@ -2182,7 +2182,7 @@ Workshops
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package and dependencies</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>EHR</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>pkdata</span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
 </code></pre>
@@ -2220,14 +2220,10 @@ Workshops
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ivdose.data</span>, <span class='fl'>3</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>  patient_id  date.dose    infuse.time.real         infuse.time
-1          1 2009-10-18 2009-10-18 11:35:00 2009-10-18 12:00:00
-2          1 2009-10-18 2009-10-18 12:00:00 2009-10-18 12:00:00
-3          1 2009-10-18 2009-10-18 13:00:00 2009-10-18 13:00:00
-  infuse.dose bolus.time bolus.dose given.dose maxint weight
-1         8.8       &lt;NA&gt;         NA          0     60    4.4
-2         8.8       &lt;NA&gt;         NA          0     60    4.4
-3         8.8       &lt;NA&gt;         NA          0     60    4.4</code></pre>
+<pre><code>  patient_id  date.dose    infuse.time.real         infuse.time infuse.dose bolus.time bolus.dose given.dose maxint weight
+1          1 2009-10-18 2009-10-18 11:35:00 2009-10-18 12:00:00         8.8       &lt;NA&gt;         NA          0     60    4.4
+2          1 2009-10-18 2009-10-18 12:00:00 2009-10-18 12:00:00         8.8       &lt;NA&gt;         NA          0     60    4.4
+3          1 2009-10-18 2009-10-18 13:00:00 2009-10-18 13:00:00         8.8       &lt;NA&gt;         NA          0     60    4.4</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>conc.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"Concentration_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.data</span>, <span class='fl'>3</span><span class='op'>)</span>
@@ -2242,18 +2238,14 @@ Workshops
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>demo</span>, <span class='fl'>3</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>  patient_id patient_visit_id gender weight height surgery_date
-1          2              2.1      1  62.99 179.72    6/20/2015
-2          3              3.1      0   7.71  72.99   12/15/2018
-3          4              4.1      1  12.00  92.02    1/12/2018
-  ageatsurgery stat_sts cpb_sts date_icu_dc time_fromor
-1         6245        2      80   6/22/2015          NA
-2          574        3      67  12/16/2018          NA
-3         1214        1      70   1/13/2018          NA
-  length_of_icu_stay
-1                  2
-2                  1
-3                  1</code></pre>
+<pre><code>  patient_id patient_visit_id gender weight height surgery_date ageatsurgery stat_sts cpb_sts date_icu_dc time_fromor
+1          2              2.1      1  62.99 179.72    6/20/2015         6245        2      80   6/22/2015          NA
+2          3              3.1      0   7.71  72.99   12/15/2018          574        3      67  12/16/2018          NA
+3          4              4.1      1  12.00  92.02    1/12/2018         1214        1      70   1/13/2018          NA
+  length_of_icu_stay surgery_date_time
+1                  2              &lt;NA&gt;
+2                  1              &lt;NA&gt;
+3                  1              &lt;NA&gt;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>creat.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"Creatinine_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>creat.data</span>, <span class='fl'>3</span><span class='op'>)</span>
@@ -2278,34 +2270,34 @@ Workshops
 <h2 id="build-a-final-pk-dataset-with-the-function-run_build_pk_iv-using-the-prepared-datasets-above">(4) Build a final PK dataset with the function <code>run_Build_PK_IV()</code> using the prepared datasets above</h2>
 <p>The following arguments are used in the <code>run_Build_PK_IV</code> function:</p>
 <ul>
-<li><code>conc</code>: concentration data</li>
+<li><code>conc</code>: drug concentration data</li>
+<li><code>conc.columns</code>: a named list that should specify columns in concentration data</li>
 <li><code>dose</code>: IV dose data</li>
-<li><code>demo.list</code>: file name for demographic file</li>
-<li><code>demo.vars</code>: vector of demographic variables to include in final output</li>
-<li><code>demo.abbr</code>: vector of abbreviations for demographic variables in <code>demo.vars</code></li>
-<li><code>lab.dat</code>: list containing laboratory files</li>
-<li><code>lab.vars</code>: vector containing names for laboratory files</li>
-<li><code>pk.vars</code>: PK variables to include</li>
-<li><code>drugname</code>: drug name stub</li>
-<li><code>check.path</code>: file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist</li>
+<li><code>dose.columns</code>: a named list that should specify columns in dose data</li>
+<li><code>demo.list</code>: demographic data; if provided, ‘id’ is required in <code>demo.columns</code></li>
+<li><code>demo.columns</code>: a named list that should specify columns in demographic data</li>
+<li><code>lab.list</code>: laboratory data</li>
+<li><code>lab.columns</code>: a named list that should specify columns in lab data</li>
+<li><code>check.path</code>: (optional) file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist</li>
 </ul>
+<p>In this tutorial, we describe arguments only relevant to this example. A detailed description of all arguments can be found in the <code>EHR</code> package manual of <code>run_Build_PK_IV()</code>.</p>
 <p>Below we show how to run <code>run_Build_PK_IV</code> using the example data from above.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># running run_Build_PK_IV()</span>
 <span class='va'>simple_pk_dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Build_PK_IV.html'>run_Build_PK_IV</a></span><span class='op'>(</span>
     conc<span class='op'>=</span><span class='va'>conc.data</span>,
+    conc.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'mod_id'</span>, datetime <span class='op'>=</span> <span class='st'>'date.time'</span>, druglevel <span class='op'>=</span> <span class='st'>'conc.level'</span>, 
+                        idvisit <span class='op'>=</span> <span class='st'>'mod_id_visit'</span><span class='op'>)</span>,
     dose<span class='op'>=</span><span class='va'>ivdose.data</span>,
+    dose.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'mod_id'</span>, date <span class='op'>=</span> <span class='st'>'date.dose'</span>, infuseDatetime <span class='op'>=</span> <span class='st'>'infuse.time'</span>, 
+                        infuseDose <span class='op'>=</span> <span class='st'>'infuse.dose'</span>, infuseTimeExact<span class='op'>=</span> <span class='st'>'infuse.time.real'</span>, 
+                        bolusDatetime <span class='op'>=</span> <span class='st'>'bolus.time'</span>, bolusDose <span class='op'>=</span> <span class='st'>'bolus.dose'</span>, 
+                        gap <span class='op'>=</span> <span class='st'>'maxint'</span>, weight <span class='op'>=</span> <span class='st'>'weight'</span><span class='op'>)</span>,
     demo.list <span class='op'>=</span> <span class='va'>demo</span>,
-    demo.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'weight'</span>, <span class='st'>'weight_demo'</span>, <span class='st'>'height'</span>, <span class='st'>'gender'</span>, <span class='st'>'ageatsurgery'</span>,
-                <span class='st'>'stat_sts'</span>, <span class='st'>'cpb_sts'</span>, <span class='st'>'length_of_icu_stay'</span><span class='op'>)</span>,
-    demo.abbr<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'wgt'</span>, <span class='st'>'wgt_demo'</span>, <span class='st'>'height'</span>, <span class='st'>'gender'</span>,
-                <span class='st'>'age'</span>, <span class='st'>'stat'</span>, <span class='st'>'cpb'</span>, <span class='st'>'loi'</span><span class='op'>)</span>,
-    lab.dat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>creat.data</span><span class='op'>)</span>,
-    lab.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'creat'</span><span class='op'>)</span>,
-    pk.vars<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id_visit'</span>, <span class='st'>'time'</span>, <span class='st'>'conc'</span>, <span class='st'>'dose'</span>, <span class='st'>'rate'</span>, <span class='st'>'event'</span>,
-              <span class='st'>'other'</span>, <span class='st'>'multiple.record'</span>, <span class='st'>'date'</span>, <span class='st'>'mod_id'</span><span class='op'>)</span>,
-    drugname<span class='op'>=</span><span class='st'>'fent'</span>,
+    demo.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'mod_id'</span>, idvisit <span class='op'>=</span> <span class='st'>'mod_id_visit'</span><span class='op'>)</span>,
+    lab.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>creat.data</span><span class='op'>)</span>,
+    lab.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'mod_id'</span>, datetime <span class='op'>=</span> <span class='st'>'date.time'</span><span class='op'>)</span>,
     check.path<span class='op'>=</span><span class='va'>checkDir</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2313,19 +2305,23 @@ Workshops
 The dimension of the PK data before merging with demographics: 149 x 9
 The number of subjects in the PK data before merging with demographics: 10
 The number of subjects in the demographic file, who meet the exclusion criteria: 0
-check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpMEHMsW/check1/fent-missing-demo.csv
-List of IDs missing at least 1 cpb_sts: 
-Checked: all missing cpb_sts are 0
-The list of final demographic variables: weight
-weight_demo
+check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmptRc12t/check1/-missing-demo.csv
+Some demographic variables are missing and will be excluded: 
+The list of final demographic variables: gender
+weight
 height
-gender
+surgery_date
 ageatsurgery
 stat_sts
 cpb_sts
+date_icu_dc
+time_fromor
 length_of_icu_stay
+surgery_date_time
+weight_demo
 Checked: there are no missing creat
-The dimension of the final PK data exported with the key demographics: 149 x 16 with 10 distinct subjects (mod_id_visit)</code></pre>
+Some PK variables are missing and will be excluded: 
+The dimension of the final PK data exported with the key demographics: 149 x 20 with 10 distinct subjects (mod_id)</code></pre>
 </div>
 <p>Notice that the data building function generates an automatic message that tells some information about the data processing as well as the final dataset including the variables, the sample size, and missingness.</p>
 <p>Below we show the final PK dataset.</p>
@@ -2335,49 +2331,50 @@ The dimension of the final PK data exported with the key demographics: 149 x 16 
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>simple_pk_dat</span>,<span class='fl'>15</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>   mod_id_visit  time conc amt rate mdv evid   wgt wgt_demo height
-1           1.2  0.00   NA  50    0   1    1 25.04    25.04 114.39
-2           1.2  0.75   NA 100    0   1    1 25.04    25.04 114.39
-3           1.2  1.65   NA 100    0   1    1 25.04    25.04 114.39
-4           1.2  1.77   NA 250    0   1    1 25.04    25.04 114.39
-5           1.2  2.05   NA 250    0   1    1 25.04    25.04 114.39
-6           1.2  3.72   NA 250    0   1    1 25.04    25.04 114.39
-7           1.2  5.23   NA 100    0   1    1 25.04    25.04 114.39
-8           1.2  6.25 2.83  NA   NA   0    0 25.04    25.04 114.39
-9           1.2 20.68 0.41  NA   NA   0    0 25.04    25.04 114.39
-10          1.2 70.90 0.04  NA   NA   0    0 25.04    25.04 114.39
-11          1.2 95.25 0.01  NA   NA   0    0 25.04    25.04 114.39
-12         10.1  0.00   NA  25    0   1    1  6.06     6.06  63.20
-13         10.1  0.52   NA 100    0   1    1  6.06     6.06  63.20
-14         10.1  1.42   NA  25    0   1    1  6.06     6.06  63.20
-15         10.1  2.77   NA  50    0   1    1  6.06     6.06  63.20
-   gender  age stat cpb loi creat
-1       1 2295    2  79   1  0.60
-2       1 2295    2  79   1  0.60
-3       1 2295    2  79   1  0.60
-4       1 2295    2  79   1  0.60
-5       1 2295    2  79   1  0.60
-6       1 2295    2  79   1  0.60
-7       1 2295    2  79   1  0.60
-8       1 2295    2  79   1  0.60
-9       1 2295    2  79   1  0.50
-10      1 2295    2  79   1  0.54
-11      1 2295    2  79   1  0.57
-12      0  209    1 195   5  0.64
-13      0  209    1 195   5  0.64
-14      0  209    1 195   5  0.64
-15      0  209    1 195   5  0.64</code></pre>
+<pre><code>   mod_id_visit  time amt   dv rate mdv evid gender weight height surgery_date ageatsurgery stat_sts cpb_sts date_icu_dc
+1           1.2  0.00  50   NA    0   1    1      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+2           1.2  0.75 100   NA    0   1    1      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+3           1.2  1.65 100   NA    0   1    1      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+4           1.2  1.77 250   NA    0   1    1      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+5           1.2  2.05 250   NA    0   1    1      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+6           1.2  3.72 250   NA    0   1    1      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+7           1.2  5.23 100   NA    0   1    1      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+8           1.2  6.25  NA 2.83   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+9           1.2 20.68  NA 0.41   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+10          1.2 70.90  NA 0.04   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+11          1.2 95.25  NA 0.01   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
+12         10.1  0.00  25   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
+13         10.1  0.52 100   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
+14         10.1  1.42  25   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
+15         10.1  2.77  50   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
+   time_fromor length_of_icu_stay   surgery_date_time weight_demo creat
+1         2020                  1 2016-01-08 20:20:00       25.04  0.60
+2         2020                  1 2016-01-08 20:20:00       25.04  0.60
+3         2020                  1 2016-01-08 20:20:00       25.04  0.60
+4         2020                  1 2016-01-08 20:20:00       25.04  0.60
+5         2020                  1 2016-01-08 20:20:00       25.04  0.60
+6         2020                  1 2016-01-08 20:20:00       25.04  0.60
+7         2020                  1 2016-01-08 20:20:00       25.04  0.60
+8         2020                  1 2016-01-08 20:20:00       25.04  0.60
+9         2020                  1 2016-01-08 20:20:00       25.04  0.50
+10        2020                  1 2016-01-08 20:20:00       25.04  0.54
+11        2020                  1 2016-01-08 20:20:00       25.04  0.57
+12        2016                  5 2019-02-24 20:16:00        6.06  0.64
+13        2016                  5 2019-02-24 20:16:00        6.06  0.64
+14        2016                  5 2019-02-24 20:16:00        6.06  0.64
+15        2016                  5 2019-02-24 20:16:00        6.06  0.64</code></pre>
 </div>
 <p>This dataset includes the <code>mod_id_visit</code> variable and standard NONMEM formatted variables (for details of data items, see <a href="PK-Data-IV-Dosing.html">PK-Data-IV-Dosing</a>).</p>
 <ul>
 <li>time - time of dosing or concentration event</li>
-<li>conc - observed concentration (NA for dosing records)</li>
 <li>amt - dose amount administered (NA for concentration records)</li>
+<li>dv - dependent variable; i.e., observed concentration (NA for dosing records)</li>
 <li>rate - rate of drug administration (e.g., rate=0 for bolus doses)</li>
 <li>mdv - missing dependent variable (dv) indicator (e.g., 0 = not missing dv, 1 = missing dv)</li>
 <li>evid - event ID (e.g., 0 = observation, 1 = dose event)</li>
 </ul>
-<p>It also includes the demographic variables we specified in the <code>demo.vars</code> argument that have been renamed according to <code>demo.abbr</code>.</p>
+<p>If demographic data is provided, the demographic variables will also be included.</p>
+<p>If <code>pk.vars</code> includes ‘date’, the output generates its original date-time to which the ‘time’ is mapped. Users can use <code>pk.vars</code> to include variables for demographics or labs that are already merged with the concentration dataset when they prefer to provide a single concentration data file (required). But still a separate dose data file is required.</p>
 <h1 id="references">References</h1>
 <ol type="1">
 <li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>

@@ -60,7 +60,6 @@ The data must be saved as an RDS file. Below, we show how to save the data in a 
 td <- tempdir()
 dir.create(file.path(td, 'data'))
 dataDir <- file.path(td, 'data') # directory for processed data
- 
 saveRDS(conc.new, file=file.path(dataDir,"conc.rds"))
 ```
 
