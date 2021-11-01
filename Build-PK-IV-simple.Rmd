@@ -8,8 +8,6 @@ output:
     toc_depth: 2
 ---
 
-**Under construction**
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(R.options = list(width = 130))
@@ -21,12 +19,11 @@ library(lubridate)
 * See also "Example 1: Quick Data Building with Processed Datasets" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
 
 # Introduction
-This tutorial describes a simple pharmacokinetic (PK) data building procedure in *EHRtoPKPD* for medications that are intravenously (IV) administered. It demonstrates how to quickly build PK data using *Build-PK-IV* when cleaned data for concentration, drug dose, demographic and laboratory datasets are available in the appropriate data format. A comprehensive PK data building procedure with *Build-PK-IV* for IV medications that requires several data processing modules is described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html) (see Choi *et al.*$^{1}$ for details).
+This tutorial describes a simple pharmacokinetic (PK) data building procedure in *EHRtoPKPD* for medications that are intravenously (IV) administered. It demonstrates how to build PK data using *Build-PK-IV* when cleaned data for concentration, drug dose, demographic and laboratory datasets are available in the appropriate data format. A comprehensive PK data building procedure with *Build-PK-IV* for IV medications that requires several data processing modules is described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html) (see Choi *et al.*$^{1}$ for details).
 
-To begin we load the `EHR` package, the `pkdata` package, and the `lubridate` package. 
+To begin we load the `EHR`. `pkdata`, and  `lubridate` packages. 
 
 ```{r load-lib-dir, eval=FALSE}
-# load EHR package and dependencies
 library(EHR)
 library(pkdata)
 library(lubridate)
@@ -34,21 +31,20 @@ library(lubridate)
 
 # Quick Data Building with Processed Datasets
 
-There are **four basic steps** to build a PK dataset quickly.
+There are **three basic steps** to build a PK dataset.
 
-## (1) First define directories
+## (1) Define directories
 * a directory for the raw data (`rawDataDir` in the example below)
 * a directory for interactive checking output files (`checkDir` in the example below)
 
 ```{r define-directories}
-# define directories
 rawDataDir <- system.file("examples", "str_ex1", package="EHR")
 td <- tempdir()
 checkDir <- file.path(td, 'check1')
 dir.create(checkDir)
 ```
 
-## (2) Prepare cleaned and appropriately formatted data files and load the data files
+## (2) Load cleaned and appropriately formatted data files
 
 Four types of files are used in the *Build-PK-IV* module:
 
@@ -58,7 +54,6 @@ Four types of files are used in the *Build-PK-IV* module:
 * a laboratory file (optional)
 
 ```{r simp-in}
-# read in data
 ivdose.data <- read.csv(file.path(rawDataDir,"IVDose_DATA_simple.csv"),stringsAsFactors = FALSE)
 head(ivdose.data, 3)
 conc.data <- read.csv(file.path(rawDataDir,"Concentration_DATA_simple.csv"),stringsAsFactors = FALSE)
@@ -69,18 +64,25 @@ creat.data <- read.csv(file.path(rawDataDir,"Creatinine_DATA_simple.csv"),string
 head(creat.data, 3)
 ```
 
-All four of the above datasets have been cleaned and put in the appropriate data format. The `patient_id` variable is present in all four of the above datasets. This is a unique patient-level ID. The concentration and demographic files also contain a `patient_visit_id` variable, which is a unique visit-level ID. In order to run the *Build-PK-IV* module, these variables must be renamed, as we demonstrate in the next section.
+```{r merge, include=FALSE}
+mrg0<-merge(conc.data,creat.data,by=c('patient_id','date.time'),all=TRUE)
+mrg1<-merge(mrg0,demo,by=c('patient_id','patient_visit_id'),all=TRUE)
+conc.combined <- mrg1[!is.na(mrg1$conc.level),]
+```
+
+All of the datasets are in the appropriate data format and include the variable `patient_id`, a unique patient-level ID. The concentration and demographic files also contain a `patient_visit_id` variable, which is a unique visit-level ID. <!--In order to run the *Build-PK-IV* module, these variables must be renamed, as we demonstrate in the next section.
 
 ## (3) Rename ID variables with standardized names
 The `EHR` package modules use a standardized naming convention for patient identification (ID) variables. We rename the unique patient-level ID from `patient_id` to `mod_id` and the visit-level ID from `patient_visit_id` to `mod_id_visit`. If there is only a single visit/course per subject, the unique patient-level ID and visit-level ID can be the same, however both `mod_id` and `mod_id_visit` should be defined.
 
 ```{r simp-rename}
 # rename ID variables
-names(conc.data)[1:2] <- names(demo)[1:2] <- c("mod_id", "mod_id_visit")
-names(creat.data)[1] <- names(ivdose.data)[1] <- "mod_id"
+#names(conc.data)[1:2] <- names(demo)[1:2] <- c("mod_id", "mod_id_visit")
+#names(creat.data)[1] <- names(ivdose.data)[1] <- "mod_id"
 ```
+-->
 
-## (4) Build a final PK dataset with the function `run_Build_PK_IV()` using the prepared datasets above
+## (3) Build a final PK dataset with the function `run_Build_PK_IV()`
 
 The following arguments are used in the `run_Build_PK_IV` function:
 
@@ -94,38 +96,55 @@ The following arguments are used in the `run_Build_PK_IV` function:
 * `lab.columns`: a named list that should specify columns in lab data
 * `check.path`: (optional) file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist
 
-In this tutorial, we describe arguments only relevant to this example. A detailed description of all arguments can be found in the `EHR` package manual of `run_Build_PK_IV()`.
+In this tutorial, we describe only arguments relevant to this example. A detailed description of all arguments can be found in the `EHR` package documentation for `run_Build_PK_IV()`.
 
-Below we show how to run `run_Build_PK_IV` using the example data from above.
 
 ```{r sim-build-pk-iv}
-# running run_Build_PK_IV()
 simple_pk_dat <- run_Build_PK_IV(
     conc=conc.data,
-    conc.columns = list(id = 'mod_id', datetime = 'date.time', druglevel = 'conc.level', 
-                        idvisit = 'mod_id_visit'),
+    conc.columns = list(id = 'patient_id', datetime = 'date.time', druglevel = 'conc.level', 
+                        idvisit = 'patient_visit_id'),
     dose=ivdose.data,
-    dose.columns = list(id = 'mod_id', date = 'date.dose', infuseDatetime = 'infuse.time', 
+    dose.columns = list(id = 'patient_id', date = 'date.dose', infuseDatetime = 'infuse.time', 
                         infuseDose = 'infuse.dose', infuseTimeExact= 'infuse.time.real', 
                         bolusDatetime = 'bolus.time', bolusDose = 'bolus.dose', 
                         gap = 'maxint', weight = 'weight'),
     demo.list = demo,
-    demo.columns = list(id = 'mod_id', idvisit = 'mod_id_visit'),
+    demo.columns = list(id = 'patient_id', idvisit = 'patient_visit_id'),
     lab.list = list(creat.data),
-    lab.columns = list(id = 'mod_id', datetime = 'date.time'),
+    lab.columns = list(id = 'patient_id', datetime = 'date.time'),
     check.path=checkDir)
+
 ```
 
-Notice that the data building function generates an automatic message that tells some information about the data processing as well as the final dataset including the variables, the sample size, and missingness.
+<!--
+```{r}
+# simple_pk_dat <- run_Build_PK_IV(
+#     conc=conc.data,
+#     conc.columns = list(id = 'mod_id', datetime = 'date.time', druglevel = 'conc.level', 
+#                         idvisit = 'mod_id_visit'),
+#     dose=ivdose.data,
+#     dose.columns = list(id = 'mod_id', date = 'date.dose', infuseDatetime = 'infuse.time', 
+#                         infuseDose = 'infuse.dose', infuseTimeExact= 'infuse.time.real', 
+#                         bolusDatetime = 'bolus.time', bolusDose = 'bolus.dose', 
+#                         gap = 'maxint', weight = 'weight'),
+#     demo.list = demo,
+#     demo.columns = list(id = 'mod_id', idvisit = 'mod_id_visit'),
+#     lab.list = list(creat.data),
+#     lab.columns = list(id = 'mod_id', datetime = 'date.time'),
+#     check.path=checkDir)
+```
+-->
+
+The `run_Build_PK_IV()` function generates an automatic message that provides information about the data processing and the final dataset including the variables, the sample size, and missingness.
 
 Below we show the final PK dataset.
 
 ```{r sim-build-pk-iv-out}
-# the final PK dataset
 head(simple_pk_dat,15)
 ```
 
-This dataset includes the `mod_id_visit` variable and standard NONMEM formatted variables (for details of data items, see [PK-Data-IV-Dosing](PK-Data-IV-Dosing.html)).
+This dataset includes the `patient_visit_id` variable and standard NONMEM formatted variables (for details of data items, see [PK-Data-IV-Dosing](PK-Data-IV-Dosing.html)).
 
 * time - time of dosing or concentration event
 * amt - dose amount administered (NA for concentration records)
@@ -136,7 +155,47 @@ This dataset includes the `mod_id_visit` variable and standard NONMEM formatted 
 
 If demographic data is provided, the demographic variables will also be included. 
 
-If `pk.vars` includes ‘date’, the output generates its original date-time to which the ‘time’ is mapped. Users can use `pk.vars` to include variables for demographics or labs that are already merged with the concentration dataset when they prefer to provide a single concentration data file (required). But still a separate dose data file is required.
+# Example with only two datasets
+
+The `run_Build_PK_IV()` can also be used with only two datasets:
+
+* an IV dosing file
+* a file with drug concentration, laboratory values, demographics, etc.
+
+An example dataset with concentration, laboratory values, and demographics cpmbined is shown below
+
+```{r sim-conc-comb}
+head(conc.combined,3)
+```
+
+The following arguments are used in the run_Build_PK_IV function:
+
+* `conc`: drug concentration along with other data (laboratory, demographic, etc.)  
+* `conc.columns`: a named list that should specify columns in concentration data  
+* `dose`: IV dose data  
+* `dose.columns`: a named list that should specify columns in dose data
+* `pk.vars`: variables to include in the returned PK data. If `pk.vars` includes ‘date’, the output generates its original date-time to which the ‘time’ is mapped. Users can use `pk.vars` to include variables for demographics or laboratory values that are already merged with the concentration dataset. 
+
+```{r}
+simple_pk_dat2 <- run_Build_PK_IV(
+    conc = conc.combined,
+    conc.columns = list(id='patient_id', datetime='date.time', druglevel='conc.level'),
+    dose = ivdose.data,
+    dose.columns = list(id='patient_id', date = 'date.dose', infuseDatetime = 'infuse.time',
+                        infuseDose = 'infuse.dose', infuseTimeExact ='infuse.time.real',
+                        bolusDatetime = 'bolus.time', bolusDose = 'bolus.dose',
+                        gap = 'maxint', weight = 'weight'),
+    pk.vars = c('date','weight','height','ageatsurgery','creat',
+                'stat_sts','cpb_sts','length_of_icu_stay'))
+```
+
+
+```{r}
+# the final PK dataset
+head(simple_pk_dat2,15)
+```
+
+
 
 # References
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.
