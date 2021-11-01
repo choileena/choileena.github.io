@@ -2051,6 +2051,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   gtag('config', 'G-728B0KW1HX');
   </script>
   <style type="text/css">
+  body {
+    font-family: Helvetica;
+    font-weight: 200;
+    font-style: normal;
+    line-height: 1.7;
+  }
+  
   img.rhs100 {
     float: right;
     width: 100px;
@@ -2227,6 +2234,7 @@ Workshops
 </ol>
 <p>Taking the first row as an example, which is a dose event, a dose of 10 mg is taken at time 0 then 27 additional doses (the same 10 mg) are taken every 12 hours (time can take any unit, or the same unit of time variable). If we calculate each of these 27 doses then we see that the final dose is given at <code>time = 324</code>, 12 hours before the measured concentration of 16.1 in row 2. Of course this same dosing information could be expressed in 28 rows, (10 mg at time 0, 10 mg at time 12, 10 mg at time 24, etc.) but this more compact form is preferable in the presence of a regular dosing interval.</p>
 <p>This PK data form will be generated using <em>Build-PK-Oral</em> module (see <a href="Build-PK-Oral.html"><em>Build-PK-Oral</em></a>).</p>
+<p>Note that additional data items such as <code>cmt</code> and <code>ss</code> need to be specified depending on dosing schedule or PK/PD models. See MONMEM manual<span class="math inline">\(^{1}\)</span> for details on <code>cmt</code> specifying compartment number for dosing or an observation and <code>ss</code> indicating steady-state dosing.</p>
 <h1 id="references">References</h1>
 <ol type="1">
 <li>Beal, S.L., Sheiner, L.B., Boeckmann, A.J. &amp; Bauer, R.J. (Eds). NONMEM 7.5 users guides (1989–2020).</li>

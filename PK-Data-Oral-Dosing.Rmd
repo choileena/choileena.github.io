@@ -83,5 +83,7 @@ Taking the first row as an example, which is a dose event, a dose of 10 mg is ta
 
 This PK data form will be generated using *Build-PK-Oral* module (see [*Build-PK-Oral*](Build-PK-Oral.html)).
 
+Note that additional data items such as `cmt` and `ss` need to be specified depending on dosing schedule or PK/PD models. See MONMEM manual$^{1}$ for details on `cmt` specifying compartment number for dosing or an observation and `ss` indicating steady-state dosing.
+
 # References  
 1. Beal, S.L., Sheiner, L.B., Boeckmann, A.J. & Bauer, R.J. (Eds). NONMEM 7.5 users guides (1989–2020).
