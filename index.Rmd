@@ -77,13 +77,11 @@ devtools::install_github('choileena/EHR/EHR/')
     <td>Cole Beck</td>
     <td>Elizabeth McNeer</td>
     <td><a href="https://michaelleewilliams.github.io">Michael Williams</a></td>
-    <td><a href="https://www.ntjames.com/">Nathan T. James, ScM</a></td>
   </tr>
   <tr>
     <td><img src="img/BeckC_2018.jpg" style="height:120px" /></td>
     <td><img src="img/McNeer_headshot.jpg" style="height:120px" /></td>
     <td><img src="img/MLWpic2.jpeg" style="height:120px" /></td>
-    <td><img src="img/Nathan_James.jpg" style="height:120px" /></td>
   </tr>
 </table>
 
@@ -92,9 +90,11 @@ devtools::install_github('choileena/EHR/EHR/')
 <table>
   <tr>
     <td>Hannah L. Weeks</td>
+    <td><a href="https://www.ntjames.com/">Nathan T. James</a></td>
   </tr>
   <tr>
     <td><img src="img/weeks_headshot.jpeg" style="height:120px" /></td>
+    <td><img src="img/Nathan_James.jpg" style="height:120px" /></td>
   </tr>
 </table>
 
