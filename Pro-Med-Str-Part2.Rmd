@@ -11,7 +11,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = TRUE)
 knitr::opts_chunk$set(R.options = list(width = 140))
 library(EHR)
 ```
@@ -22,7 +22,7 @@ Here add links to vignettes
 
 # Introduction
 
-This tutorial describes how to use the *Pro-Med-Str* - Part II module in *EHRtoPKPD* to process structured e-prescription data.
+This tutorial describes how to use the *Pro-Med-Str* - Part II module in *EHR2PKPD* to process structured e-prescription data.
 
 The major tasks the module performs are as follows:
 

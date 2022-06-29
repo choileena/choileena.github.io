@@ -29,12 +29,12 @@ Department of Biostatistics
 <a href="https://www.vumc.org/biostatistics/person/leena-choi-phd">https://www.vumc.org/biostatistics/person/leena-choi-phd</a>
 </p>
 
-**The major research focus of our lab is to construct a system, called "*EHRtoPKPD*", for drug-related studies such as pharmacokinetics (PK), pharmacodynamics (PD), and pharmacogenomics (PGx) studies using electronic health records (EHRs). This system would allow to perform drug-related studie more efficiently by standardizing data extraction, data processing, and data building procedures. This system would provide a foundation for PK/PD-model guided clinical decision support systems embedded in EHRs to provide an optimal pharmacotherapy, the overarching goal of precision medicine.**
+**The major research focus of our lab is to construct a system, called "*EHR2PKPD*", for drug-related studies such as pharmacokinetics (PK), pharmacodynamics (PD), and pharmacogenomics (PGx) studies using electronic health records (EHRs). This system would allow to perform drug-related studie more efficiently by standardizing data extraction, data processing, and data building procedures. This system would provide a foundation for PK/PD-model guided clinical decision support systems embedded in EHRs to provide an optimal pharmacotherapy, the overarching goal of precision medicine.**
 
 <div>
 <figure class="rhs">
 <img src="img/systemAll-str.png" usemap="#system" />
-<figcaption>**The *EHRtoPKPD*, a System for PK/PD Studies using EHRs.**  
+<figcaption>**The *EHR2PKPD*, a System for PK/PD Studies using EHRs.**  
 Modified from *Clin Pharm Ther 2020*.</figcaption>
 </figure>
 <map name="system">
@@ -51,7 +51,7 @@ Modified from *Clin Pharm Ther 2020*.</figcaption>
 <area shape="rect" coords="175,407,250,452" alt="Build-PK-IV" href="Build-PK-IV-simple.html">
 </map>
 
-*EHRtoPKPD* is a modular system, divided into the three major procedures: data extraction ("*Extract-*"), data processing ("*Pro-*"),  and data building ("*Build-*"). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. 
+*EHR2PKPD* is a modular system, divided into the three major procedures: data extraction ("*Extract-*"), data processing ("*Pro-*"),  and data building ("*Build-*"). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models. 
 
 For drugs with complex prescription pattern, dose data obtained from e-prescription databases may not be accurate enough to perform PK/PD studies. For these drugs, we may need to extract drug dose information from clinical notes using a natural language processing (NLP) system. We developed a flexible and targeted NLP system that can directly extract drug dose information from clinical notes, which was incorporated into our system ([*Extract-Med*](Extract-Med.html)). 
 

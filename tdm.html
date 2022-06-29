@@ -85,26 +85,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Choi Lab</title>
+  <title>Choi Lab: Therapeutic Drug Monitoring</title>
 
+  <meta property="description" itemprop="description" content="Our TDM software is available."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Choi Lab"/>
+  <meta property="og:title" content="Choi Lab: Therapeutic Drug Monitoring"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Our TDM software is available."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Choi Lab"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Choi Lab"/>
+  <meta property="twitter:title" content="Choi Lab: Therapeutic Drug Monitoring"/>
+  <meta property="twitter:description" content="Our TDM software is available."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site"]}},"value":[{"type":"character","attributes":{},"value":["Choi Lab"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","output"]}},"value":[{"type":"character","attributes":{},"value":["Therapeutic Drug Monitoring"]},{"type":"character","attributes":{},"value":["Our TDM software is available.\n"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2105,7 +2108,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Choi Lab","authors":[]}
+{"title":"Therapeutic Drug Monitoring","description":"Our TDM software is available.","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2153,107 +2156,15 @@ Workshops
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Choi Lab</h1>
+<h1>Therapeutic Drug Monitoring</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-
+<p><p>Our TDM software is available.</p></p>
 </div>
 
 
 <div class="d-article">
-<div>
-<p><img src="img/Choi_Leena.jpg" class="rhs100" /></p>
-<p align="right">
-Leena Choi, PhD<br />
-Professor of Biostatistics<br />
-Vice Chair of Diversity and Inclusion<br />
-Department of Biostatistics
-</p>
-</div>
-<p align="right">
-<a href="https://www.vumc.org/biostatistics/person/leena-choi-phd">https://www.vumc.org/biostatistics/person/leena-choi-phd</a>
-</p>
-<p><strong>The major research focus of our lab is to construct a system, called “<em>EHR2PKPD</em>”, for drug-related studies such as pharmacokinetics (PK), pharmacodynamics (PD), and pharmacogenomics (PGx) studies using electronic health records (EHRs). This system would allow to perform drug-related studie more efficiently by standardizing data extraction, data processing, and data building procedures. This system would provide a foundation for PK/PD-model guided clinical decision support systems embedded in EHRs to provide an optimal pharmacotherapy, the overarching goal of precision medicine.</strong></p>
-<div>
-<figure class="rhs">
-<img src="img/systemAll-str.png" usemap="#system" />
-<figcaption>
-<strong>The <em>EHR2PKPD</em>, a System for PK/PD Studies using EHRs.</strong><br />
-Modified from <em>Clin Pharm Ther 2020</em>.
-</figcaption>
-</figure>
-<map name="system">
-<!--<area shape="rect" coords="" alt="Extract-Phenotype" href="">-->
-<area shape="rect" coords="100,120,180,165" alt="Extract-Med" href="Extract-Med.html">
-<!--<area shape="rect" coords="" alt="Pro-Phenotype" href="">-->
-<area shape="rect" coords="100,200,180,245" alt="Pro-Med-NLP" href="Pro-Med-NLP.html">
-<area shape="rect" coords="205,200,240,245" alt="Pro-Med-Str" href="Pro-Med-Str-Part1.html">
-<area shape="rect" coords="245,200,285,245" alt="Pro-Med-Str" href="Pro-Med-Str-Part2.html">
-<area shape="rect" coords="300,200,375,245" alt="Pro-Drug-Level" href="Pro-DrugLevel.html">
-<area shape="rect" coords="393,200,470,245" alt="Pro-Laboratory" href="Pro-Laboratory.html">
-<area shape="rect" coords="486,200,565,245" alt="Pro-Demographic" href="Pro-Demographic.html">
-<area shape="rect" coords="35,407,112,452" alt="Build-PK-Oral" href="Build-PK-Oral.html">
-<area shape="rect" coords="175,407,250,452" alt="Build-PK-IV" href="Build-PK-IV-simple.html">
-</map>
-<p><em>EHR2PKPD</em> is a modular system, divided into the three major procedures: data extraction (“<em>Extract-</em>”), data processing (“<em>Pro-</em>”), and data building (“<em>Build-</em>”). Modules were created or under development (gray color box) depending on the data element, task to perform, and type of PK/PD models.</p>
-<p>For drugs with complex prescription pattern, dose data obtained from e-prescription databases may not be accurate enough to perform PK/PD studies. For these drugs, we may need to extract drug dose information from clinical notes using a natural language processing (NLP) system. We developed a flexible and targeted NLP system that can directly extract drug dose information from clinical notes, which was incorporated into our system (<a href="Extract-Med.html"><em>Extract-Med</em></a>).</p>
-<p>Building drug dose data from extracted dose information can be challenging. To address these challenges, we developed a dose data building algorithm that was implemented in our system (<a href="Pro-Med-NLP.html"><em>Pro-Med-NLP</em></a>).</p>
-<p>For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using <a href="Pro-Med-Str-Part2.html"><em>Pro-Med-Str</em></a> module.</p>
-<p>Other data elements such as drug levels (<a href="Build-PK-IV-comprehensive.html"><em>Pro-Drug Level</em></a>), demographics (<a href="Build-PK-IV-comprehensive.html"><em>Pro-Demographic</em></a>), and laboratory data (<a href="Build-PK-IV-comprehensive.html"><em>Pro-Laboratory</em></a>) can be processed using our system. These data can be combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., <a href="Build-PK-IV-simple.html"><em>Build-PK-IV</em></a>, <a href="Build-PK-Oral.html"><em>Build-PK-Oral</em></a>).</p>
-<p>Note:</p>
-<ul>
-<li><p>The NLP system is available as an R package, <em>medExtractR</em>, and the functions to run each module are implemented as an R package, <em>EHR</em>. More details can be found in Choi <em>et al.</em><span class="math inline">\(^{1}\)</span>, and additional modules will be added in the future as it evolves.</p></li>
-<li><p>As the R package, <em>EHR</em>, is still in active development, we recommend installing from our GitHub repository with the following command: devtools::install_github(‘choileena/EHR/EHR/’)</p></li>
-</ul>
-</div>
-<h3 id="lab-team">Lab Team</h3>
-<table>
-<tr>
-<td>
-Cole Beck
-</td>
-<td>
-Elizabeth McNeer
-</td>
-<td>
-<a href="https://michaelleewilliams.github.io">Michael Williams</a>
-</td>
-</tr>
-<tr>
-<td>
-<img src="img/BeckC_2018.jpg" style="height:120px" />
-</td>
-<td>
-<img src="img/McNeer_headshot.jpg" style="height:120px" />
-</td>
-<td>
-<img src="img/MLWpic2.jpeg" style="height:120px" />
-</td>
-</tr>
-</table>
-<h3 id="lab-alumni">Lab Alumni</h3>
-<table>
-<tr>
-<td>
-Hannah L. Weeks
-</td>
-<td>
-<a href="https://www.ntjames.com/">Nathan T. James</a>
-</td>
-</tr>
-<tr>
-<td>
-<img src="img/weeks_headshot.jpeg" style="height:120px" />
-</td>
-<td>
-<img src="img/Nathan_James.jpg" style="height:120px" />
-</td>
-</tr>
-</table>
-<h3 id="references">References</h3>
-<ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
-</ol>
+<p>Details needed</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
@@ -2262,15 +2173,6 @@ Hannah L. Weeks
 <div class="d-appendix">
 </div>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

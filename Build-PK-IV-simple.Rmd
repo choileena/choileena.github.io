@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = TRUE)
 knitr::opts_chunk$set(R.options = list(width = 130))
 library(EHR)
 library(pkdata)
@@ -19,7 +19,7 @@ library(lubridate)
 * See also "Example 1: Quick Data Building with Processed Datasets" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
 
 # Introduction
-This tutorial describes a simple pharmacokinetic (PK) data building procedure in *EHRtoPKPD* for medications that are intravenously (IV) administered. It demonstrates how to build PK data using *Build-PK-IV* when cleaned data for concentration, drug dose, demographic and laboratory datasets are available in the appropriate data format. A comprehensive PK data building procedure with *Build-PK-IV* for IV medications that requires several data processing modules is described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html) (see Choi *et al.*$^{1}$ for details).
+This tutorial describes a simple pharmacokinetic (PK) data building procedure in *EHR2PKPD* for medications that are intravenously (IV) administered. It demonstrates how to build PK data using *Build-PK-IV* when cleaned data for concentration, drug dose, demographic and laboratory datasets are available in the appropriate data format. A comprehensive PK data building procedure with *Build-PK-IV* for IV medications that requires several data processing modules is described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html) (see Choi *et al.*$^{1}$ for details).
 
 To begin we load the `EHR`. `pkdata`, and  `lubridate` packages. 
 
@@ -98,8 +98,7 @@ The following arguments are used in the `run_Build_PK_IV` function:
 
 In this tutorial, we describe only arguments relevant to this example. A detailed description of all arguments can be found in the `EHR` package documentation for `run_Build_PK_IV()`.
 
-
-```{r sim-build-pk-iv}
+```{r sim-build-pk-iv, collapse = TRUE}
 simple_pk_dat <- run_Build_PK_IV(
     conc=conc.data,
     conc.columns = list(id = 'patient_id', datetime = 'date.time', druglevel = 'conc.level', 
@@ -176,7 +175,7 @@ The following arguments are used in the run_Build_PK_IV function:
 * `dose.columns`: a named list that should specify columns in dose data
 * `pk.vars`: variables to include in the returned PK data. If `pk.vars` includes ‘date’, the output generates its original date-time to which the ‘time’ is mapped. Users can use `pk.vars` to include variables for demographics or laboratory values that are already merged with the concentration dataset. 
 
-```{r}
+```{r, collapse = TRUE}
 simple_pk_dat2 <- run_Build_PK_IV(
     conc = conc.combined,
     conc.columns = list(id='patient_id', datetime='date.time', druglevel='conc.level'),
@@ -189,13 +188,10 @@ simple_pk_dat2 <- run_Build_PK_IV(
                 'stat_sts','cpb_sts','length_of_icu_stay'))
 ```
 
-
 ```{r}
 # the final PK dataset
 head(simple_pk_dat2,15)
 ```
-
-
 
 # References
 1. Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology & Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.

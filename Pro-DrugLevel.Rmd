@@ -11,7 +11,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = TRUE)
 knitr::opts_chunk$set(R.options = list(width = 130))
 library(EHR)
 ```
@@ -37,7 +37,7 @@ We will use example drug level data from the `EHR` package. The raw data is show
 
 ```{r}
 # read Concentration_DATA_simple.csv
-conc.in <- read.csv(system.file("examples", "str_ex1","Concentration_DATA_simple.csv",package="EHR"),
+conc.in <- read.csv(system.file("examples", "str_ex1", "Concentration_DATA_simple.csv", package="EHR"),
                     stringsAsFactors = FALSE)
 head(conc.in,10)
 ```
@@ -69,7 +69,8 @@ The next section demonstrates how to use the `run_DrugLevel` function to run the
 
 `run_Druglevel` will configure the drug level data into a form ready for further processing by modules within the `EHR` package. The following arguments are used:
 
- * `conc.path`: The file path where the drug level data exist. It must be an RDS file.
+ * `conc.path`: The file path where the drug level data exist. It can be a file (CSV, RData, RDS) or data.frame.
+ * `conc.columns`: A list mapping columns of the raw concentration file to concentration data. 'id' and 'conc' are required.
  * `conc.select`: The list of variables in the drug level data to be retained.
  * `check.path`: Path to a local directory where inconsistencies or possible data errors are saved for expert review.
  * `drugname`: Drug of interest.
@@ -77,7 +78,7 @@ The next section demonstrates how to use the `run_DrugLevel` function to run the
  
 Below we show how we would run `run_DrugLevel` using the example drug level data from above. We create a temporary directory for the check files, but `checkDir` can be a specific directory on your computer.
 
-```{r}
+```{r, collapse = TRUE}
 dir.create(file.path(td, 'checks'))
 checkDir <- file.path(td, 'checks') # directory for interactive checking
 
@@ -85,6 +86,7 @@ drugname <- 'fent'
 LLOQ <- 0.05
 
 conc.out <- run_DrugLevel(conc.path=file.path(dataDir,"conc.rds"),
+    conc.columns = list(id = 'mod_id', idvisit = 'mod_id_visit', conc = 'conc.level', datetime = 'date.time'),
     conc.select=c('mod_id','mod_id_visit','event','conc.level','date.time'),
     check.path=checkDir,
     drugname=drugname,

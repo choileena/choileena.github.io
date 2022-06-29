@@ -11,7 +11,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = TRUE)
 knitr::opts_chunk$set(R.options = list(width = 130))
 library(EHR)
 ```
@@ -65,6 +65,7 @@ saveRDS(demo.in, file=file.path(dataDir,"demo.rds"))
 ```{r}
 low_wgt <- function(x, val=1) {  x < 6 }
 demo.out <- run_Demo(demo.path = file.path(dataDir, "demo.rds"),
+                     demo.columns = list(id = 'subject_id'),
                      toexclude = expression(low_wgt(weight)))
 ```
 

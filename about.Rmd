@@ -18,7 +18,7 @@ devtools::install_github('choileena/EHR/EHR/')
 
 # More Information
 
-More information about the *EHRtoPKPD* can be found at the following sites:
+More information about the *EHR2PKPD* can be found at the following sites:
 
 * https://github.com/choileena
 

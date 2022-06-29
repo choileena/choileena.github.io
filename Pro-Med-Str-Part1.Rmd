@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = TRUE)
 knitr::opts_chunk$set(R.options = list(width = 130))
 library(EHR)
 ```
@@ -18,7 +18,7 @@ library(EHR)
 
 # Introduction
 
-This tutorial describes how to use the *Pro-Med-Str* - Part I module in *EHRtoPKPD* system to process intravenous (IV) dose data (see Choi *et al.*$^{1}$ for details).
+This tutorial describes how to use the *Pro-Med-Str* - Part I module in *EHR2PKPD* system to process intravenous (IV) dose data (see Choi *et al.*$^{1}$ for details).
 
 To begin we load the `EHR` package,
 
@@ -94,7 +94,7 @@ The next section demonstrates how to use the `run_MedStrI` function to run the *
 
 Below we show how we would run `run_MedStrI()` using the cleaned IV dose dataset, "mar_new.rds", as input.
 
-```{r Pro-Med-Str1}
+```{r Pro-Med-Str1, collapse = TRUE}
 # define parameters
 drugname <- 'fent'
 
