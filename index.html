@@ -2199,7 +2199,7 @@ Modified from <em>Clin Pharm Ther 2020</em>.
 <p>For drugs with complex prescription pattern, dose data obtained from e-prescription databases may not be accurate enough to perform PK/PD studies. For these drugs, we may need to extract drug dose information from clinical notes using a natural language processing (NLP) system. We developed a flexible and targeted NLP system that can directly extract drug dose information from clinical notes, which was incorporated into our system (<a href="Extract-Med.html"><em>Extract-Med</em></a>).</p>
 <p>Building drug dose data from extracted dose information can be challenging. To address these challenges, we developed a dose data building algorithm that was implemented in our system (<a href="Pro-Med-NLP.html"><em>Pro-Med-NLP</em></a>).</p>
 <p>For drugs with simple prescription pattern, dose data can be relatively easily extracted from e-prescription databases and processed using <a href="Pro-Med-Str-Part2.html"><em>Pro-Med-Str</em></a> module.</p>
-<p>Other data elements such as drug levels (<a href="Build-PK-IV-comprehensive.html"><em>Pro-Drug Level</em></a>), demographics (<a href="Build-PK-IV-comprehensive.html"><em>Pro-Demographic</em></a>), and laboratory data (<a href="Build-PK-IV-comprehensive.html"><em>Pro-Laboratory</em></a>) can be processed using our system. These data can be combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., <a href="Build-PK-IV-simple.html"><em>Build-PK-IV</em></a>, <a href="Build-PK-Oral.html"><em>Build-PK-Oral</em></a>).</p>
+<p>Other data elements such as drug levels (<a href="Pro-DrugLevel.html"><em>Pro-Drug Level</em></a>), demographics (<a href="Pro-Demographic.html"><em>Pro-Demographic</em></a>), and laboratory data (<a href="Pro-Laboratory.html"><em>Pro-Laboratory</em></a>) can be processed using our system. These data can be combined with processed dose data to build PK/PD data using PK/PD data building modules (i.e., <a href="Build-PK-IV-simple.html"><em>Build-PK-IV</em></a>, <a href="Build-PK-Oral.html"><em>Build-PK-Oral</em></a>).</p>
 <p>Note:</p>
 <ul>
 <li><p>The NLP system is available as an R package, <em>medExtractR</em>, and the functions to run each module are implemented as an R package, <em>EHR</em>. More details can be found in Choi <em>et al.</em><span class="math inline">\(^{1}\)</span>, and additional modules will be added in the future as it evolves.</p></li>
@@ -2213,6 +2213,9 @@ Modified from <em>Clin Pharm Ther 2020</em>.
 Cole Beck
 </td>
 <td>
+Marisa Blackman
+</td>
+<td>
 Elizabeth McNeer
 </td>
 <td>
@@ -2222,6 +2225,8 @@ Elizabeth McNeer
 <tr>
 <td>
 <img src="img/BeckC_2018.jpg" style="height:120px" />
+</td>
+<td>
 </td>
 <td>
 <img src="img/McNeer_headshot.jpg" style="height:120px" />
@@ -2252,7 +2257,7 @@ Hannah L. Weeks
 </table>
 <h3 id="references">References</h3>
 <ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. <a href="https://doi.org/10.1002/cpt.1787">doi: 10.1002/cpt.1787</a>.</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
