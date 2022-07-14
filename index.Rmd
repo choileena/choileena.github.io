@@ -81,7 +81,7 @@ devtools::install_github('choileena/EHR/EHR/')
   </tr>
   <tr>
     <td><img src="img/BeckC_2018.jpg" style="height:120px" /></td>
-    <td></td>
+    <td><img src="img/MBpic.jpeg" style="height:120px" /></td>
     <td><img src="img/McNeer_headshot.jpg" style="height:120px" /></td>
     <td><img src="img/MLWpic2.jpeg" style="height:120px" /></td>
   </tr>
