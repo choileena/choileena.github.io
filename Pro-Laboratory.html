@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -455,7 +456,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -2033,7 +2034,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2144,6 +2145,7 @@ Workshops
 <a href="PK-Data-IV-Dosing.html">PK Data for IV Dosing</a>
 </div>
 </div>
+<a href="collab.html">Collaboration</a>
 <a href="about.html">About</a>
 <a href="https://github.com/choileena/choileena.github.io" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
@@ -2160,7 +2162,8 @@ Workshops
 <h1>Pro-Laboratory</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial describes how to process laboratory data using <em>Pro-Laboratory</em> module in the system.</p></p>
+<p><p>This tutorial describes how to process laboratory data using
+<em>Pro-Laboratory</em> module in the system.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2174,20 +2177,29 @@ Workshops
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#laboratory-data">Laboratory Data</a></li>
-<li><a href="#preparing-raw-laboratory-data">Preparing Raw Laboratory Data</a></li>
-<li><a href="#running-run_labs">Running <code>run_Labs</code></a></li>
-<li><a href="#output-of-run_labs">Output of <code>run_Labs</code></a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#laboratory-data" id="toc-laboratory-data">Laboratory
+Data</a></li>
+<li><a href="#preparing-raw-laboratory-data"
+id="toc-preparing-raw-laboratory-data">Preparing Raw Laboratory
+Data</a></li>
+<li><a href="#running-run_labs" id="toc-running-run_labs">Running
+<code>run_Labs</code></a></li>
+<li><a href="#output-of-run_labs" id="toc-output-of-run_labs">Output of
+<code>run_Labs</code></a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 </div>
 <ul>
-<li>See also “Pro-Laboratory” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
+<li>See also “Pro-Laboratory” in “<a
+href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
+EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes how to use the <em>Pro-Laboratory</em> module to process laboratory data (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
+<p>This tutorial describes how to use the <em>Pro-Laboratory</em> module
+to process laboratory data (see Choi <em>et al.</em><span
+class="math inline">\(^{1}\)</span> for details).</p>
 <p>To begin we load the <code>EHR</code> package.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2197,7 +2209,8 @@ Workshops
 </div>
 </div>
 <h1 id="laboratory-data">Laboratory Data</h1>
-<p>We will use example creatinine lab data to demonstrate the <em>Pro-Laboratory</em> module. The raw data is shown below.</p>
+<p>We will use example creatinine lab data to demonstrate the
+<em>Pro-Laboratory</em> module. The raw data is shown below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>creat.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>,<span class='st'>"Creatinine_DATA.csv"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span><span class='op'>)</span>
@@ -2212,18 +2225,39 @@ Workshops
 5     28579217 10/06/11 4:25  0.29
 6     28579217 10/09/11 4:45  0.28</code></pre>
 </div>
-<p>This data consists of a patient ID, date, time, and the creatinine level.</p>
-<p>The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the <em>Pro-Laboratory</em> module. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of the <code>EHR</code> package for more information. We demonstrate how to rename the patient ID variable below.</p>
+<p>This data consists of a patient ID, date, time, and the creatinine
+level.</p>
+<p>The patient ID may need to be renamed so that all input datasets have
+the same name for the patient ID. This is necessary when combining the
+datasets to create a crosswalk between the original ID variables and the
+new ID variables used in the <em>Pro-Laboratory</em> module. See “<a
+href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
+EHR Vignette for Structured Data</a>” of the <code>EHR</code> package
+for more information. We demonstrate how to rename the patient ID
+variable below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>creat.new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/dataTransformation.html'>dataTransformation</a></span><span class='op'>(</span><span class='va'>creat.in</span>, rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Subject.uniq'</span> <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
-<h1 id="preparing-raw-laboratory-data">Preparing Raw Laboratory Data</h1>
-<p>In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are <code>mod_id</code>, <code>mod_visit</code>, and <code>mod_id_visit</code>. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package and “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for examples of this process.</p>
+<h1 id="preparing-raw-laboratory-data">Preparing Raw Laboratory
+Data</h1>
+<p>In practice, the laboratory data will need to be combined with other
+input datasets. This process involves creating a crosswalk between
+original ID variables and new ID variables. The new ID variables that
+are required to be the same across all datasets are <code>mod_id</code>,
+<code>mod_visit</code>, and <code>mod_id_visit</code>. See “<a
+href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
+EHR Vignette for Structured Data</a>” of <code>EHR</code> package and
+“<a
+href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV
+- Comprehensive Workshop</a>” for examples of this process.</p>
 <p>For simplicity, we will skip this step in this tutorial.</p>
-<p>We need to save our dataset as an RDS file using <code>saveRDS</code> as shown below. Here, we create a temporary directory to store the file using <code>tempdir</code>; however, <code>dataDir</code> can be a specific directory on your computer.</p>
+<p>We need to save our dataset as an RDS file using <code>saveRDS</code>
+as shown below. Here, we create a temporary directory to store the file
+using <code>tempdir</code>; however, <code>dataDir</code> can be a
+specific directory on your computer.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -2233,15 +2267,20 @@ Workshops
 </code></pre>
 </div>
 </div>
-<p>The next section demonstrates how to use the <code>run_Labs</code> function to run the <em>Pro-Laboratory</em> module.</p>
+<p>The next section demonstrates how to use the <code>run_Labs</code>
+function to run the <em>Pro-Laboratory</em> module.</p>
 <h1 id="running-run_labs">Running <code>run_Labs</code></h1>
 <p>The following arguments must be specified:</p>
 <ul>
-<li><code>lab.path</code>: The file path where the laboratory data exist. It must be an RDS file.</li>
-<li><code>lab.select</code>: The list of variables in the laboratory data to be retained.</li>
-<li><code>lab.mod.list</code>: A list containing modifications to variables in the laboratory data.</li>
+<li><code>lab.path</code>: The file path where the laboratory data
+exist. It must be an RDS file.</li>
+<li><code>lab.select</code>: The list of variables in the laboratory
+data to be retained.</li>
+<li><code>lab.mod.list</code>: A list containing modifications to
+variables in the laboratory data.</li>
 </ul>
-<p>Below we show how we would run <code>run_Labs</code> using the example laboratory data from above.</p>
+<p>Below we show how we would run <code>run_Labs</code> using the
+example laboratory data from above.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>creat.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Labs.html'>run_Labs</a></span><span class='op'>(</span>lab.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"creat_new.rds"</span><span class='op'>)</span>,
@@ -2250,7 +2289,12 @@ Workshops
 </code></pre>
 </div>
 </div>
-<p>In the above code, the <code>lab.mod.list</code> argument specifies a modification to our dataset to include a <code>date.time</code> variable, which is created by combining the original <code>date</code> and <code>time</code> variables. The <code>lab.select</code> argument says that we want to keep the <code>subject_uid</code>, <code>date.time</code>, and <code>creat</code> variables.</p>
+<p>In the above code, the <code>lab.mod.list</code> argument specifies a
+modification to our dataset to include a <code>date.time</code>
+variable, which is created by combining the original <code>date</code>
+and <code>time</code> variables. The <code>lab.select</code> argument
+says that we want to keep the <code>subject_uid</code>,
+<code>date.time</code>, and <code>creat</code> variables.</p>
 <h1 id="output-of-run_labs">Output of <code>run_Labs</code></h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2265,12 +2309,20 @@ Workshops
 5    28579217 2011-10-06 04:25:00  0.29
 6    28579217 2011-10-09 04:45:00  0.28</code></pre>
 </div>
-<p>This data can be merged with data from other modules. See the “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for an example.</p>
+<p>This data can be merged with data from other modules. See the “<a
+href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV
+- Comprehensive Workshop</a>” for an example.</p>
 <h1 id="references">References</h1>
 <ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X,
+Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System
+for Post-marketing Population Pharmacokinetic and Pharmacodynamic
+Studies using Real-World Data from Electronic Health Records. Clinical
+Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi:
+10.1002/cpt.1787.</li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

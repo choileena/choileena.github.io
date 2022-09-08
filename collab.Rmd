@@ -1,0 +1,21 @@
+---
+title: "Collaboration"
+description: |
+  Collaboration.
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Vanderbilt Specialty Pharmacy (VSP) Collaboration
+
+## Projects Reports
+
+* Epidiolex Project: [Epidiolex Project Report](https://choileena.github.io/epidiolex_poster.html)
+
+* Adherence: Clinic Project: [Adherence: Clinic Project Report](https://choileena.github.io/adherence_clinic_poster.html)

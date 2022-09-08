@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -455,7 +456,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -2033,7 +2034,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2144,6 +2145,7 @@ Workshops
 <a href="PK-Data-IV-Dosing.html">PK Data for IV Dosing</a>
 </div>
 </div>
+<a href="collab.html">Collaboration</a>
 <a href="about.html">About</a>
 <a href="https://github.com/choileena/choileena.github.io" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
@@ -2160,7 +2162,13 @@ Workshops
 <h1>Build-PK-Oral</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial describes the PK data building module in the system for medications that are typically orally administrated. It demonstrates how to quickly build PK data using <em>Build-PK-Oral</em> when drug dose data that can be provided by users or generated from unstructured clinical notes using extracted dosing information with the <em>Extract-Med</em> module and processed with the <em>Pro-Med-NLP</em> module in the system.</p></p>
+<p><p>This tutorial describes the PK data building module in the system
+for medications that are typically orally administrated. It demonstrates
+how to quickly build PK data using <em>Build-PK-Oral</em> when drug dose
+data that can be provided by users or generated from unstructured
+clinical notes using extracted dosing information with the
+<em>Extract-Med</em> module and processed with the <em>Pro-Med-NLP</em>
+module in the system.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2174,28 +2182,52 @@ Workshops
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#ehr-sourced-oral-dosing-data">EHR Sourced Oral Dosing Data</a>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#ehr-sourced-oral-dosing-data"
+id="toc-ehr-sourced-oral-dosing-data">EHR Sourced Oral Dosing Data</a>
 <ul>
-<li><a href="#without-last-dose-times">Without Last-Dose Times</a></li>
-<li><a href="#with-last-dose-times">With Last-Dose times</a></li>
+<li><a href="#without-last-dose-times"
+id="toc-without-last-dose-times">Without Last-Dose Times</a></li>
+<li><a href="#with-last-dose-times" id="toc-with-last-dose-times">With
+Last-Dose times</a></li>
 </ul></li>
-<li><a href="#build-pk-oral">Build-PK-Oral</a>
+<li><a href="#build-pk-oral" id="toc-build-pk-oral">Build-PK-Oral</a>
 <ul>
-<li><a href="#build-the-pk-data-without-last-dose-time">(1) Build the PK data without last-dose time</a></li>
-<li><a href="#build-the-pk-data-with-last-dose-time">(2) Build the PK data with last-dose time</a></li>
+<li><a href="#build-the-pk-data-without-last-dose-time"
+id="toc-build-the-pk-data-without-last-dose-time">(1) Build the PK data
+without last-dose time</a></li>
+<li><a href="#build-the-pk-data-with-last-dose-time"
+id="toc-build-the-pk-data-with-last-dose-time">(2) Build the PK data
+with last-dose time</a></li>
 </ul></li>
-<li><a href="#references">References</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 </div>
 <ul>
-<li>See also “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.html">4. EHR Vignette for Build-PK-Oral</a>” in <code>EHR</code> package.</li>
+<li>See also “<a
+href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.html">4.
+EHR Vignette for Build-PK-Oral</a>” in <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>We describe oral dosing data commonly obtained from electronic health records (EHRs) in the presence and absence of last dose time information. Finally, we explain how to run the <em>Build-PK-Oral</em> module.</p>
+<p>We describe oral dosing data commonly obtained from electronic health
+records (EHRs) in the presence and absence of last dose time
+information. Finally, we explain how to run the <em>Build-PK-Oral</em>
+module.</p>
 <h1 id="ehr-sourced-oral-dosing-data">EHR Sourced Oral Dosing Data</h1>
-<p>Drug dose information can be obtained from structured e-prescription databases, or extracted from clinical notes using the module <em>Extract-Med</em> (see <a href="Extract-Med.html"><em>Extract-Med</em></a> to understand that process). The obtained dose information can be processing using Part II of <em>Pro-Med-Str</em> for the one from e-prescription databases and <em>Pro-Med-NLP</em> for the one extracted from clinical notes. Other data can be also processed using relevant modules (e.g., <em>Pro-Drug Level</em>, <em>Pro-Laboratory</em>). Our interest is in the intermediate dataset generated by these modules but not yet in a suitable format for PK analysis (see <a href="PK-Data-Oral-Dosing.html">PK-Data-Oral-Dosing</a> for an appropriate PK data form). Here is an example of such data.</p>
+<p>Drug dose information can be obtained from structured e-prescription
+databases, or extracted from clinical notes using the module
+<em>Extract-Med</em> (see <a
+href="Extract-Med.html"><em>Extract-Med</em></a> to understand that
+process). The obtained dose information can be processing using Part II
+of <em>Pro-Med-Str</em> for the one from e-prescription databases and
+<em>Pro-Med-NLP</em> for the one extracted from clinical notes. Other
+data can be also processed using relevant modules (e.g., <em>Pro-Drug
+Level</em>, <em>Pro-Laboratory</em>). Our interest is in the
+intermediate dataset generated by these modules but not yet in a
+suitable format for PK analysis (see <a
+href="PK-Data-Oral-Dosing.html">PK-Data-Oral-Dosing</a> for an
+appropriate PK data form). Here is an example of such data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span>
@@ -2240,31 +2272,83 @@ Workshops
 12  3 2020-09-25 10:00:00       7.5 10.2  56    167 12.2 2020-09-24 22:00:00
 13  3 2020-10-04 10:00:00       5.0  7.5  56    167 12.2                &lt;NA&gt;</code></pre>
 </div>
-<p>The ID, time, and covariate data in this dataframe is self explanatory. The difficult data to deal with can be found in <code>dose_morn</code>, <code>conc</code>, and <code>ld</code>. <code>conc</code> is a measured blood concentration which is recorded at the time indicated in <code>time</code>. <code>dose_morn</code> is the dose which was taken in the morning of that measured concentration, as extracted by <em>Extract-Med</em>. <code>ld</code> is the last-dose time, the extracted time of the dose which precedes the measured concentration, if present in the EHR. This information can be used to construct a course of drug dosing but some assumptions need to be made. Consider the two following assumptions:</p>
+<p>The ID, time, and covariate data in this dataframe is self
+explanatory. The difficult data to deal with can be found in
+<code>dose_morn</code>, <code>conc</code>, and <code>ld</code>.
+<code>conc</code> is a measured blood concentration which is recorded at
+the time indicated in <code>time</code>. <code>dose_morn</code> is the
+dose which was taken in the morning of that measured concentration, as
+extracted by <em>Extract-Med</em>. <code>ld</code> is the last-dose
+time, the extracted time of the dose which precedes the measured
+concentration, if present in the EHR. This information can be used to
+construct a course of drug dosing but some assumptions need to be made.
+Consider the two following assumptions:</p>
 <ol type="1">
 <li>Dosing only occurs on the morning of the recorded dose.</li>
 <li>Dosing occurs twice daily at 8am and 8pm.</li>
 </ol>
-<p>Obviously, the correct assumption will depend on the drug of interest – some drugs are taken on a regular schedule, while others are as needed. Drugs undergoing routine therapeutic drug monitoring tend to be the latter so assumption 2 will likely be the better assumption.</p>
-<p>If a twice-daily dosing assumption is appropriate, then we can begin to think about how to best choose the timing of each dose. Can we exploit some information in our dataset to determine dose timings which are more realistic than, say every day 8am and 8pm. In doing so we need to remember that the timing of the dose before the measured concentration is most important for estimating the PK profile. Some other things to consider:</p>
+<p>Obviously, the correct assumption will depend on the drug of interest
+– some drugs are taken on a regular schedule, while others are as
+needed. Drugs undergoing routine therapeutic drug monitoring tend to be
+the latter so assumption 2 will likely be the better assumption.</p>
+<p>If a twice-daily dosing assumption is appropriate, then we can begin
+to think about how to best choose the timing of each dose. Can we
+exploit some information in our dataset to determine dose timings which
+are more realistic than, say every day 8am and 8pm. In doing so we need
+to remember that the timing of the dose before the measured
+concentration is most important for estimating the PK profile. Some
+other things to consider:</p>
 <ol type="1">
-<li>The timing of the concentration measurement itself may impact dosing.</li>
-<li>There may or may not be an extracted last-dose time to work with.</li>
+<li>The timing of the concentration measurement itself may impact
+dosing.</li>
+<li>There may or may not be an extracted last-dose time to work
+with.</li>
 </ol>
-<p>For this reason, we will break up our algorithm into with and without last-dose times and discuss how we arrive at a final dose-building algorithm.</p>
+<p>For this reason, we will break up our algorithm into with and without
+last-dose times and discuss how we arrive at a final dose-building
+algorithm.</p>
 <h2 id="without-last-dose-times">Without Last-Dose Times</h2>
-<p>When we do not have an extracted last-dose time, we must work off of only our measured concentration timing and assumptions about how routine therapeutic drug monitoring is typically performed. The majority of these labs are conducted in the morning, and patients will typically hold off on taking their medications until after the blood draw. For that reason, we assume that a dose is taken 30 minutes after a measured blood concentration, then proceeds with a dose every 12 hours. The final dose in the sequence will occur 6-18 hours before the next measured concentration, the timing of which will determine the next sequence of doses, and so on until the final measured concentration. The first measured concentration requires special attention. Typical therapeutic drug monitoring procedure suggests it is reasonable to assume that the drug has been taken regularly before this first concentration. The safest assumptiom, assuming no further information is available, is that the drug has been taken every 12 hours for long enough to reach a steady state of trough concentrations. In our PK dose building algorithm, we use a default of 336 hours (i.e., 14 days), ending 12 hours before the first measured concentration.</p>
+<p>When we do not have an extracted last-dose time, we must work off of
+only our measured concentration timing and assumptions about how routine
+therapeutic drug monitoring is typically performed. The majority of
+these labs are conducted in the morning, and patients will typically
+hold off on taking their medications until after the blood draw. For
+that reason, we assume that a dose is taken 30 minutes after a measured
+blood concentration, then proceeds with a dose every 12 hours. The final
+dose in the sequence will occur 6-18 hours before the next measured
+concentration, the timing of which will determine the next sequence of
+doses, and so on until the final measured concentration. The first
+measured concentration requires special attention. Typical therapeutic
+drug monitoring procedure suggests it is reasonable to assume that the
+drug has been taken regularly before this first concentration. The
+safest assumptiom, assuming no further information is available, is that
+the drug has been taken every 12 hours for long enough to reach a steady
+state of trough concentrations. In our PK dose building algorithm, we
+use a default of 336 hours (i.e., 14 days), ending 12 hours before the
+first measured concentration.</p>
 <h2 id="with-last-dose-times">With Last-Dose times</h2>
-<p>In the case where extracted last-dose times are available, we can begin by building the same dataset as without last-dose times. We then add a row for a dose corresponding to the extracted last dose time and eliminate an appropriate number of doses from the preceding dose sequence to avoid incorrect double-dosing; this is done by removing doses until the last dose in the sequence is 6-18 hours before the extracted last-dose time. This allows for last-dose times which are more than 12 hours before the extracted concentration to be appropriately accounted for.</p>
+<p>In the case where extracted last-dose times are available, we can
+begin by building the same dataset as without last-dose times. We then
+add a row for a dose corresponding to the extracted last dose time and
+eliminate an appropriate number of doses from the preceding dose
+sequence to avoid incorrect double-dosing; this is done by removing
+doses until the last dose in the sequence is 6-18 hours before the
+extracted last-dose time. This allows for last-dose times which are more
+than 12 hours before the extracted concentration to be appropriately
+accounted for.</p>
 <h1 id="build-pk-oral">Build-PK-Oral</h1>
-<p>We now describe how to build the PK data without last-dose time and with last-dose time, both of which can be built using <strong><code>run_Build_PK_Oral()</code></strong> by defining the argument <code>ldCol</code> differently.</p>
-<p>To begin we load the <code>EHR</code> package, the <code>pkdata</code> package, and the <code>lubridate</code> package.</p>
+<p>We now describe how to build the PK data without last-dose time and
+with last-dose time, both of which can be built using
+<strong><code>run_Build_PK_Oral()</code></strong> by defining the
+argument <code>ldCol</code> differently.</p>
+<p>To begin we load the <code>EHR</code> package, the
+<code>pkdata</code> package, and the <code>lubridate</code> package.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package and dependencies</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>pkdata</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2289,20 +2373,35 @@ Workshops
 12  3 2020-09-25 10:00:00       7.5 10.2  56    167 12.2 2020-09-24 22:00:00
 13  3 2020-10-04 10:00:00       5.0  7.5  56    167 12.2                &lt;NA&gt;</code></pre>
 </div>
-<p>There are 3 individuals in the dataset. Each has a set of EHR-extracted dose and blood concentrations data along with demographic data and information commonly found with laboratory data:</p>
-<p>All concentrations are being taken in the morning. Given that this is a drug which should be taken orally every 12 hours, we can construct a reasonable dosing schedule which details the amount and timing of each dose.</p>
-<p><code>run_Build_PK_Oral()</code> will build an appropriate dataset for population PK analysis for drugs orally administered, given specification of appropriate columns:</p>
+<p>There are 3 individuals in the dataset. Each has a set of
+EHR-extracted dose and blood concentrations data along with demographic
+data and information commonly found with laboratory data:</p>
+<p>All concentrations are being taken in the morning. Given that this is
+a drug which should be taken orally every 12 hours, we can construct a
+reasonable dosing schedule which details the amount and timing of each
+dose.</p>
+<p><code>run_Build_PK_Oral()</code> will build an appropriate dataset
+for population PK analysis for drugs orally administered, given
+specification of appropriate columns:</p>
 <ul>
 <li><code>idCol</code>: subject identification number</li>
 <li><code>dtCol</code>: time of concentration measurement</li>
 <li><code>doseCol</code>: dose</li>
 <li><code>concCol</code>: drug concentration</li>
-<li><code>ldCol</code>: last-dose time; the default is <code>NULL</code> to ignore</li>
-<li><code>first_interval_hours</code>: hours of regular dosing leading up to the first drug concentration; the default is 336 hours = 14 days</li>
-<li><code>imputeClosest</code>: Vector of columns for imputation of missing data using last observation carried forward or, if unavailable, next observation propagated backward</li>
+<li><code>ldCol</code>: last-dose time; the default is <code>NULL</code>
+to ignore</li>
+<li><code>first_interval_hours</code>: hours of regular dosing leading
+up to the first drug concentration; the default is 336 hours = 14
+days</li>
+<li><code>imputeClosest</code>: Vector of columns for imputation of
+missing data using last observation carried forward or, if unavailable,
+next observation propagated backward</li>
 </ul>
-<h2 id="build-the-pk-data-without-last-dose-time">(1) Build the PK data without last-dose time</h2>
-<p>Suppose we do not have the last-dose time information. For illustrative purpose, we remove this information (i.e., column 8 is omitted in this example data).</p>
+<h2 id="build-the-pk-data-without-last-dose-time">(1) Build the PK data
+without last-dose time</h2>
+<p>Suppose we do not have the last-dose time information. For
+illustrative purpose, we remove this information (i.e., column 8 is
+omitted in this example data).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Build PK data without last-dose times</span>
@@ -2344,9 +2443,21 @@ Workshops
 25  3 2256.5  7.5   NA   1    1   17 12 2020-09-25 10:30:00  56    167 12.2
 26  3 2472.0   NA  7.5   0    0   NA NA 2020-10-04 10:00:00  56    167 12.2</code></pre>
 </div>
-<p>Note that <code>addl</code> and <code>II</code> dictate an every-twelve-hour dosing schedule which leads up to the proceeding concentration. Covariates are preserved and a <code>time</code> variable which represents hours since first dose is generated. This data is now in an appropriate format for PK analysis but makes no use of the last-dose times.</p>
-<h2 id="build-the-pk-data-with-last-dose-time">(2) Build the PK data with last-dose time</h2>
-<p>Suppose we do now have the last-dose time information although they are extracted along with some (but not all) concentrations. When last-dose times are avaiable, they can be specified in the argument <code>ldCol</code> in the input data (e.g., <code>ldCol = "ld"</code>. Then, the sequence of doses leading up to the extracted dose is reduced and a new row is inserted which accurately describes the timing of the dose which precedes the relevant concentration.</p>
+<p>Note that <code>addl</code> and <code>II</code> dictate an
+every-twelve-hour dosing schedule which leads up to the proceeding
+concentration. Covariates are preserved and a <code>time</code> variable
+which represents hours since first dose is generated. This data is now
+in an appropriate format for PK analysis but makes no use of the
+last-dose times.</p>
+<h2 id="build-the-pk-data-with-last-dose-time">(2) Build the PK data
+with last-dose time</h2>
+<p>Suppose we do now have the last-dose time information although they
+are extracted along with some (but not all) concentrations. When
+last-dose times are avaiable, they can be specified in the argument
+<code>ldCol</code> in the input data (e.g., <code>ldCol = "ld"</code>.
+Then, the sequence of doses leading up to the extracted dose is reduced
+and a new row is inserted which accurately describes the timing of the
+dose which precedes the relevant concentration.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Build PK data with last-dose times</span>
@@ -2393,13 +2504,33 @@ Workshops
 30  3 2256.5  7.5   NA   1    1   17 12 2020-09-25 10:30:00  56    167 12.2
 31  3 2472.0   NA  7.5   0    0   NA NA 2020-10-04 10:00:00  56    167 12.2</code></pre>
 </div>
-<p>Individual 1 has no extracted last-dose times so their data is unchanged from before. Compare, however, rows 7-9 to rows 7-8 of the previous dataset constructed without last-dose times. The measured concentration of 14.1 on <code>date</code> 2019-11-01 is associated with a last-dose time. <code>addl</code> drops from 69 to 68 and the extracted last-dose is added in row 8 with additional <code>date</code> 2019-10-31 20:58:36 which is the last-dose time extracted from clinical notes. Notice that the number of doses leading up to the concentration is unchanged and the timing of the final dose has been adjusted to reflect information in the EHR (i.e., the calculated time of 1162.70 for <code>time</code>). This dataset still relies on assumptions about dosing, but should reflect the actual dosing schedule better by incorporating last-dose times from the EHR.</p>
-<p>Note that this dataset includes standard NONMEM formatted variables. For details of data items, see <a href="PK-Data-Oral-Dosing.html">PK-Data-Oral-Dosing</a>.</p>
+<p>Individual 1 has no extracted last-dose times so their data is
+unchanged from before. Compare, however, rows 7-9 to rows 7-8 of the
+previous dataset constructed without last-dose times. The measured
+concentration of 14.1 on <code>date</code> 2019-11-01 is associated with
+a last-dose time. <code>addl</code> drops from 69 to 68 and the
+extracted last-dose is added in row 8 with additional <code>date</code>
+2019-10-31 20:58:36 which is the last-dose time extracted from clinical
+notes. Notice that the number of doses leading up to the concentration
+is unchanged and the timing of the final dose has been adjusted to
+reflect information in the EHR (i.e., the calculated time of 1162.70 for
+<code>time</code>). This dataset still relies on assumptions about
+dosing, but should reflect the actual dosing schedule better by
+incorporating last-dose times from the EHR.</p>
+<p>Note that this dataset includes standard NONMEM formatted variables.
+For details of data items, see <a
+href="PK-Data-Oral-Dosing.html">PK-Data-Oral-Dosing</a>.</p>
 <h1 id="references">References</h1>
 <ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X,
+Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System
+for Post-marketing Population Pharmacokinetic and Pharmacodynamic
+Studies using Real-World Data from Electronic Health Records. Clinical
+Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi:
+10.1002/cpt.1787.</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -455,7 +456,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -2033,7 +2034,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2144,6 +2145,7 @@ Workshops
 <a href="PK-Data-IV-Dosing.html">PK Data for IV Dosing</a>
 </div>
 </div>
+<a href="collab.html">Collaboration</a>
 <a href="about.html">About</a>
 <a href="https://github.com/choileena/choileena.github.io" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
@@ -2160,7 +2162,9 @@ Workshops
 <h1>Pro-Med-NLP</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial describes how to build longitudinal medication dose data from the raw output of an NLP system using the <em>Pro-Med-NLP</em> module.</p></p>
+<p><p>This tutorial describes how to build longitudinal medication dose
+data from the raw output of an NLP system using the <em>Pro-Med-NLP</em>
+module.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2174,25 +2178,36 @@ Workshops
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#part-i">Part I</a>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#part-i" id="toc-part-i">Part I</a>
 <ul>
-<li><a href="#parse-functions">Parse functions</a></li>
-<li><a href="#running-parsemedextractr">Running <code>parseMedExtractR</code></a></li>
-<li><a href="#builddose"><code>buildDose</code></a></li>
-<li><a href="#running-builddose">Running <code>buildDose</code></a></li>
+<li><a href="#parse-functions" id="toc-parse-functions">Parse
+functions</a></li>
+<li><a href="#running-parsemedextractr"
+id="toc-running-parsemedextractr">Running
+<code>parseMedExtractR</code></a></li>
+<li><a href="#builddose"
+id="toc-builddose"><code>buildDose</code></a></li>
+<li><a href="#running-builddose" id="toc-running-builddose">Running
+<code>buildDose</code></a></li>
 </ul></li>
-<li><a href="#part-ii">Part II</a>
+<li><a href="#part-ii" id="toc-part-ii">Part II</a>
 <ul>
-<li><a href="#notemetadata"><code>noteMetaData</code></a></li>
-<li><a href="#collapsedose"><code>collapseDose</code></a></li>
-<li><a href="#running-collapsedose">Running <code>collapseDose</code></a></li>
+<li><a href="#notemetadata"
+id="toc-notemetadata"><code>noteMetaData</code></a></li>
+<li><a href="#collapsedose"
+id="toc-collapsedose"><code>collapseDose</code></a></li>
+<li><a href="#running-collapsedose"
+id="toc-running-collapsedose">Running <code>collapseDose</code></a></li>
 </ul></li>
-<li><a href="#handling-lastdose">Handling <code>lastdose</code></a>
+<li><a href="#handling-lastdose" id="toc-handling-lastdose">Handling
+<code>lastdose</code></a>
 <ul>
-<li><a href="#running-collapsedose-with-last-dose-present">Running <code>collapseDose</code> with last dose present</a></li>
+<li><a href="#running-collapsedose-with-last-dose-present"
+id="toc-running-collapsedose-with-last-dose-present">Running
+<code>collapseDose</code> with last dose present</a></li>
 </ul></li>
-<li><a href="#references">References</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 </div>
@@ -2200,10 +2215,19 @@ Workshops
 
 </div>
 <ul>
-<li>See also “Pro-Med-NLP” of “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” in <code>EHR</code> package.</li>
+<li>See also “Pro-Med-NLP” of “<a
+href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1.
+EHR Vignette for Extract-Med and Pro-Med-NLP</a>” in <code>EHR</code>
+package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes how to use the <em>Pro-Med-NLP</em> module to generate longitudinal medication dose data from the raw output of an NLP system. The module is divided into two parts. Part I parses the raw output and pairs entities together, and Part II calculates dose intake and daily dose and removes redundant information (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> and McNeer <em>et al.</em><span class="math inline">\(^{2}\)</span> for details).</p>
+<p>This tutorial describes how to use the <em>Pro-Med-NLP</em> module to
+generate longitudinal medication dose data from the raw output of an NLP
+system. The module is divided into two parts. Part I parses the raw
+output and pairs entities together, and Part II calculates dose intake
+and daily dose and removes redundant information (see Choi <em>et
+al.</em><span class="math inline">\(^{1}\)</span> and McNeer <em>et
+al.</em><span class="math inline">\(^{2}\)</span> for details).</p>
 <p>To begin we load the <code>EHR</code> package.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2213,13 +2237,26 @@ Workshops
 </div>
 </div>
 <h1 id="part-i">Part I</h1>
-<p>Two main functions are used in this part of the module, a parse function and <code>buildDose</code>.</p>
+<p>Two main functions are used in this part of the module, a parse
+function and <code>buildDose</code>.</p>
 <h2 id="parse-functions">Parse functions</h2>
-<p>Parse functions are available for the medExtractR, MedXN, CLAMP, and MedEx systems (<code>parseMedExtractR</code>, <code>parseMedXN</code>, <code>parseCLAMP</code>, <code>parseMedEx</code>). If the user has output from another NLP system, the user can write code to standardize the output before calling the <code>buildDose</code> function.</p>
-<p>In this tutorial, we will demonstrate the process using the <code>parseMedExtractR</code> function. See “1. EHR Vignette for Extract-Med and Pro-Med-NLP” in the <code>EHR</code> package for details on the other parse functions.</p>
-<p>The parse functions output a standardized form of the data that includes a row for each drug mention and columns for all entities anchored to that drug mention.</p>
-<h2 id="running-parsemedextractr">Running <code>parseMedExtractR</code></h2>
-<p>First, we create variables for the filenames of our raw NLP system data. In the <code>EHR</code> package, we have example medExtractR data for tacrolimus and lamotrigine.</p>
+<p>Parse functions are available for the medExtractR, MedXN, CLAMP, and
+MedEx systems (<code>parseMedExtractR</code>, <code>parseMedXN</code>,
+<code>parseCLAMP</code>, <code>parseMedEx</code>). If the user has
+output from another NLP system, the user can write code to standardize
+the output before calling the <code>buildDose</code> function.</p>
+<p>In this tutorial, we will demonstrate the process using the
+<code>parseMedExtractR</code> function. See “1. EHR Vignette for
+Extract-Med and Pro-Med-NLP” in the <code>EHR</code> package for details
+on the other parse functions.</p>
+<p>The parse functions output a standardized form of the data that
+includes a row for each drug mention and columns for all entities
+anchored to that drug mention.</p>
+<h2 id="running-parsemedextractr">Running
+<code>parseMedExtractR</code></h2>
+<p>First, we create variables for the filenames of our raw NLP system
+data. In the <code>EHR</code> package, we have example medExtractR data
+for tacrolimus and lamotrigine.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tac_mxr_fn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"tac_mxr.csv"</span>, package <span class='op'>=</span> <span class='st'>"EHR"</span><span class='op'>)</span>
@@ -2259,7 +2296,8 @@ Workshops
 23 tacpid1_2008-12-16_note3_1.txt   DrugName     Prograf 2205:2212
 24 tacpid1_2008-12-16_note3_1.txt   LastDose    10:30 pm 2231:2239</code></pre>
 </div>
-<p>Here we demonstrate how to run <code>parseMedExtractR</code> using the raw medExtractR output from above.</p>
+<p>Here we demonstrate how to run <code>parseMedExtractR</code> using
+the raw medExtractR output from above.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tac_mxr_parsed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/parseMedExtractR.html'>parseMedExtractR</a></span><span class='op'>(</span><span class='va'>tac_mxr_fn</span><span class='op'>)</span>
@@ -2267,7 +2305,8 @@ Workshops
 </code></pre>
 </div>
 </div>
-<p>The output from all systems, once parsed, has the same structure as the example parsed medExtractR output below.</p>
+<p>The output from all systems, once parsed, has the same structure as
+the example parsed medExtractR output below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tac_mxr_parsed</span>
@@ -2318,16 +2357,29 @@ Workshops
  9:                                                                                         
 10:                   twice a day::169::180                                                 </code></pre>
 </div>
-<p>We now have a single row for each drug mention, but we need to pair appropriate entities together. For example, the third lamotrigine mention has two different doses and two different frequencies. The dose of “3” should be paired with the frequency “morning”, and the dose of “2” should be paired with the frequency “evening”. In the next section, we describe how to use the <code>buildDose</code> function to process this parsed data.</p>
+<p>We now have a single row for each drug mention, but we need to pair
+appropriate entities together. For example, the third lamotrigine
+mention has two different doses and two different frequencies. The dose
+of “3” should be paired with the frequency “morning”, and the dose of
+“2” should be paired with the frequency “evening”. In the next section,
+we describe how to use the <code>buildDose</code> function to process
+this parsed data.</p>
 <h2 id="builddose"><code>buildDose</code></h2>
-<p>After the NLP output is parsed, the <code>buildDose</code> function is run to pair the parsed entities. The main <code>buildDose</code> function arguments are as follows:</p>
+<p>After the NLP output is parsed, the <code>buildDose</code> function
+is run to pair the parsed entities. The main <code>buildDose</code>
+function arguments are as follows:</p>
 <ul>
-<li><code>dat</code>: standardized form of the data (i.e., output from one of the parse functions)</li>
-<li><code>dn</code>: argument to specify drug names of interest (generally not used with medExtractR since medExtractR is a targeted system and only includes the drug of interest in the raw output)</li>
+<li><code>dat</code>: standardized form of the data (i.e., output from
+one of the parse functions)</li>
+<li><code>dn</code>: argument to specify drug names of interest
+(generally not used with medExtractR since medExtractR is a targeted
+system and only includes the drug of interest in the raw output)</li>
 </ul>
-<p>The output of the <code>buildDose</code> function is a dataset with a column for each entity and a row for each pairing.</p>
+<p>The output of the <code>buildDose</code> function is a dataset with a
+column for each entity and a row for each pairing.</p>
 <h2 id="running-builddose">Running <code>buildDose</code></h2>
-<p>In our medExtractR example from above, the output of the <code>buildDose</code> function is the following:</p>
+<p>In our medExtractR example from above, the output of the
+<code>buildDose</code> function is the following:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>tac_part_i_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/buildDose.html'>buildDose</a></span><span class='op'>(</span><span class='va'>tac_mxr_parsed</span><span class='op'>)</span><span class='op'>)</span>
@@ -2359,8 +2411,23 @@ Workshops
 11 lampid2_2012-04-15_note7_1.txt    lamotrigine   150 mg &lt;NA&gt;  &lt;NA&gt;        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            103
 12 lampid2_2012-04-15_note7_1.txt       Lamictal     &lt;NA&gt;    1  &lt;NA&gt; twice a day    &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;            141</code></pre>
 </div>
-<p>We see that the third mention in the lamotrigine dataset now has two rows (rows 3 and 4), one with a dose of “3” and a frequency of “morning” and one with a dose of “2” and a frequency of “evening”. The “drugname_start” column gives us the start position for the drug name, which tells us that these two rows come from the same mention.</p>
-<p>If the <code>checkForRare</code> argument is set to <code>TRUE</code>, any extracted expressions with a proportion of occurrence less than 0.2 are returned as rare values. When rare values are identified, a warning is printed to notify the user. The <code>var</code> column indicates the entity (note that <code>dose</code> in this output refers to dose amount, while <code>dosestr</code> would indicate dose given intake). This can be used as a quick check for potentially inaccurate information and allow the user to remove incorrect extractions before applying the Pro-Med-NLP module as incorrect extractions would reduce accuracy of the dose building data. Note that these values may still be correct extractions even though they are rare, as is the case for our output below.</p>
+<p>We see that the third mention in the lamotrigine dataset now has two
+rows (rows 3 and 4), one with a dose of “3” and a frequency of “morning”
+and one with a dose of “2” and a frequency of “evening”. The
+“drugname_start” column gives us the start position for the drug name,
+which tells us that these two rows come from the same mention.</p>
+<p>If the <code>checkForRare</code> argument is set to
+<code>TRUE</code>, any extracted expressions with a proportion of
+occurrence less than 0.2 are returned as rare values. When rare values
+are identified, a warning is printed to notify the user. The
+<code>var</code> column indicates the entity (note that
+<code>dose</code> in this output refers to dose amount, while
+<code>dosestr</code> would indicate dose given intake). This can be used
+as a quick check for potentially inaccurate information and allow the
+user to remove incorrect extractions before applying the Pro-Med-NLP
+module as incorrect extractions would reduce accuracy of the dose
+building data. Note that these values may still be correct extractions
+even though they are rare, as is the case for our output below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lam_checkForRare</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/buildDose.html'>buildDose</a></span><span class='op'>(</span><span class='va'>lam_mxr_parsed</span>, checkForRare<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
@@ -2372,9 +2439,21 @@ Workshops
 3     dose     1    1 0.14285714</code></pre>
 </div>
 <h1 id="part-ii">Part II</h1>
-<p>In Part II of the module, we form the final analysis datasets containing computed dosing information at the note and date level for each patient. This process requires more detailed meta data associated with each clinical note file, the format of which is described below.</p>
+<p>In Part II of the module, we form the final analysis datasets
+containing computed dosing information at the note and date level for
+each patient. This process requires more detailed meta data associated
+with each clinical note file, the format of which is described
+below.</p>
 <h2 id="notemetadata"><code>noteMetaData</code></h2>
-<p>The meta data argument is required by the functions <code>collapseDose</code> and <code>processLastDose</code>, and requires four columns: <code>filename</code>, <code>pid</code>, <code>date</code>, <code>note</code>. In our example data, pid (patient ID), date, and note can all be extracted from the filename. Take the filename “tacpid1_2008-06-26_note1_1.txt” for example. It contains information in the form “[PID]_[date]_[note]”, where PID = “tacpid1”, date = “2008-06-26” and note = “note1”. The function below can build our meta data from each of the filenames.</p>
+<p>The meta data argument is required by the functions
+<code>collapseDose</code> and <code>processLastDose</code>, and requires
+four columns: <code>filename</code>, <code>pid</code>,
+<code>date</code>, <code>note</code>. In our example data, pid (patient
+ID), date, and note can all be extracted from the filename. Take the
+filename “tacpid1_2008-06-26_note1_1.txt” for example. It contains
+information in the form “[PID]_[date]_[note]”, where PID = “tacpid1”,
+date = “2008-06-26” and note = “note1”. The function below can build our
+meta data from each of the filenames.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bmd</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
@@ -2403,16 +2482,40 @@ Workshops
 7 tacpid1_2008-12-16_note3_1.txt tacpid1 2008-12-16 note3</code></pre>
 </div>
 <h2 id="collapsedose"><code>collapseDose</code></h2>
-<p>The main function used in Part II of the module is the <code>collapseDose</code> function. The output of this function is the final dose data with entities standardized, missing values imputed, dose intake and daily dose calculated, and redundancies removed. Two <code>data.frames</code> are generated one with redundancies removed at the note level and one at the date level (see McNeer et al. (2020) for details).</p>
-<p><code>collapseDose</code> allows the user to split the data using drug names given by regular expressions (<code>...</code>). For example, if the data includes multiple drugs, regular expressions can be specified for each drug. Another use of this function is to split the data by different formulations of the drug, such as separating immediate release formulations from extended release formulations, which are often written using “XR” or “ER” in the drug name.</p>
-<p>The <code>collapseDose</code> function requires the following arguments:</p>
+<p>The main function used in Part II of the module is the
+<code>collapseDose</code> function. The output of this function is the
+final dose data with entities standardized, missing values imputed, dose
+intake and daily dose calculated, and redundancies removed. Two
+<code>data.frames</code> are generated one with redundancies removed at
+the note level and one at the date level (see McNeer et al. (2020) for
+details).</p>
+<p><code>collapseDose</code> allows the user to split the data using
+drug names given by regular expressions (<code>...</code>). For example,
+if the data includes multiple drugs, regular expressions can be
+specified for each drug. Another use of this function is to split the
+data by different formulations of the drug, such as separating immediate
+release formulations from extended release formulations, which are often
+written using “XR” or “ER” in the drug name.</p>
+<p>The <code>collapseDose</code> function requires the following
+arguments:</p>
 <ul>
-<li><code>x</code>: output from the <code>buildDose</code> function, or from <code>addLastDose</code> if last dose information is incorporated (see <a href="#handling-lastdose">Handling <code>lastDose</code></a> section below)</li>
-<li><code>noteMetaData</code>: a <code>data.frame</code> with columns for filename, pid (patient id), date, and note</li>
-<li><code>naFreq</code>: method to use when assigning missing frequencies; the default is to assign the most common frequency</li>
+<li><code>x</code>: output from the <code>buildDose</code> function, or
+from <code>addLastDose</code> if last dose information is incorporated
+(see <a href="#handling-lastdose">Handling <code>lastDose</code></a>
+section below)</li>
+<li><code>noteMetaData</code>: a <code>data.frame</code> with columns
+for filename, pid (patient id), date, and note</li>
+<li><code>naFreq</code>: method to use when assigning missing
+frequencies; the default is to assign the most common frequency</li>
 </ul>
 <h2 id="running-collapsedose">Running <code>collapseDose</code></h2>
-<p>Below, we demonstrate <code>collapseDose</code> using our lamotrigine example. In the function call, we supply an additional argument <code>'xr|er'</code> to indicate that we want to separately consider extended release formulations of lamotrigine, (usually denoted by “XR” or “ER”). This prevents regular lamotrigine mentions from being collapsed with lamotrigine XR mentions, even if the dosage is identical.</p>
+<p>Below, we demonstrate <code>collapseDose</code> using our lamotrigine
+example. In the function call, we supply an additional argument
+<code>'xr|er'</code> to indicate that we want to separately consider
+extended release formulations of lamotrigine, (usually denoted by “XR”
+or “ER”). This prevents regular lamotrigine mentions from being
+collapsed with lamotrigine XR mentions, even if the dosage is
+identical.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>lam_metadata</span>, package <span class='op'>=</span> <span class='st'>'EHR'</span><span class='op'>)</span>
@@ -2473,16 +2576,40 @@ Workshops
 6           NA          NA        2         200       &lt;NA&gt;       NA        400
 7          150         1.0        2         150       &lt;NA&gt;       NA        300</code></pre>
 </div>
-<p>In the final datasets above, we see that a daily dose has been calculated and redundant daily doses have been removed at either the note or date level.</p>
+<p>In the final datasets above, we see that a daily dose has been
+calculated and redundant daily doses have been removed at either the
+note or date level.</p>
 <h1 id="handling-lastdose">Handling <code>lastdose</code></h1>
-<p>In this section, we cover how incorporation of the last dose entity should be handled if it was extracted using medExtractR. In the <a href="#running-builddose">Running <code>buildDose</code></a> section above, we see the raw last dose time extractions for the tacrolimus dataset. Using the functions <code>processLastDose</code> and <code>addLastDose</code>, we convert the extracted times into a processed and standardized datetime variable, and add the processed times to the <code>buildDose</code> output.</p>
-<p>The <code>processLastDose</code> function requires the following arguments:</p>
+<p>In this section, we cover how incorporation of the last dose entity
+should be handled if it was extracted using medExtractR. In the <a
+href="#running-builddose">Running <code>buildDose</code></a> section
+above, we see the raw last dose time extractions for the tacrolimus
+dataset. Using the functions <code>processLastDose</code> and
+<code>addLastDose</code>, we convert the extracted times into a
+processed and standardized datetime variable, and add the processed
+times to the <code>buildDose</code> output.</p>
+<p>The <code>processLastDose</code> function requires the following
+arguments:</p>
 <ul>
-<li><code>mxrData</code>: raw output from the <code>extractMed</code> function</li>
-<li><code>noteMetaData</code>: note meta data for each file name in <code>mxrData</code></li>
-<li><code>labData</code>: a data frame containing lab dates and times associated with the file names within <code>mxrData</code>. This must contain at a minimum the columns <code>pid</code> and <code>date</code> (in the same format as <code>noteMetaData</code>), as well as <code>labtime</code>, a POSIXct variable indicating the date and time of a laboratory drug measurement</li>
+<li><code>mxrData</code>: raw output from the <code>extractMed</code>
+function</li>
+<li><code>noteMetaData</code>: note meta data for each file name in
+<code>mxrData</code></li>
+<li><code>labData</code>: a data frame containing lab dates and times
+associated with the file names within <code>mxrData</code>. This must
+contain at a minimum the columns <code>pid</code> and <code>date</code>
+(in the same format as <code>noteMetaData</code>), as well as
+<code>labtime</code>, a POSIXct variable indicating the date and time of
+a laboratory drug measurement</li>
 </ul>
-<p>Extracted last dose times can fall into two categories: a time expression (e.g., “10am”, “22:00”, “7 last night”) or a duration expression (e.g. “14 hour” level), where the “time” of last dose indicates the number of hours since the last dose was taken relative to the time of the clinical visit. In the latter case, the lab time (from the <code>labData</code> argument) is needed in order to convert the extracted duration expression into a datetime variable. Below is an example lab dataset for our sample tacrolimus data.</p>
+<p>Extracted last dose times can fall into two categories: a time
+expression (e.g., “10am”, “22:00”, “7 last night”) or a duration
+expression (e.g. “14 hour” level), where the “time” of last dose
+indicates the number of hours since the last dose was taken relative to
+the time of the clinical visit. In the latter case, the lab time (from
+the <code>labData</code> argument) is needed in order to convert the
+extracted duration expression into a datetime variable. Below is an
+example lab dataset for our sample tacrolimus data.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>tac_lab</span>, package <span class='op'>=</span> <span class='st'>'EHR'</span><span class='op'>)</span>
@@ -2493,7 +2620,10 @@ Workshops
 1 tacpid1 2008-06-26 2008-06-26 10:42:00
 2 tacpid1 2008-12-16 2008-12-16 12:11:00</code></pre>
 </div>
-<p>Within <code>processLastDose</code>, extracted times are converted to time expressions of the format “HH:MM:SS” and assigned a date based on the date of the corresponding note. When the last dose time is after 12pm, it is assumed to have been taken on the previous date.</p>
+<p>Within <code>processLastDose</code>, extracted times are converted to
+time expressions of the format “HH:MM:SS” and assigned a date based on
+the date of the corresponding note. When the last dose time is after
+12pm, it is assumed to have been taken on the previous date.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>tac_ld</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/processLastDose.html'>processLastDose</a></span><span class='op'>(</span>mxrData <span class='op'>=</span> <span class='va'>tac_mxr</span>, noteMetaData <span class='op'>=</span> <span class='va'>tac_metadata</span>, labData <span class='op'>=</span> <span class='va'>tac_lab</span><span class='op'>)</span><span class='op'>)</span>
@@ -2504,13 +2634,38 @@ Workshops
 2 tacpid1_2008-06-26_note2_1.txt 2008-06-25 20:42:00   678:683 tacpid1 2008-06-26    14 hr      678  duration 2008-06-26 10:42:00
 3 tacpid1_2008-12-16_note3_1.txt 2008-12-15 22:30:00 2231:2239 tacpid1 2008-12-16 10:30 pm     2231      time 2008-12-16 12:11:00</code></pre>
 </div>
-<p>The function output contains the processed and standardized last dose time (<code>lastdose</code>), the original extracted expression (<code>raw_time</code>), whether the raw expression was a time or duration (<code>time_type</code>), as well as position information for the last dose time (<code>ld_start</code>) for appropriate pairing with dosing information in <code>addLastDose</code>. The <code>labtime</code> column in the output above corresponds to the information provided in the <code>labData</code> argument.</p>
-<p>The <code>addLastDose</code> function requires the following arguments:</p>
+<p>The function output contains the processed and standardized last dose
+time (<code>lastdose</code>), the original extracted expression
+(<code>raw_time</code>), whether the raw expression was a time or
+duration (<code>time_type</code>), as well as position information for
+the last dose time (<code>ld_start</code>) for appropriate pairing with
+dosing information in <code>addLastDose</code>. The <code>labtime</code>
+column in the output above corresponds to the information provided in
+the <code>labData</code> argument.</p>
+<p>The <code>addLastDose</code> function requires the following
+arguments:</p>
 <ul>
 <li><code>buildData</code>: output from <code>buildDose</code></li>
-<li><code>lastdoseData</code>: dataset containing last dose time information for the file names in <code>buildData</code>. This should include columns for <code>filename</code> and <code>lastdose</code>, with <code>lastdose</code> being a processed POSIXct datetime variable.</li>
+<li><code>lastdoseData</code>: dataset containing last dose time
+information for the file names in <code>buildData</code>. This should
+include columns for <code>filename</code> and <code>lastdose</code>,
+with <code>lastdose</code> being a processed POSIXct datetime
+variable.</li>
 </ul>
-<p>In the case where last dose information was extracted from clinical notes using medExtractR, the <code>lastdoseData</code> input should be output from the <code>processLastDose</code> function containing the last dose start positions, as demonstrated below. It is possible for multiple times to be extracted from a clinical note. For extracted times within a 2 hour window of one another, <code>addLastDose</code> treats these as equivalent and extracts the last dose time. Note that this may be context-dependent, and this rule was determined based on drugs administered every 12 hours and assuming a trough drug level. For time differences of more than two hours, the last dose start position is used to pair the extracted time with the closest drug mention. Alternatively, if the user has a separate dataset with validated last dose times, they can provide their own dataset. When providing a validated dataset, there should be only one last dose time per patient ID and date.</p>
+<p>In the case where last dose information was extracted from clinical
+notes using medExtractR, the <code>lastdoseData</code> input should be
+output from the <code>processLastDose</code> function containing the
+last dose start positions, as demonstrated below. It is possible for
+multiple times to be extracted from a clinical note. For extracted times
+within a 2 hour window of one another, <code>addLastDose</code> treats
+these as equivalent and extracts the last dose time. Note that this may
+be context-dependent, and this rule was determined based on drugs
+administered every 12 hours and assuming a trough drug level. For time
+differences of more than two hours, the last dose start position is used
+to pair the extracted time with the closest drug mention. Alternatively,
+if the user has a separate dataset with validated last dose times, they
+can provide their own dataset. When providing a validated dataset, there
+should be only one last dose time per patient ID and date.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>tac_part_i_out_lastdose</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/addLastDose.html'>addLastDose</a></span><span class='op'>(</span>buildData <span class='op'>=</span> <span class='va'>tac_part_i_out</span>, lastdoseData <span class='op'>=</span> <span class='va'>tac_ld</span><span class='op'>)</span><span class='op'>)</span>
@@ -2525,9 +2680,15 @@ Workshops
 6 tacpid1_2008-12-16_note3_1.txt    Prograf     &lt;NA&gt; &lt;NA&gt;    NA         bid     2mg   decrease                &lt;NA&gt;           2179
 7 tacpid1_2008-12-16_note3_1.txt    Prograf     &lt;NA&gt; &lt;NA&gt;    NA        &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt; 2008-12-15 22:30:00           2205</code></pre>
 </div>
-<p>Note that in the <code>lastdose</code> columns, we now have standardized datetime objects instead of the raw extracted expressions.</p>
-<h2 id="running-collapsedose-with-last-dose-present">Running <code>collapseDose</code> with last dose present</h2>
-<p>For our tacrolimus example above, the output of <code>collapseDose</code> is below. Note that we use the output from <code>addLastDose</code> rather than directly from <code>buildDose</code>.</p>
+<p>Note that in the <code>lastdose</code> columns, we now have
+standardized datetime objects instead of the raw extracted
+expressions.</p>
+<h2 id="running-collapsedose-with-last-dose-present">Running
+<code>collapseDose</code> with last dose present</h2>
+<p>For our tacrolimus example above, the output of
+<code>collapseDose</code> is below. Note that we use the output from
+<code>addLastDose</code> rather than directly from
+<code>buildDose</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>tac_part_ii</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/collapseDose.html'>collapseDose</a></span><span class='op'>(</span><span class='va'>tac_part_i_out_lastdose</span>, <span class='va'>tac_metadata</span>, naFreq <span class='op'>=</span> <span class='st'>'most'</span><span class='op'>)</span>
@@ -2573,10 +2734,20 @@ Workshops
 </div>
 <h1 id="references">References</h1>
 <ol type="1">
-<li><p>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</p></li>
-<li><p>McNeer E, Beck C, Weeks HL, Williams ML, James NT, Bejan CA, Choi L. Building Longitudinal Medication Dose Data Using Medication Information Extracted from Clinical Notes in Electronic Health Records. J Am Med Inform Assoc. 2021 Mar 18;28(4):782-790. doi: 10.1093/jamia/ocaa291.</p></li>
+<li><p>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X,
+Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System
+for Post-marketing Population Pharmacokinetic and Pharmacodynamic
+Studies using Real-World Data from Electronic Health Records. Clinical
+Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi:
+10.1002/cpt.1787.</p></li>
+<li><p>McNeer E, Beck C, Weeks HL, Williams ML, James NT, Bejan CA, Choi
+L. Building Longitudinal Medication Dose Data Using Medication
+Information Extracted from Clinical Notes in Electronic Health Records.
+J Am Med Inform Assoc. 2021 Mar 18;28(4):782-790. doi:
+10.1093/jamia/ocaa291.</p></li>
 </ol>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

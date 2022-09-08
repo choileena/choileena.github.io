@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -455,7 +456,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -2033,7 +2034,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2144,6 +2145,7 @@ Workshops
 <a href="PK-Data-IV-Dosing.html">PK Data for IV Dosing</a>
 </div>
 </div>
+<a href="collab.html">Collaboration</a>
 <a href="about.html">About</a>
 <a href="https://github.com/choileena/choileena.github.io" aria-label="Link to source">
 <i class="fab fa-github" aria-hidden="true"></i>
@@ -2160,7 +2162,8 @@ Workshops
 <h1>Pro-Demographic</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial describes how to process demographic data using <em>Pro-Demographic</em> module in the system.</p></p>
+<p><p>This tutorial describes how to process demographic data using
+<em>Pro-Demographic</em> module in the system.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2174,21 +2177,31 @@ Workshops
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#demographic-data">Demographic Data</a></li>
-<li><a href="#preparing-the-demographic-data">Preparing the Demographic Data</a></li>
-<li><a href="#running-run_demo">Running <code>run_Demo</code></a></li>
-<li><a href="#processed-data">Processed Data</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#demographic-data" id="toc-demographic-data">Demographic
+Data</a></li>
+<li><a href="#preparing-the-demographic-data"
+id="toc-preparing-the-demographic-data">Preparing the Demographic
+Data</a></li>
+<li><a href="#running-run_demo" id="toc-running-run_demo">Running
+<code>run_Demo</code></a></li>
+<li><a href="#processed-data" id="toc-processed-data">Processed
+Data</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 </div>
 <ul>
-<li>See also “Pro-Demographic” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
+<li>See also “Pro-Demographic” in “<a
+href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
+EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes how to use the <em>Pro-Demographic</em> module to process demographic data (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
-<p>To begin we load the <code>EHR</code> package and create some directories to work from.</p>
+<p>This tutorial describes how to use the <em>Pro-Demographic</em>
+module to process demographic data (see Choi <em>et al.</em><span
+class="math inline">\(^{1}\)</span> for details).</p>
+<p>To begin we load the <code>EHR</code> package and create some
+directories to work from.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package</span>
@@ -2206,7 +2219,8 @@ Workshops
 </div>
 </div>
 <h1 id="demographic-data">Demographic Data</h1>
-<p>We will use example demographic data to demonstrate the <em>Pro-Demographic</em> module. The raw data is shown below.</p>
+<p>We will use example demographic data to demonstrate the
+<em>Pro-Demographic</em> module. The raw data is shown below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>demo.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>,<span class='st'>"Demographics_DATA.csv"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>]</span>
@@ -2225,8 +2239,15 @@ Workshops
 9      1607.1    38551767      0  10.81  74.95
 10     1607.0    38551767      0   2.76  45.94</code></pre>
 </div>
-<p>Each row in the data represents an individual surgical date. In this case, each individual is assigned a unique ID and has a recorded gender, weight, and height for each surgery. The goal of <em>Pro-Demographic</em> is to make the demographic data suitable for merging with medication data for population pharmacokinetic analysis while apply exclusion criteria in a reproducible manner which preserves and organizes the original data.</p>
-<h1 id="preparing-the-demographic-data">Preparing the Demographic Data</h1>
+<p>Each row in the data represents an individual surgical date. In this
+case, each individual is assigned a unique ID and has a recorded gender,
+weight, and height for each surgery. The goal of
+<em>Pro-Demographic</em> is to make the demographic data suitable for
+merging with medication data for population pharmacokinetic analysis
+while apply exclusion criteria in a reproducible manner which preserves
+and organizes the original data.</p>
+<h1 id="preparing-the-demographic-data">Preparing the Demographic
+Data</h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -2237,7 +2258,11 @@ Workshops
 </div>
 </div>
 <h1 id="running-run_demo">Running <code>run_Demo</code></h1>
-<p><code>run_Demo</code> will configure the demographic data, apply exclusion criteria and saving a record of exclusion rules/excluded individuals. The argument <code>toexclude</code> takes an expression evaluating to <code>TRUE</code>/<code>FALSE</code> indicating which individuals will be excluded from the final dataset.</p>
+<p><code>run_Demo</code> will configure the demographic data, apply
+exclusion criteria and saving a record of exclusion rules/excluded
+individuals. The argument <code>toexclude</code> takes an expression
+evaluating to <code>TRUE</code>/<code>FALSE</code> indicating which
+individuals will be excluded from the final dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>low_wgt</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>val</span><span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>{</span>  <span class='va'>x</span> <span class='op'>&lt;</span> <span class='fl'>6</span> <span class='op'>}</span>
@@ -2281,9 +2306,15 @@ $exclude
 </div>
 <h1 id="references">References</h1>
 <ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X,
+Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System
+for Post-marketing Population Pharmacokinetic and Pharmacodynamic
+Studies using Real-World Data from Electronic Health Records. Clinical
+Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi:
+10.1002/cpt.1787.</li>
 </ol>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
