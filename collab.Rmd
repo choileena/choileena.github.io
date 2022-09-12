@@ -1,7 +1,7 @@
 ---
 title: "Collaboration"
 description: |
-  Collaboration.
+  Major collaborative projects related to medications.
 output:
   distill::distill_article:
     toc: true
@@ -16,6 +16,13 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Projects Reports
 
-* Epidiolex Project: [Epidiolex Project Report](https://choileena.github.io/epidiolex_poster.html)
+* Epidiolex Project: [Epidiolex Project Report](https://choileena.github.io/Pharmacist management of prescription cannabidiol.html)
 
-* Adherence: Clinic Project: [Adherence: Clinic Project Report](https://choileena.github.io/adherence_clinic_poster.html)
+* Adherence: Clinic Project: [Adherence Clinic Project Report](https://choileena.github.io/Specialty PharmD intervention targeting adherence.html)
+
+* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Inflammatory Bowel Disease: [PRO in IBD Project Report](https://choileena.github.io/Patient-reported outcomes in an IBD clinic.html)
+
+* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Multiple Sclerosis Project: [PRO in MS Project Report](https://choileena.github.io/Patient-reported outcomes and interventions in MS.html)
+
+* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Dermatology and Asthma, Sinus, and Allergy Patients (ASAP) Project: [PRO in ASAP Project Report](https://choileena.github.io/PROs in dermatology, asthma and allergy patients.html)
+
