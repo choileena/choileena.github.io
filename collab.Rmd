@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Epidiolex Project: [Epidiolex Project Report](https://choileena.github.io/Pharmacist management of prescription cannabidiol.html)
 
-* Adherence: Clinic Project: [Adherence Clinic Project Report](https://choileena.github.io/Specialty PharmD intervention targeting adherence.html)
+* Adherence Clinic Project: [Adherence Clinic Project Report](https://choileena.github.io/Specialty PharmD intervention targeting adherence.html)
 
 * Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Inflammatory Bowel Disease: [PRO in IBD Project Report](https://choileena.github.io/Patient-reported outcomes in an IBD clinic.html)
 
