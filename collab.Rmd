@@ -16,13 +16,19 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Projects Reports
 
-* Epidiolex Project: [Epidiolex Project Report](https://choileena.github.io/Pharmacist management of prescription cannabidiol.html)
+* Epidiolex Project: [Epidiolex Project Report 1](https://choileena.github.io/Pharmacist management of prescription cannabidiol.html)
 
 * Adherence Clinic Project: [Adherence Clinic Project Report](https://choileena.github.io/Specialty PharmD intervention targeting adherence.html)
 
-* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Inflammatory Bowel Disease: [PRO in IBD Project Report](https://choileena.github.io/Patient-reported outcomes in an IBD clinic.html)
+* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Inflammatory Bowel Disease Project: [PRO in IBD Project Report](https://choileena.github.io/Patient-reported outcomes in an IBD clinic.html)
 
 * Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Multiple Sclerosis Project: [PRO in MS Project Report](https://choileena.github.io/Patient-reported outcomes and interventions in MS.html)
 
 * Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Dermatology and Asthma, Sinus, and Allergy Patients (ASAP) Project: [PRO in ASAP Project Report](https://choileena.github.io/PROs in dermatology, asthma and allergy patients.html)
+
+* Epidiolex Project (Use of Prescription Cannabidiol for the Management of Seizure Disorders at an Integrated Care Center): [Epidiolex Project Report 2](https://choileena.github.io/epidiolex-QR2 2022.10.10b.html)
+
+* Vizient PMN Project (Health-System Specialty Pharmacies Ensure Patients Initiate New Oncology Treatments: A Multisite Study): [Vizient PMN Project Report](https://choileena.github.io/Vizient QR report.html)
+
+* Onc Waste Avoidance Project (Financial Impact of Integrated Specialty Pharmacy Efforts to Avoid Oral Oncolytic Waste): [Onc Waste Avoidance Project Report](https://choileena.github.io/Onc_Waste_Avoidance_Poster.html)
 
