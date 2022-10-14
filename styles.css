@@ -43,3 +43,7 @@ d-article h1 {
 d-article h2 {
   font-size: 25px;
 }
+
+div.font75 {
+  font-size: 75%;
+}
