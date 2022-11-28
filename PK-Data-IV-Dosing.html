@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -456,7 +455,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -2034,7 +2033,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2096,6 +2095,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   d-article h2 {
     font-size: 25px;
+  }
+
+  div.font75 {
+    font-size: 75%;
   }
 
   </style>
@@ -2162,9 +2165,7 @@ Workshops
 <h1>PK Data for IV Dosing</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial introduces the population pharmacokinetic modeling
-novice to the data format appropriate for most PK model fitting software
-systems with a focus on intravenous dosing data.</p></p>
+<p><p>This tutorial introduces the population pharmacokinetic modeling novice to the data format appropriate for most PK model fitting software systems with a focus on intravenous dosing data.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2178,26 +2179,16 @@ systems with a focus on intravenous dosing data.</p></p>
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
-<li><a href="#population-pkpd-data-format"
-id="toc-population-pkpd-data-format">Population PK/PD Data
-Format</a></li>
-<li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#population-pkpd-data-format">Population PK/PD Data Format</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
 </div>
 <h1 id="introduction">Introduction</h1>
-<p>We briefly describe a data format typically used in pharmacokinetics
-(PK) and pharmacodynamics (PD) modeling, especially relevant to our
-example intravenous (IV) dosing data. We describe the data form using
-data items required in NONMEM, which is acceptable in most PK software.
-More extensive description of data format appropriate for PK software
-can be found in the manual of each software such as the MONMEM
-manual<span class="math inline">\(^{1}\)</span>.</p>
+<p>We briefly describe a data format typically used in pharmacokinetics (PK) and pharmacodynamics (PD) modeling, especially relevant to our example intravenous (IV) dosing data. We describe the data form using data items required in NONMEM, which is acceptable in most PK software. More extensive description of data format appropriate for PK software can be found in the manual of each software such as the MONMEM manual<span class="math inline">\(^{1}\)</span>.</p>
 <h1 id="population-pkpd-data-format">Population PK/PD Data Format</h1>
-<p>Here is an example of data for intravenously administered drugs in a
-suitable format for PK analysis using most PK software including
-NONMEM.</p>
+<p>Here is an example of data for intravenously administered drugs in a suitable format for PK analysis using most PK software including NONMEM.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
@@ -2229,62 +2220,25 @@ NONMEM.</p>
 20  6.1 103.82  20.0000   NA  0.00   1    1      1
 21  6.1 115.87       NA 1.74    NA   0    0      1</code></pre>
 </div>
-<p>This simple example has two types of data rows, dose events
-(information concerning dosing) and concentration events (information
-concerning blood concentration levels for the drug of interest). The
-columns indicate the following information:</p>
+<p>This simple example has two types of data rows, dose events (information concerning dosing) and concentration events (information concerning blood concentration levels for the drug of interest). The columns indicate the following information:</p>
 <ol type="1">
-<li><code>id</code>: unique identifier for each individual in the
-dataset.</li>
-<li><code>time</code>: time of either dosing or concentration
-measurement.</li>
-<li><code>amt</code>: dose amount; <code>NA</code> for concentration
-events.</li>
-<li><code>dv</code>: drug blood concentration value, which is DV
-(dependent variable) as NONMEM data item; <code>NA</code> for a dose
-event.</li>
-<li><code>rate</code>: rate of drug infusion per unit time. rate=0 for
-bolus doses.</li>
-<li><code>mdv</code>: missing dependent variable; 1 for indicating that
-there is no dependent variable (in this case, blood concentration), 0
-for dependent variable.</li>
-<li><code>evid</code>: event ID; 1 for indicating dose event (amt &amp;
-rate for this record will be used for the drug dose information if evid
-= 1), 0 for observation (or dependent variable if mdv = 0).</li>
-<li><code>gender</code>: an example covariate; each row can have
-covariates - these can be time varying or fixed within individual.</li>
+<li><code>id</code>: unique identifier for each individual in the dataset.</li>
+<li><code>time</code>: time of either dosing or concentration measurement.</li>
+<li><code>amt</code>: dose amount; <code>NA</code> for concentration events.</li>
+<li><code>dv</code>: drug blood concentration value, which is DV (dependent variable) as NONMEM data item; <code>NA</code> for a dose event.</li>
+<li><code>rate</code>: rate of drug infusion per unit time. rate=0 for bolus doses.</li>
+<li><code>mdv</code>: missing dependent variable; 1 for indicating that there is no dependent variable (in this case, blood concentration), 0 for dependent variable.</li>
+<li><code>evid</code>: event ID; 1 for indicating dose event (amt &amp; rate for this record will be used for the drug dose information if evid = 1), 0 for observation (or dependent variable if mdv = 0).</li>
+<li><code>gender</code>: an example covariate; each row can have covariates - these can be time varying or fixed within individual.</li>
 </ol>
-<p>For the first subject (id 1.2) a bolus dose of 50 units is given at
-time 0 followed by 250 units at time 2.05. The remaining four records
-for this subject are concentration events. The last subject (id 6.1) has
-both bolus and infusion dosing events. First, a bolus dose of 25 units
-is given at time 0 followed by a concentration measurement of 2.28 at
-time 12.87. The next event is an infusion of 116.4625 units at a rate of
-18.15 units per hour (assuming the unit for time is hours) beginning at
-time 13.70. Infusion time can be calculated by dividing the amount by
-the rate. For id 6.1, the first infusion time is 116.4625 units/18.15
-units per hour = <span class="math inline">\(6.41\bar{6}\)</span> hours
-(or 6 hours, 25 minutes).</p>
-<p>This PK data form will be generated using <em>Build-PK-IV</em> module
-(see <a href="Build-PK-IV-simple.html"><em>Build-PK-IV</em> : Simple</a>
-or <a href="Build-PK-IV-comprehensive.html"><em>Build-PK-IV</em> :
-Comprehensive</a> ).</p>
-<p>Note that additional data items need to be specified depending on
-dosing schedule or PK/PD models. See <a
-href="PK-Data-Oral-Dosing.html">PK Data for Oral Dosing</a> for usage of
-<code>ii</code> and <code>addl</code>, which is useful when additional
-doses (<code>addl</code>) with the same amount are given with regular
-interval (<code>ii</code>), and see MONMEM manual<span
-class="math inline">\(^{1}\)</span> for details on <code>cmt</code>
-specifying compartment number for dosing or an observation and
-<code>ss</code> indicating steady-state dosing.</p>
+<p>For the first subject (id 1.2) a bolus dose of 50 units is given at time 0 followed by 250 units at time 2.05. The remaining four records for this subject are concentration events. The last subject (id 6.1) has both bolus and infusion dosing events. First, a bolus dose of 25 units is given at time 0 followed by a concentration measurement of 2.28 at time 12.87. The next event is an infusion of 116.4625 units at a rate of 18.15 units per hour (assuming the unit for time is hours) beginning at time 13.70. Infusion time can be calculated by dividing the amount by the rate. For id 6.1, the first infusion time is 116.4625 units/18.15 units per hour = <span class="math inline">\(6.41\bar{6}\)</span> hours (or 6 hours, 25 minutes).</p>
+<p>This PK data form will be generated using <em>Build-PK-IV</em> module (see <a href="Build-PK-IV-simple.html"><em>Build-PK-IV</em> : Simple</a> or <a href="Build-PK-IV-comprehensive.html"><em>Build-PK-IV</em> : Comprehensive</a> ).</p>
+<p>Note that additional data items need to be specified depending on dosing schedule or PK/PD models. See <a href="PK-Data-Oral-Dosing.html">PK Data for Oral Dosing</a> for usage of <code>ii</code> and <code>addl</code>, which is useful when additional doses (<code>addl</code>) with the same amount are given with regular interval (<code>ii</code>), and see MONMEM manual<span class="math inline">\(^{1}\)</span> for details on <code>cmt</code> specifying compartment number for dosing or an observation and <code>ss</code> indicating steady-state dosing.</p>
 <h1 id="references">References</h1>
 <ol type="1">
-<li>Beal, S.L., Sheiner, L.B., Boeckmann, A.J. &amp; Bauer, R.J. (Eds).
-NONMEM 7.5 users guides (1989–2020).</li>
+<li>Beal, S.L., Sheiner, L.B., Boeckmann, A.J. &amp; Bauer, R.J. (Eds). NONMEM 7.5 users guides (1989–2020).</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

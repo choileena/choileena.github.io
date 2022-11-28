@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -455,7 +454,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -2033,7 +2032,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2095,6 +2094,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   d-article h2 {
     font-size: 25px;
+  }
+
+  div.font75 {
+    font-size: 75%;
   }
 
   </style>
@@ -2161,8 +2164,7 @@ Workshops
 <h1>Pro-Med-Str - Part I</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial describes how to process structured medication data,
-especially focusing on intravenously given dose data.</p></p>
+<p><p>This tutorial describes how to process structured medication data, especially focusing on intravenously given dose data.</p></p>
 </div>
 
 
@@ -2171,30 +2173,20 @@ especially focusing on intravenously given dose data.</p></p>
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
-<li><a href="#input-raw-dose-data" id="toc-input-raw-dose-data">Input
-Raw Dose Data</a></li>
-<li><a href="#preparing-raw-dose-data"
-id="toc-preparing-raw-dose-data">Preparing Raw Dose Data</a></li>
-<li><a href="#running-run_medstri" id="toc-running-run_medstri">Running
-<code>run_MedStrI()</code></a></li>
-<li><a href="#output-of-run_medstri"
-id="toc-output-of-run_medstri">Output of
-<code>run_MedStrI()</code></a></li>
-<li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#input-raw-dose-data">Input Raw Dose Data</a></li>
+<li><a href="#preparing-raw-dose-data">Preparing Raw Dose Data</a></li>
+<li><a href="#running-run_medstri">Running <code>run_MedStrI()</code></a></li>
+<li><a href="#output-of-run_medstri">Output of <code>run_MedStrI()</code></a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
 </div>
 <ul>
-<li>See also “Pro-Med-Str Part I: IV dose data” in “<a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
-EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
+<li>See also “Pro-Med-Str Part I: IV dose data” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes how to use the <em>Pro-Med-Str</em> - Part I
-module in <em>EHR2PKPD</em> system to process intravenous (IV) dose data
-(see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for
-details).</p>
+<p>This tutorial describes how to use the <em>Pro-Med-Str</em> - Part I module in <em>EHR2PKPD</em> system to process intravenous (IV) dose data (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
 <p>To begin we load the <code>EHR</code> package,</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2204,8 +2196,7 @@ details).</p>
 </div>
 </div>
 <h1 id="input-raw-dose-data">Input Raw Dose Data</h1>
-<p>We will use example dose data to demonstrate the <em>Pro-Med-Str Part
-I</em> module. The raw data is shown below.</p>
+<p>We will use example dose data to demonstrate the <em>Pro-Med-Str Part I</em> module. The raw data is shown below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mar.in0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex2"</span>,<span class='st'>"MAR_DATA.csv"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>, check.names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -2220,13 +2211,8 @@ I</em> module. The raw data is shown below.</p>
 5 28579217 2011-10-02 22:11                 Cefazolin       225 mg        IV    q8hrs     Given
 6 28579217 2011-10-02 23:30          Morphine sulfate         1 mg        IV  q2h prn     Given</code></pre>
 </div>
-<p>This data consists of a patient ID, date, time, medication name,
-dosage, route, frequency, and medication given.</p>
-<p>The patient ID may need to be renamed so that all input datasets have
-the same name for the patient ID. This is necessary when combining the
-datasets to create a crosswalk between the original ID variables and the
-new ID variables used in the <em>Pro-Med-Str Part I</em> module. We
-demonstrate how to rename the patient ID variable below.</p>
+<p>This data consists of a patient ID, date, time, medication name, dosage, route, frequency, and medication given.</p>
+<p>The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the <em>Pro-Med-Str Part I</em> module. We demonstrate how to rename the patient ID variable below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mar.new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/dataTransformation.html'>dataTransformation</a></span><span class='op'>(</span><span class='va'>mar.in0</span>, rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Uniq.Id'</span> <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span><span class='op'>)</span>
@@ -2234,25 +2220,9 @@ demonstrate how to rename the patient ID variable below.</p>
 </div>
 </div>
 <h1 id="preparing-raw-dose-data">Preparing Raw Dose Data</h1>
-<p>In practice, the dose data will need to be combined with other input
-datasets. This process involves creating a crosswalk between original ID
-variables and new ID variables. The new ID variables that are required
-to be the same across all datasets are <code>mod_id</code>,
-<code>mod_visit</code>, and <code>mod_id_visit</code>. See “<a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
-EHR Vignette for Structured Data</a>” of <code>EHR</code> package and
-“<a
-href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV
-- Comprehensive Workshop</a>” for examples of this process.</p>
+<p>In practice, the dose data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are <code>mod_id</code>, <code>mod_visit</code>, and <code>mod_id_visit</code>. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package and “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for examples of this process.</p>
 <p>For simplicity, we will skip this step in this tutorial.</p>
-<p>We save our dataset as an RDS file using <code>saveRDS</code> as
-shown below (CSV or RData is also acceptable data form). Here, we create
-a temporary directory to store the files using <code>tempdir</code>. We
-define two directories, <code>dataDir</code> for processed data and
-<code>checkDir</code> containing files used for interactive checking
-(optional). Instead of using a temporary directory, <code>dataDir</code>
-and <code>checkDir</code> can be specific directories on your
-computer.</p>
+<p>We save our dataset as an RDS file using <code>saveRDS</code> as shown below (CSV or RData is also acceptable data form). Here, we create a temporary directory to store the files using <code>tempdir</code>. We define two directories, <code>dataDir</code> for processed data and <code>checkDir</code> containing files used for interactive checking (optional). Instead of using a temporary directory, <code>dataDir</code> and <code>checkDir</code> can be specific directories on your computer.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># define 2 directories</span>
@@ -2265,97 +2235,35 @@ computer.</p>
 </code></pre>
 </div>
 </div>
-<p>The next section demonstrates how to use the <code>run_MedStrI</code>
-function to run the <em>Pro-Med-Str</em> module.</p>
+<p>The next section demonstrates how to use the <code>run_MedStrI</code> function to run the <em>Pro-Med-Str</em> module.</p>
 <h1 id="running-run_medstri">Running <code>run_MedStrI()</code></h1>
 <ul>
-<li><p>IV dose data can be in various forms, which may need to be
-pre-processed. IV dose data can be obtained from different data sources
-when using electronic health records (EHRs), but we illustrate this
-module using an example dataset (called “MAR”) that comes from one data
-source for simplicity (see “<a
-href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV
-- Comprehensive Workshop</a>” for a case when dose data are obtained
-from two data sources).</p></li>
-<li><p><code>run_MedStrI()</code> is the main function to process IV
-dose data in <em>Pro-Med-Str</em> Part I module.</p></li>
-<li><p>The module can be semi-interactive for data checking (although it
-is not required, we recommend using this feature). If
-<code>check.path</code> is provided (the default is NULL), it generates
-several files to check potential data errors and get feedback from an
-investigator; otherwise, the interactive checking will not be performed.
-If corrected information (‘fix’ files) are provided, the module should
-be re-run to incorporate the corrections.</p></li>
-<li><p><code>run_MedStrI()</code> can take two types of raw IV dose data
-(e.g., flow data and MAR data). In this tutorial, we describe arguments
-only relevant to processing one of these datasets, MAR data. A detailed
-description of all arguments can be found in the <code>EHR</code>
-package manual of <code>run_MedStrI()</code>.</p>
+<li><p>IV dose data can be in various forms, which may need to be pre-processed. IV dose data can be obtained from different data sources when using electronic health records (EHRs), but we illustrate this module using an example dataset (called “MAR”) that comes from one data source for simplicity (see “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for a case when dose data are obtained from two data sources).</p></li>
+<li><p><code>run_MedStrI()</code> is the main function to process IV dose data in <em>Pro-Med-Str</em> Part I module.</p></li>
+<li><p>The module can be semi-interactive for data checking (although it is not required, we recommend using this feature). If <code>check.path</code> is provided (the default is NULL), it generates several files to check potential data errors and get feedback from an investigator; otherwise, the interactive checking will not be performed. If corrected information (‘fix’ files) are provided, the module should be re-run to incorporate the corrections.</p></li>
+<li><p><code>run_MedStrI()</code> can take two types of raw IV dose data (e.g., flow data and MAR data). In this tutorial, we describe arguments only relevant to processing one of these datasets, MAR data. A detailed description of all arguments can be found in the <code>EHR</code> package manual of <code>run_MedStrI()</code>.</p>
 <ul>
-<li><code>mar.path</code>: file name of MAR data (CSV, RData, RDS), or
-data.frame</li>
-<li><code>mar.columns</code>: a named list that should specify columns
-in MAR data; ‘id’, ‘datetime’ and ‘dose’ are required. ‘drug’, ‘weight’,
-‘given’ may also be specified. ‘datetime’ is date and time for data
-measurement, which can refer to a single date-time variable (datetime =
-‘date_time’) or two variables holding date and time separately (e.g.,
-datetime = c(‘Date’, ‘Time’)). ‘dose’ can also be given as a single
-variable or two variables. If given as a single column, the column’s
-values should contain dose and units such as ‘25 mcg’. If given as two
-column names, the dose column should come before the unit column (e.g.,
-dose = c(‘doseamt’, ‘unit’)). If ‘drug’ is present, the ‘medchk.path’
-argument should also be provided, which contain a csv file with a list
-of drug names that should be used to subset the relevant drugs. The
-‘given’ variable should be used in conjunction with the ‘medGivenReq’
-argument.</li>
-<li><code>medGivenReq</code>: indicator if values in the MAR given
-column should equal “Given”; if this is FALSE (the default), NA values
-are also acceptable. This is a variable that flags whether the
-medication for inpatients is given as sometimes other dose instead of
-actual dose given can be specified for communications (e.g., a scheduled
-dose change). Depending on users’ EHR system and data types, we
-recommend confirming actual dose given and this argument can be useful
-for that purpose.</li>
-<li><code>medchk.path</code>: (optional) file name containing data set
-(CSV, RData, RDS), or data.frame; should have the column ‘medname’ with
-list of acceptable drug names used to filter MAR data.</li>
-<li><code>demo.list</code>: (optional) demographic information; if
-available, the output from ‘run_Demo’ or a correctly formatted
-data.frame; if provided, ‘weight’ is required in
-<code>demo.columns</code> as it is used to impute weight when
-missing.</li>
-<li><code>demo.columns</code>: a named list that should specify columns
-in demographic data; ‘id’, ‘datetime’, and ‘weight’ are required.</li>
-<li><code>check.path</code>: (optional) file path where the generated
-files for data checking are stored, and the corresponding data files
-with fixed data exist. The default (NULL) will not produce any check
-files.</li>
+<li><code>mar.path</code>: file name of MAR data (CSV, RData, RDS), or data.frame</li>
+<li><code>mar.columns</code>: a named list that should specify columns in MAR data; ‘id’, ‘datetime’ and ‘dose’ are required. ‘drug’, ‘weight’, ‘given’ may also be specified. ‘datetime’ is date and time for data measurement, which can refer to a single date-time variable (datetime = ‘date_time’) or two variables holding date and time separately (e.g., datetime = c(‘Date’, ‘Time’)). ‘dose’ can also be given as a single variable or two variables. If given as a single column, the column’s values should contain dose and units such as ‘25 mcg’. If given as two column names, the dose column should come before the unit column (e.g., dose = c(‘doseamt’, ‘unit’)). If ‘drug’ is present, the ‘medchk.path’ argument should also be provided, which contain a csv file with a list of drug names that should be used to subset the relevant drugs. The ‘given’ variable should be used in conjunction with the ‘medGivenReq’ argument.</li>
+<li><code>medGivenReq</code>: indicator if values in the MAR given column should equal “Given”; if this is FALSE (the default), NA values are also acceptable. This is a variable that flags whether the medication for inpatients is given as sometimes other dose instead of actual dose given can be specified for communications (e.g., a scheduled dose change). Depending on users’ EHR system and data types, we recommend confirming actual dose given and this argument can be useful for that purpose.</li>
+<li><code>medchk.path</code>: (optional) file name containing data set (CSV, RData, RDS), or data.frame; should have the column ‘medname’ with list of acceptable drug names used to filter MAR data.</li>
+<li><code>demo.list</code>: (optional) demographic information; if available, the output from ‘run_Demo’ or a correctly formatted data.frame; if provided, ‘weight’ is required in <code>demo.columns</code> as it is used to impute weight when missing.</li>
+<li><code>demo.columns</code>: a named list that should specify columns in demographic data; ‘id’, ‘datetime’, and ‘weight’ are required.</li>
+<li><code>check.path</code>: (optional) file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist. The default (NULL) will not produce any check files.</li>
 </ul></li>
-<li><p>All the following arguments are optional (i.e., default values
-can be used), but if the required data items for the dose data such as
-‘unit’ are not provided, this function does not work.</p>
+<li><p>All the following arguments are optional (i.e., default values can be used), but if the required data items for the dose data such as ‘unit’ are not provided, this function does not work.</p>
 <ul>
-<li><code>failunit_fn</code>: filename stub for records with units other
-than those specified with <code>infusion.unit</code> and
-<code>bolus.unit</code> (default: ‘Unit’)</li>
-<li><code>infusion.unit</code>: string specifying units for infusion
-doses (default: ‘mcg/kg/hr’)</li>
-<li><code>bolus.unit</code>: string specifying units for bolus doses
-(default: ‘mcg’)</li>
-<li><code>bol.rate.thresh</code>: upper bound for retaining bolus doses.
-Bolus units with a rate above the threshold are dropped (default: Inf;
-i.e., keep all bolus doses)</li>
-<li><code>rateunit</code>: string specifying units for hourly rate
-(default: ‘mcg/hr’)</li>
-<li><code>ratewgtunit</code>: string specifying units for hourly rate by
-weight (default: ‘mcg/kg/hr’)</li>
-<li><code>weightunit</code>: string specifying units for weight
-(default: ‘kg’)</li>
+<li><code>failunit_fn</code>: filename stub for records with units other than those specified with <code>infusion.unit</code> and <code>bolus.unit</code> (default: ‘Unit’)</li>
+<li><code>infusion.unit</code>: string specifying units for infusion doses (default: ‘mcg/kg/hr’)</li>
+<li><code>bolus.unit</code>: string specifying units for bolus doses (default: ‘mcg’)</li>
+<li><code>bol.rate.thresh</code>: upper bound for retaining bolus doses. Bolus units with a rate above the threshold are dropped (default: Inf; i.e., keep all bolus doses)</li>
+<li><code>rateunit</code>: string specifying units for hourly rate (default: ‘mcg/hr’)</li>
+<li><code>ratewgtunit</code>: string specifying units for hourly rate by weight (default: ‘mcg/kg/hr’)</li>
+<li><code>weightunit</code>: string specifying units for weight (default: ‘kg’)</li>
 <li><code>drugname</code>: drug name of interest (e.g., dex, fent)</li>
 </ul></li>
 </ul>
-<p>Below we show how we would run <code>run_MedStrI()</code> using the
-cleaned IV dose dataset, “mar_new.rds”, as input.</p>
+<p>Below we show how we would run <code>run_MedStrI()</code> using the cleaned IV dose dataset, “mar_new.rds”, as input.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># define parameters</span>
@@ -2380,17 +2288,15 @@ cleaned IV dose dataset, “mar_new.rds”, as input.</p>
     <span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpOfB6Mh/checks/failUnit-fent.csv not created
+<pre><code>no units other than mcg/kg/hr or mcg, file /tmp/RtmpLJNCNW/checks/failUnit-fent.csv not created
 #########################
-75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpOfB6Mh/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpOfB6Mh/checks/fixNoWgt-fent.csv
+75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /tmp/RtmpLJNCNW/checks/failNoWgt-fent.csv AND create /tmp/RtmpLJNCNW/checks/fixNoWgt-fent.csv
 #########################
 #########################
-censor dates created, please see /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpOfB6Mh/checks/CensorTime-fent.csv
+censor dates created, please see /tmp/RtmpLJNCNW/checks/CensorTime-fent.csv
 #########################</code></pre>
 </div>
-<p>After <code>run_MedStrI()</code> is executed, it provides messages
-such as those shown above, which contain some information about data
-checking.</p>
+<p>After <code>run_MedStrI()</code> is executed, it provides messages such as those shown above, which contain some information about data checking.</p>
 <h1 id="output-of-run_medstri">Output of <code>run_MedStrI()</code></h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2406,53 +2312,27 @@ checking.</p>
 6    34161967 2016-07-18             &lt;NA&gt;        &lt;NA&gt;          NA 2016-07-18 14:56:00        100         NA      0     NA</code></pre>
 </div>
 <ul>
-<li>The output from the <em>Pro-Med-Str</em> - Part I module is a
-<code>data.frame</code> with the following columns:
+<li>The output from the <em>Pro-Med-Str</em> - Part I module is a <code>data.frame</code> with the following columns:
 <ul>
-<li><code>subject_uid</code>: the new id that will be used to merge
-datasets.</li>
+<li><code>subject_uid</code>: the new id that will be used to merge datasets.</li>
 <li><code>date.dose</code>: dose given date.</li>
-<li><code>infuse.time.real</code>: infusion dose time recorded in the
-raw data.</li>
-<li><code>infuse.time</code>: infusion dose time processed (rounded
-time) based on continuous infusion time.</li>
-<li><code>infuse.dose</code>: infusion dose amount (e.g., calculated by
-rate*weight if the unit includes weight).</li>
+<li><code>infuse.time.real</code>: infusion dose time recorded in the raw data.</li>
+<li><code>infuse.time</code>: infusion dose time processed (rounded time) based on continuous infusion time.</li>
+<li><code>infuse.dose</code>: infusion dose amount (e.g., calculated by rate*weight if the unit includes weight).</li>
 <li><code>bolus.time</code>: bolus dose time.</li>
 <li><code>bolus.dose</code>: bolus dose.</li>
-<li><code>given.dose</code>: the raw dose given is preserved from the
-flow sheet data when available (identified as “finalunits” in
-flow.columns).</li>
-<li><code>maxint</code>: infusion recording interval (e.g., default:
-maxint = 15 min for MAR data; maxint = 60 min for flow data). In a
-typical setting this variable should be unused but it may be specified
-as the ‘gap’ variable in the <code>dose.columns</code> argument of the
-<code>run_Build_PK_IV</code> function. The user may also modify this
-variable to set an appropriate recording interval. For more details
-review the <code>run_Build_PK_IV</code> section of <a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
-EHR Vignette for Structured Data</a> of the <code>EHR</code>
-package.</li>
-<li><code>weight</code>: subject body weight recorded near infusion
-time, which will be used in dose calculation.</li>
+<li><code>given.dose</code>: the raw dose given is preserved from the flow sheet data when available (identified as “finalunits” in flow.columns).</li>
+<li><code>maxint</code>: infusion recording interval (e.g., default: maxint = 15 min for MAR data; maxint = 60 min for flow data). In a typical setting this variable should be unused but it may be specified as the ‘gap’ variable in the <code>dose.columns</code> argument of the <code>run_Build_PK_IV</code> function. The user may also modify this variable to set an appropriate recording interval. For more details review the <code>run_Build_PK_IV</code> section of <a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a> of the <code>EHR</code> package.</li>
+<li><code>weight</code>: subject body weight recorded near infusion time, which will be used in dose calculation.</li>
 </ul></li>
 <li>Note:</li>
 </ul>
-<p>This output is the input of <code>run_Build_PK_IV()</code> function
-in <em>Build-PK-IV</em> module. In the above output, all variables
-except <code>given.dose</code> are the necessary variables that should
-be reserved to use <code>run_Build_PK_IV()</code>.</p>
+<p>This output is the input of <code>run_Build_PK_IV()</code> function in <em>Build-PK-IV</em> module. In the above output, all variables except <code>given.dose</code> are the necessary variables that should be reserved to use <code>run_Build_PK_IV()</code>.</p>
 <h1 id="references">References</h1>
 <ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X,
-Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System
-for Post-marketing Population Pharmacokinetic and Pharmacodynamic
-Studies using Real-World Data from Electronic Health Records. Clinical
-Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi:
-10.1002/cpt.1787.</li>
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
 </ol>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

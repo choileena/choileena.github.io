@@ -17,7 +17,7 @@ library(EHR)
 library(medExtractR)
 ```
 
-* See also "Extract-Med" of "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" in `EHR` package.
+* See also "Extract-Med" of "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.pdf)" in `EHR` package.
 
 # Introduction
 

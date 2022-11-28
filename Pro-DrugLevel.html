@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -456,7 +455,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -2034,7 +2033,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2096,6 +2095,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   d-article h2 {
     font-size: 25px;
+  }
+
+  div.font75 {
+    font-size: 75%;
   }
 
   </style>
@@ -2162,8 +2165,7 @@ Workshops
 <h1>Pro-Drug Level</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial describes how to process drug concentration data
-using <em>Pro-Drug Level</em> module in the system.</p></p>
+<p><p>This tutorial describes how to process drug concentration data using <em>Pro-Drug Level</em> module in the system.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2177,30 +2179,20 @@ using <em>Pro-Drug Level</em> module in the system.</p></p>
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
-<li><a href="#drug-level-data" id="toc-drug-level-data">Drug Level
-Data</a></li>
-<li><a href="#preparing-the-drug-level-data"
-id="toc-preparing-the-drug-level-data">Preparing the Drug Level
-Data</a></li>
-<li><a href="#running-run_druglevel"
-id="toc-running-run_druglevel">Running
-<code>run_Druglevel</code></a></li>
-<li><a href="#processed-data" id="toc-processed-data">Processed
-Data</a></li>
-<li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#drug-level-data">Drug Level Data</a></li>
+<li><a href="#preparing-the-drug-level-data">Preparing the Drug Level Data</a></li>
+<li><a href="#running-run_druglevel">Running <code>run_Druglevel</code></a></li>
+<li><a href="#processed-data">Processed Data</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
 </div>
 <ul>
-<li>See also “Pro-Drug Level” in “<a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
-EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
+<li>See also “Pro-Drug Level” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes how to use the <em>Pro-Drug Level</em> module
-to process drug concentration data (see Choi <em>et al.</em><span
-class="math inline">\(^{1}\)</span> for details).</p>
+<p>This tutorial describes how to use the <em>Pro-Drug Level</em> module to process drug concentration data (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
 <p>To begin we load the <code>EHR</code> package.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2210,12 +2202,8 @@ class="math inline">\(^{1}\)</span> for details).</p>
 </div>
 </div>
 <h1 id="drug-level-data">Drug Level Data</h1>
-<p>Drug level data is an essential part of pharmacokinetic (pk) data. It
-comprises the dependent variable in the model, the response elicited by
-medication dosing. It is generally measured as drug concentration in the
-blood calculated in mass per volume.</p>
-<p>We will use example drug level data from the <code>EHR</code>
-package. The raw data is shown below.</p>
+<p>Drug level data is an essential part of pharmacokinetic (pk) data. It comprises the dependent variable in the model, the response elicited by medication dosing. It is generally measured as drug concentration in the blood calculated in mass per volume.</p>
+<p>We will use example drug level data from the <code>EHR</code> package. The raw data is shown below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read Concentration_DATA_simple.csv</span>
@@ -2236,23 +2224,13 @@ package. The raw data is shown below.</p>
 9           1              1.2     2       2.83 2016-01-08 13:45:00
 10          1              1.2     3       0.41 2016-01-09 04:11:00</code></pre>
 </div>
-<p>The goal of <em>Pro-Drug Level</em> is to make this information
-suitable for merging with medication dosing data for further processing
-into a complete popPK dataset.</p>
-<p>The patient ID and patient visit ID may need to be renamed so that
-all input datasets have the same names for these variables. See “<a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
-EHR Vignette for Structured Data</a>” of the <code>EHR</code> package
-for more information. We demonstrate how to rename these variables using
-the <code>dataTransformation</code> function below.</p>
+<p>The goal of <em>Pro-Drug Level</em> is to make this information suitable for merging with medication dosing data for further processing into a complete popPK dataset.</p>
+<p>The patient ID and patient visit ID may need to be renamed so that all input datasets have the same names for these variables. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of the <code>EHR</code> package for more information. We demonstrate how to rename these variables using the <code>dataTransformation</code> function below.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
-<h1 id="preparing-the-drug-level-data">Preparing the Drug Level
-Data</h1>
-<p>The data must be saved as an RDS file. Below, we show how to save the
-data in a temporary directory; however, <code>dataDir</code> can be a
-specific directory on your computer.</p>
+<h1 id="preparing-the-drug-level-data">Preparing the Drug Level Data</h1>
+<p>The data must be saved as an RDS file. Below, we show how to save the data in a temporary directory; however, <code>dataDir</code> can be a specific directory on your computer.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -2262,32 +2240,18 @@ specific directory on your computer.</p>
 </code></pre>
 </div>
 </div>
-<p>The next section demonstrates how to use the
-<code>run_DrugLevel</code> function to run the <em>Pro-Drug Level</em>
-module.</p>
+<p>The next section demonstrates how to use the <code>run_DrugLevel</code> function to run the <em>Pro-Drug Level</em> module.</p>
 <h1 id="running-run_druglevel">Running <code>run_Druglevel</code></h1>
-<p><code>run_Druglevel</code> will configure the drug level data into a
-form ready for further processing by modules within the <code>EHR</code>
-package. The following arguments are used:</p>
+<p><code>run_Druglevel</code> will configure the drug level data into a form ready for further processing by modules within the <code>EHR</code> package. The following arguments are used:</p>
 <ul>
-<li><code>conc.path</code>: The file path where the drug level data
-exist. It can be a file (CSV, RData, RDS) or data.frame.</li>
-<li><code>conc.columns</code>: A list mapping columns of the raw
-concentration file to concentration data. ‘id’ and ‘conc’ are
-required.</li>
-<li><code>conc.select</code>: The list of variables in the drug level
-data to be retained.</li>
-<li><code>check.path</code>: Path to a local directory where
-inconsistencies or possible data errors are saved for expert
-review.</li>
+<li><code>conc.path</code>: The file path where the drug level data exist. It can be a file (CSV, RData, RDS) or data.frame.</li>
+<li><code>conc.columns</code>: A list mapping columns of the raw concentration file to concentration data. ‘id’ and ‘conc’ are required.</li>
+<li><code>conc.select</code>: The list of variables in the drug level data to be retained.</li>
+<li><code>check.path</code>: Path to a local directory where inconsistencies or possible data errors are saved for expert review.</li>
 <li><code>drugname</code>: Drug of interest.</li>
-<li><code>LLOQ</code>: Lower limit of concentration values. Values below
-this are invalid.</li>
+<li><code>LLOQ</code>: Lower limit of concentration values. Values below this are invalid.</li>
 </ul>
-<p>Below we show how we would run <code>run_DrugLevel</code> using the
-example drug level data from above. We create a temporary directory for
-the check files, but <code>checkDir</code> can be a specific directory
-on your computer.</p>
+<p>Below we show how we would run <code>run_DrugLevel</code> using the example drug level data from above. We create a temporary directory for the check files, but <code>checkDir</code> can be a specific directory on your computer.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span><span class='op'>)</span>
@@ -2304,7 +2268,7 @@ on your computer.</p>
     LLOQ<span class='op'>=</span><span class='va'>LLOQ</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>no failures, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpOfB6Mh/checks/failMissingConcDate-fent.csv not created
+<pre><code>no failures, file /tmp/RtmpLJNCNW/checks/failMissingConcDate-fent.csv not created
 subjects with concentration missing from sample file
 [1] mod_id       mod_id_visit
 &lt;0 rows&gt; (or 0-length row.names)
@@ -2314,13 +2278,9 @@ subjects with concentration missing from sample file
 10 total unique subjects ids (after excluding multiple visits) in the concentration data
 10 total unique subjects in the concentration data</code></pre>
 </div>
-<p>In the above code, our drug of interest is fentanyl, so we set
-<code>drugname</code> to be <code>fent</code>, and our lower limit of
-concentration value (<code>LLOQ</code>) is 0.05. The message printed out
-by the function tells us that 0 subjects need to be reviewed.</p>
+<p>In the above code, our drug of interest is fentanyl, so we set <code>drugname</code> to be <code>fent</code>, and our lower limit of concentration value (<code>LLOQ</code>) is 0.05. The message printed out by the function tells us that 0 subjects need to be reviewed.</p>
 <h1 id="processed-data">Processed Data</h1>
-<p>The concentration data is now ready for expert review or further
-processing by modules in <code>EHR</code>.</p>
+<p>The concentration data is now ready for expert review or further processing by modules in <code>EHR</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.out</span><span class='op'>)</span>
@@ -2336,15 +2296,9 @@ processing by modules in <code>EHR</code>.</p>
 </div>
 <h1 id="references">References</h1>
 <ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X,
-Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System
-for Post-marketing Population Pharmacokinetic and Pharmacodynamic
-Studies using Real-World Data from Electronic Health Records. Clinical
-Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi:
-10.1002/cpt.1787.</li>
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
 </ol>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

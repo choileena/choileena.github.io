@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -455,7 +454,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -2033,7 +2032,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2095,6 +2094,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   d-article h2 {
     font-size: 25px;
+  }
+
+  div.font75 {
+    font-size: 75%;
   }
 
   </style>
@@ -2161,9 +2164,7 @@ Workshops
 <h1>Build-PK-IV - Simple</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial describes a simple pharmacokinetic data building
-procedure without using additional data processing modules for
-medications that are intravenously administered.</p></p>
+<p><p>This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.</p></p>
 </div>
 
 
@@ -2172,49 +2173,24 @@ medications that are intravenously administered.</p></p>
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
-<li><a href="#quick-data-building-with-processed-datasets"
-id="toc-quick-data-building-with-processed-datasets">Quick Data Building
-with Processed Datasets</a>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#quick-data-building-with-processed-datasets">Quick Data Building with Processed Datasets</a>
 <ul>
-<li><a href="#define-directories" id="toc-define-directories">(1) Define
-directories</a></li>
-<li><a href="#load-cleaned-and-appropriately-formatted-data-files"
-id="toc-load-cleaned-and-appropriately-formatted-data-files">(2) Load
-cleaned and appropriately formatted data files</a></li>
-<li><a
-href="#build-a-final-pk-dataset-with-the-function-run_build_pk_iv"
-id="toc-build-a-final-pk-dataset-with-the-function-run_build_pk_iv">(3)
-Build a final PK dataset with the function
-<code>run_Build_PK_IV()</code></a></li>
+<li><a href="#define-directories">(1) Define directories</a></li>
+<li><a href="#load-cleaned-and-appropriately-formatted-data-files">(2) Load cleaned and appropriately formatted data files</a></li>
+<li><a href="#build-a-final-pk-dataset-with-the-function-run_build_pk_iv">(3) Build a final PK dataset with the function <code>run_Build_PK_IV()</code></a></li>
 </ul></li>
-<li><a href="#example-with-only-two-datasets"
-id="toc-example-with-only-two-datasets">Example with only two
-datasets</a></li>
-<li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#example-with-only-two-datasets">Example with only two datasets</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
 </div>
 <ul>
-<li>See also “Example 1: Quick Data Building with Processed Datasets” in
-“<a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2.
-EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
+<li>See also “Example 1: Quick Data Building with Processed Datasets” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes a simple pharmacokinetic (PK) data building
-procedure in <em>EHR2PKPD</em> for medications that are intravenously
-(IV) administered. It demonstrates how to build PK data using
-<em>Build-PK-IV</em> when cleaned data for concentration, drug dose,
-demographic and laboratory datasets are available in the appropriate
-data format. A comprehensive PK data building procedure with
-<em>Build-PK-IV</em> for IV medications that requires several data
-processing modules is described in <a
-href="Build-PK-IV-comprehensive.html"><em>Build-PK-IV</em> -
-Comprehensive</a> (see Choi <em>et al.</em><span
-class="math inline">\(^{1}\)</span> for details).</p>
-<p>To begin we load the <code>EHR</code>. <code>pkdata</code>, and
-<code>lubridate</code> packages.</p>
+<p>This tutorial describes a simple pharmacokinetic (PK) data building procedure in <em>EHR2PKPD</em> for medications that are intravenously (IV) administered. It demonstrates how to build PK data using <em>Build-PK-IV</em> when cleaned data for concentration, drug dose, demographic and laboratory datasets are available in the appropriate data format. A comprehensive PK data building procedure with <em>Build-PK-IV</em> for IV medications that requires several data processing modules is described in <a href="Build-PK-IV-comprehensive.html"><em>Build-PK-IV</em> - Comprehensive</a> (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
+<p>To begin we load the <code>EHR</code>. <code>pkdata</code>, and <code>lubridate</code> packages.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span>
@@ -2223,16 +2199,12 @@ class="math inline">\(^{1}\)</span> for details).</p>
 </code></pre>
 </div>
 </div>
-<h1 id="quick-data-building-with-processed-datasets">Quick Data Building
-with Processed Datasets</h1>
-<p>There are <strong>three basic steps</strong> to build a PK
-dataset.</p>
+<h1 id="quick-data-building-with-processed-datasets">Quick Data Building with Processed Datasets</h1>
+<p>There are <strong>three basic steps</strong> to build a PK dataset.</p>
 <h2 id="define-directories">(1) Define directories</h2>
 <ul>
-<li>a directory for the raw data (<code>rawDataDir</code> in the example
-below)</li>
-<li>a directory for interactive checking output files
-(<code>checkDir</code> in the example below)</li>
+<li>a directory for the raw data (<code>rawDataDir</code> in the example below)</li>
+<li>a directory for interactive checking output files (<code>checkDir</code> in the example below)</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2243,8 +2215,7 @@ below)</li>
 </code></pre>
 </div>
 </div>
-<h2 id="load-cleaned-and-appropriately-formatted-data-files">(2) Load
-cleaned and appropriately formatted data files</h2>
+<h2 id="load-cleaned-and-appropriately-formatted-data-files">(2) Load cleaned and appropriately formatted data files</h2>
 <p>Four types of files are used in the <em>Build-PK-IV</em> module:</p>
 <ul>
 <li>an IV dosing file</li>
@@ -2294,12 +2265,7 @@ cleaned and appropriately formatted data files</h2>
 2          2 2015-06-22 04:00:00  0.69
 3          2 2015-06-21 01:55:00  0.78</code></pre>
 </div>
-<p>All of the datasets are in the appropriate data format and include
-the variable <code>patient_id</code>, a unique patient-level ID. The
-concentration and demographic files also contain a
-<code>patient_visit_id</code> variable, which is a unique visit-level
-ID.
-<!--In order to run the *Build-PK-IV* module, these variables must be renamed, as we demonstrate in the next section.
+<p>All of the datasets are in the appropriate data format and include the variable <code>patient_id</code>, a unique patient-level ID. The concentration and demographic files also contain a <code>patient_visit_id</code> variable, which is a unique visit-level ID. <!--In order to run the *Build-PK-IV* module, these variables must be renamed, as we demonstrate in the next section.
 
 ## (3) Rename ID variables with standardized names
 The `EHR` package modules use a standardized naming convention for patient identification (ID) variables. We rename the unique patient-level ID from `patient_id` to `mod_id` and the visit-level ID from `patient_visit_id` to `mod_id_visit`. If there is only a single visit/course per subject, the unique patient-level ID and visit-level ID can be the same, however both `mod_id` and `mod_id_visit` should be defined.
@@ -2313,33 +2279,20 @@ The `EHR` package modules use a standardized naming convention for patient ident
 </div>
 
 --></p>
-<h2 id="build-a-final-pk-dataset-with-the-function-run_build_pk_iv">(3)
-Build a final PK dataset with the function
-<code>run_Build_PK_IV()</code></h2>
-<p>The following arguments are used in the <code>run_Build_PK_IV</code>
-function:</p>
+<h2 id="build-a-final-pk-dataset-with-the-function-run_build_pk_iv">(3) Build a final PK dataset with the function <code>run_Build_PK_IV()</code></h2>
+<p>The following arguments are used in the <code>run_Build_PK_IV</code> function:</p>
 <ul>
 <li><code>conc</code>: drug concentration data</li>
-<li><code>conc.columns</code>: a named list that should specify columns
-in concentration data</li>
+<li><code>conc.columns</code>: a named list that should specify columns in concentration data</li>
 <li><code>dose</code>: IV dose data</li>
-<li><code>dose.columns</code>: a named list that should specify columns
-in dose data</li>
-<li><code>demo.list</code>: demographic data; if provided, ‘id’ is
-required in <code>demo.columns</code></li>
-<li><code>demo.columns</code>: a named list that should specify columns
-in demographic data</li>
+<li><code>dose.columns</code>: a named list that should specify columns in dose data</li>
+<li><code>demo.list</code>: demographic data; if provided, ‘id’ is required in <code>demo.columns</code></li>
+<li><code>demo.columns</code>: a named list that should specify columns in demographic data</li>
 <li><code>lab.list</code>: laboratory data</li>
-<li><code>lab.columns</code>: a named list that should specify columns
-in lab data</li>
-<li><code>check.path</code>: (optional) file path where the generated
-files for data checking are stored, and the corresponding data files
-with fixed data exist</li>
+<li><code>lab.columns</code>: a named list that should specify columns in lab data</li>
+<li><code>check.path</code>: (optional) file path where the generated files for data checking are stored, and the corresponding data files with fixed data exist</li>
 </ul>
-<p>In this tutorial, we describe only arguments relevant to this
-example. A detailed description of all arguments can be found in the
-<code>EHR</code> package documentation for
-<code>run_Build_PK_IV()</code>.</p>
+<p>In this tutorial, we describe only arguments relevant to this example. A detailed description of all arguments can be found in the <code>EHR</code> package documentation for <code>run_Build_PK_IV()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>simple_pk_dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Build_PK_IV.html'>run_Build_PK_IV</a></span><span class='op'>(</span>
@@ -2362,7 +2315,7 @@ example. A detailed description of all arguments can be found in the
 The dimension of the PK data before merging with demographics: 149 x 9
 The number of subjects in the PK data before merging with demographics: 10
 The number of subjects in the demographic file, who meet the exclusion criteria: 0
-check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpOfB6Mh/check1/-missing-demo.csv
+check NA frequency in demographics, see file /tmp/RtmpLJNCNW/check1/-missing-demo.csv
 Some demographic variables are missing and will be excluded: 
 The list of final demographic variables: gender
 weight
@@ -2401,10 +2354,7 @@ The dimension of the final PK data exported with the key demographics: 149 x 20 
 </div>
 
 -->
-<p>The <code>run_Build_PK_IV()</code> function generates an automatic
-message that provides information about the data processing and the
-final dataset including the variables, the sample size, and
-missingness.</p>
+<p>The <code>run_Build_PK_IV()</code> function generates an automatic message that provides information about the data processing and the final dataset including the variables, the sample size, and missingness.</p>
 <p>Below we show the final PK dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2444,33 +2394,23 @@ missingness.</p>
 14        2016                  5 2019-02-24 20:16:00        6.06  0.64
 15        2016                  5 2019-02-24 20:16:00        6.06  0.64</code></pre>
 </div>
-<p>This dataset includes the <code>patient_visit_id</code> variable and
-standard NONMEM formatted variables (for details of data items, see <a
-href="PK-Data-IV-Dosing.html">PK-Data-IV-Dosing</a>).</p>
+<p>This dataset includes the <code>patient_visit_id</code> variable and standard NONMEM formatted variables (for details of data items, see <a href="PK-Data-IV-Dosing.html">PK-Data-IV-Dosing</a>).</p>
 <ul>
 <li>time - time of dosing or concentration event</li>
 <li>amt - dose amount administered (NA for concentration records)</li>
-<li>dv - dependent variable; i.e., observed concentration (NA for dosing
-records)</li>
-<li>rate - rate of drug administration (e.g., rate=0 for bolus
-doses)</li>
-<li>mdv - missing dependent variable (dv) indicator (e.g., 0 = not
-missing dv, 1 = missing dv)</li>
+<li>dv - dependent variable; i.e., observed concentration (NA for dosing records)</li>
+<li>rate - rate of drug administration (e.g., rate=0 for bolus doses)</li>
+<li>mdv - missing dependent variable (dv) indicator (e.g., 0 = not missing dv, 1 = missing dv)</li>
 <li>evid - event ID (e.g., 0 = observation, 1 = dose event)</li>
 </ul>
-<p>If demographic data is provided, the demographic variables will also
-be included.</p>
-<h1 id="example-with-only-two-datasets">Example with only two
-datasets</h1>
-<p>The <code>run_Build_PK_IV()</code> can also be used with only two
-datasets:</p>
+<p>If demographic data is provided, the demographic variables will also be included.</p>
+<h1 id="example-with-only-two-datasets">Example with only two datasets</h1>
+<p>The <code>run_Build_PK_IV()</code> can also be used with only two datasets:</p>
 <ul>
 <li>an IV dosing file</li>
-<li>a file with drug concentration, laboratory values, demographics,
-etc.</li>
+<li>a file with drug concentration, laboratory values, demographics, etc.</li>
 </ul>
-<p>An example dataset with concentration, laboratory values, and
-demographics cpmbined is shown below</p>
+<p>An example dataset with concentration, laboratory values, and demographics cpmbined is shown below</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.combined</span>,<span class='fl'>3</span><span class='op'>)</span>
@@ -2487,21 +2427,14 @@ demographics cpmbined is shown below</p>
 </div>
 <p>The following arguments are used in the run_Build_PK_IV function:</p>
 <ul>
-<li><code>conc</code>: drug concentration along with other data
-(laboratory, demographic, etc.)<br />
+<li><code>conc</code>: drug concentration along with other data (laboratory, demographic, etc.)<br />
 </li>
-<li><code>conc.columns</code>: a named list that should specify columns
-in concentration data<br />
+<li><code>conc.columns</code>: a named list that should specify columns in concentration data<br />
 </li>
 <li><code>dose</code>: IV dose data<br />
 </li>
-<li><code>dose.columns</code>: a named list that should specify columns
-in dose data</li>
-<li><code>pk.vars</code>: variables to include in the returned PK data.
-If <code>pk.vars</code> includes ‘date’, the output generates its
-original date-time to which the ‘time’ is mapped. Users can use
-<code>pk.vars</code> to include variables for demographics or laboratory
-values that are already merged with the concentration dataset.</li>
+<li><code>dose.columns</code>: a named list that should specify columns in dose data</li>
+<li><code>pk.vars</code>: variables to include in the returned PK data. If <code>pk.vars</code> includes ‘date’, the output generates its original date-time to which the ‘time’ is mapped. Users can use <code>pk.vars</code> to include variables for demographics or laboratory values that are already merged with the concentration dataset.</li>
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2546,15 +2479,9 @@ The dimension of the final PK data: 149 x 15 with 10 distinct subjects (patient_
 </div>
 <h1 id="references">References</h1>
 <ol type="1">
-<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X,
-Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System
-for Post-marketing Population Pharmacokinetic and Pharmacodynamic
-Studies using Real-World Data from Electronic Health Records. Clinical
-Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi:
-10.1002/cpt.1787.</li>
+<li>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</li>
 </ol>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

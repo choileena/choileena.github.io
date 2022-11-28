@@ -23,7 +23,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -456,7 +455,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -2034,7 +2033,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2096,6 +2095,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   d-article h2 {
     font-size: 25px;
+  }
+
+  div.font75 {
+    font-size: 75%;
   }
 
   </style>
@@ -2162,9 +2165,7 @@ Workshops
 <h1>Extract-Med</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>This tutorial describes how to obtain drug dosing information from
-unstructured clinical notes using <em>Extract-Med</em> module in the
-system.</p></p>
+<p><p>This tutorial describes how to obtain drug dosing information from unstructured clinical notes using <em>Extract-Med</em> module in the system.</p></p>
 </div>
 
 <div class="d-byline">
@@ -2178,33 +2179,20 @@ system.</p></p>
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
-<li><a href="#unstructured-clinical-notes"
-id="toc-unstructured-clinical-notes">Unstructured Clinical
-Notes</a></li>
-<li><a href="#running-extractmed" id="toc-running-extractmed">Running
-<code>extractMed</code></a></li>
-<li><a href="#output-of-extractmed" id="toc-output-of-extractmed">Output
-of <code>extractMed</code></a></li>
-<li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#unstructured-clinical-notes">Unstructured Clinical Notes</a></li>
+<li><a href="#running-extractmed">Running <code>extractMed</code></a></li>
+<li><a href="#output-of-extractmed">Output of <code>extractMed</code></a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </nav>
 </div>
 <ul>
-<li>See also “Extract-Med” of “<a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1.
-EHR Vignette for Extract-Med and Pro-Med-NLP</a>” in <code>EHR</code>
-package.</li>
+<li>See also “Extract-Med” of “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.pdf">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” in <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
-<p>This tutorial describes how to use the <em>Extract-Med</em> module to
-obtain drug dosing information from unstructured clinical notes. The
-<em>Extract-Med</em> module uses a natural language processing (NLP)
-system called medExtractR (see Choi <em>et al.</em><span
-class="math inline">\(^{1}\)</span> and Weeks <em>et al.</em><span
-class="math inline">\(^{2}\)</span> for details).</p>
-<p>To begin we load the <code>EHR</code> package, and the
-<code>medExtractR</code> package.</p>
+<p>This tutorial describes how to use the <em>Extract-Med</em> module to obtain drug dosing information from unstructured clinical notes. The <em>Extract-Med</em> module uses a natural language processing (NLP) system called medExtractR (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> and Weeks <em>et al.</em><span class="math inline">\(^{2}\)</span> for details).</p>
+<p>To begin we load the <code>EHR</code> package, and the <code>medExtractR</code> package.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package and dependency</span>
@@ -2255,78 +2243,39 @@ Electronically Signed By: **[NAME XXX].
 Health Care Team:
 - **NAME[CCC, XXX DDD] - Primary Care Physician</code></pre>
 </div>
-<p>If we are interested in the medication Lamotrigine, we would need to
-extract three mentions from the above note:</p>
+<p>If we are interested in the medication Lamotrigine, we would need to extract three mentions from the above note:</p>
 <ul>
 <li>“ltg 200 mg (1.5) daily” on line 16</li>
 <li>“ltg xr 100 mg 3 in am, 2 in pm” on line 17</li>
 <li>“Lamotrigine XR 300-200” on line 34</li>
 </ul>
-<p>The next section demonstrates how to use the <code>extractMed</code>
-function to run the <em>Extract-Med</em> module using the example
-clinical note from above.</p>
+<p>The next section demonstrates how to use the <code>extractMed</code> function to run the <em>Extract-Med</em> module using the example clinical note from above.</p>
 <h1 id="running-extractmed">Running <code>extractMed</code></h1>
 <p>The following arguments must be specified:</p>
 <ul>
-<li><p><code>note_fn</code>: The file name of the note on which to run
-the system. This can be either a single file name (e.g.,
-<code>"clinical_note01.txt"</code>) or a vector or list of file names
-(e.g., <code>c("clinical_note01.txt", "clinical_note02.txt")</code> or
-<code>list("clinical_note01.txt", "clinical_note02.txt")</code>).<br />
+<li><p><code>note_fn</code>: The file name of the note on which to run the system. This can be either a single file name (e.g., <code>"clinical_note01.txt"</code>) or a vector or list of file names (e.g., <code>c("clinical_note01.txt", "clinical_note02.txt")</code> or <code>list("clinical_note01.txt", "clinical_note02.txt")</code>).<br />
 </p></li>
-<li><p><code>drugnames</code>: Names of the drugs for which we want to
-extract medication dosing information. This can include any way in which
-the drug name might be represented in the clinical note, such as generic
-name (e.g., <code>"lamotrigine"</code>), brand name (e.g.,
-<code>"Lamictal"</code>), or an abbreviation (e.g.,
-<code>"LTG"</code>).<br />
+<li><p><code>drugnames</code>: Names of the drugs for which we want to extract medication dosing information. This can include any way in which the drug name might be represented in the clinical note, such as generic name (e.g., <code>"lamotrigine"</code>), brand name (e.g., <code>"Lamictal"</code>), or an abbreviation (e.g., <code>"LTG"</code>).<br />
 </p></li>
-<li><p><code>drgunit</code>: The unit of the drug(s) listed in
-<code>drugnames</code>, for example <code>"mg"</code>.<br />
+<li><p><code>drgunit</code>: The unit of the drug(s) listed in <code>drugnames</code>, for example <code>"mg"</code>.<br />
 </p></li>
-<li><p><code>windowlength</code>: Length of the search window around
-each found drug name in which to search for dosing information. There is
-no default for this argument, requiring the user to carefully consider
-its value through tuning (see “<a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1.
-EHR Vignette for Extract-Med and Pro-Med-NLP</a>” for more information
-on tuning).</p>
+<li><p><code>windowlength</code>: Length of the search window around each found drug name in which to search for dosing information. There is no default for this argument, requiring the user to carefully consider its value through tuning (see “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” for more information on tuning).</p>
 <ul>
-<li>The window starts at the beginning of the drug mention. For example,
-a 130 character window for the Lamotrigine mention on line 34 in the
-example note above would be <code>"Lamotrigine XR 300-200</code><br />
+<li>The window starts at the beginning of the drug mention. For example, a 130 character window for the Lamotrigine mention on line 34 in the example note above would be <code>"Lamotrigine XR 300-200</code><br />
 <code>Electronically Signed By: **[NAME XXX].</code><br />
 <code>-------------------------------------------------------------------"</code></li>
 </ul></li>
-<li><p><code>max_edit_dist</code>: The maximum edit distance allowed
-when identifying <code>drugnames</code>. Maximum edit distance
-determines the difference between two strings, and is defined as the
-number of insertions, deletions, or substitutions required to change one
-string into the other. This allows us to capture misspellings in the
-drug names we are searching for, and its value should be carefully
-considered through tuning (see “<a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1.
-EHR Vignette for Extract-Med and Pro-Med-NLP</a>” for more information
-on tuning).</p>
+<li><p><code>max_edit_dist</code>: The maximum edit distance allowed when identifying <code>drugnames</code>. Maximum edit distance determines the difference between two strings, and is defined as the number of insertions, deletions, or substitutions required to change one string into the other. This allows us to capture misspellings in the drug names we are searching for, and its value should be carefully considered through tuning (see “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” for more information on tuning).</p>
 <ul>
-<li>The default value is ‘0’, or exact spelling matches to
-<code>drugnames</code>. A value of 0 is always used for drug names with
-less than 5 characters regardless of the value set by
-<code>max_edit_dist</code>.</li>
-<li>A value of 1 would capture mistakes such as a single missing or
-extra letter, e.g., “tacrlimus” or “tacroolimus” instead of
-“tacrolimus”<br />
+<li>The default value is ‘0’, or exact spelling matches to <code>drugnames</code>. A value of 0 is always used for drug names with less than 5 characters regardless of the value set by <code>max_edit_dist</code>.</li>
+<li>A value of 1 would capture mistakes such as a single missing or extra letter, e.g., “tacrlimus” or “tacroolimus” instead of “tacrolimus”<br />
 </li>
-<li>A value of 2 would capture these mistakes or a single transposition,
-e.g. “tcarolimus” instead of “tacrolimus”<br />
+<li>A value of 2 would capture these mistakes or a single transposition, e.g. “tcarolimus” instead of “tacrolimus”<br />
 </li>
-<li>Higher values (3 or above) would capture increasingly more severe
-mistakes, though setting the value too high can cause similar words to
-be mistaken as the drug name.</li>
+<li>Higher values (3 or above) would capture increasingly more severe mistakes, though setting the value too high can cause similar words to be mistaken as the drug name.</li>
 </ul></li>
 </ul>
-<p>Below we show how we would run <code>extractMed</code> using the
-example clinical note from the previous section.</p>
+<p>Below we show how we would run <code>extractMed</code> using the example clinical note from the previous section.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mxr_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/extractMed.html'>extractMed</a></span><span class='op'>(</span>note_fn <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"lampid1_2016-02-05_note5_1.txt"</span>, package <span class='op'>=</span> <span class='st'>"EHR"</span><span class='op'>)</span>,
@@ -2341,23 +2290,8 @@ example clinical note from the previous section.</p>
 </div>
 <pre><code>running notes 1-1 in batch 1 of 1 (100%)</code></pre>
 </div>
-<p>The additional argument, <code>strength_sep</code>, allows users to
-specify special characters to separate doses administered at different
-times of day. For example, consider the drug mention “Lamotrigine XR
-300-200” from our example clinical note. This indicates that the patient
-takes 300 mg of the drug in the morning and 200 mg in the evening.
-Setting <code>strength_sep = c('-')</code> would allow
-<code>extractMed</code> to identify <em>300</em> and <em>200</em> as
-“Dose” (i.e., dose given intake) since they are separated by the special
-character “-”. The default value is <code>NULL</code>.</p>
-<p>Another additional argument allowed in the <code>extractMed</code>
-function is <code>lastdose</code>. This is a logical input specifying
-whether or not the last dose time entity should be extracted. Default
-value is <code>FALSE</code>. See “<a
-href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1.
-EHR Vignette for Extract-Med and Pro-Med-NLP</a>” and the “<a
-href="https://choileena.github.io/Pro-Med-NLP.html">Pro-Med-NLP
-Workshop</a>” for more information on last dose.</p>
+<p>The additional argument, <code>strength_sep</code>, allows users to specify special characters to separate doses administered at different times of day. For example, consider the drug mention “Lamotrigine XR 300-200” from our example clinical note. This indicates that the patient takes 300 mg of the drug in the morning and 200 mg in the evening. Setting <code>strength_sep = c('-')</code> would allow <code>extractMed</code> to identify <em>300</em> and <em>200</em> as “Dose” (i.e., dose given intake) since they are separated by the special character “-”. The default value is <code>NULL</code>.</p>
+<p>Another additional argument allowed in the <code>extractMed</code> function is <code>lastdose</code>. This is a logical input specifying whether or not the last dose time entity should be extracted. Default value is <code>FALSE</code>. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” and the “<a href="https://choileena.github.io/Pro-Med-NLP.html">Pro-Med-NLP Workshop</a>” for more information on last dose.</p>
 <h1 id="output-of-extractmed">Output of <code>extractMed</code></h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2378,29 +2312,18 @@ Workshop</a>” for more information on last dose.</p>
 11 lampid1_2016-02-05_note5_1.txt     DrugName Lamotrigine XR 1125:1139
 12 lampid1_2016-02-05_note5_1.txt DoseStrength        300-200 1140:1147</code></pre>
 </div>
-<p>The output from the <em>Extract-Med</em> module is a
-<code>data.frame</code> with 4 columns:</p>
+<p>The output from the <em>Extract-Med</em> module is a <code>data.frame</code> with 4 columns:</p>
 <ul>
-<li><code>filename</code>: The file name of the corresponding clinical
-note, to label results.<br />
+<li><code>filename</code>: The file name of the corresponding clinical note, to label results.<br />
 </li>
-<li><code>entity</code>: The label of the entity for the extracted
-expression.<br />
+<li><code>entity</code>: The label of the entity for the extracted expression.<br />
 </li>
-<li><code>expr</code>: Expression extracted from the clinical
-note.<br />
+<li><code>expr</code>: Expression extracted from the clinical note.<br />
 </li>
-<li><code>pos</code>: Position of the extracted expression in the note,
-in the format <code>startPosition:stopPosition</code></li>
+<li><code>pos</code>: Position of the extracted expression in the note, in the format <code>startPosition:stopPosition</code></li>
 </ul>
-<p>In the above output, we see that all three lamotrigine mentions from
-our example clinical note have been extracted, and each expression has
-been assigned the appropriate entity label and position.</p>
-<p>The output of <code>extractMed</code> must be saved as a CSV file
-(see code below), the filename of which will serve as the first input to
-the <em>Pro-Med-NLP</em> module (see “<a
-href="https://choileena.github.io/Pro-Med-NLP.html">Pro-Med-NLP
-Workshop</a>”).</p>
+<p>In the above output, we see that all three lamotrigine mentions from our example clinical note have been extracted, and each expression has been assigned the appropriate entity label and position.</p>
+<p>The output of <code>extractMed</code> must be saved as a CSV file (see code below), the filename of which will serve as the first input to the <em>Pro-Med-NLP</em> module (see “<a href="https://choileena.github.io/Pro-Med-NLP.html">Pro-Med-NLP Workshop</a>”).</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># save as csv file</span>
@@ -2410,20 +2333,10 @@ Workshop</a>”).</p>
 </div>
 <h1 id="references">References</h1>
 <ol type="1">
-<li><p>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X,
-Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System
-for Post-marketing Population Pharmacokinetic and Pharmacodynamic
-Studies using Real-World Data from Electronic Health Records. Clinical
-Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi:
-10.1002/cpt.1787.</p></li>
-<li><p>Weeks HL, Beck C, McNeer E, Williams ML, Bejan CA, Denny JC, Choi
-L. medExtractR: A targeted, customizable approach to medication
-extraction from electronic health records. Journal of the American
-Medical Informatics Association. 2020 Mar;27(3):407-18. doi:
-10.1093/jamia/ocz207.</p></li>
+<li><p>Choi L, Beck C, McNeer E, Weeks HL, Williams ML, James NT, Niu X, Abou-Khalil BW, Birdwell KA, Roden DM, Stein CM. Development of a System for Post-marketing Population Pharmacokinetic and Pharmacodynamic Studies using Real-World Data from Electronic Health Records. Clinical Pharmacology &amp; Therapeutics. 2020 Apr;107(4):934-43. doi: 10.1002/cpt.1787.</p></li>
+<li><p>Weeks HL, Beck C, McNeer E, Williams ML, Bejan CA, Denny JC, Choi L. medExtractR: A targeted, customizable approach to medication extraction from electronic health records. Journal of the American Medical Informatics Association. 2020 Mar;27(3):407-18. doi: 10.1093/jamia/ocz207.</p></li>
 </ol>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
