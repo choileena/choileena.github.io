@@ -18,7 +18,7 @@ library(EHR)
 
 Here add links to vignettes
 
-* See also "Part II: e-prescription data" of "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" in `EHR` package
+* See also "Part II: e-prescription data" of "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" in `EHR` package
 
 # Introduction
 

@@ -18,7 +18,7 @@ library(pkdata)
 library(lubridate)
 ```
 
-* See also "[4. EHR Vignette for Build-PK-Oral](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.html)" in `EHR` package.
+* See also "[4. EHR Vignette for Build-PK-Oral](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_04_Build_PK_Oral.pdf)" in `EHR` package.
 
 # Introduction
 We describe oral dosing data commonly obtained from electronic health records (EHRs) in the presence and absence of last dose time information. Finally, we explain how to run the *Build-PK-Oral* module. 

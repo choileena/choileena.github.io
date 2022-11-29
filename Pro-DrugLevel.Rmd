@@ -16,7 +16,7 @@ knitr::opts_chunk$set(R.options = list(width = 130))
 library(EHR)
 ```
 
-* See also "Pro-Drug Level" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
+* See also "Pro-Drug Level" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" of `EHR` package.
 
 # Introduction
 
@@ -44,7 +44,7 @@ head(conc.in,10)
 
 The goal of *Pro-Drug Level* is to make this information suitable for merging with medication dosing data for further processing into a complete popPK dataset.
 
-The patient ID and patient visit ID may need to be renamed so that all input datasets have the same names for these variables. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of the `EHR` package for more information. We demonstrate how to rename these variables using the `dataTransformation` function below.
+The patient ID and patient visit ID may need to be renamed so that all input datasets have the same names for these variables. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" of the `EHR` package for more information. We demonstrate how to rename these variables using the `dataTransformation` function below.
 
 ```{r,echo=FALSE}
 conc.new <- dataTransformation(conc.in, 

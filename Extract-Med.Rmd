@@ -54,13 +54,13 @@ The following arguments must be specified:
 - `note_fn`: The file name of the note on which to run the system. This can be either a single file name (e.g., `"clinical_note01.txt"`) or a vector or list of file names (e.g., `c("clinical_note01.txt", "clinical_note02.txt")` or `list("clinical_note01.txt", "clinical_note02.txt")`).  
 - `drugnames`: Names of the drugs for which we want to extract medication dosing information. This can include any way in which the drug name might be represented in the clinical note, such as generic name (e.g., `"lamotrigine"`), brand name (e.g., `"Lamictal"`), or an abbreviation (e.g., `"LTG"`).  
 - `drgunit`: The unit of the drug(s) listed in `drugnames`, for example `"mg"`.  
-- `windowlength`: Length of the search window around each found drug name in which to search for dosing information. There is no default for this argument, requiring the user to carefully consider its value through tuning (see "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" for more information on tuning).
+- `windowlength`: Length of the search window around each found drug name in which to search for dosing information. There is no default for this argument, requiring the user to carefully consider its value through tuning (see "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.pdf)" for more information on tuning).
 
   - The window starts at the beginning of the drug mention. For example, a 130 character window for the Lamotrigine mention on line 34 in the example note above would be `"Lamotrigine XR 300-200`  
   `Electronically Signed By: **[NAME XXX].`  
   `-------------------------------------------------------------------"`
   
-- `max_edit_dist`: The maximum edit distance allowed when identifying `drugnames`. Maximum edit distance determines the difference between two strings, and is defined as the number of insertions, deletions, or substitutions required to change one string into the other. This allows us to capture misspellings in the drug names we are searching for, and its value should be carefully considered through tuning (see "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" for more information on tuning).   
+- `max_edit_dist`: The maximum edit distance allowed when identifying `drugnames`. Maximum edit distance determines the difference between two strings, and is defined as the number of insertions, deletions, or substitutions required to change one string into the other. This allows us to capture misspellings in the drug names we are searching for, and its value should be carefully considered through tuning (see "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.pdf)" for more information on tuning).   
 
   - The default value is '0', or exact spelling matches to `drugnames`. A value of 0 is always used for drug names with less than 5 characters regardless of the value set by `max_edit_dist`. 
   - A value of 1 would capture mistakes such as a single missing or extra letter, e.g., "tacrlimus" or "tacroolimus" instead of "tacrolimus"  
@@ -82,7 +82,7 @@ mxr_out <- extractMed(note_fn = system.file("examples", "lampid1_2016-02-05_note
 
 The additional argument, `strength_sep`, allows users to specify special characters to separate doses administered at different times of day. For example, consider the drug mention "Lamotrigine XR 300-200" from our example clinical note. This indicates that the patient takes 300 mg of the drug in the morning and 200 mg in the evening. Setting `strength_sep = c('-')` would allow `extractMed` to identify *300* and *200* as "Dose" (i.e., dose given intake) since they are separated by the special character "-". The default value is `NULL`.  
 
-Another additional argument allowed in the `extractMed` function is `lastdose`. This is a logical input specifying whether or not the last dose time entity should be extracted. Default value is `FALSE`. See "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html)" and the "[Pro-Med-NLP Workshop](https://choileena.github.io/Pro-Med-NLP.html)" for more information on last dose.
+Another additional argument allowed in the `extractMed` function is `lastdose`. This is a logical input specifying whether or not the last dose time entity should be extracted. Default value is `FALSE`. See "[1. EHR Vignette for Extract-Med and Pro-Med-NLP](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.pdf)" and the "[Pro-Med-NLP Workshop](https://choileena.github.io/Pro-Med-NLP.html)" for more information on last dose.
 
 # Output of `extractMed`
 

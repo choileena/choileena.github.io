@@ -16,7 +16,7 @@ knitr::opts_chunk$set(R.options = list(width = 120))
 library(EHR)
 ```
 
-* See also "Pro-Laboratory" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
+* See also "Pro-Laboratory" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" of `EHR` package.
 
 # Introduction
 
@@ -40,7 +40,7 @@ head(creat.in)
 
 This data consists of a patient ID, date, time, and the creatinine level.
 
-The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the *Pro-Laboratory* module. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of the `EHR` package for more information. We demonstrate how to rename the patient ID variable below.
+The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the *Pro-Laboratory* module. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" of the `EHR` package for more information. We demonstrate how to rename the patient ID variable below.
 
 ```{r}
 creat.new <- dataTransformation(creat.in, rename = c('Subject.uniq' = 'subject_uid'))
@@ -48,7 +48,7 @@ creat.new <- dataTransformation(creat.in, rename = c('Subject.uniq' = 'subject_u
 
 # Preparing Raw Laboratory Data
 
-In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are `mod_id`, `mod_visit`, and `mod_id_visit`. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package and "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for examples of this process.
+In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are `mod_id`, `mod_visit`, and `mod_id_visit`. See "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" of `EHR` package and "[Build-PK-IV - Comprehensive Workshop](https://choileena.github.io/Build-PK-IV-comprehensive.html)" for examples of this process.
 
 For simplicity, we will skip this step in this tutorial.
 

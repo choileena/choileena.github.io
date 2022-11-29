@@ -16,7 +16,7 @@ library(pkdata)
 library(lubridate)
 ```
 
-* See also "Example 1: Quick Data Building with Processed Datasets" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
+* See also "Example 1: Quick Data Building with Processed Datasets" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" of `EHR` package.
 
 # Introduction
 This tutorial describes a simple pharmacokinetic (PK) data building procedure in *EHR2PKPD* for medications that are intravenously (IV) administered. It demonstrates how to build PK data using *Build-PK-IV* when cleaned data for concentration, drug dose, demographic and laboratory datasets are available in the appropriate data format. A comprehensive PK data building procedure with *Build-PK-IV* for IV medications that requires several data processing modules is described in [*Build-PK-IV* - Comprehensive](Build-PK-IV-comprehensive.html) (see Choi *et al.*$^{1}$ for details).

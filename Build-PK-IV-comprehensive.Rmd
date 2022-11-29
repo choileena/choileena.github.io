@@ -18,7 +18,7 @@ library(pkdata)
 library(lubridate)
 ```
 
-* See also "Example 2: Complete Data Processing and Building from Raw Extracted Data to PK Data" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html)" of `EHR` package.
+* See also "Example 2: Complete Data Processing and Building from Raw Extracted Data to PK Data" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" of `EHR` package.
 
 # Introduction
 
