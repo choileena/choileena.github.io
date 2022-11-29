@@ -2189,7 +2189,7 @@ Workshops
 </nav>
 </div>
 <ul>
-<li>See also “Pro-Laboratory” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
+<li>See also “Pro-Laboratory” in “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package.</li>
 </ul>
 <h1 id="introduction">Introduction</h1>
 <p>This tutorial describes how to use the <em>Pro-Laboratory</em> module to process laboratory data (see Choi <em>et al.</em><span class="math inline">\(^{1}\)</span> for details).</p>
@@ -2218,7 +2218,7 @@ Workshops
 6     28579217 10/09/11 4:45  0.28</code></pre>
 </div>
 <p>This data consists of a patient ID, date, time, and the creatinine level.</p>
-<p>The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the <em>Pro-Laboratory</em> module. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of the <code>EHR</code> package for more information. We demonstrate how to rename the patient ID variable below.</p>
+<p>The patient ID may need to be renamed so that all input datasets have the same name for the patient ID. This is necessary when combining the datasets to create a crosswalk between the original ID variables and the new ID variables used in the <em>Pro-Laboratory</em> module. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf">2. EHR Vignette for Structured Data</a>” of the <code>EHR</code> package for more information. We demonstrate how to rename the patient ID variable below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>creat.new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/dataTransformation.html'>dataTransformation</a></span><span class='op'>(</span><span class='va'>creat.in</span>, rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'Subject.uniq'</span> <span class='op'>=</span> <span class='st'>'subject_uid'</span><span class='op'>)</span><span class='op'>)</span>
@@ -2226,7 +2226,7 @@ Workshops
 </div>
 </div>
 <h1 id="preparing-raw-laboratory-data">Preparing Raw Laboratory Data</h1>
-<p>In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are <code>mod_id</code>, <code>mod_visit</code>, and <code>mod_id_visit</code>. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.html">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package and “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for examples of this process.</p>
+<p>In practice, the laboratory data will need to be combined with other input datasets. This process involves creating a crosswalk between original ID variables and new ID variables. The new ID variables that are required to be the same across all datasets are <code>mod_id</code>, <code>mod_visit</code>, and <code>mod_id_visit</code>. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf">2. EHR Vignette for Structured Data</a>” of <code>EHR</code> package and “<a href="https://choileena.github.io/Build-PK-IV-comprehensive.html">Build-PK-IV - Comprehensive Workshop</a>” for examples of this process.</p>
 <p>For simplicity, we will skip this step in this tutorial.</p>
 <p>We need to save our dataset as an RDS file using <code>saveRDS</code> as shown below. Here, we create a temporary directory to store the file using <code>tempdir</code>; however, <code>dataDir</code> can be a specific directory on your computer.</p>
 <div class="layout-chunk" data-layout="l-body">

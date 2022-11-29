@@ -2259,13 +2259,13 @@ Health Care Team:
 </p></li>
 <li><p><code>drgunit</code>: The unit of the drug(s) listed in <code>drugnames</code>, for example <code>"mg"</code>.<br />
 </p></li>
-<li><p><code>windowlength</code>: Length of the search window around each found drug name in which to search for dosing information. There is no default for this argument, requiring the user to carefully consider its value through tuning (see “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” for more information on tuning).</p>
+<li><p><code>windowlength</code>: Length of the search window around each found drug name in which to search for dosing information. There is no default for this argument, requiring the user to carefully consider its value through tuning (see “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.pdf">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” for more information on tuning).</p>
 <ul>
 <li>The window starts at the beginning of the drug mention. For example, a 130 character window for the Lamotrigine mention on line 34 in the example note above would be <code>"Lamotrigine XR 300-200</code><br />
 <code>Electronically Signed By: **[NAME XXX].</code><br />
 <code>-------------------------------------------------------------------"</code></li>
 </ul></li>
-<li><p><code>max_edit_dist</code>: The maximum edit distance allowed when identifying <code>drugnames</code>. Maximum edit distance determines the difference between two strings, and is defined as the number of insertions, deletions, or substitutions required to change one string into the other. This allows us to capture misspellings in the drug names we are searching for, and its value should be carefully considered through tuning (see “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” for more information on tuning).</p>
+<li><p><code>max_edit_dist</code>: The maximum edit distance allowed when identifying <code>drugnames</code>. Maximum edit distance determines the difference between two strings, and is defined as the number of insertions, deletions, or substitutions required to change one string into the other. This allows us to capture misspellings in the drug names we are searching for, and its value should be carefully considered through tuning (see “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.pdf">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” for more information on tuning).</p>
 <ul>
 <li>The default value is ‘0’, or exact spelling matches to <code>drugnames</code>. A value of 0 is always used for drug names with less than 5 characters regardless of the value set by <code>max_edit_dist</code>.</li>
 <li>A value of 1 would capture mistakes such as a single missing or extra letter, e.g., “tacrlimus” or “tacroolimus” instead of “tacrolimus”<br />
@@ -2291,7 +2291,7 @@ Health Care Team:
 <pre><code>running notes 1-1 in batch 1 of 1 (100%)</code></pre>
 </div>
 <p>The additional argument, <code>strength_sep</code>, allows users to specify special characters to separate doses administered at different times of day. For example, consider the drug mention “Lamotrigine XR 300-200” from our example clinical note. This indicates that the patient takes 300 mg of the drug in the morning and 200 mg in the evening. Setting <code>strength_sep = c('-')</code> would allow <code>extractMed</code> to identify <em>300</em> and <em>200</em> as “Dose” (i.e., dose given intake) since they are separated by the special character “-”. The default value is <code>NULL</code>.</p>
-<p>Another additional argument allowed in the <code>extractMed</code> function is <code>lastdose</code>. This is a logical input specifying whether or not the last dose time entity should be extracted. Default value is <code>FALSE</code>. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.html">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” and the “<a href="https://choileena.github.io/Pro-Med-NLP.html">Pro-Med-NLP Workshop</a>” for more information on last dose.</p>
+<p>Another additional argument allowed in the <code>extractMed</code> function is <code>lastdose</code>. This is a logical input specifying whether or not the last dose time entity should be extracted. Default value is <code>FALSE</code>. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_01_mxr.pdf">1. EHR Vignette for Extract-Med and Pro-Med-NLP</a>” and the “<a href="https://choileena.github.io/Pro-Med-NLP.html">Pro-Med-NLP Workshop</a>” for more information on last dose.</p>
 <h1 id="output-of-extractmed">Output of <code>extractMed</code></h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
