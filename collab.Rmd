@@ -14,6 +14,8 @@ output:
 
 <div class='font75'>
 
+* Evaluating Patient-Reported Adherence and Outcomes in Specialty Disease States: A Dual Site Initiative: [ Dual Site Project Project Report](https://choileena.github.io/collab_dir/dual-QR-report.html)
+
 * Epidiolex Project: [Epidiolex Project Report 1](https://choileena.github.io/collab_dir/Pharmacist management of prescription cannabidiol.html)
 
 * Adherence Clinic Project: [Adherence Clinic Project Report](https://choileena.github.io/collab_dir/Specialty PharmD intervention targeting adherence.html)
