@@ -14,24 +14,28 @@ output:
 
 <div class='font75'>
 
-* Evaluating Patient-Reported Adherence and Outcomes in Specialty Disease States: A Dual Site Initiative: [ Dual Site Project Project Report](https://choileena.github.io/collab_dir/dual-QR-report.html)
+* Tacrolimus Immediate-Release vs. Extended-Release Formulation Cost Analysis: [Transplant Cost Analysis Project Report](https://choileena.github.io/collab_dir/Transplant_Cost_Analysis_poster_report.html)
 
-* Epidiolex Project: [Epidiolex Project Report 1](https://choileena.github.io/collab_dir/Pharmacist management of prescription cannabidiol.html)
+* Austedo Multisite Study for Huntington's Disease: [Austedo Multisite-HD Project Report](https://choileena.github.io/collab_dir/austedo-QR.html)
+
+* Evaluating Patient-Reported Adherence and Outcomes in Specialty Disease States - A Dual Site Initiative: [Dual Site Project Project Report](https://choileena.github.io/collab_dir/dual-QR-report.html)
+
+* MS Multisite Study Project: [MS Multisite Study Project Report](https://choileena.github.io/collab_dir/ms_multi-PRO-QR 2022.11.30.html)
+
+* Health-System Specialty Pharmacies Ensure Patients Initiate New Oncology Treatments - A Multisite Study: [Vizient PMN Project Report](https://choileena.github.io/collab_dir/Vizient QR report.html)
+
+* Financial Impact of Integrated Specialty Pharmacy Efforts to Avoid Oral Oncolytic Waste: [Onc Waste Avoidance Project Report](https://choileena.github.io/collab_dir/Onc_Waste_Avoidance_Poster.html)
+
+* Use of Prescription Cannabidiol for the Management of Seizure Disorders at an Integrated Care Center: [Epidiolex Project II Report](https://choileena.github.io/collab_dir/epidiolex-QR2 2022.10.10b.html)
+
+* Epidiolex Treatment for Lennox Gastaut Syndrome or Dravet Syndrome: [Epidiolex Project I Report ](https://choileena.github.io/collab_dir/Pharmacist management of prescription cannabidiol.html)
 
 * Adherence Clinic Project: [Adherence Clinic Project Report](https://choileena.github.io/collab_dir/Specialty PharmD intervention targeting adherence.html)
 
-* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Inflammatory Bowel Disease Project: [PRO in IBD Project Report](https://choileena.github.io/collab_dir/Patient-reported outcomes in an IBD clinic.html)
+* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Inflammatory Bowel Disease: [PRO in IBD Project Report](https://choileena.github.io/collab_dir/Patient-reported outcomes in an IBD clinic.html)
 
-* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Multiple Sclerosis Project: [PRO in MS Project Report](https://choileena.github.io/collab_dir/Patient-reported outcomes and interventions in MS.html)
+* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Multiple Sclerosis: [PRO in MS Project Report](https://choileena.github.io/collab_dir/Patient-reported outcomes and interventions in MS.html)
 
-* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Dermatology and Asthma, Sinus, and Allergy Patients (ASAP) Project: [PRO in ASAP Project Report](https://choileena.github.io/collab_dir/PROs in dermatology, asthma and allergy patients.html)
-
-* Epidiolex Project (Use of Prescription Cannabidiol for the Management of Seizure Disorders at an Integrated Care Center): [Epidiolex Project Report 2](https://choileena.github.io/collab_dir/epidiolex-QR2 2022.10.10b.html)
-
-* Vizient PMN Project (Health-System Specialty Pharmacies Ensure Patients Initiate New Oncology Treatments: A Multisite Study): [Vizient PMN Project Report](https://choileena.github.io/collab_dir/Vizient QR report.html)
-
-* Onc Waste Avoidance Project (Financial Impact of Integrated Specialty Pharmacy Efforts to Avoid Oral Oncolytic Waste): [Onc Waste Avoidance Project Report](https://choileena.github.io/collab_dir/Onc_Waste_Avoidance_Poster.html)
-
-* MS Multisite Study Project: [MS Multisite Study Project Report](https://choileena.github.io/collab_dir/ms_multi-PRO-QR 2022.11.30.html)
+* Assessing Patient-Reported Outcomes, Pharmacist Interventions, and Medication Adherence in Dermatology and Asthma, Sinus, and Allergy Patients (ASAP): [PRO in ASAP Project Report](https://choileena.github.io/collab_dir/PROs in dermatology, asthma and allergy patients.html)
 
 </div>
