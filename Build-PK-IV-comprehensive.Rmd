@@ -16,6 +16,8 @@ knitr::opts_chunk$set(R.options = list(width = 140))
 library(EHR)
 library(pkdata)
 library(lubridate)
+library(xaringanExtra)
+xaringanExtra::use_clipboard()
 ```
 
 * See also "Example 2: Complete Data Processing and Building from Raw Extracted Data to PK Data" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" of `EHR` package.

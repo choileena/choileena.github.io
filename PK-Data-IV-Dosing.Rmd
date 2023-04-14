@@ -58,7 +58,7 @@ exampledata <- simple_pk_dat[kprows,]
 row.names(exampledata)<-NULL
 ```
 
-```{r echo=TRUE}
+```{r echo=FALSE}
 exampledata
 ```
 

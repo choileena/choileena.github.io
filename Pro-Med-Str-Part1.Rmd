@@ -12,6 +12,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE, message = TRUE)
 knitr::opts_chunk$set(R.options = list(width = 130))
 library(EHR)
+library(xaringanExtra)
+xaringanExtra::use_clipboard()
 ```
 
 * See also "Pro-Med-Str Part I: IV dose data" in "[2. EHR Vignette for Structured Data](https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf)" of `EHR` package.

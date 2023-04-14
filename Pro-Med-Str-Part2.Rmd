@@ -14,6 +14,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE, message = TRUE)
 knitr::opts_chunk$set(R.options = list(width = 140))
 library(EHR)
+library(xaringanExtra)
+xaringanExtra::use_clipboard()
 ```
 
 Here add links to vignettes
