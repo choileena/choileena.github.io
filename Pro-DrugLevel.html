@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -49,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -72,17 +74,18 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Choi Lab: Pro-Drug Level</title>
@@ -786,6 +789,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1027,10 +1031,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1862,7 +1862,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1873,6 +1888,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1972,6 +2012,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1994,7 +2036,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2033,7 +2075,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2179,12 +2221,12 @@ Workshops
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#drug-level-data">Drug Level Data</a></li>
-<li><a href="#preparing-the-drug-level-data">Preparing the Drug Level Data</a></li>
-<li><a href="#running-run_druglevel">Running <code>run_Druglevel</code></a></li>
-<li><a href="#processed-data">Processed Data</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#drug-level-data" id="toc-drug-level-data">Drug Level Data</a></li>
+<li><a href="#preparing-the-drug-level-data" id="toc-preparing-the-drug-level-data">Preparing the Drug Level Data</a></li>
+<li><a href="#running-run_druglevel" id="toc-running-run_druglevel">Running <code>run_Druglevel</code></a></li>
+<li><a href="#processed-data" id="toc-processed-data">Processed Data</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 </div>
@@ -2196,9 +2238,8 @@ Workshops
 <p>To begin we load the <code>EHR</code> package.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># load EHR package</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># load EHR package</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h1 id="drug-level-data">Drug Level Data</h1>
@@ -2206,11 +2247,10 @@ Workshops
 <p>We will use example drug level data from the <code>EHR</code> package. The raw data is shown below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># read Concentration_DATA_simple.csv</span>
-<span class='va'>conc.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex1"</span>, <span class='st'>"Concentration_DATA_simple.csv"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>,
-                    stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.in</span>,<span class='fl'>10</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># read Concentration_DATA_simple.csv</span></span>
+<span><span class='va'>conc.in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex1"</span>, <span class='st'>"Concentration_DATA_simple.csv"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>,</span>
+<span>                    stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.in</span>,<span class='fl'>10</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>   patient_id patient_visit_id event conc.level           date.time
 1          10             10.1     4       0.17 2019-02-02 05:30:00
@@ -2227,17 +2267,20 @@ Workshops
 <p>The goal of <em>Pro-Drug Level</em> is to make this information suitable for merging with medication dosing data for further processing into a complete popPK dataset.</p>
 <p>The patient ID and patient visit ID may need to be renamed so that all input datasets have the same names for these variables. See “<a href="https://cran.r-project.org/web/packages/EHR/vignettes/ehr_vignette_02_str.pdf">2. EHR Vignette for Structured Data</a>” of the <code>EHR</code> package for more information. We demonstrate how to rename these variables using the <code>dataTransformation</code> function below.</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>conc.new</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/dataTransformation.html'>dataTransformation</a></span><span class='op'>(</span><span class='va'>conc.in</span>, </span>
+<span>                               rename <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'patient_id'</span> <span class='op'>=</span> <span class='st'>'mod_id'</span>,</span>
+<span>                                          <span class='st'>'patient_visit_id'</span> <span class='op'>=</span> <span class='st'>'mod_id_visit'</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
 </div>
 <h1 id="preparing-the-drug-level-data">Preparing the Drug Level Data</h1>
 <p>The data must be saved as an RDS file. Below, we show how to save the data in a temporary directory; however, <code>dataDir</code> can be a specific directory on your computer.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>dataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span> <span class='co'># directory for processed data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>conc.new</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>dataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'data'</span><span class='op'>)</span> <span class='co'># directory for processed data</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a></span><span class='op'>(</span><span class='va'>conc.new</span>, file<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <p>The next section demonstrates how to use the <code>run_DrugLevel</code> function to run the <em>Pro-Drug Level</em> module.</p>
@@ -2254,21 +2297,20 @@ Workshops
 <p>Below we show how we would run <code>run_DrugLevel</code> using the example drug level data from above. We create a temporary directory for the check files, but <code>checkDir</code> can be a specific directory on your computer.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>checkDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span> <span class='co'># directory for interactive checking</span>
-
-<span class='va'>drugname</span> <span class='op'>&lt;-</span> <span class='st'>'fent'</span>
-<span class='va'>LLOQ</span> <span class='op'>&lt;-</span> <span class='fl'>0.05</span>
-
-<span class='va'>conc.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_DrugLevel.html'>run_DrugLevel</a></span><span class='op'>(</span>conc.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span>,
-    conc.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'mod_id'</span>, idvisit <span class='op'>=</span> <span class='st'>'mod_id_visit'</span>, conc <span class='op'>=</span> <span class='st'>'conc.level'</span>, datetime <span class='op'>=</span> <span class='st'>'date.time'</span><span class='op'>)</span>,
-    conc.select<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'mod_id_visit'</span>,<span class='st'>'event'</span>,<span class='st'>'conc.level'</span>,<span class='st'>'date.time'</span><span class='op'>)</span>,
-    check.path<span class='op'>=</span><span class='va'>checkDir</span>,
-    drugname<span class='op'>=</span><span class='va'>drugname</span>,
-    LLOQ<span class='op'>=</span><span class='va'>LLOQ</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>checkDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'checks'</span><span class='op'>)</span> <span class='co'># directory for interactive checking</span></span>
+<span></span>
+<span><span class='va'>drugname</span> <span class='op'>&lt;-</span> <span class='st'>'fent'</span></span>
+<span><span class='va'>LLOQ</span> <span class='op'>&lt;-</span> <span class='fl'>0.05</span></span>
+<span></span>
+<span><span class='va'>conc.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_DrugLevel.html'>run_DrugLevel</a></span><span class='op'>(</span>conc.path<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>dataDir</span>,<span class='st'>"conc.rds"</span><span class='op'>)</span>,</span>
+<span>    conc.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'mod_id'</span>, idvisit <span class='op'>=</span> <span class='st'>'mod_id_visit'</span>, conc <span class='op'>=</span> <span class='st'>'conc.level'</span>, datetime <span class='op'>=</span> <span class='st'>'date.time'</span><span class='op'>)</span>,</span>
+<span>    conc.select<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'mod_id'</span>,<span class='st'>'mod_id_visit'</span>,<span class='st'>'event'</span>,<span class='st'>'conc.level'</span>,<span class='st'>'date.time'</span><span class='op'>)</span>,</span>
+<span>    check.path<span class='op'>=</span><span class='va'>checkDir</span>,</span>
+<span>    drugname<span class='op'>=</span><span class='va'>drugname</span>,</span>
+<span>    LLOQ<span class='op'>=</span><span class='va'>LLOQ</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>no failures, file /tmp/Rtmp3dfjBP/checks/failMissingConcDate-fent.csv not created
+<pre><code>no failures, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpaQC0Yl/checks/failMissingConcDate-fent.csv not created
 subjects with concentration missing from sample file
 [1] mod_id       mod_id_visit
 &lt;0 rows&gt; (or 0-length row.names)
@@ -2283,8 +2325,7 @@ subjects with concentration missing from sample file
 <p>The concentration data is now ready for expert review or further processing by modules in <code>EHR</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.out</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.out</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>   mod_id mod_id_visit event conc.level           date.time            datetime eid
 8       1          1.2     1       0.02 2016-01-07 11:30:00 2016-01-07 11:30:00   1

@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -49,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -72,17 +74,18 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Choi Lab: Build-PK-IV - Simple</title>
@@ -785,6 +788,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1026,10 +1030,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1861,7 +1861,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1872,6 +1887,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1971,6 +2011,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1993,7 +2035,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2032,7 +2074,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2173,15 +2215,15 @@ Workshops
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#quick-data-building-with-processed-datasets">Quick Data Building with Processed Datasets</a>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#quick-data-building-with-processed-datasets" id="toc-quick-data-building-with-processed-datasets">Quick Data Building with Processed Datasets</a>
 <ul>
-<li><a href="#define-directories">(1) Define directories</a></li>
-<li><a href="#load-cleaned-and-appropriately-formatted-data-files">(2) Load cleaned and appropriately formatted data files</a></li>
-<li><a href="#build-a-final-pk-dataset-with-the-function-run_build_pk_iv">(3) Build a final PK dataset with the function <code>run_Build_PK_IV()</code></a></li>
+<li><a href="#define-directories" id="toc-define-directories">(1) Define directories</a></li>
+<li><a href="#load-cleaned-and-appropriately-formatted-data-files" id="toc-load-cleaned-and-appropriately-formatted-data-files">(2) Load cleaned and appropriately formatted data files</a></li>
+<li><a href="#build-a-final-pk-dataset-with-the-function-run_build_pk_iv" id="toc-build-a-final-pk-dataset-with-the-function-run_build_pk_iv">(3) Build a final PK dataset with the function <code>run_Build_PK_IV()</code></a></li>
 </ul></li>
-<li><a href="#example-with-only-two-datasets">Example with only two datasets</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#example-with-only-two-datasets" id="toc-example-with-only-two-datasets">Example with only two datasets</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 </div>
@@ -2193,10 +2235,9 @@ Workshops
 <p>To begin we load the <code>EHR</code>. <code>pkdata</code>, and <code>lubridate</code> packages.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>pkdata</span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://choileena.github.io/'>EHR</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>pkdata</span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h1 id="quick-data-building-with-processed-datasets">Quick Data Building with Processed Datasets</h1>
@@ -2208,11 +2249,10 @@ Workshops
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>rawDataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex1"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span>
-<span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>checkDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'check1'</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>checkDir</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>rawDataDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples"</span>, <span class='st'>"str_ex1"</span>, package<span class='op'>=</span><span class='st'>"EHR"</span><span class='op'>)</span></span>
+<span><span class='va'>td</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>checkDir</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>td</span>, <span class='st'>'check1'</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>checkDir</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="load-cleaned-and-appropriately-formatted-data-files">(2) Load cleaned and appropriately formatted data files</h2>
@@ -2225,27 +2265,24 @@ Workshops
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ivdose.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"IVDose_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ivdose.data</span>, <span class='fl'>3</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ivdose.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"IVDose_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ivdose.data</span>, <span class='fl'>3</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>  patient_id  date.dose    infuse.time.real         infuse.time infuse.dose bolus.time bolus.dose given.dose maxint weight
 1          1 2009-10-18 2009-10-18 11:35:00 2009-10-18 12:00:00         8.8       &lt;NA&gt;         NA          0     60    4.4
 2          1 2009-10-18 2009-10-18 12:00:00 2009-10-18 12:00:00         8.8       &lt;NA&gt;         NA          0     60    4.4
 3          1 2009-10-18 2009-10-18 13:00:00 2009-10-18 13:00:00         8.8       &lt;NA&gt;         NA          0     60    4.4</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>conc.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"Concentration_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.data</span>, <span class='fl'>3</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>conc.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"Concentration_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.data</span>, <span class='fl'>3</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>  patient_id patient_visit_id event conc.level           date.time
 1         10             10.1     4       0.17 2019-02-02 05:30:00
 2         10             10.1     2       4.05 2019-02-24 14:00:00
 3         10             10.1     3       0.64 2019-02-25 03:30:00</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>demo</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"Demographics_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>demo</span>, <span class='fl'>3</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>demo</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"Demographics_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>demo</span>, <span class='fl'>3</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>  patient_id patient_visit_id gender weight height surgery_date ageatsurgery stat_sts cpb_sts date_icu_dc time_fromor
 1          2              2.1      1  62.99 179.72    6/20/2015         6245        2      80   6/22/2015          NA
@@ -2256,9 +2293,8 @@ Workshops
 2                  1              &lt;NA&gt;
 3                  1              &lt;NA&gt;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>creat.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"Creatinine_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>creat.data</span>, <span class='fl'>3</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>creat.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='va'>rawDataDir</span>,<span class='st'>"Creatinine_DATA_simple.csv"</span><span class='op'>)</span>,stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>creat.data</span>, <span class='fl'>3</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>  patient_id           date.time creat
 1          2 2015-06-23 04:35:00  0.75
@@ -2271,10 +2307,9 @@ Workshops
 The `EHR` package modules use a standardized naming convention for patient identification (ID) variables. We rename the unique patient-level ID from `patient_id` to `mod_id` and the visit-level ID from `patient_visit_id` to `mod_id_visit`. If there is only a single visit/course per subject, the unique patient-level ID and visit-level ID can be the same, however both `mod_id` and `mod_id_visit` should be defined.
 
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='co'># rename ID variables</span>
-<span class='co'>#names(conc.data)[1:2] &lt;- names(demo)[1:2] &lt;- c("mod_id", "mod_id_visit")</span>
-<span class='co'>#names(creat.data)[1] &lt;- names(ivdose.data)[1] &lt;- "mod_id"</span>
-</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># rename ID variables</span></span>
+<span><span class='co'>#names(conc.data)[1:2] &lt;- names(demo)[1:2] &lt;- c("mod_id", "mod_id_visit")</span></span>
+<span><span class='co'>#names(creat.data)[1] &lt;- names(ivdose.data)[1] &lt;- "mod_id"</span></span></code></pre></div>
 
 </div>
 
@@ -2295,27 +2330,26 @@ The `EHR` package modules use a standardized naming convention for patient ident
 <p>In this tutorial, we describe only arguments relevant to this example. A detailed description of all arguments can be found in the <code>EHR</code> package documentation for <code>run_Build_PK_IV()</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>simple_pk_dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Build_PK_IV.html'>run_Build_PK_IV</a></span><span class='op'>(</span>
-    conc<span class='op'>=</span><span class='va'>conc.data</span>,
-    conc.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'patient_id'</span>, datetime <span class='op'>=</span> <span class='st'>'date.time'</span>, druglevel <span class='op'>=</span> <span class='st'>'conc.level'</span>, 
-                        idvisit <span class='op'>=</span> <span class='st'>'patient_visit_id'</span><span class='op'>)</span>,
-    dose<span class='op'>=</span><span class='va'>ivdose.data</span>,
-    dose.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'patient_id'</span>, date <span class='op'>=</span> <span class='st'>'date.dose'</span>, infuseDatetime <span class='op'>=</span> <span class='st'>'infuse.time'</span>, 
-                        infuseDose <span class='op'>=</span> <span class='st'>'infuse.dose'</span>, infuseTimeExact<span class='op'>=</span> <span class='st'>'infuse.time.real'</span>, 
-                        bolusDatetime <span class='op'>=</span> <span class='st'>'bolus.time'</span>, bolusDose <span class='op'>=</span> <span class='st'>'bolus.dose'</span>, 
-                        gap <span class='op'>=</span> <span class='st'>'maxint'</span>, weight <span class='op'>=</span> <span class='st'>'weight'</span><span class='op'>)</span>,
-    demo.list <span class='op'>=</span> <span class='va'>demo</span>,
-    demo.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'patient_id'</span>, idvisit <span class='op'>=</span> <span class='st'>'patient_visit_id'</span><span class='op'>)</span>,
-    lab.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>creat.data</span><span class='op'>)</span>,
-    lab.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'patient_id'</span>, datetime <span class='op'>=</span> <span class='st'>'date.time'</span><span class='op'>)</span>,
-    check.path<span class='op'>=</span><span class='va'>checkDir</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>simple_pk_dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Build_PK_IV.html'>run_Build_PK_IV</a></span><span class='op'>(</span></span>
+<span>    conc<span class='op'>=</span><span class='va'>conc.data</span>,</span>
+<span>    conc.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'patient_id'</span>, datetime <span class='op'>=</span> <span class='st'>'date.time'</span>, druglevel <span class='op'>=</span> <span class='st'>'conc.level'</span>, </span>
+<span>                        idvisit <span class='op'>=</span> <span class='st'>'patient_visit_id'</span><span class='op'>)</span>,</span>
+<span>    dose<span class='op'>=</span><span class='va'>ivdose.data</span>,</span>
+<span>    dose.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'patient_id'</span>, date <span class='op'>=</span> <span class='st'>'date.dose'</span>, infuseDatetime <span class='op'>=</span> <span class='st'>'infuse.time'</span>, </span>
+<span>                        infuseDose <span class='op'>=</span> <span class='st'>'infuse.dose'</span>, infuseTimeExact<span class='op'>=</span> <span class='st'>'infuse.time.real'</span>, </span>
+<span>                        bolusDatetime <span class='op'>=</span> <span class='st'>'bolus.time'</span>, bolusDose <span class='op'>=</span> <span class='st'>'bolus.dose'</span>, </span>
+<span>                        gap <span class='op'>=</span> <span class='st'>'maxint'</span>, weight <span class='op'>=</span> <span class='st'>'weight'</span><span class='op'>)</span>,</span>
+<span>    demo.list <span class='op'>=</span> <span class='va'>demo</span>,</span>
+<span>    demo.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'patient_id'</span>, idvisit <span class='op'>=</span> <span class='st'>'patient_visit_id'</span><span class='op'>)</span>,</span>
+<span>    lab.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>creat.data</span><span class='op'>)</span>,</span>
+<span>    lab.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'patient_id'</span>, datetime <span class='op'>=</span> <span class='st'>'date.time'</span><span class='op'>)</span>,</span>
+<span>    check.path<span class='op'>=</span><span class='va'>checkDir</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>0 duplicated rows
 The dimension of the PK data before merging with demographics: 149 x 9
 The number of subjects in the PK data before merging with demographics: 10
 The number of subjects in the demographic file, who meet the exclusion criteria: 0
-check NA frequency in demographics, see file /tmp/Rtmp3dfjBP/check1/-missing-demo.csv
+check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpaQC0Yl/check1/-missing-demo.csv
 Some demographic variables are missing and will be excluded: 
 The list of final demographic variables: gender
 weight
@@ -2330,26 +2364,24 @@ length_of_icu_stay
 surgery_date_time
 weight_demo
 Checked: there are no missing creat
-Some PK variables are missing and will be excluded: 
 The dimension of the final PK data exported with the key demographics: 149 x 20 with 10 distinct subjects (patient_id)</code></pre>
 </div>
 <!--
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class='co'># simple_pk_dat &lt;- run_Build_PK_IV(</span>
-<span class='co'>#     conc=conc.data,</span>
-<span class='co'>#     conc.columns = list(id = 'mod_id', datetime = 'date.time', druglevel = 'conc.level', </span>
-<span class='co'>#                         idvisit = 'mod_id_visit'),</span>
-<span class='co'>#     dose=ivdose.data,</span>
-<span class='co'>#     dose.columns = list(id = 'mod_id', date = 'date.dose', infuseDatetime = 'infuse.time', </span>
-<span class='co'>#                         infuseDose = 'infuse.dose', infuseTimeExact= 'infuse.time.real', </span>
-<span class='co'>#                         bolusDatetime = 'bolus.time', bolusDose = 'bolus.dose', </span>
-<span class='co'>#                         gap = 'maxint', weight = 'weight'),</span>
-<span class='co'>#     demo.list = demo,</span>
-<span class='co'>#     demo.columns = list(id = 'mod_id', idvisit = 'mod_id_visit'),</span>
-<span class='co'>#     lab.list = list(creat.data),</span>
-<span class='co'>#     lab.columns = list(id = 'mod_id', datetime = 'date.time'),</span>
-<span class='co'>#     check.path=checkDir)</span>
-</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># simple_pk_dat &lt;- run_Build_PK_IV(</span></span>
+<span><span class='co'>#     conc=conc.data,</span></span>
+<span><span class='co'>#     conc.columns = list(id = 'mod_id', datetime = 'date.time', druglevel = 'conc.level', </span></span>
+<span><span class='co'>#                         idvisit = 'mod_id_visit'),</span></span>
+<span><span class='co'>#     dose=ivdose.data,</span></span>
+<span><span class='co'>#     dose.columns = list(id = 'mod_id', date = 'date.dose', infuseDatetime = 'infuse.time', </span></span>
+<span><span class='co'>#                         infuseDose = 'infuse.dose', infuseTimeExact= 'infuse.time.real', </span></span>
+<span><span class='co'>#                         bolusDatetime = 'bolus.time', bolusDose = 'bolus.dose', </span></span>
+<span><span class='co'>#                         gap = 'maxint', weight = 'weight'),</span></span>
+<span><span class='co'>#     demo.list = demo,</span></span>
+<span><span class='co'>#     demo.columns = list(id = 'mod_id', idvisit = 'mod_id_visit'),</span></span>
+<span><span class='co'>#     lab.list = list(creat.data),</span></span>
+<span><span class='co'>#     lab.columns = list(id = 'mod_id', datetime = 'date.time'),</span></span>
+<span><span class='co'>#     check.path=checkDir)</span></span></code></pre></div>
 
 </div>
 
@@ -2358,8 +2390,7 @@ The dimension of the final PK data exported with the key demographics: 149 x 20 
 <p>Below we show the final PK dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>simple_pk_dat</span>,<span class='fl'>15</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>simple_pk_dat</span>,<span class='fl'>15</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>   patient_visit_id  time amt   dv rate mdv evid gender weight height surgery_date ageatsurgery stat_sts cpb_sts date_icu_dc
 1               1.2  0.00  50   NA    0   1    1      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
@@ -2410,11 +2441,14 @@ The dimension of the final PK data exported with the key demographics: 149 x 20 
 <li>an IV dosing file</li>
 <li>a file with drug concentration, laboratory values, demographics, etc.</li>
 </ul>
-<p>An example dataset with concentration, laboratory values, and demographics cpmbined is shown below</p>
+<p>To illustrate this, we generate an example dataset with concentration, laboratory values, and demographics combined, which is shown below.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.combined</span>,<span class='fl'>3</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mrg0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>conc.data</span>,<span class='va'>creat.data</span>,by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'patient_id'</span>,<span class='st'>'date.time'</span><span class='op'>)</span>,all<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span><span class='va'>mrg1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>mrg0</span>,<span class='va'>demo</span>,by<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'patient_id'</span>,<span class='st'>'patient_visit_id'</span><span class='op'>)</span>,all<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span><span class='va'>conc.combined</span> <span class='op'>&lt;-</span> <span class='va'>mrg1</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>mrg1</span><span class='op'>$</span><span class='va'>conc.level</span><span class='op'>)</span>,<span class='op'>]</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>conc.combined</span>,<span class='fl'>3</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>  patient_id patient_visit_id           date.time event conc.level creat gender weight height surgery_date ageatsurgery stat_sts
 2          1              1.2 2016-01-12 06:45:00     5       0.01  0.57      1  25.04 114.39     1/8/2016         2295        2
@@ -2438,27 +2472,24 @@ The dimension of the final PK data exported with the key demographics: 149 x 20 
 </ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>simple_pk_dat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Build_PK_IV.html'>run_Build_PK_IV</a></span><span class='op'>(</span>
-    conc <span class='op'>=</span> <span class='va'>conc.combined</span>,
-    conc.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='st'>'patient_id'</span>, datetime<span class='op'>=</span><span class='st'>'date.time'</span>, druglevel<span class='op'>=</span><span class='st'>'conc.level'</span><span class='op'>)</span>,
-    dose <span class='op'>=</span> <span class='va'>ivdose.data</span>,
-    dose.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='st'>'patient_id'</span>, date <span class='op'>=</span> <span class='st'>'date.dose'</span>, infuseDatetime <span class='op'>=</span> <span class='st'>'infuse.time'</span>,
-                        infuseDose <span class='op'>=</span> <span class='st'>'infuse.dose'</span>, infuseTimeExact <span class='op'>=</span><span class='st'>'infuse.time.real'</span>,
-                        bolusDatetime <span class='op'>=</span> <span class='st'>'bolus.time'</span>, bolusDose <span class='op'>=</span> <span class='st'>'bolus.dose'</span>,
-                        gap <span class='op'>=</span> <span class='st'>'maxint'</span>, weight <span class='op'>=</span> <span class='st'>'weight'</span><span class='op'>)</span>,
-    pk.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'date'</span>,<span class='st'>'weight'</span>,<span class='st'>'height'</span>,<span class='st'>'ageatsurgery'</span>,<span class='st'>'creat'</span>,
-                <span class='st'>'stat_sts'</span>,<span class='st'>'cpb_sts'</span>,<span class='st'>'length_of_icu_stay'</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>simple_pk_dat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EHR/man/run_Build_PK_IV.html'>run_Build_PK_IV</a></span><span class='op'>(</span></span>
+<span>    conc <span class='op'>=</span> <span class='va'>conc.combined</span>,</span>
+<span>    conc.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='st'>'patient_id'</span>, datetime<span class='op'>=</span><span class='st'>'date.time'</span>, druglevel<span class='op'>=</span><span class='st'>'conc.level'</span><span class='op'>)</span>,</span>
+<span>    dose <span class='op'>=</span> <span class='va'>ivdose.data</span>,</span>
+<span>    dose.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='st'>'patient_id'</span>, date <span class='op'>=</span> <span class='st'>'date.dose'</span>, infuseDatetime <span class='op'>=</span> <span class='st'>'infuse.time'</span>,</span>
+<span>                        infuseDose <span class='op'>=</span> <span class='st'>'infuse.dose'</span>, infuseTimeExact <span class='op'>=</span><span class='st'>'infuse.time.real'</span>,</span>
+<span>                        bolusDatetime <span class='op'>=</span> <span class='st'>'bolus.time'</span>, bolusDose <span class='op'>=</span> <span class='st'>'bolus.dose'</span>,</span>
+<span>                        gap <span class='op'>=</span> <span class='st'>'maxint'</span>, weight <span class='op'>=</span> <span class='st'>'weight'</span><span class='op'>)</span>,</span>
+<span>    pk.vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'date'</span>,<span class='st'>'weight'</span>,<span class='st'>'height'</span>,<span class='st'>'ageatsurgery'</span>,<span class='st'>'creat'</span>,</span>
+<span>                <span class='st'>'stat_sts'</span>,<span class='st'>'cpb_sts'</span>,<span class='st'>'length_of_icu_stay'</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>0 duplicated rows
-Some PK variables are missing and will be excluded: 
 The dimension of the final PK data: 149 x 15 with 10 distinct subjects (patient_id)</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># the final PK dataset</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>simple_pk_dat2</span>,<span class='fl'>15</span><span class='op'>)</span>
-</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># the final PK dataset</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>simple_pk_dat2</span>,<span class='fl'>15</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>   patient_id  time amt   dv rate mdv evid              date weight height ageatsurgery creat stat_sts cpb_sts length_of_icu_stay
 1           1  0.00  50   NA    0   1    1 01/08/16 07:30:00  25.04 114.39         2295  0.60        2      79                  1

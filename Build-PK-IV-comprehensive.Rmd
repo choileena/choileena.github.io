@@ -206,7 +206,7 @@ head(id.xwalk)
 ## (3) Make new data for use with modules
 
 ```{r, eval = FALSE}
-pullFakeId(dat, xwalk, firstCols = NULL, orderBy = NULL)
+pullFakeId(data, id.xwalk, firstCols = NULL, orderBy = NULL)
 ```
 
 * **`pullFakeId()`**: This function replaces the original IDs -- `subject_id` and `subject_uid` -- with new IDs -- `mod_id`, `mod_visit`, and `mod_id_visit` -- to create datasets which can be used by the data processing modules.

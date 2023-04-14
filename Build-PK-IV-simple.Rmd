@@ -64,12 +64,6 @@ creat.data <- read.csv(file.path(rawDataDir,"Creatinine_DATA_simple.csv"),string
 head(creat.data, 3)
 ```
 
-```{r merge, include=FALSE}
-mrg0<-merge(conc.data,creat.data,by=c('patient_id','date.time'),all=TRUE)
-mrg1<-merge(mrg0,demo,by=c('patient_id','patient_visit_id'),all=TRUE)
-conc.combined <- mrg1[!is.na(mrg1$conc.level),]
-```
-
 All of the datasets are in the appropriate data format and include the variable `patient_id`, a unique patient-level ID. The concentration and demographic files also contain a `patient_visit_id` variable, which is a unique visit-level ID. <!--In order to run the *Build-PK-IV* module, these variables must be renamed, as we demonstrate in the next section.
 
 ## (3) Rename ID variables with standardized names
@@ -161,9 +155,13 @@ The `run_Build_PK_IV()` can also be used with only two datasets:
 * an IV dosing file
 * a file with drug concentration, laboratory values, demographics, etc.
 
-An example dataset with concentration, laboratory values, and demographics cpmbined is shown below
+To illustrate this, we generate an example dataset with concentration, laboratory values, and demographics combined, which is shown below.
 
-```{r sim-conc-comb}
+```{r merge and sim-conc-comb}
+mrg0 <- merge(conc.data,creat.data,by=c('patient_id','date.time'),all=TRUE)
+mrg1 <- merge(mrg0,demo,by=c('patient_id','patient_visit_id'),all=TRUE)
+conc.combined <- mrg1[!is.na(mrg1$conc.level),]
+
 head(conc.combined,3)
 ```
 
