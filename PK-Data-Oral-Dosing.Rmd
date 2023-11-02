@@ -16,6 +16,8 @@ knitr::opts_chunk$set(R.options = list(width = 120))
 library(EHR)
 library(pkdata)
 library(lubridate)
+library(xaringanExtra)
+xaringanExtra::use_clipboard()
 ```
 
 # Introduction
@@ -63,7 +65,7 @@ exampledata <- run_Build_PK_Oral(x = dat2,
 exampledata <- exampledata[,c("id","time","amt","dv","mdv","evid","addl","II","age")]
 ```
 
-```{r echo=TRUE}
+```{r echo=FALSE}
 exampledata
 ```
 
