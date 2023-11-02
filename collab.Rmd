@@ -14,6 +14,10 @@ output:
 
 <div class='font75'>
 
+* Pediatric Hepatitis C Patient Outcomes in a Tertiary Academic Medical Center Utilizing an Integrated Specialty Pharmacy Model (HSSP Study): [Pediatric Hepatitis C Patient Outcomes Project Report (HSSP Study)](https://choileena.github.io/collab_dir/HCV HSSP STATS QR.html)
+
+* Pediatric Hepatitis C Patient Outcomes in a Tertiary Academic Medical Center Utilizing an Integrated Specialty Pharmacy Model (Cascade of Care): [Pediatric Hepatitis C Patient Outcomes Project Report (Cascade of Care)](https://choileena.github.io/collab_dir/HCV COC POSTER STATS.html)
+
 * Tacrolimus Immediate-Release vs. Extended-Release Formulation Cost Analysis: [Transplant Cost Analysis Project Report](https://choileena.github.io/collab_dir/Transplant_Cost_Analysis_poster_report.html)
 
 * Austedo Multisite Study for Huntington's Disease: [Austedo Multisite-HD Project Report](https://choileena.github.io/collab_dir/austedo-QR.html)
