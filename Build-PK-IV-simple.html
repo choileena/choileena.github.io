@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -2073,7 +2074,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
   <script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
   <link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
   <script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -2218,15 +2219,15 @@ Workshops
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#quick-data-building-with-processed-datasets">Quick Data Building with Processed Datasets</a>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#quick-data-building-with-processed-datasets" id="toc-quick-data-building-with-processed-datasets">Quick Data Building with Processed Datasets</a>
 <ul>
-<li><a href="#define-directories">(1) Define directories</a></li>
-<li><a href="#load-cleaned-and-appropriately-formatted-data-files">(2) Load cleaned and appropriately formatted data files</a></li>
-<li><a href="#build-a-final-pk-dataset-with-the-function-run_build_pk_iv">(3) Build a final PK dataset with the function <code>run_Build_PK_IV()</code></a></li>
+<li><a href="#define-directories" id="toc-define-directories">(1) Define directories</a></li>
+<li><a href="#load-cleaned-and-appropriately-formatted-data-files" id="toc-load-cleaned-and-appropriately-formatted-data-files">(2) Load cleaned and appropriately formatted data files</a></li>
+<li><a href="#build-a-final-pk-dataset-with-the-function-run_build_pk_iv" id="toc-build-a-final-pk-dataset-with-the-function-run_build_pk_iv">(3) Build a final PK dataset with the function <code>run_Build_PK_IV()</code></a></li>
 </ul></li>
-<li><a href="#example-with-only-two-datasets">Example with only two datasets</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#example-with-only-two-datasets" id="toc-example-with-only-two-datasets">Example with only two datasets</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 </div>
@@ -2352,7 +2353,7 @@ The `EHR` package modules use a standardized naming convention for patient ident
 The dimension of the PK data before merging with demographics: 149 x 9
 The number of subjects in the PK data before merging with demographics: 10
 The number of subjects in the demographic file, who meet the exclusion criteria: 0
-check NA frequency in demographics, see file /tmp/RtmplyN9dG/check1/-missing-demo.csv
+check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpqLJ9qE/check1/-missing-demo.csv
 Some demographic variables are missing and will be excluded: 
 The list of final demographic variables: gender
 weight
@@ -2407,10 +2408,10 @@ The dimension of the final PK data exported with the key demographics: 149 x 20 
 9               1.2 20.68  NA 0.41   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
 10              1.2 70.90  NA 0.04   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
 11              1.2 95.25  NA 0.01   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
-12             10.1  0.00  25   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
-13             10.1  0.52 100   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
-14             10.1  1.42  25   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
-15             10.1  2.77  50   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
+12              2.1  0.00 100   NA    0   1    1      1  62.99 179.72    6/20/2015         6245        2      80   6/22/2015
+13              2.1  0.25 150   NA    0   1    1      1  62.99 179.72    6/20/2015         6245        2      80   6/22/2015
+14              2.1  1.68  NA 0.78   NA   0    0      1  62.99 179.72    6/20/2015         6245        2      80   6/22/2015
+15              3.1  0.00  25   NA    0   1    1      0   7.71  72.99   12/15/2018          574        3      67  12/16/2018
    time_fromor length_of_icu_stay   surgery_date_time weight_demo creat
 1         2020                  1 2016-01-08 20:20:00       25.04  0.60
 2         2020                  1 2016-01-08 20:20:00       25.04  0.60
@@ -2423,10 +2424,10 @@ The dimension of the final PK data exported with the key demographics: 149 x 20 
 9         2020                  1 2016-01-08 20:20:00       25.04  0.50
 10        2020                  1 2016-01-08 20:20:00       25.04  0.54
 11        2020                  1 2016-01-08 20:20:00       25.04  0.57
-12        2016                  5 2019-02-24 20:16:00        6.06  0.64
-13        2016                  5 2019-02-24 20:16:00        6.06  0.64
-14        2016                  5 2019-02-24 20:16:00        6.06  0.64
-15        2016                  5 2019-02-24 20:16:00        6.06  0.64</code></pre>
+12          NA                  2                &lt;NA&gt;       62.99  0.71
+13          NA                  2                &lt;NA&gt;       62.99  0.71
+14          NA                  2                &lt;NA&gt;       62.99  0.71
+15          NA                  1                &lt;NA&gt;        7.71  0.58</code></pre>
 </div>
 <p>This dataset includes the <code>patient_visit_id</code> variable and standard NONMEM formatted variables (for details of data items, see <a href="PK-Data-IV-Dosing.html">PK-Data-IV-Dosing</a>).</p>
 <ul>

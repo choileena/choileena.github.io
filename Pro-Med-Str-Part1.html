@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -2073,7 +2074,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
   <script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
   <link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
   <script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -2218,12 +2219,12 @@ Workshops
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#input-raw-dose-data">Input Raw Dose Data</a></li>
-<li><a href="#preparing-raw-dose-data">Preparing Raw Dose Data</a></li>
-<li><a href="#running-run_medstri">Running <code>run_MedStrI()</code></a></li>
-<li><a href="#output-of-run_medstri">Output of <code>run_MedStrI()</code></a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#input-raw-dose-data" id="toc-input-raw-dose-data">Input Raw Dose Data</a></li>
+<li><a href="#preparing-raw-dose-data" id="toc-preparing-raw-dose-data">Preparing Raw Dose Data</a></li>
+<li><a href="#running-run_medstri" id="toc-running-run_medstri">Running <code>run_MedStrI()</code></a></li>
+<li><a href="#output-of-run_medstri" id="toc-output-of-run_medstri">Output of <code>run_MedStrI()</code></a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 </div>
@@ -2328,12 +2329,12 @@ Workshops
 <span>    drugname <span class='op'>=</span> <span class='va'>drugname</span></span>
 <span>    <span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>no units other than mcg/kg/hr or mcg, file /tmp/RtmplyN9dG/checks/failUnit-fent.csv not created
+<pre><code>no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpqLJ9qE/checks/failUnit-fent.csv not created
 #########################
-75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /tmp/RtmplyN9dG/checks/failNoWgt-fent.csv AND create /tmp/RtmplyN9dG/checks/fixNoWgt-fent.csv
+75 rows from 2 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpqLJ9qE/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpqLJ9qE/checks/fixNoWgt-fent.csv
 #########################
 #########################
-censor dates created, please see /tmp/RtmplyN9dG/checks/CensorTime-fent.csv
+censor dates created, please see /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpqLJ9qE/checks/CensorTime-fent.csv
 #########################</code></pre>
 </div>
 <p>After <code>run_MedStrI()</code> is executed, it provides messages such as those shown above, which contain some information about data checking.</p>
