@@ -36,6 +36,8 @@ navbar:
           href: PK-Data-Oral-Dosing.html
         - text: "PK Data for IV Dosing"
           href: PK-Data-IV-Dosing.html
+        - text: "Drug Dosing Data"
+          href: Drug-Dosing-Data.html
     - text: "Collaboration"
       href: collab.html
     - text: "About"
