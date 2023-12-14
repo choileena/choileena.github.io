@@ -21,20 +21,19 @@ xaringanExtra::use_clipboard()
 
 for most recent version, install from GitHub
 
-```{r}
+```{r eval = FALSE}
 remotes::install_github('choileena/EHR/EHR')
 ```
 
 introduce data formats
 
-# Examples from package testing
- 
 # IV Dosing, Implied Schedule
 ## run_MedStrI
-in_mar: datetime|dose
-in_flow: datetime|finalunits|unit|rate
-out: infuse.dose|bolus.dose|given.dose
-**input to run_Build_PK_IV/run_Build_PK
+  * in_mar: datetime|dose
+  * in_flow: datetime|finalunits|unit|rate
+  * out: infuse.dose|bolus.dose|given.dose
+
+input to run_Build_PK_IV/run_Build_PK
 
 ```{r}
 flow <- data.frame(mod_id=c(1,1,2,2,2),
@@ -72,9 +71,10 @@ mar[,'unit'] <- c('mg','mcg','mg','mg','mcg/kg/min')
 
 # Oral Dosing, Actual Schedule
 ## run_MedStrII
-in: dose|freq|date|str|desc
-out: daily.dose
-**input to run_Build_PK_Oral/run_Build_PK
+  * in: dose|freq|date|str|desc
+  * out: daily.dose
+
+input to run_Build_PK_Oral/run_Build_PK
 
 ```{r}
 erx_data <- data.frame(GRID=paste0("ID",c(1,1,2,2,2,2)),
@@ -92,9 +92,10 @@ erx_data <- data.frame(GRID=paste0("ID",c(1,1,2,2,2,2)),
 
 # IV Dosing, Actual Schedule
 ## run_MedStrIII
-in: datetime|dose|duration
-out: dose|rate
-**input to run_Build_PK_IV/run_Build_PK
+  * in: datetime|dose|duration
+  * out: dose|rate
+
+input to run_Build_PK_IV/run_Build_PK
 
 ```{r}
 doseData <- structure(list(id = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
@@ -110,9 +111,9 @@ doseData <- structure(list(id = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 
 # Oral (+?) Dosing, Implied Schedule
 ## run_MedStrIV/makepk
-? only works with oral?
-in: start+end|str|freq|dose
-out: ddd|calc_dur
+  * only works with oral?
+  * in: start+end|str|freq|dose
+  * out: ddd|calc_dur
 
 ```{r}
 set.seed(250)
