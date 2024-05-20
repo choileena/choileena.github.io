@@ -14,7 +14,9 @@ output:
 
 <div class='font75'>
 
-* Austedo Multisite-HD II: [Austedo Multisite-HD II Project Report](https://choileena.github.io/collab_dir/HD Austedo Multisite Stats Report.html)
+* MS Fumarates: [MS Fumarates Project Report](https://choileena.github.io/collab_dir/HD Austedo Multisite Stats Report.html)
+
+* Austedo Multisite-HD II: [Austedo Multisite-HD II Project Report](https://choileena.github.io/collab_dir/2024-05-15 MS Fumarates QR.html)
 
 * Pediatric Hepatitis C Patient Outcomes in a Tertiary Academic Medical Center Utilizing an Integrated Specialty Pharmacy Model (HSSP Study): [Pediatric Hepatitis C Patient Outcomes Project Report (HSSP Study)](https://choileena.github.io/collab_dir/HCV HSSP STATS QR.html)
 
