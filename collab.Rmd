@@ -14,9 +14,11 @@ output:
 
 <div class='font75'>
 
-* MS Fumarates: [MS Fumarates Project Report](https://choileena.github.io/collab_dir/HD Austedo Multisite Stats Report.html)
+* PMN and TAT Comparison with External Specialty Pharmacies: [PMN and TAT Comparison Project Report](https://choileena.github.io/collab_dir/ms_multi-PRO-QR 2022.11.30.html)
 
-* Austedo Multisite-HD II: [Austedo Multisite-HD II Project Report](https://choileena.github.io/collab_dir/2024-05-15 MS Fumarates QR.html)
+* MS Fumarates: [MS Fumarates Project Report](https://choileena.github.io/collab_dir/abbr_pmn_tat.html)
+
+* Austedo Multisite-HD II: [Austedo Multisite-HD II Project Report](https://choileena.github.io/collab_dir/HD Austedo Multisite Stats Report.html)
 
 * Pediatric Hepatitis C Patient Outcomes in a Tertiary Academic Medical Center Utilizing an Integrated Specialty Pharmacy Model (HSSP Study): [Pediatric Hepatitis C Patient Outcomes Project Report (HSSP Study)](https://choileena.github.io/collab_dir/HCV HSSP STATS QR.html)
 
