@@ -14,9 +14,9 @@ output:
 
 <div class='font75'>
 
-* PMN and TAT Comparison with External Specialty Pharmacies: [PMN and TAT Comparison Project Report](https://choileena.github.io/collab_dir/ms_multi-PRO-QR 2022.11.30.html)
+* PMN and TAT Comparison with External Specialty Pharmacies: [PMN and TAT Comparison Project Report](https://choileena.github.io/collab_dir/abbr_pmn_tat.html)
 
-* MS Fumarates: [MS Fumarates Project Report](https://choileena.github.io/collab_dir/abbr_pmn_tat.html)
+* MS Fumarates: [MS Fumarates Project Report](https://choileena.github.io/collab_dir/2024-05-15 MS Fumarates QR.html)
 
 * Austedo Multisite-HD II: [Austedo Multisite-HD II Project Report](https://choileena.github.io/collab_dir/HD Austedo Multisite Stats Report.html)
 
