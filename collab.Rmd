@@ -14,6 +14,8 @@ output:
 
 <div class='font75'>
 
+* Growth Hormone: [Growth Hormone Project Report (Part II)](https://choileena.github.io/collab_dir/Growthhormone_QR.html)
+
 * PMN and TAT Comparison with External Specialty Pharmacies: [PMN and TAT Comparison Project Report](https://choileena.github.io/collab_dir/abbr_pmn_tat.html)
 
 * MS Fumarates: [MS Fumarates Project Report](https://choileena.github.io/collab_dir/2024-05-15 MS Fumarates QR.html)
