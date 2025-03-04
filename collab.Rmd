@@ -14,6 +14,8 @@ output:
 
 <div class='font75'>
 
+* Neurology Pharmacist Intervention: [Neurology Pharmacist Intervention Project Report (Part II)](https://choileena.github.io/collab_dir/neuropin_newmod_aan 1.html)
+
 * Impact of Race on Baseline Asthma Severity and Response to Biologic Therapy: [Asthma Project Report](https://choileena.github.io/collab_dir/asthma_allergy_abbreviated_report_v3.html)
 
 * The impact of early oral anticancer medication monitoring through electronic patient assessments: [Oral Anticancer Medication Monitoring Project Report](https://choileena.github.io/collab_dir/ASHP Tech Grant QR report 1.html)
