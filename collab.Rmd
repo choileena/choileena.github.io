@@ -14,6 +14,10 @@ output:
 
 <div class='font75'>
 
+* Identifying Outcome Measures for Specialty Pharmacists in Rheumatoid Arthritis Using the Modified Delphi Method: [Delphi Method Project Report](https://choileena.github.io/collab_dir/2025-06-03 Delphi QR report.html)
+
+* Speciality Pharmacy Curriculum Survey: [Speciality Pharmacy Curriculum Survey Project Report](https://choileena.github.io/collab_dir/CurriculumSurvery_QR 1.html)
+
 * Neurology Pharmacist Intervention: [Neurology Pharmacist Intervention Project Report (Part II)](https://choileena.github.io/collab_dir/neuropin_newmod_aan 1.html)
 
 * Impact of Race on Baseline Asthma Severity and Response to Biologic Therapy: [Asthma Project Report](https://choileena.github.io/collab_dir/asthma_allergy_abbreviated_report_v3.html)
