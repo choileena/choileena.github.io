@@ -14,6 +14,8 @@ output:
 
 <div class='font75'>
 
+* Unmasking Alternative Funding Programs Comparator Study: [Unmasking AFP Comparator Study Report](https://choileena.github.io/collab_dir/AFPComparatorQR.html)
+
 * Identifying Outcome Measures for Specialty Pharmacists in Rheumatoid Arthritis Using the Modified Delphi Method: [Delphi Method Project Report](https://choileena.github.io/collab_dir/2025-06-03 Delphi QR report.html)
 
 * Specialty Pharmacy Curriculum Survey: [Specialty Pharmacy Curriculum Survey Project Report](https://choileena.github.io/collab_dir/CurriculumSurvery_QR.html)
