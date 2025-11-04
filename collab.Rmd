@@ -14,6 +14,8 @@ output:
 
 <div class='font75'>
 
+* Dupilumab for Eosinophilic Esophagitis: Characterizing Symptoms and Clinical Outcomes in a Real-World Pediatric Population: [Dupilumab for Eosinophilic Esophagitis Project Report](https://choileena.github.io/collab_dir/EoE_dupixent_abbr_11_3_25.html)
+
 * Unmasking Alternative Funding Programs Comparator Study: [Unmasking AFP Comparator Study Report](https://choileena.github.io/collab_dir/AFPComparatorQR.html)
 
 * Identifying Outcome Measures for Specialty Pharmacists in Rheumatoid Arthritis Using the Modified Delphi Method: [Delphi Method Project Report](https://choileena.github.io/collab_dir/2025-06-03 Delphi QR report.html)
