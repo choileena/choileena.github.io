@@ -1,13 +1,17 @@
 name: "choi_pages"
-title: "Choi Lab"
+title: "Leena Choi"
 google_analytics: "G-728B0KW1HX"
 description: |
-  Choi Lab
+  Leena Choi
 output_dir: "."
 navbar:
   right:
     - text: "Home"
       href: index.html
+    - text: "TDM Tools"
+      href: tdm.html
+    - text: "Choi Lab"
+      href: ChoiLab.html
     - text: "Workshops"
       menu:
         - text: "All Workshops"

@@ -20,6 +20,7 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -88,22 +89,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>Choi Lab: Build-PK-IV - Simple</title>
+  <title>Leena Choi: Build-PK-IV - Simple</title>
 
   <meta property="description" itemprop="description" content="This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered."/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Choi Lab: Build-PK-IV - Simple"/>
+  <meta property="og:title" content="Leena Choi: Build-PK-IV - Simple"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered."/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="Choi Lab"/>
+  <meta property="og:site_name" content="Leena Choi"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Choi Lab: Build-PK-IV - Simple"/>
+  <meta property="twitter:title" content="Leena Choi: Build-PK-IV - Simple"/>
   <meta property="twitter:description" content="This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered."/>
 
   <!--/radix_placeholder_meta_tags-->
@@ -458,8 +459,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
   <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
@@ -829,9 +830,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     display: none !important;
   }
 
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
+    border-top: none;
   }
 
   d-appendix {
@@ -926,6 +939,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
   }
 
   d-article pre {
@@ -1687,6 +1705,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1764,8 +1788,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme
-    $('code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1791,12 +1816,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', 'ORCID ID');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -2074,7 +2100,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
   <script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
   <link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
   <script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -2166,11 +2192,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="index.html" class="title">Choi Lab</a>
+<a href="index.html" class="title">Leena Choi</a>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
 </div>
 <div class="nav-right">
 <a href="index.html">Home</a>
+<a href="tdm.html">TDM Tools</a>
+<a href="ChoiLab.html">Choi Lab</a>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
 Workshops
@@ -2191,6 +2219,7 @@ Workshops
 <a href="Build-PK-IV-comprehensive.html">Build-PK-IV : Comprehensive</a>
 <a href="PK-Data-Oral-Dosing.html">PK Data for Oral Dosing</a>
 <a href="PK-Data-IV-Dosing.html">PK Data for IV Dosing</a>
+<a href="Drug-Dosing-Data.html">Drug Dosing Data</a>
 </div>
 </div>
 <a href="collab.html">Collaboration</a>
@@ -2208,6 +2237,7 @@ Workshops
 
 <div class="d-title">
 <h1>Build-PK-IV - Simple</h1>
+
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>This tutorial describes a simple pharmacokinetic data building procedure without using additional data processing modules for medications that are intravenously administered.</p></p>
@@ -2353,7 +2383,7 @@ The `EHR` package modules use a standardized naming convention for patient ident
 The dimension of the PK data before merging with demographics: 149 x 9
 The number of subjects in the PK data before merging with demographics: 10
 The number of subjects in the demographic file, who meet the exclusion criteria: 0
-check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpqLJ9qE/check1/-missing-demo.csv
+check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/check1/-missing-demo.csv
 Some demographic variables are missing and will be excluded: 
 The list of final demographic variables: gender
 weight
@@ -2408,10 +2438,10 @@ The dimension of the final PK data exported with the key demographics: 149 x 20 
 9               1.2 20.68  NA 0.41   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
 10              1.2 70.90  NA 0.04   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
 11              1.2 95.25  NA 0.01   NA   0    0      1  25.04 114.39     1/8/2016         2295        2      79    1/9/2016
-12              2.1  0.00 100   NA    0   1    1      1  62.99 179.72    6/20/2015         6245        2      80   6/22/2015
-13              2.1  0.25 150   NA    0   1    1      1  62.99 179.72    6/20/2015         6245        2      80   6/22/2015
-14              2.1  1.68  NA 0.78   NA   0    0      1  62.99 179.72    6/20/2015         6245        2      80   6/22/2015
-15              3.1  0.00  25   NA    0   1    1      0   7.71  72.99   12/15/2018          574        3      67  12/16/2018
+12             10.1  0.00  25   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
+13             10.1  0.52 100   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
+14             10.1  1.42  25   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
+15             10.1  2.77  50   NA    0   1    1      0   6.06  63.20    2/24/2019          209        1     195    3/1/2019
    time_fromor length_of_icu_stay   surgery_date_time weight_demo creat
 1         2020                  1 2016-01-08 20:20:00       25.04  0.60
 2         2020                  1 2016-01-08 20:20:00       25.04  0.60
@@ -2424,10 +2454,10 @@ The dimension of the final PK data exported with the key demographics: 149 x 20 
 9         2020                  1 2016-01-08 20:20:00       25.04  0.50
 10        2020                  1 2016-01-08 20:20:00       25.04  0.54
 11        2020                  1 2016-01-08 20:20:00       25.04  0.57
-12          NA                  2                &lt;NA&gt;       62.99  0.71
-13          NA                  2                &lt;NA&gt;       62.99  0.71
-14          NA                  2                &lt;NA&gt;       62.99  0.71
-15          NA                  1                &lt;NA&gt;        7.71  0.58</code></pre>
+12        2016                  5 2019-02-24 20:16:00        6.06  0.64
+13        2016                  5 2019-02-24 20:16:00        6.06  0.64
+14        2016                  5 2019-02-24 20:16:00        6.06  0.64
+15        2016                  5 2019-02-24 20:16:00        6.06  0.64</code></pre>
 </div>
 <p>This dataset includes the <code>patient_visit_id</code> variable and standard NONMEM formatted variables (for details of data items, see <a href="PK-Data-IV-Dosing.html">PK-Data-IV-Dosing</a>).</p>
 <ul>
