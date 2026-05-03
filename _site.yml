@@ -44,6 +44,8 @@ navbar:
           href: Drug-Dosing-Data.html
     - text: "Collaboration"
       href: collab.html
+    - text: "R Packages & Resources"
+      href: r-packages-resources.html
     - text: "About"
       href: about.html
   search: true
@@ -51,4 +53,4 @@ navbar:
 output:
   distill::distill_article:
     css: styles.css
-repository_url: https://github.com/choileena/choileena.github.io
+# repository_url: https://github.com/choileena/choileena.github.io

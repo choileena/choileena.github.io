@@ -1,5 +1,5 @@
 ---
-title: "Leena's Website"
+title: "Leena Choi, PhD"
 site: distill::distill_website
 ---
 
@@ -18,12 +18,34 @@ knitr::opts_chunk$set(echo = FALSE)
 <img src="img/Choi_Leena.jpg" class="rhs100" />
 
 <p align="right">
-Leena Choi, PhD  
 Professor of Biostatistics and Biomedical Informatics  
-Department of Biostatistics
+Department of Biostatistics,
+Vanderbilt University
 </p>
-</div>
 
-<p align="right">
-<a href="https://github.com/choileena">https://github.com/choileena</a>
-</p>
+[Curriculum Vitae ](LeenaChoiCV-March2026.pdf)
+
+
+## Professional Summary
+
+Senior biostatistician with over 20 years of experience in the design and analysis of clinical studies across cardiology, diabetes, obesity, neurology, and pediatric populations. Expertise in Bayesian methods, adaptive trial design, and pharmacokinetic/pharmacodynamic (PK/PD) modeling. Proven track record leading and contributing to NIH-funded clinical and translational research. Experienced in collaborating with multidisciplinary teams to support data-driven clinical and research decision-making. Prior regulatory experience with the Korea Food and Drug Administration.
+
+## Core Expertise
+
+* Clinical trial design and analysis
+* Bayesian methods (including borrowing) and adaptive trial methodologies
+* Clinical research across cardiology, diabetes, obesity, and pediatric populations
+* Population pharmacokinetic/pharmacodynamic (PK/PD) modeling
+* Real-world data and electronic health record (EHR) data analysis
+* Precision medicine
+* Cross-functional collaboration with clinical and research teams
+
+## Education
+
+* Ph.D., Biostatistics, Johns Hopkins University, Baltimore, MD |	May 2005
+* M.S., Pharmacy, Seoul National University, Seoul, Korea | February 1995
+* B.S., Pharmacy, Seoul National University, Seoul, Korea |	February 1988 
+
+## Publications
+
+Publications available at: [Full list](https://www.ncbi.nlm.nih.gov/myncbi/leena.choi.2/bibliography/public/)

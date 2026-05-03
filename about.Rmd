@@ -1,7 +1,7 @@
 ---
-title: "About This Site"
+title: "About"
 description: |
-  Some additional details about the website.
+  Information about this project and its development.
 output:
   distill::distill_article:
     toc: true
@@ -10,21 +10,18 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+# Note: - As the R package, *EHR*, is still in active development, we recommend installing from our GitHub repository with the following command:
+# devtools::install_github('choileena/EHR/EHR/')
 ```
-Note:
 
-- As the R package, *EHR*, is still in active development, we recommend installing from our GitHub repository with the following command:
-devtools::install_github('choileena/EHR/EHR/')
+## About
 
-# More Information
+This website provides web-based tools and R packages for pharmacokinetic and pharmacodynamic (PK/PD) research, including resources related to *EHR2PKPD*.
 
-More information about the *EHR2PKPD* can be found at the following sites:
+The tools and packages presented here are developed to support data extraction, analysis, and precision dosing applications.
 
-* https://github.com/choileena
+For more information, visit [Leena Choi's github](https://github.com/choileena).
 
-* https://github.com/choileena/EHR
+## Feedback
 
-* https://github.com/choileena/pkdata
-
-* https://github.com/choileena/medExtractR
-
+If you notice errors or have suggestions, please open an issue on the GitHub repository.

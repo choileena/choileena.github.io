@@ -1,17 +1,22 @@
 ---
 title: "Therapeutic Drug Monitoring Tools"
 description: |
-  Our Therapeutic Drug Monitoring (TDM) tools are currently available only for high-dose methotrexate; tools for additional medications will be added in the future.
+  Therapeutic Drug Monitoring (TDM) tools are web-based platforms that assist clinicians in optimizing precision dosing for improved patient outcomes.
+
 output:
   distill::distill_article:
     toc: true
     toc_depth: 2
+    edit: null
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+**Note:** At present, these tools support high-dose methotrexate (HD-MTX), with further applications currently in development.
+
+  
 ## High-Dose Methotrexate (HD-MTX)
 
 [HD-MTX TDM tool](https://019ddfa9-9cb7-fc11-0955-cc8f94d87446.share.connect.posit.cloud/)

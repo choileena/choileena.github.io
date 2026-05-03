@@ -1,0 +1,28 @@
+---
+title: "R Packages & Resources"
+description: |
+  This page provides information on R packages, including EHR2PKPD-related tools and other analytical resources.
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+# Note: - As the R package, *EHR*, is still in active development, we recommend installing from our GitHub repository with the following command:
+# devtools::install_github('choileena/EHR/EHR/')
+```
+
+## R Packages related to *EHR2PKPD*
+Additional information about *EHR2PKPD* is available on [Leena Choi's github](https://github.com/choileena).
+
+* [EHR](https://github.com/choileena/EHR): Tools for working with electronic health record data
+* [medExtractR](https://github.com/choileena/medExtractR): Medication information extraction from clinical notes
+* [PK Data](https://github.com/choileena/pkdata): Pharmacokinetic data processing tools
+
+## Other R Packages
+* [BElikelihood](https://cran.r-project.org/web/packages/BElikelihood/index.html): Likelihood-based methods for bioequivalence analysis
+* [PhysicalActivity](https://cran.r-project.org/web/packages/PhysicalActivity/index.html): Tools for analyzing physical activity data
+* [ProfileLikelihood](https://cran.r-project.org/web/packages/ProfileLikelihood/index.html): Profile likelihood computation and inference
+

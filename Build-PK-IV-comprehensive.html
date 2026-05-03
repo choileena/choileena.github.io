@@ -2132,7 +2132,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   img.rhs100 {
     float: right;
-    width: 100px;
+    width: 170px;
     padding-left: 1em;
   }
 
@@ -2224,10 +2224,8 @@ Workshops
 </div>
 </div>
 <a href="collab.html">Collaboration</a>
+<a href="r-packages-resources.html">R Packages &amp; Resources</a>
 <a href="about.html">About</a>
-<a href="https://github.com/choileena/choileena.github.io" aria-label="Link to source">
-<i class="fab fa-github" aria-hidden="true"></i>
-</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2808,12 +2806,12 @@ Workshops
 </div>
 <pre><code>The number of rows in the original data                124
 The number of rows after removing the duplicates       124
-no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/failUnit-fent.csv not created
+no units other than mcg/kg/hr or mcg, file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/failUnit-fent.csv not created
 #########################
-33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/fixNoWgt-fent.csv
+33 rows from 1 subjects with &quot;kg&quot; in infusion unit but missing weight, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/failNoWgt-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/fixNoWgt-fent.csv
 #########################
 #########################
-censor dates created, please see /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/CensorTime-fent.csv
+censor dates created, please see /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/CensorTime-fent.csv
 #########################</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span></span>
@@ -2853,7 +2851,7 @@ censor dates created, please see /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/
 <span>    demo.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'mod_id'</span>, idvisit <span class='op'>=</span> <span class='st'>'mod_id_visit'</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>#########################
-3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/fixMissingConcDate-fent.csv
+3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/fixMissingConcDate-fent.csv
 #########################
 subjects with concentration missing from sample file
  mod_id mod_id_event
@@ -2864,7 +2862,7 @@ subjects with concentration missing from sample file
 16 total unique subjects ids (including multiple visits) currently in the concentration data
 15 total unique subjects in the concentration data
 #########################
-15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/multipleSetsConc-fent2026-04-30.csv
+15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/multipleSetsConc-fent2026-05-03.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
 15 total unique subjects in the concentration data</code></pre>
@@ -2930,9 +2928,9 @@ subjects with concentration missing from sample file
 <span>    demo.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>'mod_id'</span>, idvisit <span class='op'>=</span> <span class='st'>'mod_id_visit'</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code>#########################
-3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/fixMissingConcDate-fent.csv
+3 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/failMissingConcDate-fent.csv AND create /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/fixMissingConcDate-fent.csv
 #########################
-file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/fixMissingConcDate-fent.csv read with failures replaced
+file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/fixMissingConcDate-fent.csv read with failures replaced
 subjects with concentration missing from sample file
 [1] mod_id       mod_id_event
 &lt;0 rows&gt; (or 0-length row.names)
@@ -2940,7 +2938,7 @@ subjects with concentration missing from sample file
 16 total unique subjects ids (including multiple visits) currently in the concentration data
 15 total unique subjects in the concentration data
 #########################
-15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/multipleSetsConc-fent2026-04-30.csv
+15 rows need review, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/multipleSetsConc-fent2026-05-03.csv
 #########################
 15 total unique subjects ids (after excluding multiple visits) in the concentration data
 15 total unique subjects in the concentration data</code></pre>
@@ -3010,7 +3008,7 @@ subjects with concentration missing from sample file
 The dimension of the PK data before merging with demographics: 234 x 9
 The number of subjects in the PK data before merging with demographics: 15
 The number of subjects in the demographic file, who meet the exclusion criteria: 2
-check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpeeZ9G0/checks/fent-missing-demo.csv
+check NA frequency in demographics, see file /var/folders/06/0qv1dr5508j_tbzqdjfqjf680000gn/T//RtmpCnlS6l/checks/fent-missing-demo.csv
 Some demographic variables are missing and will be excluded: 
 The list of final demographic variables: mod_visit
 gender
@@ -3083,10 +3081,7 @@ The dimension of the final PK data exported with the key demographics: 197 x 24 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom">
-<h3 id="updates-and-corrections">Corrections</h3>
-<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/choileena/choileena.github.io/issues/new">create an issue</a> on the source repository.</p>
-</div>
+<div class="appendix-bottom"></div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->
