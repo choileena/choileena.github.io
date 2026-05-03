@@ -8,8 +8,6 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "TDM Tools"
-      href: tdm.html
     - text: "Choi Lab"
       href: ChoiLab.html
     - text: "Workshops"
@@ -44,6 +42,8 @@ navbar:
           href: Drug-Dosing-Data.html
     - text: "Collaboration"
       href: collab.html
+    - text: "TDM Tools"
+      href: tdm.html
     - text: "R Packages & Resources"
       href: r-packages-resources.html
     - text: "About"
