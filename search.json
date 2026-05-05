@@ -87,8 +87,8 @@
       "path": "index.html",
       "title": "Leena Choi, PhD",
       "author": [],
-      "contents": "\n\n\n\nProfessor of Biostatistics and Biomedical Informatics\nDepartment of Biostatistics,\nVanderbilt University\n\nCurriculum Vitae\nProfessional Summary\nSenior biostatistician with over 20 years of experience in the design and analysis of clinical studies across cardiology, diabetes, obesity, neurology, and pediatric populations. Expertise in Bayesian methods, adaptive trial design, and pharmacokinetic/pharmacodynamic (PK/PD) modeling. Proven track record leading and contributing to NIH-funded clinical and translational research. Experienced in collaborating with multidisciplinary teams to support data-driven clinical and research decision-making. Prior regulatory experience with the Korea Food and Drug Administration.\nCore Expertise\nClinical trial design and analysis\nBayesian methods (including borrowing) and adaptive trial methodologies\nClinical research across cardiology, diabetes, obesity, and pediatric populations\nPopulation pharmacokinetic/pharmacodynamic (PK/PD) modeling\nReal-world data and electronic health record (EHR) data analysis\nPrecision medicine\nCross-functional collaboration with clinical and research teams\nEducation\nPh.D., Biostatistics, Johns Hopkins University, Baltimore, MD | May 2005\nM.S., Pharmacy, Seoul National University, Seoul, Korea | February 1995\nB.S., Pharmacy, Seoul National University, Seoul, Korea | February 1988\nPublications\nPublications available at: Full list\n\n\n\n\n",
-      "last_modified": "2026-05-03T17:56:20-05:00"
+      "contents": "\n\n\n\nProfessor of Biostatistics and Biomedical Informatics\nDepartment of Biostatistics,\nVanderbilt University\n\nCurriculum Vitae\nProfessional Summary\nSenior biostatistician with over 20 years of experience in the design and analysis of clinical studies across cardiology, diabetes, obesity, neurology, and pediatric populations. Expertise in Bayesian methods, adaptive trial design, and pharmacokinetic/pharmacodynamic (PK/PD) modeling.\nExtensive experience supporting clinical and translational research, including NIH-funded projects, with a strong focus on applying quantitative methods to inform real-world healthcare decisions. Collaborative and interdisciplinary, with a track record of working closely with clinicians, researchers, and data scientists to deliver practical, data-driven insights.\nCore Expertise\nClinical trial design and statistical analysis\nBayesian methods (including information borrowing) and adaptive trial design\nClinical research across cardiology, diabetes, obesity, neurology, and pediatric populations\nPopulation pharmacokinetic/pharmacodynamic (PK/PD) modeling\nReal-world data and electronic health record (EHR) analysis\nPrecision medicine and individualized dosing strategies\nCross-functional collaboration with clinicians, researchers, and data science teams\nEducation\nPh.D., Biostatistics, Johns Hopkins University, Baltimore, MD | May 2005\nM.S., Pharmacy, Seoul National University, Seoul, Korea | February 1995\nB.S., Pharmacy, Seoul National University, Seoul, Korea | February 1988\nPublications\nPublications available at: Full list\n\n\n\n\n",
+      "last_modified": "2026-05-05T12:02:22-05:00"
     },
     {
       "path": "PK-Data-IV-Dosing.html",
@@ -200,10 +200,10 @@
     {
       "path": "tdm.html",
       "title": "Therapeutic Drug Monitoring Tools",
-      "description": "Therapeutic Drug Monitoring (TDM) tools are web-based platforms that assist clinicians in optimizing precision dosing for improved patient outcomes.\n",
+      "description": "Therapeutic Drug Monitoring (TDM) tools are web-based platforms that assist clinicians in optimizing precision dosing for improved patient outcomes. \n\n**Note:** At present, these tools support high-dose methotrexate (HD-MTX) and infliximab (IFX), with further applications currently in development.\n",
       "author": [],
-      "contents": "\n\nContents\nHigh-Dose Methotrexate (HD-MTX)\n\nNote: At present, these tools support high-dose methotrexate (HD-MTX), with further applications currently in development.\nHigh-Dose Methotrexate (HD-MTX)\nHD-MTX TDM tool\n\n\n\n",
-      "last_modified": "2026-05-03T17:56:26-05:00"
+      "contents": "\n\nContents\nHigh-Dose Methotrexate (HD-MTX)\nInfliximab (IFX)\n\n\nDisclaimer: These predictions are estimates and may not accurately\nreflect your patient population or individual patient circumstances. This tool is\nnot a substitute for clinical judgment, institutional protocols, or standards of care.\nThe user assumes full responsibility for all dosing decisions and use of this tool.\n\nHigh-Dose Methotrexate (HD-MTX)\nHD-MTX TDM tool\nInfliximab (IFX)\nIFX tool\n\n\n\n",
+      "last_modified": "2026-05-05T12:04:54-05:00"
     },
     {
       "path": "workshops.html",

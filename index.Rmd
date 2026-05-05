@@ -28,17 +28,19 @@ Vanderbilt University
 
 ## Professional Summary
 
-Senior biostatistician with over 20 years of experience in the design and analysis of clinical studies across cardiology, diabetes, obesity, neurology, and pediatric populations. Expertise in Bayesian methods, adaptive trial design, and pharmacokinetic/pharmacodynamic (PK/PD) modeling. Proven track record leading and contributing to NIH-funded clinical and translational research. Experienced in collaborating with multidisciplinary teams to support data-driven clinical and research decision-making. Prior regulatory experience with the Korea Food and Drug Administration.
+Senior biostatistician with over 20 years of experience in the design and analysis of clinical studies across cardiology, diabetes, obesity, neurology, and pediatric populations. Expertise in Bayesian methods, adaptive trial design, and pharmacokinetic/pharmacodynamic (PK/PD) modeling.
+
+Extensive experience supporting clinical and translational research, including NIH-funded projects, with a strong focus on applying quantitative methods to inform real-world healthcare decisions. Collaborative and interdisciplinary, with a track record of working closely with clinicians, researchers, and data scientists to deliver practical, data-driven insights.
 
 ## Core Expertise
 
-* Clinical trial design and analysis
-* Bayesian methods (including borrowing) and adaptive trial methodologies
-* Clinical research across cardiology, diabetes, obesity, and pediatric populations
+* Clinical trial design and statistical analysis
+* Bayesian methods (including information borrowing) and adaptive trial design
+* Clinical research across cardiology, diabetes, obesity, neurology, and pediatric populations
 * Population pharmacokinetic/pharmacodynamic (PK/PD) modeling
-* Real-world data and electronic health record (EHR) data analysis
-* Precision medicine
-* Cross-functional collaboration with clinical and research teams
+* Real-world data and electronic health record (EHR) analysis
+* Precision medicine and individualized dosing strategies
+* Cross-functional collaboration with clinicians, researchers, and data science teams
 
 ## Education
 
