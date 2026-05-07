@@ -29,5 +29,5 @@ The user assumes full responsibility for all dosing decisions and use of this to
 
 ## Infliximab (IFX)
 
-[IFX tool](https://connect.posit.cloud/leena-choi/content/019df8e8-afe7-6ea5-b251-870a07339d27)
+[IFX tool](https://019df8e8-afe7-6ea5-b251-870a07339d27.share.connect.posit.cloud/)
 
