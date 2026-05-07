@@ -202,8 +202,8 @@
       "title": "Therapeutic Drug Monitoring Tools",
       "description": "Therapeutic Drug Monitoring (TDM) tools are web-based platforms that assist clinicians in optimizing precision dosing for improved patient outcomes. \n\n**Note:** At present, these tools support high-dose methotrexate (HD-MTX) and infliximab (IFX), with further applications currently in development.\n",
       "author": [],
-      "contents": "\n\nContents\nHigh-Dose Methotrexate (HD-MTX)\nInfliximab (IFX)\n\n\nDisclaimer: These predictions are estimates and may not accurately\nreflect your patient population or individual patient circumstances. This tool is\nnot a substitute for clinical judgment, institutional protocols, or standards of care.\nThe user assumes full responsibility for all dosing decisions and use of this tool.\n\nHigh-Dose Methotrexate (HD-MTX)\nHD-MTX TDM tool\nInfliximab (IFX)\nIFX tool\n\n\n\n",
-      "last_modified": "2026-05-07T10:22:01-05:00"
+      "contents": "\n\nContents\nHigh-Dose Methotrexate (HD-MTX)\nInfliximab (IFX)\n\n\nDisclaimer: This application is intended for research and informational purposes only. Predictions and estimates may not accurately reflect individual patient circumstances, local patient populations, or institutional practices. Model performance may vary across clinical settings and patient populations. This tool is not intended to replace professional clinical judgment, institutional protocols, or medical advice. All clinical and dosing decisions remain the responsibility of the treating clinician. Use of this application is at the user’s own risk.\n\nHigh-Dose Methotrexate (HD-MTX)\nHD-MTX TDM tool\nInfliximab (IFX)\nIFX tool\n\n\n\n",
+      "last_modified": "2026-05-07T14:42:27-05:00"
     },
     {
       "path": "workshops.html",

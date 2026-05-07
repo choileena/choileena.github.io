@@ -17,10 +17,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 <div style="color:#8B0000; border:1px solid #8B0000; padding:10px; border-radius:5px;">
-<strong>Disclaimer:</strong> These predictions are estimates and may not accurately 
-reflect your patient population or individual patient circumstances. This tool is 
-not a substitute for clinical judgment, institutional protocols, or standards of care. 
-The user assumes full responsibility for all dosing decisions and use of this tool.</div>
+<strong>Disclaimer:</strong> This application is intended for research and informational purposes only. Predictions and estimates may not accurately reflect individual patient circumstances, local patient populations, or institutional practices. Model performance may vary across clinical settings and patient populations. This tool is not intended to replace professional clinical judgment, institutional protocols, or medical advice. All clinical and dosing decisions remain the responsibility of the treating clinician. Use of this application is at the user’s own risk.</div>
 
 
 ## High-Dose Methotrexate (HD-MTX)
