@@ -16,6 +16,8 @@ output:
 
 <div class='font75'>
 
+* "Would you be surprised?" Using the Surprise Question to Explore Medication Discontinuation: [Surprise Question Report](https://choileena.github.io/collab_dir/surprise_question_abreviated.html)
+
 * Unmasking Alternative Funding Programs Comparator Study: [Unmasking AFP Comparator Study Report](https://choileena.github.io/collab_dir/AFP_abbreviated.html)
 
 * Multisite Analysis of Pharmacists Actions that lead to Cost Avoidance: [Multisite Cost Avoidance Report](https://choileena.github.io/collab_dir/Multisite Pharmacist Actions QR Report.html)
